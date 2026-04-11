@@ -268,12 +268,13 @@ const D=[
 {id:'s05',sec:1,sub:'創新三元',type:'triad-v2',chip:['Innovation Triad','blue'],title:'創新需要三個條件同時成立'},
 {id:'s06',sec:1,sub:'創新三元',type:'failure-modes',chip:['三種死法','red'],title:'新產品最常死在哪裡'},
 {id:'s07',sec:1,sub:'創新三元',type:'big-quote',chip:['關鍵診斷','orange'],quote:'多數作品死在<br><span class="g-red">欲求性</span>',sub2:'不是設計不夠好，是一開始就沒問：誰在痛？痛什麼？'},
-{id:'s08',sec:1,sub:'底層思維',type:'topdown-bottomup',chip:['兩種思維','purple'],title:'Top-down vs Bottom-up'},
-{id:'s08b',sec:1,sub:'底層思維',type:'mckinsey-six',chip:['麥肯錫戰略六元素','blue'],title:'Top-down 思維的六個錨點'},
-{id:'s09',sec:1,sub:'設計思維',type:'dt-loop',chip:['Design Thinking','cyan'],title:'設計思維是一個循環'},
-{id:'s10',sec:1,sub:'設計思維',type:'insight-types',chip:['挖掘洞察','orange'],title:'如何從訪談中挖出 Insight'},
-{id:'s11',sec:1,sub:'設計思維',type:'observe-insight',chip:['提問與觀察','blue'],title:'好問題與觀察讓洞察浮現'},
-{id:'s12',sec:1,sub:'戰略工具',type:'mece-game',chip:['MECE 拆解','yellow'],title:'把模糊想法切成清楚結構'},
+{id:'s08',sec:1,sub:'底層思維',type:'topdown-bottomup-v2',chip:['兩種思維','purple'],title:'Top-down vs Bottom-up'},
+{id:'s08b',sec:1,sub:'底層思維',type:'mckinsey-six-v2',chip:['麥肯錫戰略六元素','blue'],title:'Top-down 思維的六個錨點'},
+{id:'s09',sec:1,sub:'設計思維',type:'dt-loop-auto',chip:['Design Thinking','cyan'],title:'設計思維是一個循環'},
+{id:'s10',sec:1,sub:'設計思維',type:'insight-types-auto',chip:['挖掘洞察','orange'],title:'如何從訪談中挖出 Insight'},
+{id:'s11',sec:1,sub:'設計思維',type:'observe-insight-v2',chip:['提問與觀察','blue'],title:'好問題與觀察讓洞察浮現'},
+{id:'s12',sec:1,sub:'戰略工具',type:'mece-intro',chip:['MECE','yellow'],title:'MECE：相互獨立，完全窮盡'},
+{id:'s12b',sec:1,sub:'戰略工具',type:'mece-business',chip:['商業案例','yellow'],title:'MECE 的商業應用'},
 {id:'s13',sec:1,sub:'費米估算',type:'fermi-game',chip:['費米估算','cyan'],title:'全台灣一天賣出幾杯手搖飲',subtitle:'先猜一個數字，再一起推導'},
 {id:'s14',sec:1,sub:'費米估算',type:'dark',chip:['為什麼重要','cyan'],title:'數字讓判斷可以被討論',bullets:['沒有數字：「我覺得這個市場很大」','有數字：「台灣手搖飲年市場約 660 億，只需拿下 0.1%」','數字不需要百分百精確，需要有邏輯','Pitch 從感覺升格為判斷的關鍵'],footer:'商業提案的核心能力：在資訊不完整時，做出有邏輯的數字判斷。'},
 {id:'s14b',sec:1,sub:'費米估算',type:'fermi-practice',chip:['Bottom-up 練習','green'],title:'換你來：全台灣有幾家便利商店',subtitle:'用費米估算，3 分鐘推導',time:180},
@@ -285,41 +286,36 @@ const D=[
 {id:'s19',sec:2,sub:'開場',type:'big-quote',chip:['最常見的錯誤','red'],quote:'「我的受眾<br><span class="g-red">是所有人」</span>',sub2:'每次聽到這句話，我知道這個東西大概賣不起來'},
 {id:'s20',sec:2,sub:'開場',type:'dark',chip:['精準定位','orange'],title:'對所有人說話<br>等於對任何人都沒說',bullets:['訊息越泛，共鳴越淺','精準定位 1,000 個有痛的人，比觸及 100,000 個無感的人有效','每一個「也可以」，都是對核心受眾的稀釋'],footer:'設計，是為那個「最需要」的人而做的'},
 {id:'s21',sec:2,sub:'Persona→HXC',type:'audience-layers',chip:['三層受眾收斂','blue'],title:'Persona → ICP → HXC'},
-{id:'s22',sec:2,sub:'Persona→HXC',type:'funnel-v2',chip:['三層收斂視覺化','purple'],title:'點擊每一層看看誰在那裡'},
+{id:'s22',sec:2,sub:'Persona→HXC',type:'funnel-v2-examples',chip:['三層收斂視覺化','purple'],title:'點擊每一層看商業案例'},
 {id:'s23',sec:2,sub:'Persona→HXC',type:'hxc-case-study',chip:['案例分析','green'],title:'Spotify 如何找到 HXC'},
-{id:'s24',sec:2,sub:'Persona→HXC',type:'big-quote',chip:['關鍵問題','red'],quote:'沒有這個<br>他明天<br><span class="g-red">會很痛</span>',sub2:'那個「他」就是你的 HXC'},
+{id:'s24',sec:2,sub:'Persona→HXC',type:'pmf-pillars',chip:['PMF 三支柱','red'],title:'好產品帶來的三種成長'},
 {id:'s25',sec:2,sub:'痛點分析',type:'vitamin-painkiller',chip:['痛點測試','orange'],title:'維他命 vs 止痛藥'},
 {id:'s25b',sec:2,sub:'痛點分析',type:'painkiller-examples',chip:['真實案例','green'],title:'止痛藥型產品長什麼樣'},
-{id:'s26',sec:2,sub:'痛點分析',type:'reveal',chip:['互動測試','red'],title:'測試你的作品',question:'如果你的受眾明天看不到這張圖\n他的哪個問題會變得更難解決',answer:'止痛藥的四個條件：\n• 他有明確可辨認的痛\n• 他現在找不到好解法\n• 你的東西讓他的痛減輕\n• 他願意花注意力或金錢換取\n\n四個都成立 = 止痛藥。否則繼續找。'},
-{id:'s27',sec:2,sub:'痛點分析',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是<br>是<span class="g-orange">他</span>說它是',bullets:['你以為是痛點，他以為是小困擾 → 維他命','你以為是功能，他覺得「沒有這個我不行」→ 止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩 → 繼續找']},
-{id:'s28',sec:2,sub:'案例',type:'dark',chip:['案例分析','green'],title:'用真實案例走一遍框架',bullets:['以下用 EmoTree 示範完整思路','重點不是產品本身','而是「這種思維方式」如何運作']},
-{id:'s29',sec:2,sub:'案例',type:'dark',chip:['定位策略','green'],title:'情緒陪伴 AI<br>不是<span class="g-red">心理諮商</span>',bullets:['定位在諮商之前的空白地帶','Support First → Action Later','核心：把說不清楚的感覺說清楚'],footer:'他不需要諮商，但他需要被聽見'},
-{id:'s30',sec:2,sub:'案例',type:'stat',chip:['市場問題','red'],title:'每 8 人有 1 人有身心困擾',stat:'1 / 8',stats3:[{n:'280萬',d:'台灣身心疾患需求人口',c:'var(--red)'},{n:'極低',d:'心理諮商滲透率',c:'var(--mid)'},{n:'3大障礙',d:'費用高 · stigma · 不知道怎麼開口',c:'var(--blue)'}]},
-{id:'s31',sec:2,sub:'案例',type:'step-reveal',chip:['現有方案的缺口','orange'],title:'為什麼現有解法不夠好',intro:'點開每個選項看它為什麼失敗',steps:[{num:'①',q:'心理諮商',answer:'每次 2,000–3,500 元，還要等候，stigma 高。<strong>門檻太高</strong>'},{num:'②',q:'冥想 App',answer:'需要大量意志力、效果慢、高焦慮時根本啟動不了。<strong>認知負擔太重</strong>'},{num:'③',q:'找朋友說',answer:'怕麻煩、怕佔用對方時間、怕說不清楚。<strong>社交成本太高</strong>'},{num:'④',q:'ChatGPT',answer:'沒有記憶，每次都要重新解釋自己。<strong>沒有連續性</strong>'}]},
-{id:'s32',sec:2,sub:'案例',type:'dark',chip:['解法設計','green'],title:'Support First<br>Then <span class="g-green">Action</span>',bullets:['Step 1：情緒容納 — 讓你感覺被接住','Step 2：認知梳理 — 幫你整理混亂','Step 3：自我覺察 — 看見自己的情緒模式','Step 4：行動引導 — 才建議可能的下一步'],footer:'不急著給答案。先讓他知道他在哪裡'},
-{id:'s33',sec:2,sub:'案例',type:'big-quote',chip:['核心洞察','purple'],quote:'用戶買的不是 AI<br>是<span class="g-purple">「把混亂說清楚」</span>的感受',sub2:'功能可以被複製，這個洞察是護城河'},
-{id:'s34',sec:2,sub:'工作坊練習',type:'exercise',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',template:'「我的作品，是為了幫助 <span class="g-red">___（誰）</span><br>解決 <span class="g-red">___（什麼痛）</span><br>讓他能夠 <span class="g-red">___（達成什麼）</span>」',bullets:['越具體越好，「年輕人」不算','3 分鐘，先寫出來，不要只在腦袋裡','寫完後和旁邊的人互看']},
-{id:'s35',sec:2,sub:'工作坊練習',type:'timer',chip:['計時','orange'],title:'HXC 定位練習',timerLabel:'3 分鐘',content:'寫下你的一句話定位',time:180},
+{id:'s25c',sec:2,sub:'痛點分析',type:'sean-ellis',chip:['40% 法則','blue'],title:'Sean Ellis 的 PMF 測試'},
+{id:'s25d',sec:2,sub:'痛點分析',type:'vitamin-to-painkiller',chip:['包裝策略','purple'],title:'維他命也能包裝成止痛藥'},
+{id:'s26',sec:2,sub:'痛點分析',type:'reveal-examples',chip:['互動測試','red'],title:'測試你的作品'},
+{id:'s27',sec:2,sub:'痛點分析',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是，是他說它是',bullets:['你以為是痛點，他以為是小困擾：維他命','你以為是功能，他覺得「沒有這個我不行」：止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩，繼續找']},
+{id:'s28',sec:2,sub:'工作坊練習',type:'exercise-combined',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',time:180},
+{id:'s29',sec:2,sub:'工作坊練習',type:'exercise-tpo',chip:['TPO 練習','purple'],title:'Time · Place · Occasion',time:180},
+{id:'s30',sec:2,sub:'Section 2 結尾',type:'section',chip:['Section 2 結尾','white'],title:'你現在知道<br>在對誰說話了',sub2:'Section 3：存續性 — 從作品走到市場'},
 
 {id:'s36',sec:3,sub:'開場',type:'section-cover',secNum:'③',secTitle:'存續性',secEn:'Viability',sub2:'從作品走到市場'},
-{id:'s37',sec:3,sub:'GTM',type:'step-reveal',chip:['Go-To-Market','blue'],title:'讓對的人看見對的訊息',intro:'GTM 不是「行銷」，是三個變數的整合策略',steps:[{num:'①',q:'誰：Audience 是誰',answer:'你的 ICP + HXC。越清楚越好。不是「所有人」，不是「年輕人」'},{num:'②',q:'說什麼：Message 是什麼',answer:'對應他的痛，說他聽得進去的語言。不是你想說的，是他想聽的'},{num:'③',q:'在哪說：Channel 是哪裡',answer:'他在哪裡出現，你就在哪裡說。IG、PTT、口碑推薦、還是線下活動'}]},
-{id:'s38',sec:3,sub:'GTM',type:'gtm-steps',chip:['GTM 四步驟','blue'],title:'把價值送到對的人面前'},
-{id:'s39',sec:3,sub:'GTM',type:'dark',chip:['MVP vs POC','green'],title:'先驗證再建造',bullets:['MVP：找到最關鍵的驗證點，不是最簡單的版本','你今天的 Canva 圖，就是一個 MVP','POC：用最低成本，找到第一個真實訊號','判斷標準：一個陌生人聽完說「對，我也有這個問題」'],footer:'朋友說讚不算。陌生人的行動，重要 100 倍'},
-{id:'s40',sec:3,sub:'GTM',type:'big-quote',chip:['最重要的判斷','red'],quote:'陌生人的行動<br>比朋友的稱讚<br><span class="g-red">重要 100 倍</span>',sub2:'PMF 訊號：他截圖、tag 朋友、主動傳給有相同困擾的人'},
-{id:'s41',sec:3,sub:'GTM',type:'dark',chip:['正確的順序','orange'],title:'GTM → POC → PMF',bullets:['GTM：定義誰、說什麼、在哪說','POC：最低成本驗證方向，找到第一個真實訊號','PMF：魔法訊號 — 用戶主動回來、主動分享、主動推薦','跳過任何一步，都是在把一個未驗證的想法直接放大'],footer:'順序不能錯。先有方向，再驗證，再放大'},
-{id:'s42',sec:3,sub:'Pitch',type:'dark',chip:['重新定義發表','white'],title:'成果發表不是報告<br>是 <span class="g-orange">Pitch</span>',bullets:['報告：你做了什麼','Pitch：為什麼他應該在乎','Pitch 格式：Hook → Pain → Solution → CTA','評審在乎的不是工具，是商業洞察'],footer:'你有 60 秒。讓他聽完說「這個我懂，這個我需要」'},
-{id:'s43',sec:3,sub:'Pitch',type:'pitch-three',chip:['Pitch 三核心','red'],title:'一個好 Pitch 的三步'},
-{id:'s44',sec:3,sub:'Pitch',type:'pitch-demo',chip:['示範','green'],title:'30 秒 Pitch 示範'},
-{id:'s45',sec:3,sub:'Pitch',type:'pitch-template',chip:['你的模板','orange'],title:'現在套進你的作品'},
-{id:'s46',sec:3,sub:'練習發表',type:'timer',chip:['計時','red'],title:'Pitch 練習',timerLabel:'5 分鐘',content:'兩人一組。一人 Pitch，一人計時並給一句回饋',time:300},
-{id:'s47',sec:3,sub:'練習發表',type:'checklist',chip:['上台前確認','yellow'],title:'發表前最後確認',items:[{q:'你的受眾是誰',a:'一個有名字的人，不是「年輕人」',c:'var(--orange)'},{q:'他有什麼真實的痛',a:'真實的痛，不是想像的需求',c:'var(--red)'},{q:'你的解法如何回應那個痛',a:'說結果，不說功能',c:'var(--blue)'},{q:'CTA 明確嗎',a:'對方聽完知道要採取什麼行動',c:'var(--green)'}],footer:'不評設計美感，評商業洞察'},
-{id:'s48',sec:3,sub:'練習發表',type:'big-quote',chip:['最後一句話','white'],quote:'做圖不是目的<br><span class="g-orange">讓那個人採取行動</span><br>才是',sub2:'今天學的所有工具，都服務這一個目標'},
-{id:'s49',sec:3,sub:'練習發表',type:'resources',chip:['帶走這些','white'],title:'帶走這些'},
-{id:'s50',sec:3,sub:'練習發表',type:'close',chip:['結語','white'],title:'設計是為了<br><span class="g-red">改變行為</span>',content:'不是展示美術，不是獲得讚美',sub2:'讓那個正在痛的人，採取對他有益的行動',cta:'掃描 QR Code 加 Vincent LinkedIn'},
+{id:'s37',sec:3,sub:'GTM',type:'gtm-interactive',chip:['Go-To-Market','blue'],title:'讓對的人看見對的訊息'},
+{id:'s38',sec:3,sub:'GTM',type:'gtm-poc-pmf',chip:['驗證三階段','green'],title:'GTM → POC → PMF'},
+{id:'s39',sec:3,sub:'GTM',type:'big-quote',chip:['最重要的判斷','red'],quote:'陌生人的行動<br>比朋友的稱讚<br><span class="g-red">重要 100 倍</span>',sub2:'PMF 訊號：他截圖、tag 朋友、主動傳給有相同困擾的人'},
+{id:'s40',sec:3,sub:'Pitch',type:'pitch-deck-structure',chip:['Pitch Deck 架構','orange'],title:'一份完整的 Pitch Deck'},
+{id:'s41',sec:3,sub:'Pitch',type:'pitch-elements',chip:['十大元素','blue'],title:'Pitch 的十個關鍵元素'},
+{id:'s42',sec:3,sub:'Pitch',type:'elevator-pitch',chip:['電梯簡報','purple'],title:'30 秒說服一個人'},
+{id:'s43',sec:3,sub:'練習',type:'pitch-exercise-1',chip:['練習一','green'],title:'痛點定義練習',time:180},
+{id:'s44',sec:3,sub:'練習',type:'pitch-exercise-2',chip:['練習二','orange'],title:'價值主張練習',time:180},
+{id:'s45',sec:3,sub:'練習發表',type:'checklist',chip:['上台前確認','yellow'],title:'發表前最後確認',items:[{q:'你的受眾是誰',a:'一個有名字的人，不是「年輕人」',c:'var(--orange)'},{q:'他有什麼真實的痛',a:'真實的痛，不是想像的需求',c:'var(--red)'},{q:'你的解法如何回應那個痛',a:'說結果，不說功能',c:'var(--blue)'},{q:'CTA 明確嗎',a:'對方聽完知道要採取什麼行動',c:'var(--green)'}],footer:'不評設計美感，評商業洞察'},
+{id:'s46',sec:3,sub:'練習發表',type:'big-quote',chip:['最後一句話','white'],quote:'做圖不是目的<br><span class="g-orange">讓那個人採取行動</span><br>才是',sub2:'今天學的所有工具，都服務這一個目標'},
+{id:'s47',sec:3,sub:'練習發表',type:'resources',chip:['帶走這些','white'],title:'帶走這些'},
+{id:'s48',sec:3,sub:'練習發表',type:'close',chip:['結語','white'],title:'設計是為了<br><span class="g-red">改變行為</span>',content:'不是展示美術，不是獲得讚美',sub2:'讓那個正在痛的人，採取對他有益的行動',cta:'掃描 QR Code 加 Vincent LinkedIn'},
 ];
 // Slide count will vary as we add new slides
 const total=D.length;
-const secStarts={1:0,2:19,3:38};
+const secStarts={1:0,2:20,3:36};
 const secNames={1:'① 底層思維',2:'② 欲求性洞察',3:'③ 存續性發表'};
 let cur=0;
 const timers={};
@@ -1095,10 +1091,10 @@ function renderSlide(sd,idx){
       if(sd.subtitle)h+=`<p style="color:var(--mid);margin-bottom:.9rem;font-size:var(--min-font)">${sd.subtitle}</p>`;
       h+=`</div>`;
       const steps=[
-        {num:'Step 1',q:'台灣 2,300 萬人<br>有多少比例有飲料習慣',label:'市場基數',col:'var(--blue)',ans:'約 <strong style="color:var(--blue)">40%</strong>。也就是 920 萬個有飲料習慣的人。'},
-        {num:'Step 2',q:'這些人平均<br>每週喝幾杯手搖',label:'消費頻率',col:'var(--cyan)',ans:'估算每週約 <strong style="color:var(--cyan)">2.5 杯</strong>。一年大約 130 杯。'},
-        {num:'Step 3',q:'換算成每天<br>全台灣有多少杯',label:'日銷量',col:'var(--orange)',ans:'920萬 × 2.5 ÷ 7 ≈ <strong style="color:var(--orange)">每天約 330 萬杯</strong>。'},
-        {num:'結論',q:'市場規模大概是多少',label:'市場規模',col:'var(--red)',ans:'330萬 × 55元 × 365天 ≈ <strong style="color:var(--red)">年市場約 660 億</strong>。<br><span style="font-size:var(--min-label);color:var(--mid)">Source: 經濟部統計處 2023 飲料店營業額</span>'},
+        {num:'Step 1',q:'台灣 2,300 萬人<br>有多少比例有飲料習慣',label:'市場基數',col:'var(--blue)',ans:'約 <strong style="color:var(--blue)">40%</strong>。也就是 920 萬個有飲料習慣的人。<br><span style="font-size:var(--min-label);color:var(--mid)">Source: 食力調查 2024</span>'},
+        {num:'Step 2',q:'這些人平均<br>每週喝幾杯手搖',label:'消費頻率',col:'var(--cyan)',ans:'估算每週約 <strong style="color:var(--cyan)">2.5 杯</strong>。一年大約 130 杯。<br><span style="font-size:var(--min-label);color:var(--mid)">Source: 未來流通研究所 2024</span>'},
+        {num:'Step 3',q:'換算成每天<br>全台灣有多少杯',label:'日銷量',col:'var(--orange)',ans:'920萬 × 2.5 ÷ 7 ≈ <strong style="color:var(--orange)">每天約 330 萬杯</strong>。<br><span style="font-size:var(--min-label);color:var(--mid)">推算值</span>'},
+        {num:'結論',q:'市場規模大概是多少',label:'市場規模',col:'var(--red)',ans:'330萬 × 55元 × 365天 ≈ <strong style="color:var(--red)">年市場約 660 億</strong>。<br><span style="font-size:var(--min-label);color:var(--mid)">Source: 經濟部統計處 2024 飲料店營業額</span>'},
       ];
       h+=`<div class="mrev-grid cols-4" style="gap:.7rem;max-width:920px;margin:0 auto">`;
       steps.forEach((s,si)=>{
@@ -1131,9 +1127,9 @@ function renderSlide(sd,idx){
       h+=`<div class="unlock-card" id="fermi-ans-${sd.id}" onclick="this.classList.toggle('unlocked')" style="min-height:180px">`;
       h+=`<div class="card-answer" style="background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.3);border-radius:12px;padding:1.2rem">`;
       h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.6rem">📊 參考答案</div>`;
-      h+=`<div style="font-size:clamp(1.8rem,3vw,2.4rem);font-weight:800;color:var(--green);margin-bottom:.4rem">~13,000 家</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">2,300萬 ÷ 1,800人/店 ≈ 12,800</div>`;
-      h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.6);padding:.5rem;background:rgba(255,255,255,.04);border-radius:6px">實際數據：四大超商合計約 13,200 家<br>Source: 經濟部 2024</div>`;
+      h+=`<div style="font-size:clamp(1.8rem,3vw,2.4rem);font-weight:800;color:var(--green);margin-bottom:.4rem">~14,000 家</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">2,300萬 ÷ 1,650人/店 ≈ 13,900</div>`;
+      h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.6);padding:.5rem;background:rgba(255,255,255,.04);border-radius:6px">實際數據：四大超商合計約 14,000 家<br>Source: 經濟部 2026</div>`;
       h+=`</div>`;
       h+=`<div class="card-mask" style="border-radius:12px"><div class="card-mask-num" style="color:var(--green);font-size:2rem">？</div><div class="card-mask-q" style="font-size:var(--min-font);max-width:none">先自己算<br>再點這裡看答案</div></div>`;
       h+=`</div>`;
@@ -1162,7 +1158,7 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
       h+=`<div style="display:flex;flex-direction:column;gap:.7rem;max-width:620px;margin:0 auto">`;
-      [{time:'14:00–14:30',sec:'① 底層思維',desc:'創新三元 ‧ 設計思維 ‧ MECE ‧ 費米估算',col:'var(--orange)'},{time:'14:30–15:15',sec:'② 欲求性洞察',desc:'Persona ‧ ICP ‧ HXC ‧ 痛點 ‧ EmoTree',col:'var(--blue)'},{time:'15:15–16:00',sec:'③ 存續性發表',desc:'GTM ‧ MVP ‧ Pitch ‧ 上台發表',col:'var(--green)'}].forEach((r,ri)=>{
+      [{time:'14:00–14:30',sec:'① 底層思維',desc:'創新三元 ‧ 設計思維 ‧ MECE ‧ 費米估算',col:'var(--orange)'},{time:'14:30–15:15',sec:'② 欲求性洞察',desc:'Persona ‧ ICP ‧ HXC ‧ 痛點分析',col:'var(--blue)'},{time:'15:15–16:00',sec:'③ 存續性發表',desc:'GTM ‧ POC ‧ PMF ‧ Pitch ‧ 上台發表',col:'var(--green)'}].forEach((r,ri)=>{
         const active=ri===0;
         h+=`<div style="display:flex;align-items:center;gap:1rem;background:${active?'rgba(255,107,0,.1)':'rgba(255,255,255,.03)'};border:1px solid ${active?'var(--orange)':'rgba(255,255,255,.08)'};border-left:3px solid ${r.col};border-radius:8px;padding:.85rem 1.2rem"><div style="font-size:clamp(.72rem,.98vw,.82rem);color:var(--mid);min-width:95px">${r.time}</div><div style="flex:1"><div style="font-weight:800;font-size:clamp(.92rem,1.65vw,1.2rem);color:var(--ink)">${r.sec}</div><div style="font-size:.78rem;color:var(--mid);margin-top:.13rem">${r.desc}</div></div>${active?`<div style="background:var(--orange);border-radius:4px;padding:.12rem .52rem;color:#fff;font-size:.56rem;font-weight:800;letter-spacing:.08em">NOW</div>`:''}</div>`;
       });h+=`</div>`;break;
@@ -1210,6 +1206,494 @@ function renderSlide(sd,idx){
       [{icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>',label:'LinkedIn',desc:'加 Vincent<br>持續獲取洞察',border:'rgba(255,255,255,.1)',hl:false},{icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',label:'EmoTree',desc:'情緒陪伴 AI<br>掃碼免費體驗',border:'var(--red)',hl:true},{icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',label:'課程框架',desc:'三元 · HXC<br>Pitch · GTM',border:'rgba(255,255,255,.1)',hl:false}].forEach(r=>{
         h+=`<div style="background:rgba(255,255,255,.04);border:1px solid ${r.border};border-radius:12px;padding:1.3rem 1.1rem;text-align:center"><div style="width:65px;height:65px;background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.12);border-radius:10px;margin:0 auto .7rem;display:flex;align-items:center;justify-content:center;color:${r.hl?'var(--red)':'rgba(255,255,255,.5)'}">${r.icon}</div><div style="font-weight:700;font-size:.94rem;color:${r.hl?'var(--red)':'var(--ink)'};margin-bottom:.32rem">${r.label}</div><div style="font-size:.78rem;color:var(--mid);line-height:1.5">${r.desc}</div></div>`;
       });h+=`</div>`;break;
+    // ========== NEW RENDER CASES ==========
+    case 'topdown-bottomup-v2':{
+      h+=blob('rgba(168,85,247,.1)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      // 先說明兩種思維
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto 1.2rem;position:relative;z-index:1">`;
+      h+=`<div style="background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.15);border-radius:12px;padding:1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:700;color:rgba(255,255,255,.7);margin-bottom:.5rem">⬆️ Bottom-up</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid)">「我會什麼技術，就做什麼產品」<br>從能力出發，再找市場</div>`;
+      h+=`</div>`;
+      h+=`<div style="background:rgba(255,107,0,.08);border:2px solid rgba(255,107,0,.35);border-radius:12px;padding:1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:700;color:var(--orange);margin-bottom:.5rem">⬇️ Top-down</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid)">「誰最痛？痛什麼？」<br>從問題出發，再想解法</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      // 真實案例對比
+      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem 1.5rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="text-align:center;margin-bottom:1rem"><div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.3rem">真實案例對比</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink)">同樣想做「待辦清單」</div></div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
+      // Wunderlist (失敗)
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
+      h+=`<div class="card-answer" style="background:rgba(255,32,85,.06);border:1.5px solid rgba(255,32,85,.25);border-radius:10px;padding:1rem">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--red);font-weight:700;margin-bottom:.4rem">❌ Wunderlist</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">功能齊全的待辦清單 App</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">被微軟收購後關閉。市場上有太多類似產品，功能導向無法建立護城河。</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:10px"><div style="font-size:1.5rem">⬆️</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">Bottom-up 案例</div></div>`;
+      h+=`</div>`;
+      // Notion (成功)
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
+      h+=`<div class="card-answer" style="background:rgba(34,197,94,.06);border:1.5px solid rgba(34,197,94,.25);border-radius:10px;padding:1rem">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--green);font-weight:700;margin-bottom:.4rem">✓ Notion</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">「團隊知識管理混亂」的痛點</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">從問題出發：文件散落各處、協作困難。解法：All-in-one workspace。估值 100 億美元。</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:10px"><div style="font-size:1.5rem">⬇️</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">Top-down 案例</div></div>`;
+      h+=`</div>`;
+      h+=`</div></div>`;
+      break;}
+    case 'mckinsey-six-v2':{
+      h+=blob('rgba(59,130,246,.1)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">在開始設計之前，先確認這六件事</p>`;
+      h+=`</div>`;
+      const sixElements=[
+        {key:'scope',label:'Scope',zh:'範圍邊界',col:'var(--red)',priority:'最重要',desc:'什麼做、什麼不做？'},
+        {key:'constraints',label:'Constraints',zh:'限制條件',col:'var(--orange)',priority:'次重要',desc:'時間、預算、人力'},
+        {key:'stakeholder',label:'Stakeholder',zh:'利害關係人',col:'var(--purple)',priority:'TPO',desc:'誰？何時？何地？何情境？',extra:'Time · Place · Occasion'},
+        {key:'criteria',label:'Criteria',zh:'成功標準',col:'var(--green)',priority:'',desc:'怎麼判斷成功？'},
+        {key:'insight',label:'Insight',zh:'洞察來源',col:'var(--cyan)',priority:'',desc:'訪談、數據、直覺？'},
+        {key:'context',label:'Context',zh:'背景脈絡',col:'var(--blue)',priority:'基本功',desc:'市場、產業、時機點'}
+      ];
+      // 自動展開動畫
+      h+=`<div class="auto-reveal-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;position:relative;z-index:1;max-width:900px;margin:0 auto">`;
+      sixElements.forEach((el,i)=>{
+        h+=`<div class="auto-reveal-item" style="background:${el.col}12;border:1.5px solid ${el.col}40;border-radius:10px;padding:1rem;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.3+i*.15}s">`;
+        if(el.priority)h+=`<div style="font-size:var(--min-label);font-weight:700;color:${el.col};margin-bottom:.3rem">${el.priority}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${el.label}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-top:.2rem">${el.zh}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.6);margin-top:.4rem">${el.desc}</div>`;
+        if(el.extra)h+=`<div style="font-size:var(--min-label);color:${el.col};margin-top:.3rem;font-weight:600">${el.extra}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:1.2rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">核心目的：</strong>找出「最高風險的假設」和「ROI 最高的槓桿點」</div>`;
+      break;}
+    case 'dt-loop-auto':{
+      h+=blob('rgba(6,182,212,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">反覆迭代，不是線性流程</p>`;
+      h+=`</div>`;
+      const dtSteps=[
+        {n:'1',name:'Empathize',zh:'同理',col:'var(--red)',desc:'觀察、訪談、感同身受'},
+        {n:'2',name:'Define',zh:'定義',col:'var(--orange)',desc:'把觀察轉譯為問題'},
+        {n:'3',name:'Ideate',zh:'發想',col:'var(--yellow)',desc:'快速發散，不批判'},
+        {n:'4',name:'Prototype',zh:'原型',col:'var(--blue)',desc:'快速做出可測版本'},
+        {n:'5',name:'Test',zh:'測試',col:'var(--purple)',desc:'觀察行為，不聽回答'}
+      ];
+      h+=`<div style="display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;max-width:1000px;margin:0 auto;position:relative;z-index:1">`;
+      dtSteps.forEach((s,i)=>{
+        h+=`<div style="flex:0 0 auto;width:150px;border:2px solid ${s.col}50;border-radius:12px;background:${s.col}15;padding:1rem .8rem;text-align:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.12}s">`;
+        h+=`<div style="width:36px;height:36px;border-radius:50%;background:${s.col};color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto .4rem;font-size:1.1rem">${s.n}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.5vw,1.15rem);font-weight:700;color:var(--ink)">${s.name}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-top:.2rem">${s.zh}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.5);margin-top:.4rem">${s.desc}</div>`;
+        h+=`</div>`;
+        if(i<dtSteps.length-1)h+=`<div style="color:${s.col};font-size:1.3rem;opacity:0;animation:fade-up .3s ease forwards;animation-delay:${.3+i*.12}s">→</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="text-align:center;margin-top:1rem;font-size:var(--min-font);color:rgba(255,255,255,.4);position:relative;z-index:1;opacity:0;animation:fade-up .5s ease forwards;animation-delay:1s">↺ 循環反覆直到找到對的解法</div>`;
+      break;}
+    case 'insight-types-auto':{
+      h+=blob('rgba(255,107,0,.08)','rgba(255,32,85,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">四種層次的洞察，越往下越有價值</p>`;
+      h+=`</div>`;
+      const insights=[
+        {type:'Consumer',zh:'消費者洞察',col:'var(--blue)',q:'他為什麼買？',example:'不是咖啡好喝，是需要「開始工作」的儀式感'},
+        {type:'Pain Point',zh:'痛點洞察',col:'var(--red)',q:'他痛在哪裡？',example:'不是「壓力大」，是「晚上腦袋停不下來」'},
+        {type:'Value',zh:'價值洞察',col:'var(--green)',q:'他要什麼價值？',example:'買 Notion 不是要筆記，是要「掌控感」'},
+        {type:'Function',zh:'功能洞察',col:'var(--purple)',q:'他要什麼功能？',example:'要「一鍵分享」是想讓朋友覺得他有品味'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
+      insights.forEach((ins,i)=>{
+        h+=`<div style="border:2px solid ${ins.col}40;border-radius:12px;background:${ins.col}12;padding:1rem 1.2rem;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.15}s">`;
+        h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem">`;
+        h+=`<span style="width:36px;height:36px;border-radius:8px;background:${ins.col};display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:1rem">${i+1}</span>`;
+        h+=`<div><div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${ins.type}</div><div style="font-size:var(--min-font);color:var(--mid)">${ins.zh}</div></div>`;
+        h+=`</div>`;
+        h+=`<div style="font-size:var(--min-font);color:${ins.col};font-weight:600;margin-bottom:.3rem">${ins.q}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.75);padding:.5rem .7rem;background:rgba(255,255,255,.04);border-radius:6px">${ins.example}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'observe-insight-v2':{
+      h+=blob('rgba(59,130,246,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      // 好問題
+      h+=`<div style="background:rgba(59,130,246,.08);border:2px solid rgba(59,130,246,.3);border-radius:14px;padding:1.4rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem"><span style="font-size:1.5rem">❓</span><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--blue)">好問題</span></div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.6rem">`;
+      [{q:'上一次遇到這問題是什麼時候？',note:'具體情境'},{q:'你現在怎麼解決這個問題？',note:'現有行為'},{q:'如果沒有這個你會怎麼辦？',note:'痛點強度'}].forEach(item=>{
+        h+=`<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:.7rem .9rem"><div style="font-size:var(--min-font);color:var(--ink);font-weight:600">「${item.q}」</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${item.note}</div></div>`;
+      });
+      h+=`</div></div>`;
+      // GAP 觀察
+      h+=`<div style="background:rgba(168,85,247,.08);border:2px solid rgba(168,85,247,.3);border-radius:14px;padding:1.4rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem"><span style="font-size:1.5rem">👁️</span><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--purple)">觀察的藝術</span></div>`;
+      // 可點擊的 GAP 按鈕
+      h+=`<div class="unlock-card" id="gap-${sd.id}" onclick="this.classList.toggle('unlocked')" style="min-height:140px">`;
+      h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem">`;
+      h+=`<div style="text-align:center;margin-bottom:.8rem"><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink)">言語 vs 行為</div></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem"><strong style="color:var(--purple)">案例：</strong>用戶說「我很在意健康」，但冰箱裡都是可樂</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink);padding:.6rem;background:rgba(168,85,247,.1);border-radius:6px"><strong>洞察：</strong>他想要的是「不費力的健康感」，不是真的改變生活習慣</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:10px;background:rgba(168,85,247,.15)">`;
+      h+=`<div style="display:flex;justify-content:space-between;align-items:center;width:100%;padding:0 1.5rem">`;
+      h+=`<div style="text-align:center"><div style="font-size:1.8rem">🗣️</div><div style="font-size:var(--min-font);color:var(--mid)">他說的</div></div>`;
+      h+=`<div style="padding:.4rem 1rem;background:var(--purple);border-radius:20px;font-size:var(--min-font);font-weight:700;color:#fff;cursor:pointer">點擊看 GAP</div>`;
+      h+=`<div style="text-align:center"><div style="font-size:1.8rem">👀</div><div style="font-size:var(--min-font);color:var(--mid)">他做的</div></div>`;
+      h+=`</div></div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--purple)">關鍵：</strong>訪談結束後的交流、離開時的行為，往往藏著最真實的洞察</div>`;
+      break;}
+    case 'mece-intro':{
+      h+=blob('rgba(251,191,36,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      h+=`<div style="font-size:clamp(2.5rem,6vw,4rem);font-weight:800;color:var(--yellow);margin-bottom:.5rem">MECE</div>`;
+      h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:600;color:var(--ink);margin-bottom:1rem">Mutually Exclusive, Collectively Exhaustive</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:1.5rem">相互獨立，完全窮盡</div>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="background:rgba(255,32,85,.08);border:2px solid rgba(255,32,85,.3);border-radius:12px;padding:1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--red);margin-bottom:.6rem">❌ 不是 MECE</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem">「年輕人」作為受眾</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)">18 歲和 30 歲的問題完全不同，範圍模糊、無法行動</div>`;
+      h+=`</div>`;
+      h+=`<div style="background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.3);border-radius:12px;padding:1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--green);margin-bottom:.6rem">✓ 是 MECE</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem">按「消費動機」分類</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)">趕時間 vs 想坐下來 vs 社交需求，不重疊、不遺漏</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:800px;margin:1.2rem auto 0;position:relative;z-index:1"><strong style="color:var(--yellow)">像議題樹一樣：</strong>不斷拆解，直到每個分支都能獨立分析、完全窮盡</div>`;
+      break;}
+    case 'mece-business':{
+      h+=blob('rgba(251,191,36,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.2rem;max-width:850px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="text-align:center;margin-bottom:1rem"><div style="font-size:var(--min-font);color:var(--mid)">麥肯錫案例</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink)">分析「為什麼營收下降」</div></div>`;
+      // 議題樹結構
+      h+=`<div style="display:flex;flex-direction:column;gap:.8rem">`;
+      h+=`<div style="background:var(--yellow);color:#000;padding:.6rem 1rem;border-radius:8px;text-align:center;font-weight:700;font-size:var(--min-font)">營收下降</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">`;
+      h+=`<div style="background:rgba(59,130,246,.15);border:1px solid rgba(59,130,246,.3);padding:.8rem;border-radius:8px"><div style="font-weight:700;color:var(--blue);font-size:var(--min-font);margin-bottom:.3rem">銷量問題</div><div style="font-size:var(--min-label);color:var(--mid)">客戶數 × 購買頻率 × 客單價</div></div>`;
+      h+=`<div style="background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);padding:.8rem;border-radius:8px"><div style="font-weight:700;color:var(--purple);font-size:var(--min-font);margin-bottom:.3rem">價格問題</div><div style="font-size:var(--min-label);color:var(--mid)">定價策略 × 促銷力度 × 競爭壓力</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="text-align:center;font-size:var(--min-font);color:var(--mid)">每一層都是 MECE：不重疊、不遺漏</div>`;
+      h+=`</div></div>`;
+      h+=`<div class="tip-box" style="max-width:850px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--yellow)">MECE 的真正目的：</strong>找到「最值得說話的那群人」，讓你的設計有對象、有靶心</div>`;
+      break;}
+    case 'funnel-v2-examples':{
+      h+=blob('rgba(168,85,247,.1)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const funnelExamples=[
+        {level:'Persona',col:'rgba(255,255,255,.5)',product:'Nike',desc:'「喜歡運動的人」',note:'範圍太廣，無法精準溝通'},
+        {level:'ICP',col:'var(--blue)',product:'Lululemon',desc:'「願意為高品質瑜珈服付費的都會女性」',note:'有明確痛點和付費意願'},
+        {level:'HXC',col:'var(--red)',product:'Peloton',desc:'「家裡沒時間去健身房但願意花 $2000 買飛輪的人」',note:'最急、最痛、已在找解法'}
+      ];
+      h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:750px;margin:0 auto;position:relative;z-index:1">`;
+      funnelExamples.forEach((f,i)=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:auto">`;
+        h+=`<div class="card-answer" style="display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid ${f.col};border-radius:0 10px 10px 0">`;
+        h+=`<div style="min-width:80px"><div style="font-size:var(--min-label);font-weight:800;color:${f.col}">${f.level}</div><div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${f.product}</div></div>`;
+        h+=`<div style="flex:1"><div style="font-size:var(--min-font);color:var(--ink)">${f.desc}</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.3rem">${f.note}</div></div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:0 10px 10px 0;flex-direction:row;justify-content:space-between;padding:0 1.5rem"><span style="font-weight:800;color:${f.col}">${f.level}</span><span style="font-size:var(--min-font);color:var(--mid)">點擊看案例</span></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'pmf-pillars':{
+      h+=blob('rgba(255,32,85,.08)','rgba(34,197,94,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">Product-Market Fit 的三個訊號</p>`;
+      h+=`</div>`;
+      const pillars=[
+        {icon:'🔄',name:'Sticky',zh:'黏著度',col:'var(--blue)',desc:'用戶主動回來，不需要你提醒',metric:'DAU/MAU > 25%'},
+        {icon:'📣',name:'Viral',zh:'病毒性',col:'var(--green)',desc:'用戶主動分享給朋友',metric:'推薦值 NPS > 50'},
+        {icon:'💰',name:'Paid',zh:'付費意願',col:'var(--orange)',desc:'用戶願意掏錢購買',metric:'轉換率 > 2%'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:850px;margin:0 auto;position:relative;z-index:1">`;
+      pillars.forEach((p,i)=>{
+        h+=`<div style="background:${p.col}12;border:2px solid ${p.col}40;border-radius:12px;padding:1.2rem;text-align:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.15}s">`;
+        h+=`<div style="font-size:2rem;margin-bottom:.4rem">${p.icon}</div>`;
+        h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:${p.col}">${p.name}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin:.3rem 0">${p.zh}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">${p.desc}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${p.col};padding:.3rem .6rem;background:${p.col}20;border-radius:4px;display:inline-block">${p.metric}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:850px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--red)">三個都有 = PMF。</strong>缺任何一個，都還在找 Product-Solution Fit</div>`;
+      break;}
+    case 'sean-ellis':{
+      h+=blob('rgba(59,130,246,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:700px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="background:rgba(59,130,246,.1);border:2px solid rgba(59,130,246,.3);border-radius:14px;padding:1.5rem;text-align:center;margin-bottom:1rem">`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem">問你的用戶一個問題：</div>`;
+      h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:700;color:var(--ink);margin-bottom:.8rem">「如果明天不能再用這個產品，你會有多失望？」</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem">`;
+      [{label:'非常失望',pct:'40%+',col:'var(--green)',note:'PMF 達成'},{label:'有點失望',pct:'',col:'var(--yellow)',note:'還在路上'},{label:'不太失望',pct:'',col:'var(--red)',note:'需要調整'}].forEach(o=>{
+        h+=`<div style="background:${o.col}15;border:1px solid ${o.col}40;border-radius:8px;padding:.8rem"><div style="font-size:var(--min-font);font-weight:700;color:${o.col}">${o.label}</div>${o.pct?`<div style="font-size:clamp(1.5rem,3vw,2rem);font-weight:800;color:${o.col}">${o.pct}</div>`:''}<div style="font-size:var(--min-label);color:var(--mid)">${o.note}</div></div>`;
+      });
+      h+=`</div></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);text-align:center">Sean Ellis 調查了數百家新創，發現「非常失望」超過 40% 是 PMF 的分水嶺</div>`;
+      h+=`</div>`;
+      break;}
+    case 'vitamin-to-painkiller':{
+      h+=blob('rgba(168,85,247,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:800px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.2rem;margin-bottom:1rem">`;
+      h+=`<div style="text-align:center;margin-bottom:1rem"><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink)">案例：Rogaine 落建</div></div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center">`;
+      h+=`<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:1rem;text-align:center"><div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.3rem">原本是</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">維他命</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.3rem">「促進頭皮健康」<br>沒人在乎</div></div>`;
+      h+=`<div style="font-size:2rem;color:var(--purple)">→</div>`;
+      h+=`<div style="background:rgba(168,85,247,.1);border-radius:8px;padding:1rem;text-align:center"><div style="font-size:var(--min-label);color:var(--purple);margin-bottom:.3rem">包裝成</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">止痛藥</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.3rem">「治療禿頭」<br>解決焦慮</div></div>`;
+      h+=`</div></div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
+      [{brand:'Red Bull',from:'能量飲料',to:'「給你翅膀」克服疲憊',col:'var(--orange)'},{brand:'Slack',from:'聊天工具',to:'「讓 Email 消失」解決溝通焦慮',col:'var(--blue)'}].forEach(ex=>{
+        h+=`<div style="background:${ex.col}12;border:1px solid ${ex.col}30;border-radius:8px;padding:.8rem 1rem"><div style="font-weight:700;color:var(--ink);margin-bottom:.3rem">${ex.brand}</div><div style="font-size:var(--min-label);color:var(--mid)">${ex.from} → ${ex.to}</div></div>`;
+      });
+      h+=`</div></div>`;
+      h+=`<div class="tip-box" style="max-width:800px;margin:0 auto;position:relative;z-index:1"><strong style="color:var(--purple)">包裝的關鍵：</strong>找到他已經在焦慮的問題，把你的功能連結上去</div>`;
+      break;}
+    case 'reveal-examples':{
+      h+=blob('rgba(255,32,85,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">如果你的受眾明天看不到這張圖，他的哪個問題會變得更難解決？</p>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:700px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:200px">`;
+      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(255,32,85,.08),rgba(255,107,0,.05));border:1.5px solid rgba(255,32,85,.25);border-radius:12px;padding:1.5rem">`;
+      h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.3rem);font-weight:700;color:var(--ink);margin-bottom:1rem">止痛藥的四個條件</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">`;
+      [{icon:'🎯',text:'他有明確可辨認的痛'},{icon:'🔍',text:'他現在找不到好解法'},{icon:'💊',text:'你的東西讓他的痛減輕'},{icon:'💰',text:'他願意花注意力或金錢換取'}].forEach(c=>{
+        h+=`<div style="display:flex;gap:.6rem;align-items:flex-start;background:rgba(255,255,255,.04);border-radius:8px;padding:.7rem"><span style="font-size:1.2rem">${c.icon}</span><span style="font-size:var(--min-font);color:var(--ink)">${c.text}</span></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="margin-top:1rem;padding:.8rem;background:rgba(34,197,94,.1);border-radius:8px;text-align:center"><span style="font-size:var(--min-font);color:var(--green);font-weight:700">四個都成立 = 止痛藥。否則繼續找。</span></div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:12px"><div style="font-size:2rem">🤔</div><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin:.5rem 0">想一想你的作品</div><div style="font-size:var(--min-font);color:var(--mid)">點擊看檢核標準</div></div>`;
+      h+=`</div></div>`;
+      break;}
+    case 'exercise-combined':{
+      h+=blob('rgba(255,32,85,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:700px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="border:2px solid var(--red);border-radius:12px;padding:1.5rem;background:rgba(255,32,85,.06);text-align:center;margin-bottom:1rem">`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);color:var(--ink);line-height:1.8">`;
+      h+=`「我的作品，是為了幫助 <span style="color:var(--red);font-weight:700">___（誰）</span><br>`;
+      h+=`解決 <span style="color:var(--red);font-weight:700">___（什麼痛）</span><br>`;
+      h+=`讓他能夠 <span style="color:var(--red);font-weight:700">___（達成什麼）</span>」`;
+      h+=`</div></div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem">`;
+      ['越具體越好，「年輕人」不算','3 分鐘，先寫出來，不要只在腦袋裡','寫完後和旁邊的人互看'].forEach(b=>{
+        h+=`<div style="display:flex;gap:.6rem;align-items:center"><span style="color:var(--orange)">▸</span><span style="font-size:var(--min-font);color:var(--mid)">${b}</span></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      h+=`</div>`;
+      break;}
+    case 'exercise-tpo':{
+      h+=blob('rgba(168,85,247,.08)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">你的受眾什麼時候、在哪裡、什麼情境會看到你的作品？</p>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:800px;margin:0 auto 1rem;position:relative;z-index:1">`;
+      [{icon:'⏰',label:'Time',zh:'時間',q:'他什麼時候會需要這個？',example:'早上通勤、晚上睡前、週末午後...',col:'var(--blue)'},
+       {icon:'📍',label:'Place',zh:'地點',q:'他在哪裡會看到這個？',example:'IG、PTT、LINE 群、實體活動...',col:'var(--green)'},
+       {icon:'🎭',label:'Occasion',zh:'情境',q:'什麼情境下他會行動？',example:'剛被主管罵、準備考試、約會前...',col:'var(--purple)'}].forEach(t=>{
+        h+=`<div style="background:${t.col}12;border:2px solid ${t.col}40;border-radius:12px;padding:1.2rem;text-align:center">`;
+        h+=`<div style="font-size:1.8rem;margin-bottom:.4rem">${t.icon}</div>`;
+        h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:${t.col}">${t.label}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin:.3rem 0">${t.zh}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--ink);margin:.5rem 0">${t.q}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${t.example}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="timer-wrap" style="position:relative;z-index:1"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      break;}
+    case 'gtm-interactive':{
+      h+=blob('rgba(59,130,246,.08)','rgba(34,197,94,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">GTM 不是「行銷」，是三個變數的整合策略</p>`;
+      h+=`</div>`;
+      const gtmSteps=[
+        {q:'誰？',label:'Audience',col:'var(--red)',answer:'你的 ICP + HXC。越清楚越好。不是「所有人」，不是「年輕人」'},
+        {q:'說什麼？',label:'Message',col:'var(--orange)',answer:'對應他的痛，說他聽得進去的語言。不是你想說的，是他想聽的'},
+        {q:'在哪說？',label:'Channel',col:'var(--blue)',answer:'他在哪裡出現，你就在哪裡說。IG、PTT、口碑推薦、還是線下活動'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:850px;margin:0 auto;position:relative;z-index:1">`;
+      gtmSteps.forEach((s,i)=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:180px">`;
+        h+=`<div class="card-answer" style="background:${s.col}12;border:2px solid ${s.col}40;border-radius:12px;padding:1.2rem">`;
+        h+=`<div style="font-size:var(--min-label);font-weight:700;color:${s.col};margin-bottom:.3rem">0${i+1}</div>`;
+        h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink);margin-bottom:.5rem">${s.label}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid)">${s.answer}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${s.col}20"><div style="font-size:clamp(1.3rem,2vw,1.6rem);font-weight:700;color:${s.col}">${s.q}</div><div style="font-size:var(--min-font);color:var(--mid);margin-top:.3rem">點擊展開</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'gtm-poc-pmf':{
+      h+=blob('rgba(34,197,94,.08)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const stages=[
+        {name:'GTM',zh:'Go-To-Market',col:'var(--blue)',desc:'定義誰、說什麼、在哪說',icon:'🎯'},
+        {name:'POC',zh:'Proof of Concept',col:'var(--orange)',desc:'最低成本驗證，找到第一個真實訊號',icon:'🧪'},
+        {name:'PMF',zh:'Product-Market Fit',col:'var(--green)',desc:'用戶主動回來、分享、推薦',icon:'🚀'}
+      ];
+      h+=`<div style="display:flex;gap:.5rem;justify-content:center;align-items:center;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      stages.forEach((s,i)=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="flex:1;min-height:200px">`;
+        h+=`<div class="card-answer" style="background:${s.col}12;border:2px solid ${s.col}40;border-radius:12px;padding:1.2rem;text-align:center">`;
+        h+=`<div style="font-size:2rem;margin-bottom:.4rem">${s.icon}</div>`;
+        h+=`<div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:700;color:${s.col}">${s.name}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin:.3rem 0">${s.zh}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-top:.5rem">${s.desc}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${s.col}25"><div style="font-size:2.5rem">${s.icon}</div><div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:700;color:var(--ink);margin-top:.3rem">${s.name}</div></div>`;
+        h+=`</div>`;
+        if(i<stages.length-1)h+=`<div style="font-size:1.5rem;color:var(--mid)">→</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--green)">順序不能錯：</strong>先有方向，再驗證，再放大。跳過任何一步，都是在放大未驗證的想法</div>`;
+      break;}
+    case 'pitch-deck-structure':{
+      h+=blob('rgba(255,107,0,.08)','rgba(255,32,85,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">每一頁不超過 30 秒，控制在 10 頁內</p>`;
+      h+=`</div>`;
+      const deckStructure=[
+        {n:'1',name:'Hook',desc:'抓住注意力',col:'var(--red)'},
+        {n:'2',name:'Problem',desc:'痛點定義',col:'var(--orange)'},
+        {n:'3',name:'Solution',desc:'你的解法',col:'var(--blue)'},
+        {n:'4',name:'Market',desc:'市場規模與趨勢',col:'var(--green)'},
+        {n:'5',name:'Traction',desc:'成長動能',col:'var(--cyan)'}
+      ];
+      h+=`<div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      deckStructure.forEach((d,i)=>{
+        h+=`<div style="flex:0 0 auto;width:140px;background:${d.col}15;border:2px solid ${d.col}40;border-radius:10px;padding:.9rem;text-align:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.1+i*.1}s">`;
+        h+=`<div style="width:28px;height:28px;border-radius:50%;background:${d.col};color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto .4rem;font-size:.9rem">${d.n}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.name}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${d.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'pitch-elements':{
+      h+=blob('rgba(59,130,246,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const elements=[
+        {name:'Hook',desc:'吸引注意力',col:'var(--red)'},{name:'Problem',desc:'痛點定義',col:'var(--orange)'},
+        {name:'Solution',desc:'解決方案',col:'var(--blue)'},{name:'Market',desc:'市場規模',col:'var(--green)'},
+        {name:'Traction',desc:'成長動能',col:'var(--cyan)'},{name:'Business Model',desc:'怎麼賺錢',col:'var(--yellow)'},
+        {name:'Competition',desc:'競爭分析',col:'var(--purple)'},{name:'Team',desc:'為什麼是你',col:'var(--red)'},
+        {name:'Financials',desc:'財務預測',col:'var(--orange)'},{name:'Ask',desc:'你需要什麼',col:'var(--green)'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      elements.forEach((e,i)=>{
+        h+=`<div style="background:${e.col}15;border:1.5px solid ${e.col}40;border-radius:8px;padding:.8rem .6rem;text-align:center;opacity:0;animation:fade-up .4s ease forwards;animation-delay:${.1+i*.05}s">`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${e.name}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${e.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--blue)">電梯簡報：</strong>Hook → Pain → Solution → CTA，30 秒說服一個人</div>`;
+      break;}
+    case 'elevator-pitch':{
+      h+=blob('rgba(168,85,247,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:750px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.5rem">`;
+      const pitchSteps=[
+        {tag:'Hook',col:'var(--red)',text:'前 5 秒抓住注意力。問句或反常識'},
+        {tag:'Pain',col:'var(--orange)',text:'描述具體情境。讓他點頭說「對！」'},
+        {tag:'Solution',col:'var(--blue)',text:'你的解法如何回應。說結果，不說功能'},
+        {tag:'CTA',col:'var(--green)',text:'一個清楚的行動。掃碼、試用、找我聊'}
+      ];
+      h+=`<div style="display:flex;flex-direction:column;gap:.8rem">`;
+      pitchSteps.forEach((p,i)=>{
+        h+=`<div style="display:flex;gap:1rem;align-items:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.15}s">`;
+        h+=`<span style="background:${p.col};color:#fff;padding:.3rem .8rem;border-radius:6px;font-size:var(--min-font);font-weight:700;min-width:80px;text-align:center">${p.tag}</span>`;
+        h+=`<span style="font-size:var(--min-font);color:var(--ink)">${p.text}</span>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:var(--min-font);color:var(--mid)">全長 25-30 秒，四句話</div>`;
+      h+=`</div></div>`;
+      break;}
+    case 'pitch-exercise-1':{
+      h+=blob('rgba(34,197,94,.08)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">用一句話描述你的受眾正在經歷的痛</p>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:700px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="border:2px solid var(--green);border-radius:12px;padding:1.5rem;background:rgba(34,197,94,.06);text-align:center;margin-bottom:1rem">`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);color:var(--ink);line-height:1.8">`;
+      h+=`「<span style="color:var(--green);font-weight:700">___（誰）</span> 正在為 <span style="color:var(--green);font-weight:700">___（什麼問題）</span> 感到困擾，<br>`;
+      h+=`因為 <span style="color:var(--green);font-weight:700">___（為什麼現有解法不夠好）</span>」`;
+      h+=`</div></div>`;
+      h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      h+=`</div>`;
+      break;}
+    case 'pitch-exercise-2':{
+      h+=blob('rgba(255,107,0,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">用一句話說明你的作品能帶來什麼改變</p>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:700px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="border:2px solid var(--orange);border-radius:12px;padding:1.5rem;background:rgba(255,107,0,.06);text-align:center;margin-bottom:1rem">`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);color:var(--ink);line-height:1.8">`;
+      h+=`「透過 <span style="color:var(--orange);font-weight:700">___（你的解法）</span>，<br>`;
+      h+=`讓 <span style="color:var(--orange);font-weight:700">___（誰）</span> 能夠 <span style="color:var(--orange);font-weight:700">___（達成什麼）</span>」`;
+      h+=`</div></div>`;
+      h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      h+=`</div>`;
+      break;}
+    // ========== END NEW RENDER CASES ==========
     default:
       h+=chip;h+=`<h2>${sd.id}</h2>`;
   }
