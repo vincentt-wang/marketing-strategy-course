@@ -22,14 +22,14 @@ body{font-family:system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;backg
 #slides-container{height:100vh;width:100vw;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;position:fixed;inset:0;scrollbar-width:none}
 #slides-container::-webkit-scrollbar{display:none}
 .slide{height:100vh;width:100%;scroll-snap-align:start;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:clamp(2rem,4vw,4rem) clamp(2rem,5vw,5rem) 68px}
-.slide[data-sec="1"]{background:linear-gradient(180deg,#0a0a0f 0%,#0f0a15 50%,#150a12 100%)}
-.slide[data-sec="2"]{background:linear-gradient(180deg,#150a12 0%,#0a0f18 50%,#0a1520 100%)}
-.slide[data-sec="3"]{background:linear-gradient(180deg,#0a1520 0%,#0a150f 50%,#0f1510 100%)}
+.slide[data-sec="1"]{background:linear-gradient(165deg,#0f0a14 0%,#150d1a 35%,#1a0f15 70%,#12080d 100%)}
+.slide[data-sec="2"]{background:linear-gradient(165deg,#0a0d18 0%,#0d1220 35%,#101828 70%,#0a1015 100%)}
+.slide[data-sec="3"]{background:linear-gradient(165deg,#0a1510 0%,#0d1a12 35%,#10201a 70%,#0a1512 100%)}
 .slide::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:clamp(40px,6vw,72px) clamp(40px,6vw,72px);z-index:0}
 .slide::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0}
-.slide[data-sec="1"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(255,32,85,.06),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(168,85,247,.05),transparent 55%)}
-.slide[data-sec="2"]::after{background:radial-gradient(ellipse 70% 60% at 20% 20%,rgba(59,130,246,.06),transparent 55%),radial-gradient(ellipse 55% 70% at 80% 80%,rgba(255,32,85,.05),transparent 55%)}
-.slide[data-sec="3"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(34,197,94,.06),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(6,182,212,.05),transparent 55%)}
+.slide[data-sec="1"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(255,32,85,.08),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(168,85,247,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(255,107,0,.04),transparent 50%)}
+.slide[data-sec="2"]::after{background:radial-gradient(ellipse 70% 60% at 20% 20%,rgba(59,130,246,.08),transparent 55%),radial-gradient(ellipse 55% 70% at 80% 80%,rgba(255,32,85,.06),transparent 55%),radial-gradient(ellipse 45% 45% at 60% 40%,rgba(6,182,212,.05),transparent 50%)}
+.slide[data-sec="3"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(34,197,94,.08),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(6,182,212,.06),transparent 55%),radial-gradient(ellipse 40% 40% at 40% 60%,rgba(251,191,36,.04),transparent 50%)}
 .inner{position:relative;z-index:2;width:min(94vw,1080px);max-height:calc(100vh - 120px);overflow:hidden;scrollbar-width:none}
 .inner::-webkit-scrollbar{display:none}
 .slide-content{opacity:0;transform:translateY(32px) scale(.97);transition:opacity .6s var(--ease-smooth),transform .6s var(--ease-back)}
@@ -241,7 +241,7 @@ svg{overflow:visible}
 .nav-btn:hover{transform:scale(1.12);color:var(--orange);border-color:rgba(255,107,0,.4)}
 #btn-prev{bottom:68px;right:68px}
 #btn-next{bottom:68px;right:16px}
-#counter{position:fixed;bottom:76px;left:18px;z-index:900;font-size:.63rem;font-weight:700;color:rgba(255,255,255,.3);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+#counter{position:fixed;bottom:76px;left:18px;z-index:900;font-size:1.1rem;font-weight:800;color:rgba(255,255,255,.9);letter-spacing:.06em;font-variant-numeric:tabular-nums;text-shadow:0 2px 8px rgba(0,0,0,.5)}
 #sec-nav{position:fixed;bottom:0;left:0;right:0;height:52px;background:rgba(8,8,12,.95);backdrop-filter:blur(20px);display:flex;align-items:stretch;z-index:950;border-top:1px solid var(--line)}
 .sec-btn{flex:1;display:flex;align-items:center;justify-content:center;font-size:clamp(.56rem,.8vw,.72rem);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.3);cursor:pointer;border:none;background:transparent;border-right:1px solid var(--line);transition:color .2s,background .2s;border-top:2px solid transparent}
 .sec-btn:last-child{border-right:none}
@@ -270,6 +270,7 @@ const D=[
 {id:'s03',sec:1,sub:'開場',type:'profile-hero',chip:['關於講者','white']},
 {id:'s04',sec:1,sub:'開場',type:'rules',chip:['Before We Start','white'],title:'Two things.',rules:['Feel free to take photos — <span style="color:rgba(255,255,255,.45)">今天不提供講義</span>','Questions are always welcome — <span style="color:rgba(255,255,255,.45)">隨時舉手</span>'],footer:'Notes are optional. Thinking is not.'},
 {id:'s05',sec:1,sub:'創新三元',type:'triad-v2',chip:['Innovation Triad','blue'],title:'創新需要三個條件同時成立'},
+{id:'s05b',sec:1,sub:'創新三元',type:'dfv-combinations',chip:['D/F/V 組合','purple'],title:'三元組合與失敗模式'},
 {id:'s06',sec:1,sub:'創新三元',type:'failure-modes',chip:['三種死法','red'],title:'新產品最常死在哪裡'},
 {id:'s07',sec:1,sub:'創新三元',type:'big-quote',chip:['關鍵診斷','orange'],quote:'多數作品死在<br><span class="g-red">欲求性</span>',sub2:'不是設計不夠好，是一開始就沒問：誰在痛？痛什麼？'},
 {id:'s08',sec:1,sub:'底層思維',type:'topdown-bottomup-v2',chip:['兩種思維','purple'],title:'Top-down vs Bottom-up'},
@@ -280,7 +281,8 @@ const D=[
 {id:'s10',sec:1,sub:'設計思維',type:'insight-types-coffee',chip:['挖掘洞察','orange'],title:'如何從訪談中挖出 Insight'},
 {id:'s11',sec:1,sub:'設計思維',type:'observe-insight-v3',chip:['提問與觀察','blue'],title:'好問題與觀察讓洞察浮現'},
 {id:'s12',sec:1,sub:'戰略工具',type:'mece-intro-v2',chip:['MECE','yellow'],title:'MECE：相互獨立，完全窮盡'},
-{id:'s12b',sec:1,sub:'戰略工具',type:'mece-tree',chip:['議題樹','yellow'],title:'MECE 的商業應用：議題樹'},
+{id:'s12b',sec:1,sub:'戰略工具',type:'mece-game-v2',chip:['MECE 猜猜看','yellow'],title:'這是 MECE 嗎？'},
+{id:'s12c',sec:1,sub:'戰略工具',type:'mece-tree',chip:['議題樹','yellow'],title:'MECE 的商業應用：議題樹'},
 {id:'s13',sec:1,sub:'費米估算',type:'fermi-game-v2',chip:['費米估算','cyan'],title:'全台灣一天賣出幾杯手搖飲',subtitle:'先猜一個數字，再一起推導'},
 {id:'s14',sec:1,sub:'費米估算',type:'dark',chip:['為什麼重要','cyan'],title:'數字讓判斷可以被討論',bullets:['沒有數字：「我覺得這個市場很大」','有數字：「台灣手搖飲年市場約 660 億，只需拿下 0.1%」','數字不需要百分百精確，需要有邏輯','Pitch 從感覺升格為判斷的關鍵'],footer:'商業提案的核心能力：在資訊不完整時，做出有邏輯的數字判斷。'},
 {id:'s14b',sec:1,sub:'費米估算',type:'fermi-practice',chip:['Bottom-up 練習','green'],title:'換你來：全台灣有幾家便利商店',subtitle:'用費米估算，3 分鐘推導',time:180},
@@ -301,6 +303,7 @@ const D=[
 {id:'s25c',sec:2,sub:'痛點分析',type:'sean-ellis',chip:['40% 法則','blue'],title:'Sean Ellis 的 PMF 測試'},
 {id:'s25d',sec:2,sub:'痛點分析',type:'vitamin-to-painkiller-v2',chip:['包裝策略','purple'],title:'維他命也能包裝成止痛藥'},
 {id:'s25e',sec:2,sub:'痛點分析',type:'hormozi-value',chip:['價值方程式','orange'],title:'Alex Hormozi 的價值公式'},
+{id:'s25f',sec:2,sub:'痛點分析',type:'hormozi-example',chip:['實際應用','green'],title:'用 Canva 拆解價值公式'},
 {id:'s26',sec:2,sub:'痛點分析',type:'reveal-examples',chip:['互動測試','red'],title:'測試你的作品'},
 {id:'s27',sec:2,sub:'痛點分析',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是，是他說它是',bullets:['你以為是痛點，他以為是小困擾：維他命','你以為是功能，他覺得「沒有這個我不行」：止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩，繼續找']},
 {id:'s28',sec:2,sub:'工作坊練習',type:'exercise-persona-v2',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',time:180},
@@ -328,7 +331,7 @@ const D=[
 ];
 // Slide count will vary as we add new slides
 const total=D.length;
-const secStarts={1:0,2:22,3:41};
+const secStarts={1:0,2:24,3:43};
 const secNames={1:'① 底層思維',2:'② 欲求性洞察',3:'③ 存續性發表'};
 let cur=0;
 const timers={};
@@ -654,6 +657,32 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;
       break;}
+    case 'dfv-combinations':{
+      h+=blob('rgba(168,85,247,.1)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const combos=[
+        {combo:'D + F',miss:'V',name:'好產品沒商模',col:'var(--purple)',icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',example:'早期 Twitter — 大家愛用但十年虧損',result:'有愛但沒錢'},
+        {combo:'D + V',miss:'F',name:'有需求做不出',col:'var(--blue)',icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',example:'通用 AI 助理 (2015) — 技術還沒到位',result:'時機未到'},
+        {combo:'F + V',miss:'D',name:'會做能賺沒人要',col:'var(--red)',icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',example:'Google Glass — 技術驚艷但沒人需要',result:'42% 新創死因'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:950px;margin:0 auto;position:relative;z-index:1">`;
+      combos.forEach((c,i)=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:200px">`;
+        h+=`<div class="card-answer" style="background:${c.col}10;border:2px solid ${c.col}40;border-radius:12px;padding:1.2rem">`;
+        h+=`<div style="display:flex;gap:.3rem;margin-bottom:.5rem;color:${c.col}">${c.icon}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${c.col};font-weight:700">${c.combo} <span style="color:var(--mid)">缺</span> ${c.miss}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin:.4rem 0">${c.name}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem">${c.example}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:${c.col};padding:.4rem .6rem;background:${c.col}15;border-radius:6px;display:inline-block">${c.result}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${c.col}20"><div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:800;color:${c.col}">${c.combo}</div><div style="font-size:var(--min-font);color:var(--mid);margin-top:.3rem">缺 ${c.miss}</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:950px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">關鍵：</strong>D + F + V 三個同時成立 = Innovation。今天下午專注在 <strong style="color:var(--red)">D 欲求性</strong>，因為這是 42% 新創死因</div>`;
+      break;}
     case 'failure-modes':{
       h+=blob('rgba(255,32,85,.1)','rgba(255,107,0,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
@@ -805,7 +834,7 @@ function renderSlide(sd,idx){
       h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 5v-.5M12 19.5V19M5 12h-.5M19.5 12H19M7.05 7.05l-.35-.35M17.3 17.3l-.35-.35M7.05 16.95l-.35.35M17.3 6.7l-.35.35"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--purple)">觀察的藝術</span></div>`;
       h+=`<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem;margin-bottom:.8rem">`;
       h+=`<div style="text-align:center;margin-bottom:.8rem"><div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:700;color:var(--ink)">言語 vs 行為</div><div style="font-size:var(--min-font);color:var(--mid);margin-top:.3rem">中間的距離就是洞察</div></div>`;
-      h+=`<div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem"><div style="text-align:center;flex:1"><div style="font-size:2rem">🗣️</div><div style="font-size:var(--min-font);color:var(--mid)">他說的</div></div><div style="flex:1;border-top:2px dashed var(--purple);position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.2);padding:.2rem .6rem;border-radius:4px;font-size:var(--min-label);color:var(--purple);font-weight:700">GAP</div></div><div style="text-align:center;flex:1"><div style="font-size:2rem">👀</div><div style="font-size:var(--min-font);color:var(--mid)">他做的</div></div></div>`;
+      h+=`<div style="display:flex;justify-content:space-between;align-items:center;gap:.5rem"><div style="text-align:center;flex:1"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--mid)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div style="font-size:var(--min-font);color:var(--mid)">他說的</div></div><div style="flex:1;border-top:2px dashed var(--purple);position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:rgba(168,85,247,.2);padding:.2rem .6rem;border-radius:4px;font-size:var(--min-label);color:var(--purple);font-weight:700">GAP</div></div><div style="text-align:center;flex:1"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--mid)" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><div style="font-size:var(--min-font);color:var(--mid)">他做的</div></div></div>`;
       h+=`</div>`;
       h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.75);text-align:center">觀察這個 Gap — 那裡藏著最有價值的洞察</div>`;
       h+=`</div>`;
@@ -1240,12 +1269,12 @@ function renderSlide(sd,idx){
       h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem 1.5rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
       h+=`<div style="text-align:center;margin-bottom:1rem"><div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.3rem">真實案例對比</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink)">同樣想做「待辦清單」</div></div>`;
       h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
-      // Wunderlist (失敗)
+      // Evernote (失敗)
       h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
       h+=`<div class="card-answer" style="background:rgba(255,32,85,.06);border:1.5px solid rgba(255,32,85,.25);border-radius:10px;padding:1rem">`;
-      h+=`<div style="font-size:var(--min-label);color:var(--red);font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Wunderlist</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">功能齊全的待辦清單 App</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">被微軟收購後關閉。市場上有太多類似產品，功能導向無法建立護城河。</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--red);font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Evernote</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">功能齊全的筆記 App</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">從「做最好的筆記工具」出發。功能越加越多，但用戶不知道要用來幹嘛。</div>`;
       h+=`</div>`;
       h+=`<div class="card-mask" style="border-radius:10px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--mid)"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">Bottom-up 案例</div></div>`;
       h+=`</div>`;
@@ -1347,7 +1376,7 @@ function renderSlide(sd,idx){
       h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
       // 好問題
       h+=`<div style="background:rgba(59,130,246,.08);border:2px solid rgba(59,130,246,.3);border-radius:14px;padding:1.4rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem"><span style="font-size:1.5rem">❓</span><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--blue)">好問題</span></div>`;
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--blue)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--blue)">好問題</span></div>`;
       h+=`<div style="display:flex;flex-direction:column;gap:.6rem">`;
       [{q:'上一次遇到這問題是什麼時候？',note:'具體情境'},{q:'你現在怎麼解決這個問題？',note:'現有行為'},{q:'如果沒有這個你會怎麼辦？',note:'痛點強度'}].forEach(item=>{
         h+=`<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:.7rem .9rem"><div style="font-size:var(--min-font);color:var(--ink);font-weight:600">「${item.q}」</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${item.note}</div></div>`;
@@ -1355,7 +1384,7 @@ function renderSlide(sd,idx){
       h+=`</div></div>`;
       // GAP 觀察
       h+=`<div style="background:rgba(168,85,247,.08);border:2px solid rgba(168,85,247,.3);border-radius:14px;padding:1.4rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem"><span style="font-size:1.5rem">👁️</span><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--purple)">觀察的藝術</span></div>`;
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--purple)">觀察的藝術</span></div>`;
       // 可點擊的 GAP 按鈕
       h+=`<div class="unlock-card" id="gap-${sd.id}" onclick="this.classList.toggle('unlocked')" style="min-height:140px">`;
       h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem">`;
@@ -1365,9 +1394,9 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`<div class="card-mask" style="border-radius:10px;background:rgba(168,85,247,.15)">`;
       h+=`<div style="display:flex;justify-content:space-between;align-items:center;width:100%;padding:0 1.5rem">`;
-      h+=`<div style="text-align:center"><div style="font-size:1.8rem">🗣️</div><div style="font-size:var(--min-font);color:var(--mid)">他說的</div></div>`;
+      h+=`<div style="text-align:center"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--mid)" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div style="font-size:var(--min-font);color:var(--mid)">他說的</div></div>`;
       h+=`<div style="padding:.4rem 1rem;background:var(--purple);border-radius:20px;font-size:var(--min-font);font-weight:700;color:#fff;cursor:pointer">點擊看 GAP</div>`;
-      h+=`<div style="text-align:center"><div style="font-size:1.8rem">👀</div><div style="font-size:var(--min-font);color:var(--mid)">他做的</div></div>`;
+      h+=`<div style="text-align:center"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--mid)" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><div style="font-size:var(--min-font);color:var(--mid)">他做的</div></div>`;
       h+=`</div></div>`;
       h+=`</div>`;
       h+=`</div>`;
@@ -1419,9 +1448,9 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
       const funnelExamples=[
-        {level:'Persona',col:'rgba(255,255,255,.5)',product:'Nike',desc:'「喜歡運動的人」',note:'範圍太廣，無法精準溝通'},
-        {level:'ICP',col:'var(--blue)',product:'Lululemon',desc:'「願意為高品質瑜珈服付費的都會女性」',note:'有明確痛點和付費意願'},
-        {level:'HXC',col:'var(--red)',product:'Peloton',desc:'「家裡沒時間去健身房但願意花 $2000 買飛輪的人」',note:'最急、最痛、已在找解法'}
+        {level:'Persona',col:'rgba(255,255,255,.5)',product:'路易莎',desc:'「想喝咖啡的人」',note:'太廣泛，星巴克、7-11 都在競爭'},
+        {level:'ICP',col:'var(--blue)',product:'星巴克',desc:'「願意多花錢買空間體驗的上班族」',note:'不是咖啡最好喝，是「第三空間」'},
+        {level:'HXC',col:'var(--red)',product:'% Arabica',desc:'「會為了一杯咖啡專程去打卡的人」',note:'極致體驗 + 社群傳播力'}
       ];
       h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:750px;margin:0 auto;position:relative;z-index:1">`;
       funnelExamples.forEach((f,i)=>{
@@ -1742,9 +1771,9 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
       const cases=[
-        {school:'Stanford',type:'實體',name:'Airbnb',col:'var(--red)',problem:'設計研討會參加者找不到便宜住宿',solution:'讓有空房的人出租給需要的人',insight:'從「我有技術」改成「誰最需要」'},
-        {school:'Berkeley',type:'虛擬',name:'Dropbox',col:'var(--blue)',problem:'在不同設備同步檔案很麻煩',solution:'一個資料夾，自動同步所有設備',insight:'不做最難的，做最痛的'},
-        {school:'Harvard',type:'O2O',name:'Warby Parker',col:'var(--purple)',problem:'買眼鏡要去實體店又貴又麻煩',solution:'線上選 5 副免費試戴，喜歡再買',insight:'結合線上便利與線下體驗'}
+        {school:'Stanford',type:'SaaS',name:'Notion',col:'var(--red)',problem:'團隊文件散落各處，協作混亂',solution:'All-in-one workspace，一個地方管理所有知識',insight:'從「做更好的工具」改成「解決協作痛點」'},
+        {school:'Berkeley',type:'AI 工具',name:'Canva',col:'var(--blue)',problem:'非設計師做不出專業視覺',solution:'模板 + 拖拉介面，人人都能設計',insight:'不是教人設計，是讓設計變簡單'},
+        {school:'Harvard',type:'消費品',name:'Oatly',col:'var(--purple)',problem:'想喝植物奶但選擇無聊',solution:'燕麥奶 + 潮牌定位 + 咖啡店通路',insight:'把「健康選擇」變成「生活態度」'}
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:950px;margin:0 auto;position:relative;z-index:1">`;
       cases.forEach((c,i)=>{
@@ -1846,6 +1875,43 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:800px;margin:0 auto;position:relative;z-index:1"><strong style="color:var(--yellow)">MECE 的目的：</strong>把大問題拆成小問題，每個小問題都可以獨立分析、不重複計算</div>`;
       break;}
+    case 'mece-game-v2':{
+      h+=blob('rgba(251,191,36,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">猜完再點擊看答案</p>`;
+      h+=`</div>`;
+      const meceQuiz=[
+        {q:'咖啡客群分類',options:['學生 / 上班族 / 退休族','早上喝 / 下午喝 / 晚上喝','買外帶 / 內用'],answer:1,reason:'學生和上班族可能重疊（打工學生），時間切法才是 MECE',isMece:[false,true,false]},
+        {q:'App 用戶流失原因',options:['UI 太醜 / 功能不好用 / 載入太慢','發現問題前 / 發現問題後 / 已解決問題','免費用戶 / 付費用戶'],answer:0,reason:'階段切法（發現問題）會重疊，體驗問題切法不重疊',isMece:[true,false,false]},
+        {q:'市場推廣管道',options:['線上 / 線下','社群 / 口碑 / 廣告','IG / FB / 抖音 / 小紅書'],answer:0,reason:'線上/線下完全互斥且窮盡，社群/口碑/廣告會重疊',isMece:[true,false,false]}
+      ];
+      h+=`<div style="display:flex;flex-direction:column;gap:1rem;max-width:850px;margin:0 auto;position:relative;z-index:1">`;
+      meceQuiz.forEach((quiz,qi)=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:auto">`;
+        h+=`<div class="card-answer" style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.2rem">`;
+        h+=`<div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:.8rem">${quiz.q}</div>`;
+        h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.8rem">`;
+        quiz.options.forEach((opt,oi)=>{
+          const isMece=quiz.isMece[oi];
+          h+=`<div style="padding:.6rem .8rem;border-radius:8px;text-align:center;background:${isMece?'rgba(34,197,94,.15)':'rgba(255,32,85,.1)'};border:1px solid ${isMece?'rgba(34,197,94,.3)':'rgba(255,32,85,.2)'}">`;
+          h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.3rem">${opt}</div>`;
+          h+=`<div style="font-size:var(--min-label);color:${isMece?'var(--green)':'var(--red)'}"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle">${isMece?'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>':'<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>'}</svg> ${isMece?'MECE':'不是'}</div>`;
+          h+=`</div>`;
+        });
+        h+=`</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);padding:.6rem;background:rgba(251,191,36,.1);border-radius:6px"><strong style="color:var(--yellow)">解釋：</strong>${quiz.reason}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:rgba(251,191,36,.15);flex-direction:row;padding:1rem 1.5rem;justify-content:space-between">`;
+        h+=`<div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${quiz.q}</div>`;
+        h+=`<div style="display:flex;gap:.5rem">`;
+        quiz.options.forEach((opt,oi)=>{h+=`<span style="padding:.3rem .6rem;background:rgba(255,255,255,.1);border-radius:4px;font-size:var(--min-label)">${oi+1}</span>`;});
+        h+=`</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
     case 'mece-tree':{
       h+=blob('rgba(251,191,36,.08)','rgba(255,107,0,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
@@ -1909,8 +1975,16 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
       h+=`</div>`;
       h+=`<div style="max-width:750px;margin:0 auto;position:relative;z-index:1">`;
+      // 明確的步驟指示
+      h+=`<div style="background:rgba(255,107,0,.1);border:2px solid rgba(255,107,0,.4);border-radius:12px;padding:1.2rem;margin-bottom:1rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--orange);margin-bottom:.5rem">現在要做什麼？</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink);line-height:1.8">`;
+      h+=`<strong>Step 1</strong>：打開你今天早上的作品<br>`;
+      h+=`<strong>Step 2</strong>：試著回答下面四個問題<br>`;
+      h+=`<strong>Step 3</strong>：和旁邊的人<strong>互相問對方</strong>，看他能不能清楚回答`;
+      h+=`</div></div>`;
       h+=`<div style="background:rgba(255,32,85,.06);border:2px solid rgba(255,32,85,.3);border-radius:12px;padding:1.5rem;margin-bottom:1rem">`;
-      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:1rem;text-align:center">用麥肯錫六元素檢查你的作品</div>`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:1rem;text-align:center">麥肯錫六元素的四個核心問題</div>`;
       h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">`;
       [{icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>',q:'Scope',desc:'這次你只做什麼？不做什麼？',col:'var(--red)'},
        {icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>',q:'Constraints',desc:'時間、預算、人力的限制？',col:'var(--orange)'},
@@ -1922,9 +1996,9 @@ function renderSlide(sd,idx){
         h+=`</div>`;
       });
       h+=`</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid);text-align:center">3 分鐘，和旁邊的人互相檢查：你能回答這四個問題嗎？</div>`;
       h+=`</div>`;
       h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      h+=`<div style="text-align:center;margin-top:.8rem;font-size:var(--min-font);color:var(--mid)">如果對方答不出來，就是還沒想清楚的地方</div>`;
       h+=`</div>`;
       break;}
     case 'funnel-v3-examples':{
@@ -2010,12 +2084,12 @@ function renderSlide(sd,idx){
       h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個產品，猜猜它是維他命還是止痛藥</p>`;
       h+=`</div>`;
       const products=[
-        {name:'Slack',answer:'止痛藥',reason:'解決「訊息散落各處、找不到」的焦慮',isVitamin:false},
-        {name:'Evernote',answer:'維他命',reason:'有很好，沒有用其他筆記也行',isVitamin:true},
-        {name:'Uber',answer:'止痛藥',reason:'「現在需要一台車」是真實的急迫痛點',isVitamin:false},
+        {name:'Notion',answer:'止痛藥',reason:'解決「文件散落各處、協作混亂」的焦慮，估值 100 億',isVitamin:false},
+        {name:'Threads',answer:'維他命',reason:'有 IG 就夠了，沒有急迫需求切換',isVitamin:true},
+        {name:'ChatGPT',answer:'止痛藥',reason:'「寫不出來、查不到」的即時痛點，用了回不去',isVitamin:false},
         {name:'Duolingo',answer:'維他命',reason:'學語言是長期目標，沒有急迫性',isVitamin:true},
-        {name:'Zoom',answer:'止痛藥',reason:'疫情中「必須遠端開會」是剛需',isVitamin:false},
-        {name:'Headspace',answer:'維他命',reason:'冥想是 nice-to-have，多數人不會堅持',isVitamin:true}
+        {name:'Uber Eats',answer:'止痛藥',reason:'「餓了但不想出門」是真實的即時痛點',isVitamin:false},
+        {name:'BeReal',answer:'維他命',reason:'社交壓力不夠痛，多數人玩幾天就放棄',isVitamin:true}
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
       products.forEach((p,i)=>{
@@ -2050,7 +2124,7 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       // 更多案例
       h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
-      [{brand:'Red Bull',from:'能量飲料',to:'「給你翅膀」克服疲憊',col:'var(--orange)'},{brand:'Slack',from:'聊天工具',to:'「讓 Email 消失」解決焦慮',col:'var(--blue)'}].forEach(ex=>{
+      [{brand:'Canva',from:'設計工具',to:'「讓你 10 分鐘做出專業簡報」',col:'var(--cyan)'},{brand:'ChatGPT',from:'聊天機器人',to:'「讓你 1 分鐘寫完要想 1 小時的東西」',col:'var(--green)'}].forEach(ex=>{
         h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:auto">`;
         h+=`<div class="card-answer" style="background:${ex.col}12;border:1px solid ${ex.col}30;border-radius:8px;padding:.8rem 1rem">`;
         h+=`<div style="font-weight:700;color:var(--ink);margin-bottom:.3rem">${ex.brand}</div>`;
@@ -2084,6 +2158,46 @@ function renderSlide(sd,idx){
       h+=`<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem"><div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.3rem">高價值範例</div><div style="font-size:var(--min-font);color:var(--mid)">「30 天學會英文」比「2 年學會英文」有價值，因為時間更短</div></div>`;
       h+=`<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem"><div style="font-size:var(--min-font);font-weight:700;color:var(--orange);margin-bottom:.3rem">應用到你的作品</div><div style="font-size:var(--min-font);color:var(--mid)">增大分子（結果更好、更可信）、減小分母（更少付出、更快見效）</div></div>`;
       h+=`</div></div>`;
+      break;}
+    case 'hormozi-example':{
+      h+=blob('rgba(34,197,94,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      // Product Header
+      h+=`<div style="display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.5rem">`;
+      h+=`<div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#00C4CC,#7B2FF7);display:flex;align-items:center;justify-content:center">`;
+      h+=`<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zm-9 9h7v7H4v-7zm12.5 2.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zm0 4a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:700;color:var(--ink)">Canva：設計給非設計師</div>`;
+      h+=`</div>`;
+      // Four quadrants
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
+      const quadrants=[
+        {label:'Dream 夢想結果',value:'做出專業級設計作品',detail:'「我的 IG 貼文看起來像設計師做的」',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',arrow:'↑',arrowText:'最大化'},
+        {label:'Likelihood 成功機率',value:'模板 + 拖拉 = 一定做得出來',detail:'「有 50 萬個專業模板，我只需要換字」',col:'var(--blue)',icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',arrow:'↑',arrowText:'最大化'},
+        {label:'Sacrifice 犧牲成本',value:'不用學 PS、不用付大筆軟體費',detail:'「免費版就很夠用，不用學 Adobe」',col:'var(--orange)',icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',arrow:'↓',arrowText:'最小化'},
+        {label:'Time 所需時間',value:'5 分鐘做好一張專業海報',detail:'「以前要花 2 小時，現在 5 分鐘」',col:'var(--red)',icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',arrow:'↓',arrowText:'最小化'}
+      ];
+      quadrants.forEach(q=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:140px">`;
+        h+=`<div class="card-answer" style="background:${q.col}12;border:2px solid ${q.col}40;border-radius:12px;padding:1rem">`;
+        h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">`;
+        h+=`<span style="color:${q.col}">${q.icon}</span>`;
+        h+=`<span style="font-size:var(--min-label);font-weight:700;color:${q.col}">${q.label}</span>`;
+        h+=`<span style="margin-left:auto;font-size:.75rem;padding:.15rem .4rem;border-radius:4px;background:${q.col}30;color:${q.col};font-weight:700">${q.arrow} ${q.arrowText}</span>`;
+        h+=`</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--ink);font-weight:600;margin-bottom:.3rem">${q.value}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${q.detail}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${q.col}25"><div style="color:${q.col}">${q.icon}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">${q.label}</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      // Bottom summary
+      h+=`<div class="tip-box" style="margin-top:1rem;text-align:center"><strong style="color:var(--purple)">Canva 的勝出公式：</strong>把設計的「結果」最大化，把學習的「門檻」最小化</div>`;
+      h+=`</div>`;
       break;}
     case 'exercise-persona-v2':{
       h+=blob('rgba(255,32,85,.08)','rgba(255,107,0,.06)');
