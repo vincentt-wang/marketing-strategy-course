@@ -77,7 +77,7 @@ svg{overflow:visible}
 .reveal-wrap{position:relative;margin-top:1.2rem;border-radius:14px;overflow:hidden;cursor:pointer;user-select:none}
 .reveal-answer{background:linear-gradient(135deg,#1a0f2e,#0d1a2e);border:1.5px solid rgba(168,85,247,.3);border-radius:14px;padding:1.8rem 2.2rem;font-size:clamp(.95rem,1.5vw,1.1rem);line-height:1.75;color:rgba(255,255,255,.85)}
 .reveal-lock{position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,#0d0d0d 60%,#1a1a2e);border:1.5px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;transition:opacity .45s ease,transform .45s ease;z-index:3;padding:2rem;text-align:center}
-.reveal-lock-icon{font-size:2.2rem;animation:lock-pulse 2.5s ease-in-out infinite}
+.reveal-lock-icon{color:rgba(255,255,255,.5);animation:lock-pulse 2.5s ease-in-out infinite}
 .reveal-lock-q{font-size:clamp(1rem,1.7vw,1.3rem);font-weight:600;color:var(--ink);max-width:560px;line-height:1.6}
 .reveal-lock-hint{font-size:.62rem;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase}
 .conf-stamp{position:absolute;top:.8rem;right:1rem;font-size:.58rem;font-weight:900;letter-spacing:.18em;color:rgba(255,32,85,.5);border:2px solid rgba(255,32,85,.35);border-radius:4px;padding:.2em .6em;text-transform:uppercase;transform:rotate(-4deg);z-index:4}
@@ -89,7 +89,7 @@ svg{overflow:visible}
 .mrev-grid.cols-2{grid-template-columns:1fr 1fr}
 .mrev-grid.cols-3{grid-template-columns:1fr 1fr 1fr}
 .mrev-grid.cols-4{grid-template-columns:1fr 1fr 1fr 1fr}
-.unlock-card{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;user-select:none;min-height:130px}
+.unlock-card{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;user-select:none;min-height:140px}
 .unlock-card .card-answer{border-radius:12px;padding:1.3rem 1.4rem;height:100%;display:flex;flex-direction:column;gap:.5rem}
 .unlock-card .card-mask{position:absolute;inset:0;border-radius:12px;background:#0d0d14;border:1.5px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;transition:opacity .4s ease,transform .4s var(--ease-back);z-index:2;padding:1rem;text-align:center;overflow:hidden}
 .unlock-card .card-mask::after{content:'';position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);animation:shimmer 3s ease-in-out infinite}
@@ -152,20 +152,59 @@ svg{overflow:visible}
 .timer-reset-btn{background:transparent;color:var(--mid);border:1.5px solid var(--line);border-radius:8px;padding:.7rem 1.8rem;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .2s}
 .timer-reset-btn:hover{border-color:var(--orange);color:var(--orange)}
 
-/* PROFILE CARDS */
-.profile-card{border-radius:12px;overflow:hidden;cursor:pointer;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.1);transition:border-color .25s,transform .25s var(--ease-back)}
-.profile-card:hover{border-color:rgba(255,255,255,.22);transform:translateY(-2px)}
-.profile-card.open{border-color:rgba(255,107,0,.4);transform:none}
-.profile-card .pc-front{padding:1.1rem 1.3rem;display:flex;align-items:center;gap:.9rem}
-.profile-card .pc-icon{font-size:1.7rem;flex-shrink:0}
-.profile-card .pc-front-label{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.18rem}
-.profile-card .pc-front-title{font-size:clamp(.92rem,1.55vw,1.15rem);font-weight:700;color:var(--ink)}
-.profile-card .pc-toggle{margin-left:auto;font-size:.85rem;opacity:.3;transition:opacity .2s,transform .3s}
-.profile-card.open .pc-toggle{opacity:.75;transform:rotate(90deg)}
-.profile-card .pc-back{max-height:0;overflow:hidden;transition:max-height .4s var(--ease-smooth),opacity .32s ease;opacity:0}
-.profile-card.open .pc-back{max-height:200px;opacity:1}
-.profile-card .pc-back-content{padding:.15rem 1.3rem 1.1rem;font-size:clamp(.8rem,1.28vw,.92rem);line-height:1.7;color:var(--mid);border-top:1px solid rgba(255,255,255,.06)}
-.profile-card .pc-back-content strong{color:var(--ink)}
+/* PROFILE — centered layout with slide-up photos */
+.profile-wrap{display:flex;flex-direction:column;align-items:center;gap:1.2rem;text-align:center;width:100%}
+.profile-header{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.profile-cards-row{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;width:100%;max-width:900px}
+.profile-card{border-radius:14px;cursor:pointer;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.1);transition:all .3s var(--ease-back);width:280px;text-align:left;flex-shrink:0;position:relative;overflow:hidden}
+.profile-card:hover{border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.05);transform:translateY(-3px)}
+.profile-card.pc-open{border-color:rgba(255,107,0,.6);background:rgba(255,107,0,.08)}
+.profile-card .pc-front{padding:.9rem 1.15rem;display:flex;align-items:center;gap:.8rem}
+.profile-card .pc-icon{width:2rem;height:2rem;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.profile-card .pc-icon svg{width:100%;height:100%}
+.profile-card .pc-front-label{font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.12rem}
+.profile-card .pc-front-title{font-size:clamp(.88rem,1.4vw,1rem);font-weight:700;color:var(--ink);line-height:1.3}
+.profile-card .pc-arrow{margin-left:auto;font-size:1rem;color:rgba(255,255,255,.25);transition:transform .35s var(--ease-back),color .25s;flex-shrink:0}
+.profile-card.pc-open .pc-arrow{transform:rotate(90deg);color:var(--orange)}
+/* slide-up photo gallery below all cards */
+.profile-gallery{width:100%;max-width:900px;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:.5rem;min-height:0;overflow:hidden}
+.profile-photo-slot{width:280px;height:0;opacity:0;overflow:hidden;border-radius:14px;transition:height .45s var(--ease-back),opacity .35s ease,transform .45s var(--ease-back);transform:translateY(30px);position:relative}
+.profile-photo-slot.visible{height:260px;opacity:1;transform:translateY(0)}
+.profile-photo-slot img{width:100%;height:100%;object-fit:cover;display:block}
+.profile-photo-slot .photo-cap{position:absolute;bottom:0;left:0;right:0;padding:.6rem .8rem;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:.72rem;color:rgba(255,255,255,.9);line-height:1.4}
+
+/* TRIAD — three interactive orbs */
+.triad-wrap{display:flex;align-items:stretch;gap:1rem;margin-top:1.1rem;flex-wrap:nowrap}
+.triad-orb{flex:1;border-radius:16px;border:1.5px solid;cursor:pointer;user-select:none;overflow:hidden;transition:transform .3s var(--ease-back),box-shadow .35s ease,border-color .3s ease}
+.triad-orb:not(.to-open):hover{transform:translateY(-4px)}
+.triad-orb.to-open{transform:translateY(-3px)}
+.triad-orb-front{padding:1.6rem 1.3rem 1.3rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.6rem}
+.triad-orb-circle{width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto .15rem;position:relative;flex-shrink:0;transition:box-shadow .35s ease}
+.triad-orb.to-open .triad-orb-circle{box-shadow:0 0 28px rgba(255,255,255,.1)}
+.triad-orb-en{font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.08rem;transition:opacity .2s}
+.triad-orb-zh{font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:800;line-height:1.1}
+.triad-orb-tagline{font-size:clamp(.76rem,1.22vw,.88rem);color:var(--mid);line-height:1.55}
+.triad-orb-hint{font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.28;margin-top:.25rem;transition:opacity .2s}
+.triad-orb.to-open .triad-orb-hint{opacity:0}
+/* expanded detail panel */
+.triad-detail{max-height:0;overflow:hidden;transition:max-height .45s var(--ease-smooth),opacity .32s ease;opacity:0;border-top:1px solid rgba(255,255,255,.07)}
+.triad-orb.to-open .triad-detail{max-height:420px;opacity:1}
+.triad-detail-inner{padding:1rem 1.3rem 1.2rem;display:flex;flex-direction:column;gap:.6rem}
+.triad-det-row{display:flex;gap:.6rem;align-items:flex-start}
+.triad-det-tag{font-size:.5rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.2em .6em;border-radius:4px;color:#fff;white-space:nowrap;margin-top:.18rem;flex-shrink:0}
+.triad-det-txt{font-size:clamp(.78rem,1.25vw,.88rem);line-height:1.68;color:rgba(255,255,255,.78)}
+.triad-det-txt strong{color:var(--ink)}
+/* photo panel — slides in from right */
+.profile-photo-panel{width:260px;flex-shrink:0;position:relative;overflow:hidden}
+.ppp-inner{display:flex;flex-direction:column;gap:.6rem;opacity:0;transform:translateX(28px);transition:opacity .38s ease,transform .38s var(--ease-back);pointer-events:none}
+.ppp-inner.visible{opacity:1;transform:none;pointer-events:all}
+.ppp-main{width:100%;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.ppp-main img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s ease}
+.ppp-thumbs{display:flex;gap:.45rem}
+.ppp-thumb{width:72px;height:52px;border-radius:7px;object-fit:cover;cursor:pointer;border:2px solid transparent;opacity:.5;transition:opacity .2s,border-color .2s,transform .2s var(--ease-back);flex-shrink:0}
+.ppp-thumb:hover{opacity:.85;transform:translateY(-2px)}
+.ppp-thumb.active{opacity:1;border-color:var(--orange)}
+.ppp-cap{font-size:.7rem;color:var(--mid);line-height:1.55}
 
 /* FIXED CHROME */
 #prog{position:fixed;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.06);z-index:900}
@@ -205,66 +244,67 @@ svg{overflow:visible}
 <script>
 const D=[
 {id:'s01',sec:1,sub:'開場',type:'cover',title:'策略思維工作坊',sub2:'需求探索、價值提案與成果表達　·　台北大學　Day 2　·　Vincent　14:00–16:00'},
-{id:'s02',sec:1,sub:'開場',type:'big-quote',chip:['先問一個問題','red'],quote:'你做的東西，<br><span class="g-red">有人真的需要嗎？</span>',sub2:'不是有人說讚。是有人願意花時間、注意力、甚至金錢去換取它。'},
-{id:'s03',sec:1,sub:'開場',type:'profile',chip:['猜猜我是誰','white']},
-{id:'s04',sec:1,sub:'開場',type:'dark',chip:['今天的規則','white'],title:'幾件事先說',bullets:['隨時舉手、打斷、反駁——我喜歡被打斷','可以拍照，但最好先消化','結束前有實作：你要上台講 30 秒','有問題就說，沒問題可以假裝有']},
-{id:'s05',sec:1,sub:'創新三元',type:'venn',chip:['創新三元框架','blue'],title:'創新需要三個條件同時成立'},
-{id:'s06',sec:1,sub:'創新三元',type:'multi-reveal',chip:['互動提問','red'],title:'你覺得，哪個最難？',question:'一個新產品，最容易在哪個條件上死掉？',hint:'點擊每個選項，看各自的死法',cards:[{num:'A',q:'技術做不出來？',label:'可行性失敗',color:'var(--blue)',title:'技術做不出來',body:'佔新創失敗原因第二位。但對大學生來說，技術通常不是問題。'},{num:'B',q:'市場根本不要？',label:'欲求性失敗',color:'var(--red)',title:'市場根本不想要',body:'CB Insights：42% 的新創失敗原因是「市場不需要」。最常見的死法。'},{num:'C',q:'賺不到錢？',label:'存續性失敗',color:'var(--green)',title:'找不到商業模式',body:'做出來了、有人要，但就是沒辦法靠它活下去。'}]},
-{id:'s07',sec:1,sub:'創新三元',type:'big-quote',chip:['關鍵診斷','orange'],quote:'多數作品死在<br><span class="g-red">欲求性</span>。<br>不是設計不夠好。',sub2:'一開始就沒問：誰的什麼痛？'},
-{id:'s08',sec:1,sub:'底層思維',type:'compare',chip:['兩種思維方式','purple'],title:'你現在是哪種腦？',left:{icon:'🔧',label:'工具腦（Bottom-up）',items:['先做出東西','再想能賣給誰','沒人買單','結論：設計要再改']},right:{icon:'🎯',label:'戰略腦（Top-down）',items:['先定義誰在痛、痛什麼','再決定說什麼、怎麼說','讓設計服務目的','每個選擇都有理由']}},
-{id:'s09',sec:1,sub:'設計思維',type:'dt-steps',chip:['設計思維','cyan'],title:'先理解人，才設計物'},
-{id:'s10',sec:1,sub:'設計思維',type:'multi-reveal',chip:['互動挑戰','red'],title:'你今天早上跳過了哪幾步？',question:'設計思考五步驟，你早上實際做了哪幾個？',hint:'點開每一步，看你有沒有真的做到',cards:[{num:'1',q:'Empathize：你訪談過用戶嗎？',label:'最多人跳過',color:'var(--red)',title:'大多數人跳過這步',body:'直接進 Prototype，把自己的想像當用戶的需求。這是最常見的設計思維誤用。'},{num:'2',q:'Define：你定義過問題嗎？',label:'最多人跳過',color:'var(--orange)',title:'「問題」才是設計的起點',body:'好的問題定義：「如何幫助 ___ 解決 ___，讓他能夠 ___」。'},{num:'3',q:'Prototype：你做了什麼？',label:'你做到了',color:'var(--blue)',title:'你做到了這步',body:'早上用 Canva 做圖 = Prototype。這不是起點，是第四步。'}]},
-{id:'s11',sec:1,sub:'設計思維',type:'dark',chip:['同理心怎麼做','blue'],title:'了解用戶，不靠<span class="g-blue">猜測</span>',bullets:['問「上一次遇到這個問題是什麼時候」——不要問「你會不會想要」','觀察他現在怎麼解決這個問題（不管多土）','注意他說不清楚的那件事：那裡有最大的機會','訪談 5 個真實的人，比問卷 500 人更有用'],footer:'「你會用嗎？」是爛問題。「上次你怎麼處理這件事？」才是好問題。'},
-{id:'s12',sec:1,sub:'戰略工具',type:'step-reveal',chip:['MECE','yellow'],title:'把模糊想法切成<span class="g-orange">清楚結構</span>',intro:'MECE = 相互獨立、完全窮盡。麥肯錫的標配工具。',steps:[{num:'①',q:'你說「受眾是年輕人」，這是 MECE 嗎？',answer:'不是。「年輕人」沒有邊界，18 歲跟 30 歲的問題完全不同。<strong>相互獨立做不到。</strong>'},{num:'②',q:'那要怎麼切才對？',answer:'按「有這個痛 vs 沒有這個痛」切。或按「付費意願高 vs 低」切。每個分類不重疊、加起來涵蓋全局。'},{num:'③',q:'MECE 的真正目的是什麼？',answer:'不是分類完整。是找到「<strong>最值得說話的那群人</strong>」，讓訊息有穿透力。'}]},
-{id:'s13',sec:1,sub:'費米估算',type:'fermi-game',chip:['費米估算','cyan'],title:'全台灣一天賣出幾杯手搖飲？',subtitle:'先猜一個數字，再跟我一起推導。'},
-{id:'s14',sec:1,sub:'費米估算',type:'dark',chip:['為什麼重要','cyan'],title:'數字讓判斷<br>可以被<span class="g-blue">討論</span>',bullets:['沒有數字：「我覺得這個市場很大」','有數字：「台灣手搖飲每年約 660 億，只需要拿下 0.1%」','數字不需要百分百精確，需要有邏輯','Pitch 從感覺升格為判斷的關鍵'],footer:'商業提案的核心能力：在資訊不完整時，做出有邏輯的數字判斷。'},
-{id:'s15',sec:1,sub:'Section 1 結尾',type:'dark',chip:['Section 1 總結','white'],title:'做圖之前，<br>先確認<span class="g-orange">三件事</span>',bullets:['受眾是誰？（不是「所有人」）','他有什麼真實的痛？（止痛藥，不是維他命）','為什麼你的設計能幫到他？（解法，不是裝飾）'],footer:'這三個問題的答案，決定了你的設計值不值得被看見。'},
+{id:'s02',sec:1,sub:'開場',type:'big-quote',chip:['先問一個問題','red'],quote:'你做的東西<br><span class="g-red">有人真的需要嗎</span>',sub2:'不是有人說讚。是有人願意花時間、注意力、甚至金錢去換取它。'},
+{id:'s03',sec:1,sub:'開場',type:'profile-hero',chip:['關於講者','white']},
+{id:'s04',sec:1,sub:'開場',type:'rules',chip:['Before We Start','white'],title:'Two things.',rules:['Feel free to take photos — <span style="color:rgba(255,255,255,.45)">今天不提供講義</span>','Questions are always welcome — <span style="color:rgba(255,255,255,.45)">隨時舉手</span>'],footer:'Notes are optional. Thinking is not.'},
+{id:'s05',sec:1,sub:'創新三元',type:'triad-v2',chip:['Innovation Triad','blue'],title:'創新需要三個條件同時成立'},
+{id:'s06',sec:1,sub:'創新三元',type:'failure-modes',chip:['三種死法','red'],title:'新產品最常死在哪裡'},
+{id:'s07',sec:1,sub:'創新三元',type:'big-quote',chip:['關鍵診斷','orange'],quote:'多數作品死在<br><span class="g-red">欲求性</span>',sub2:'不是設計不夠好，是一開始就沒問：誰在痛？痛什麼？'},
+{id:'s08',sec:1,sub:'底層思維',type:'topdown-bottomup',chip:['兩種思維','purple'],title:'Top-down vs Bottom-up'},
+{id:'s08b',sec:1,sub:'底層思維',type:'mckinsey-six',chip:['麥肯錫戰略六元素','blue'],title:'Top-down 思維的六個錨點'},
+{id:'s09',sec:1,sub:'設計思維',type:'dt-loop',chip:['Design Thinking','cyan'],title:'設計思維是一個循環'},
+{id:'s10',sec:1,sub:'設計思維',type:'insight-types',chip:['挖掘洞察','orange'],title:'如何從訪談中挖出 Insight'},
+{id:'s11',sec:1,sub:'設計思維',type:'dark',chip:['提問的藝術','blue'],title:'好問題讓洞察浮現',bullets:['問「上一次遇到這個問題是什麼時候」而非「你會不會想用」','觀察他現在怎麼解決這個問題','注意他說不清楚的地方——那裡藏著最大的機會','訪談 5 個真實的人，比問卷 500 人更有價值'],footer:'開放式問題才能挖到真正的痛點。封閉式問題只會得到你想聽的答案。'},
+{id:'s12',sec:1,sub:'戰略工具',type:'mece-game',chip:['MECE 拆解','yellow'],title:'把模糊想法切成清楚結構'},
+{id:'s13',sec:1,sub:'費米估算',type:'fermi-game',chip:['費米估算','cyan'],title:'全台灣一天賣出幾杯手搖飲',subtitle:'先猜一個數字，再一起推導'},
+{id:'s14',sec:1,sub:'費米估算',type:'dark',chip:['為什麼重要','cyan'],title:'數字讓判斷可以被討論',bullets:['沒有數字：「我覺得這個市場很大」','有數字：「台灣手搖飲年市場約 660 億，只需拿下 0.1%」','數字不需要百分百精確，需要有邏輯','Pitch 從感覺升格為判斷的關鍵'],footer:'商業提案的核心能力：在資訊不完整時，做出有邏輯的數字判斷。'},
+{id:'s15',sec:1,sub:'Section 1 結尾',type:'topdown-exercise',chip:['實戰練習','red'],title:'Top-down 思維檢核',timerLabel:'3 分鐘',time:180},
 {id:'s16',sec:1,sub:'Section 1 結尾',type:'roadmap',chip:['下午路線圖','white'],title:'接下來兩小時'},
-{id:'s17',sec:1,sub:'Section 1 結尾',type:'section',chip:['Section 1 結尾','white'],title:'帶著戰略腦，<br>進入實戰。',sub2:'Section ②：欲求性 — 你在對誰說話？'},
+{id:'s17',sec:1,sub:'Section 1 結尾',type:'section',chip:['Section 1 結尾','white'],title:'帶著戰略腦<br>進入實戰',sub2:'Section 2：欲求性 — 你在對誰說話？'},
 
-{id:'s18',sec:2,sub:'開場',type:'section-cover',secNum:'②',secTitle:'欲求性',secEn:'Desirability',sub2:'你在對誰說話？'},
-{id:'s19',sec:2,sub:'開場',type:'big-quote',chip:['最常見的錯誤','red'],quote:'「我的受眾<br><span class="g-red">是所有人。</span>」',sub2:'每次聽到這句話，我知道這個東西大概賣不起來。'},
-{id:'s20',sec:2,sub:'開場',type:'dark',chip:['為什麼不能討好所有人','orange'],title:'對所有人說話，<br>等於對任何人都沒說',bullets:['訊息越泛，共鳴越淺','精準定位 1,000 個有痛的人，比觸及 100,000 個無感的人有效','每一個「也可以」，都是對核心受眾的稀釋'],footer:'設計，是為那個「最需要」的人而做的。'},
-{id:'s21',sec:2,sub:'Persona→HXC',type:'step-reveal',chip:['三層受眾收斂','blue'],title:'Persona → ICP → <span class="g-red">HXC</span>',intro:'每一層都在縮小範圍，找最值得說話的那個人。',steps:[{num:'①',q:'Persona 是什麼？',answer:'你對目標用戶的整體輪廓。<strong>不是統計數字，是一個有生命的原型人物。</strong> 他多大、做什麼、每天在擔心什麼。'},{num:'②',q:'ICP 是什麼？從 Persona 再收斂一層。',answer:'Ideal Customer Profile — 在所有 Persona 裡，<strong>最有明確痛點、最有行動意願</strong>的那群。不是平均值，是你最想服務的。'},{num:'③',q:'HXC 是什麼？最難找，但最重要。',answer:'High Expectation Consumer — 在 ICP 裡，<strong>最急、最痛、最會主動找解法</strong>的那個人。他的反應代表市場的邊界。'}]},
-{id:'s22',sec:2,sub:'Persona→HXC',type:'funnel',chip:['三層收斂視覺化','purple'],title:'點擊每一層，看看誰在那裡'},
-{id:'s23',sec:2,sub:'Persona→HXC',type:'multi-reveal',chip:['互動練習','red'],title:'EmoTree 的三層受眾長什麼樣？',question:'猜猜看，EmoTree 的 Persona / ICP / HXC 各是誰',hint:'點開每一格看答案',cards:[{num:'P',q:'Persona 是誰？',label:'Persona',color:'rgba(255,255,255,.55)',title:'18–35 歲，城市工作者或學生',body:'有情緒壓力、不排斥科技、偶爾心情不好但不認為自己「生病」。'},{num:'I',q:'ICP 是誰？',label:'ICP',color:'var(--blue)',title:'有情緒困擾，但不想諮商',body:'費用高（每次 2,000–3,500）或 stigma 讓他卻步。知道自己需要幫助，但沒有行動。'},{num:'H',q:'HXC 是誰？',label:'HXC',color:'var(--red)',title:'晚上腦袋停不下來、睡前焦慮',body:'在 App Store 搜過「情緒」「焦慮」，試過冥想但覺得無效。在主動找替代方案。'}]},
-{id:'s24',sec:2,sub:'Persona→HXC',type:'big-quote',chip:['關鍵問題','red'],quote:'沒有這個，<br>他明天<br><span class="g-red">會很痛。</span>',sub2:'那個「他」，就是你的 HXC。'},
-{id:'s25',sec:2,sub:'痛點分析',type:'compare',chip:['痛點測試','orange'],title:'你的作品是維他命，還是止痛藥？',left:{icon:'💊',label:'維他命（Nice to Have）',items:['有的話不錯','沒有也過得去','購買動機弱','難以建立急迫性']},right:{icon:'🩹',label:'止痛藥（Must Have）',items:['沒有就真的很痛','用戶主動在找','決策快、行動快','高轉換、高黏著']}},
-{id:'s26',sec:2,sub:'痛點分析',type:'reveal',chip:['互動測試','red'],title:'測試你的作品',question:'如果你的受眾明天看不到這張圖，\n他的哪個問題會變得更難解決？\n\n（說說看，我點名）',answer:'止痛藥的四個條件：\n✓ 他有明確可辨認的痛\n✓ 他現在找不到好解法\n✓ 你的東西讓他的痛減輕\n✓ 他願意花注意力或金錢換取\n\n四個都成立 → 止痛藥。否則繼續找。'},
-{id:'s27',sec:2,sub:'痛點分析',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是，<br>是<span class="g-orange">他</span>說它是',bullets:['你以為是痛點，他以為是小困擾 → 維他命','你以為是功能，他覺得「沒有這個我不行」→ 止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩 → 繼續找']},
-{id:'s28',sec:2,sub:'EmoTree',type:'dark',chip:['案例：EmoTree','green'],title:'用真實案例走一遍框架',bullets:['EmoTree — 情緒陪伴 AI','不是教你做一樣的東西','是讓你看到「這種思維方式」長什麼樣']},
-{id:'s29',sec:2,sub:'EmoTree',type:'dark',chip:['EmoTree 是什麼','green'],title:'情緒陪伴 AI，<br>不是<span class="g-red">心理諮商</span>',bullets:['定位在諮商之前的空白地帶','Support First → Action Later','核心：把說不清楚的感覺，說清楚'],footer:'他不需要諮商，但他需要被聽見。'},
-{id:'s30',sec:2,sub:'EmoTree',type:'stat',chip:['市場問題','red'],title:'每 8 人有 1 人有身心困擾',stat:'1 / 8',stats3:[{n:'280萬',d:'台灣身心疾患需求人口',c:'var(--red)'},{n:'極低',d:'心理諮商滲透率',c:'var(--mid)'},{n:'3大障礙',d:'費用高 · stigma · 不知道怎麼開口',c:'var(--blue)'}]},
-{id:'s31',sec:2,sub:'EmoTree',type:'step-reveal',chip:['現有方案的缺口','orange'],title:'他為什麼沒有被解決？',intro:'點開每個選項，看它為什麼不夠好。',steps:[{num:'①',q:'心理諮商？',answer:'每次 2,000–3,500 元，還要等候，stigma 高。<strong>門檻太高。</strong>'},{num:'②',q:'冥想 App？',answer:'需要大量意志力、效果慢、高焦慮時根本啟動不了。<strong>認知負擔太重。</strong>'},{num:'③',q:'找朋友說？',answer:'怕麻煩、怕佔用對方時間、怕說不清楚。<strong>社交成本太高。</strong>'},{num:'④',q:'ChatGPT？',answer:'沒有記憶，每次都要重新解釋自己。<strong>沒有連續性，缺乏安全感。</strong>'}]},
-{id:'s32',sec:2,sub:'EmoTree',type:'dark',chip:['EmoTree 的解法','green'],title:'Support First,<br>Then <span class="g-green">Action</span>',bullets:['Step 1：情緒容納 — 讓你感覺被接住','Step 2：認知梳理 — 幫你整理混亂','Step 3：自我覺察 — 看見自己的情緒模式','Step 4：行動引導 — 才建議可能的下一步'],footer:'不急著給答案。先讓他知道他在哪裡。'},
-{id:'s33',sec:2,sub:'EmoTree',type:'big-quote',chip:['核心洞察','purple'],quote:'用戶買的不是 AI。<br>是<span class="g-purple">「把混亂說清楚」</span>的感受。',sub2:'功能可以被複製，這個洞察是護城河。你的設計也需要找到這一句。'},
-{id:'s34',sec:2,sub:'工作坊練習',type:'exercise',chip:['實作挑戰 1','red'],title:'把你的作品對準一個真實的人',template:'「我的作品，是為了幫助 <span class="g-red">___（誰）</span><br>解決 <span class="g-red">___（什麼痛）</span>，<br>讓他能夠 <span class="g-red">___（達成什麼）</span>。」',bullets:['越具體越好，「年輕人」不算','3 分鐘，先寫出來，不要只在腦袋裡','寫完後和旁邊的人互看']},
+{id:'s18',sec:2,sub:'開場',type:'section-cover',secNum:'②',secTitle:'欲求性',secEn:'Desirability',sub2:'你在對誰說話'},
+{id:'s19',sec:2,sub:'開場',type:'big-quote',chip:['最常見的錯誤','red'],quote:'「我的受眾<br><span class="g-red">是所有人」</span>',sub2:'每次聽到這句話，我知道這個東西大概賣不起來'},
+{id:'s20',sec:2,sub:'開場',type:'dark',chip:['精準定位','orange'],title:'對所有人說話<br>等於對任何人都沒說',bullets:['訊息越泛，共鳴越淺','精準定位 1,000 個有痛的人，比觸及 100,000 個無感的人有效','每一個「也可以」，都是對核心受眾的稀釋'],footer:'設計，是為那個「最需要」的人而做的'},
+{id:'s21',sec:2,sub:'Persona→HXC',type:'audience-layers',chip:['三層受眾收斂','blue'],title:'Persona → ICP → HXC'},
+{id:'s22',sec:2,sub:'Persona→HXC',type:'funnel-v2',chip:['三層收斂視覺化','purple'],title:'點擊每一層看看誰在那裡'},
+{id:'s23',sec:2,sub:'Persona→HXC',type:'hxc-case-study',chip:['案例分析','green'],title:'Spotify 如何找到 HXC'},
+{id:'s24',sec:2,sub:'Persona→HXC',type:'big-quote',chip:['關鍵問題','red'],quote:'沒有這個<br>他明天<br><span class="g-red">會很痛</span>',sub2:'那個「他」就是你的 HXC'},
+{id:'s25',sec:2,sub:'痛點分析',type:'vitamin-painkiller',chip:['痛點測試','orange'],title:'維他命 vs 止痛藥'},
+{id:'s25b',sec:2,sub:'痛點分析',type:'painkiller-examples',chip:['真實案例','green'],title:'止痛藥型產品長什麼樣'},
+{id:'s26',sec:2,sub:'痛點分析',type:'reveal',chip:['互動測試','red'],title:'測試你的作品',question:'如果你的受眾明天看不到這張圖\n他的哪個問題會變得更難解決',answer:'止痛藥的四個條件：\n• 他有明確可辨認的痛\n• 他現在找不到好解法\n• 你的東西讓他的痛減輕\n• 他願意花注意力或金錢換取\n\n四個都成立 = 止痛藥。否則繼續找。'},
+{id:'s27',sec:2,sub:'痛點分析',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是<br>是<span class="g-orange">他</span>說它是',bullets:['你以為是痛點，他以為是小困擾 → 維他命','你以為是功能，他覺得「沒有這個我不行」→ 止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩 → 繼續找']},
+{id:'s28',sec:2,sub:'案例',type:'dark',chip:['案例分析','green'],title:'用真實案例走一遍框架',bullets:['以下用 EmoTree 示範完整思路','重點不是產品本身','而是「這種思維方式」如何運作']},
+{id:'s29',sec:2,sub:'案例',type:'dark',chip:['定位策略','green'],title:'情緒陪伴 AI<br>不是<span class="g-red">心理諮商</span>',bullets:['定位在諮商之前的空白地帶','Support First → Action Later','核心：把說不清楚的感覺說清楚'],footer:'他不需要諮商，但他需要被聽見'},
+{id:'s30',sec:2,sub:'案例',type:'stat',chip:['市場問題','red'],title:'每 8 人有 1 人有身心困擾',stat:'1 / 8',stats3:[{n:'280萬',d:'台灣身心疾患需求人口',c:'var(--red)'},{n:'極低',d:'心理諮商滲透率',c:'var(--mid)'},{n:'3大障礙',d:'費用高 · stigma · 不知道怎麼開口',c:'var(--blue)'}]},
+{id:'s31',sec:2,sub:'案例',type:'step-reveal',chip:['現有方案的缺口','orange'],title:'為什麼現有解法不夠好',intro:'點開每個選項看它為什麼失敗',steps:[{num:'①',q:'心理諮商',answer:'每次 2,000–3,500 元，還要等候，stigma 高。<strong>門檻太高</strong>'},{num:'②',q:'冥想 App',answer:'需要大量意志力、效果慢、高焦慮時根本啟動不了。<strong>認知負擔太重</strong>'},{num:'③',q:'找朋友說',answer:'怕麻煩、怕佔用對方時間、怕說不清楚。<strong>社交成本太高</strong>'},{num:'④',q:'ChatGPT',answer:'沒有記憶，每次都要重新解釋自己。<strong>沒有連續性</strong>'}]},
+{id:'s32',sec:2,sub:'案例',type:'dark',chip:['解法設計','green'],title:'Support First<br>Then <span class="g-green">Action</span>',bullets:['Step 1：情緒容納 — 讓你感覺被接住','Step 2：認知梳理 — 幫你整理混亂','Step 3：自我覺察 — 看見自己的情緒模式','Step 4：行動引導 — 才建議可能的下一步'],footer:'不急著給答案。先讓他知道他在哪裡'},
+{id:'s33',sec:2,sub:'案例',type:'big-quote',chip:['核心洞察','purple'],quote:'用戶買的不是 AI<br>是<span class="g-purple">「把混亂說清楚」</span>的感受',sub2:'功能可以被複製，這個洞察是護城河'},
+{id:'s34',sec:2,sub:'工作坊練習',type:'exercise',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',template:'「我的作品，是為了幫助 <span class="g-red">___（誰）</span><br>解決 <span class="g-red">___（什麼痛）</span><br>讓他能夠 <span class="g-red">___（達成什麼）</span>」',bullets:['越具體越好，「年輕人」不算','3 分鐘，先寫出來，不要只在腦袋裡','寫完後和旁邊的人互看']},
 {id:'s35',sec:2,sub:'工作坊練習',type:'timer',chip:['計時','orange'],title:'HXC 定位練習',timerLabel:'3 分鐘',content:'寫下你的一句話定位',time:180},
 
 {id:'s36',sec:3,sub:'開場',type:'section-cover',secNum:'③',secTitle:'存續性',secEn:'Viability',sub2:'從作品走到市場'},
-{id:'s37',sec:3,sub:'GTM',type:'step-reveal',chip:['Go-To-Market','blue'],title:'讓對的人看見對的訊息',intro:'GTM 不是「行銷」。是三個變數的整合策略。',steps:[{num:'①',q:'誰：Audience 是誰？',answer:'你的 ICP + HXC。越清楚越好。不是「所有人」，不是「年輕人」。'},{num:'②',q:'說什麼：Message 是什麼？',answer:'對應他的痛，說他聽得進去的語言。不是你想說的，是他想聽的。'},{num:'③',q:'在哪說：Channel 是哪裡？',answer:'他在哪裡出現，你就在哪裡說。IG、PTT、口碑推薦、還是線下活動？'}]},
+{id:'s37',sec:3,sub:'GTM',type:'step-reveal',chip:['Go-To-Market','blue'],title:'讓對的人看見對的訊息',intro:'GTM 不是「行銷」，是三個變數的整合策略',steps:[{num:'①',q:'誰：Audience 是誰',answer:'你的 ICP + HXC。越清楚越好。不是「所有人」，不是「年輕人」'},{num:'②',q:'說什麼：Message 是什麼',answer:'對應他的痛，說他聽得進去的語言。不是你想說的，是他想聽的'},{num:'③',q:'在哪說：Channel 是哪裡',answer:'他在哪裡出現，你就在哪裡說。IG、PTT、口碑推薦、還是線下活動'}]},
 {id:'s38',sec:3,sub:'GTM',type:'gtm-steps',chip:['GTM 四步驟','blue'],title:'把價值送到對的人面前'},
-{id:'s39',sec:3,sub:'GTM',type:'dark',chip:['MVP vs POC','green'],title:'先驗證，再建造',bullets:['MVP：找到最關鍵的驗證點，不是最簡單的版本','你今天的 Canva 圖，就是一個 MVP','POC：用最低成本，找到第一個真實訊號','判斷標準：一個陌生人聽完說「對，我也有這個問題」'],footer:'朋友說讚不算。陌生人的行動，重要 100 倍。'},
-{id:'s40',sec:3,sub:'GTM',type:'big-quote',chip:['最重要的判斷','red'],quote:'陌生人的行動，<br>比朋友的稱讚<br><span class="g-red">重要 100 倍</span>',sub2:'PMF 訊號：他截圖、tag 朋友、主動傳給有相同困擾的人。'},
-{id:'s41',sec:3,sub:'GTM',type:'dark',chip:['正確的順序','orange'],title:'GTM → POC → PMF',bullets:['GTM：定義誰、說什麼、在哪說','POC：最低成本驗證方向，找到第一個真實訊號','PMF：魔法訊號 — 用戶主動回來、主動分享、主動推薦','跳過任何一步，都是在把一個未驗證的想法直接放大'],footer:'順序不能錯。先有方向，再驗證，再放大。'},
-{id:'s42',sec:3,sub:'Pitch',type:'dark',chip:['重新定義「發表」','white'],title:'成果發表不是報告，<br>是 <span class="g-orange">Pitch</span>',bullets:['報告：你做了什麼','Pitch：為什麼他應該在乎','Pitch 格式：Hook → Pain → Solution → CTA','評審在乎的不是工具，是商業洞察'],footer:'你有 60 秒。讓他聽完說「這個我懂，這個我需要」。'},
-{id:'s43',sec:3,sub:'Pitch',type:'multi-reveal',chip:['Pitch 三核心','red'],title:'一個好 Pitch 的三步',question:'猜猜最容易搞砸的是哪一步？',hint:'點開每個，看大家最常犯的錯',cards:[{num:'🪝',q:'Hook：前 5 秒',label:'最多人搞砸',color:'var(--red)',title:'讓他說「對，就是這個！」',body:'描述具體情境。說出他說不出口的感覺。越具體共鳴越強。不要說「很多人有這個問題」。'},{num:'😣',q:'Pain：他的具體痛',label:'最常太模糊',color:'var(--orange)',title:'說他的話，不說你的話',body:'「很多人壓力大」太泛。「晚上腦袋停不下來，想找人說卻不知道說什麼」才是痛。'},{num:'💡',q:'Solution：你的解法',label:'最常太早出現',color:'var(--blue)',title:'先說痛，再說解法',body:'現在才拿出你的作品。說它如何回應那個痛。說結果，不說功能。'}]},
-{id:'s44',sec:3,sub:'Pitch',type:'pitch-demo',chip:['EmoTree 示範','green'],title:'30 秒 Pitch 示範'},
+{id:'s39',sec:3,sub:'GTM',type:'dark',chip:['MVP vs POC','green'],title:'先驗證再建造',bullets:['MVP：找到最關鍵的驗證點，不是最簡單的版本','你今天的 Canva 圖，就是一個 MVP','POC：用最低成本，找到第一個真實訊號','判斷標準：一個陌生人聽完說「對，我也有這個問題」'],footer:'朋友說讚不算。陌生人的行動，重要 100 倍'},
+{id:'s40',sec:3,sub:'GTM',type:'big-quote',chip:['最重要的判斷','red'],quote:'陌生人的行動<br>比朋友的稱讚<br><span class="g-red">重要 100 倍</span>',sub2:'PMF 訊號：他截圖、tag 朋友、主動傳給有相同困擾的人'},
+{id:'s41',sec:3,sub:'GTM',type:'dark',chip:['正確的順序','orange'],title:'GTM → POC → PMF',bullets:['GTM：定義誰、說什麼、在哪說','POC：最低成本驗證方向，找到第一個真實訊號','PMF：魔法訊號 — 用戶主動回來、主動分享、主動推薦','跳過任何一步，都是在把一個未驗證的想法直接放大'],footer:'順序不能錯。先有方向，再驗證，再放大'},
+{id:'s42',sec:3,sub:'Pitch',type:'dark',chip:['重新定義發表','white'],title:'成果發表不是報告<br>是 <span class="g-orange">Pitch</span>',bullets:['報告：你做了什麼','Pitch：為什麼他應該在乎','Pitch 格式：Hook → Pain → Solution → CTA','評審在乎的不是工具，是商業洞察'],footer:'你有 60 秒。讓他聽完說「這個我懂，這個我需要」'},
+{id:'s43',sec:3,sub:'Pitch',type:'pitch-three',chip:['Pitch 三核心','red'],title:'一個好 Pitch 的三步'},
+{id:'s44',sec:3,sub:'Pitch',type:'pitch-demo',chip:['示範','green'],title:'30 秒 Pitch 示範'},
 {id:'s45',sec:3,sub:'Pitch',type:'pitch-template',chip:['你的模板','orange'],title:'現在套進你的作品'},
-{id:'s46',sec:3,sub:'練習發表',type:'timer',chip:['計時','red'],title:'Pitch 練習',timerLabel:'5 分鐘',content:'兩人一組。一人 Pitch，一人計時並給一句回饋。',time:300},
-{id:'s47',sec:3,sub:'練習發表',type:'checklist',chip:['上台前確認','yellow'],title:'發表前最後確認',items:[{q:'你的受眾是誰？',a:'一個有名字的人，不是「年輕人」',c:'var(--orange)'},{q:'他有什麼真實的痛？',a:'真實的痛，不是想像的需求',c:'var(--red)'},{q:'你的解法如何回應那個痛？',a:'說結果，不說功能',c:'var(--blue)'},{q:'CTA 明確嗎？',a:'對方聽完知道要採取什麼行動',c:'var(--green)'}],footer:'不評設計美感，評商業洞察。'},
-{id:'s48',sec:3,sub:'練習發表',type:'big-quote',chip:['最後一句話','white'],quote:'做圖不是目的。<br><span class="g-orange">讓那個人採取行動</span>，<br>才是。',sub2:'今天學的所有工具，都服務這一個目標。'},
+{id:'s46',sec:3,sub:'練習發表',type:'timer',chip:['計時','red'],title:'Pitch 練習',timerLabel:'5 分鐘',content:'兩人一組。一人 Pitch，一人計時並給一句回饋',time:300},
+{id:'s47',sec:3,sub:'練習發表',type:'checklist',chip:['上台前確認','yellow'],title:'發表前最後確認',items:[{q:'你的受眾是誰',a:'一個有名字的人，不是「年輕人」',c:'var(--orange)'},{q:'他有什麼真實的痛',a:'真實的痛，不是想像的需求',c:'var(--red)'},{q:'你的解法如何回應那個痛',a:'說結果，不說功能',c:'var(--blue)'},{q:'CTA 明確嗎',a:'對方聽完知道要採取什麼行動',c:'var(--green)'}],footer:'不評設計美感，評商業洞察'},
+{id:'s48',sec:3,sub:'練習發表',type:'big-quote',chip:['最後一句話','white'],quote:'做圖不是目的<br><span class="g-orange">讓那個人採取行動</span><br>才是',sub2:'今天學的所有工具，都服務這一個目標'},
 {id:'s49',sec:3,sub:'練習發表',type:'resources',chip:['帶走這些','white'],title:'帶走這些'},
-{id:'s50',sec:3,sub:'練習發表',type:'close',chip:['結語','white'],title:'設計，是為了<br><span class="g-red">改變行為</span>',content:'不是展示美術，不是獲得讚美。',sub2:'讓那個正在痛的人，採取對他有益的行動。',cta:'掃描 QR Code 加 Vincent LinkedIn'},
+{id:'s50',sec:3,sub:'練習發表',type:'close',chip:['結語','white'],title:'設計是為了<br><span class="g-red">改變行為</span>',content:'不是展示美術，不是獲得讚美',sub2:'讓那個正在痛的人，採取對他有益的行動',cta:'掃描 QR Code 加 Vincent LinkedIn'},
 ];
-console.assert(D.length===50,`Expected 50, got ${D.length}`);
-
-let cur=0;
+// Slide count will vary as we add new slides
 const total=D.length;
+const secStarts={1:0,2:18,3:37};
+const secNames={1:'① 底層思維',2:'② 欲求性洞察',3:'③ 存續性發表'};
+let cur=0;
 const timers={};
 const container=document.getElementById('slides-container');
-const secStarts={1:0,2:17,3:35};
-const secNames={1:'① 底層思維',2:'② 欲求性洞察',3:'③ 存續性發表'};
 
 function fmt(s){return`${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}
 function toggleTimer(id,tot){
@@ -285,6 +325,37 @@ function resetTimer(id,tot){
 function cc(c){return`chip chip-${c||'white'}`}
 function toggleStep(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
 function toggleProfileCard(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
+
+// PROFILE CARD — slide-up photos below cards
+function togglePCard(sid,ci){
+  const clickedCard=document.getElementById(`pc-${sid}-${ci}`);
+  const slot=document.getElementById(`pslot-${sid}-${ci}`);
+  if(!clickedCard||!slot)return;
+  const isOpen=clickedCard.classList.contains('pc-open');
+  if(isOpen){
+    clickedCard.classList.remove('pc-open');
+    slot.classList.remove('visible');
+  }else{
+    clickedCard.classList.add('pc-open');
+    slot.classList.add('visible');
+  }
+}
+function showProfilePreview(sid,ci,pi){}
+
+function triadToggle(uid){
+  const el=document.getElementById(uid);
+  if(!el)return;
+  const wasOpen=el.classList.contains('to-open');
+  // toggle only the clicked orb — keep others open
+  if(wasOpen){
+    el.classList.remove('to-open');
+    el.style.boxShadow='';
+  }else{
+    el.classList.add('to-open');
+    const glowCol=el.dataset.glow||'rgba(255,255,255,.15)';
+    el.style.boxShadow=`0 0 36px ${glowCol}, 0 8px 24px rgba(0,0,0,.35)`;
+  }
+}
 
 const vennData={
   des:{border:'var(--red)',text:'<strong style="color:var(--red)">欲求性 Desirability</strong> — 有人真的想要嗎？不是說讚，是願意花時間或金錢換取。今天下午聚焦在這。'},
@@ -352,29 +423,50 @@ function renderSlide(sd,idx){
       h+=`<div style="position:relative;z-index:1;text-align:center;max-width:680px;margin:0 auto">${chip}<div class="bar" style="margin:.8rem auto 1.3rem"></div><h1>${sd.title}</h1>`;
       if(sd.content)h+=`<p style="margin-top:1.1rem;font-size:clamp(1rem,1.6vw,1.2rem)">${sd.content}</p>`;
       if(sd.sub2)h+=`<p style="margin-top:.5rem;font-size:clamp(.9rem,1.45vw,1.05rem)">${sd.sub2}</p>`;
-      h+=`<div style="margin:1.8rem auto 0;width:120px;height:120px;border:2px dashed rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.4rem"><div style="font-size:1.7rem">🔗</div><div style="font-size:.58rem;color:var(--mid);letter-spacing:.08em">QR CODE</div></div>`;
+      h+=`<div style="margin:1.8rem auto 0;width:120px;height:120px;border:2px dashed rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.4rem"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" style="color:rgba(255,255,255,.4)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><div style="font-size:.58rem;color:var(--mid);letter-spacing:.08em">QR CODE</div></div>`;
       if(sd.cta)h+=`<p style="margin-top:.7rem;font-size:.78rem;color:rgba(255,255,255,.3);letter-spacing:.06em">${sd.cta}</p>`;
       h+=`</div>`;break;
     case 'big-quote':
       h+=`<div style="text-align:center;max-width:780px;margin:0 auto">${chip}<div class="bar" style="margin:.6rem auto 1.3rem"></div><h1 style="font-size:clamp(2.2rem,5.5vw,5rem)">${sd.quote}</h1>${sd.sub2?`<p style="margin-top:1.3rem;font-size:clamp(.95rem,1.5vw,1.15rem);max-width:580px;margin-left:auto;margin-right:auto">${sd.sub2}</p>`:''}</div>`;
       break;
+    case 'rules':
+      h+=blob('rgba(255,255,255,.04)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;max-width:720px">`;
+      h+=chip;
+      h+=`<div class="bar"></div>`;
+      if(sd.title)h+=`<h1 style="font-size:clamp(2.8rem,7vw,5.5rem);margin-bottom:1.6rem">${sd.title}</h1>`;
+      if(sd.rules?.length){
+        h+=`<div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.6rem">`;
+        sd.rules.forEach((r,i)=>{
+          h+=`<div style="display:flex;align-items:baseline;gap:1rem;padding:1rem 1.4rem;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)">`;
+          h+=`<span style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--orange);line-height:1;flex-shrink:0;min-width:1.8rem">${i+1}</span>`;
+          h+=`<span style="font-size:clamp(1rem,1.9vw,1.4rem);font-weight:600;color:var(--ink);line-height:1.5">${r}</span>`;
+          h+=`</div>`;
+        });
+        h+=`</div>`;
+      }
+      if(sd.footer)h+=`<div style="padding:.7rem 0;border-top:1px solid rgba(255,255,255,.08);font-size:clamp(.85rem,1.4vw,1rem);color:rgba(255,255,255,.38);letter-spacing:.06em;font-style:italic">${sd.footer}</div>`;
+      h+=`</div>`;
+      break;
     case 'dark':
-      h+=chip;h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h2>${sd.title}</h2>`;
-      if(sd.content)h+=`<div style="margin-top:.45rem">${sd.content}</div>`;
-      if(sd.bullets?.length){h+=`<ul class="deck-list">`;sd.bullets.forEach(b=>{h+=`<li>${b}</li>`;});h+=`</ul>`;}
-      if(sd.footer)h+=`<div class="tip-box">${sd.footer}</div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      if(sd.content)h+=`<div style="margin-top:.45rem;text-align:center">${sd.content}</div>`;
+      if(sd.bullets?.length){h+=`<ul class="deck-list" style="max-width:680px;margin:1rem auto 0">`;sd.bullets.forEach(b=>{h+=`<li>${b}</li>`;});h+=`</ul>`;}
+      if(sd.footer)h+=`<div class="tip-box" style="max-width:680px;margin:1rem auto 0">${sd.footer}</div>`;
       break;
     case 'multi-reveal':{
-      h+=chip;h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.45rem">${sd.title}</h2>`;
-      if(sd.question)h+=`<p style="color:var(--ink);font-size:clamp(.92rem,1.5vw,1.1rem);font-weight:600;margin-bottom:.25rem">${sd.question}</p>`;
-      if(sd.hint)h+=`<p style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">${sd.hint}</p>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
+      if(sd.question)h+=`<p style="color:var(--ink);font-size:clamp(.95rem,1.55vw,1.15rem);font-weight:600;margin-bottom:.3rem">${sd.question}</p>`;
+      if(sd.hint)h+=`<p style="font-size:clamp(.8rem,1.25vw,.95rem);color:var(--mid);margin-bottom:.8rem">${sd.hint}</p>`;
+      h+=`</div>`;
       const cols=sd.cards.length<=2?'cols-2':sd.cards.length===3?'cols-3':'cols-4';
       h+=`<div class="mrev-grid ${cols}">`;
       sd.cards.forEach((c,ci)=>{
         const uid=`${sd.id}-c${ci}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="document.getElementById('${uid}').classList.add('unlocked')">`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')">`;
         h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${c.color}">`;
         h+=`<div class="card-label" style="color:${c.color}">${c.label||''}</div>`;
         h+=`<div class="card-title">${c.title}</div>`;
@@ -385,26 +477,28 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;break;}
     case 'step-reveal':{
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
-      if(sd.intro)h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.38vw,.98rem);margin-bottom:.5rem">${sd.intro}</p>`;
-      h+=`<div class="step-reveal-wrap">`;
+      if(sd.intro)h+=`<p style="color:var(--mid);font-size:clamp(.9rem,1.4vw,1.05rem);margin-bottom:.8rem">${sd.intro}</p>`;
+      h+=`</div>`;
+      h+=`<div class="step-reveal-wrap" style="max-width:680px;margin:0 auto">`;
       sd.steps.forEach((s,si)=>{
         const uid=`${sd.id}-s${si}`;
         h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')">`;
-        h+=`<div class="step-front"><span class="step-num" style="color:var(--orange)">${s.num}</span><span class="step-q">${s.q}</span><span class="step-lock">🔒</span></div>`;
+        h+=`<div class="step-front"><span class="step-num" style="color:var(--orange)">${s.num}</span><span class="step-q">${s.q}</span><span class="step-lock"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></div>`;
         h+=`<div class="step-back"><div class="step-back-inner">${s.answer}</div></div>`;
         h+=`</div>`;
       });
       h+=`</div>`;break;}
     case 'compare':
-      h+=chip;h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
-      h+=`<p style="font-size:.65rem;color:rgba(255,255,255,.28);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem">點擊每個卡片解鎖</p>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:clamp(.85rem,1.35vw,1rem);color:var(--mid);margin-bottom:.8rem">點擊每個卡片解鎖</p>`;
+      h+=`</div>`;
       h+=`<div class="compare-grid">`;
       [sd.left,sd.right].forEach((side,si)=>{
         const uid=`${sd.id}-cmp${si}`;
-        h+=`<div class="cmp-card ${si===0?'cmp-no':'cmp-yes'}" id="${uid}" onclick="document.getElementById('${uid}').classList.add('revealed')">`;
+        h+=`<div class="cmp-card ${si===0?'cmp-no':'cmp-yes'}" id="${uid}" onclick="this.classList.toggle('revealed')">`;
         h+=`<div style="font-size:1.8rem;margin-bottom:.4rem">${side.icon}</div><h3>${side.label}</h3><ul class="deck-list">`;
         side.items.forEach(it=>{h+=`<li>${it}</li>`;});
         h+=`</ul>`;
@@ -413,25 +507,43 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;break;
     case 'reveal':
-      h+=chip;h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
-      h+=`<div class="reveal-wrap" onclick="this.classList.toggle('revealed')"><div class="reveal-answer">${sd.answer.replace(/\n/g,'<br>')}</div><div class="conf-stamp">CONFIDENTIAL</div><div class="reveal-lock"><div class="reveal-lock-icon">🔒</div><div class="reveal-lock-q">${sd.question.replace(/\n/g,'<br>')}</div><div class="reveal-lock-hint">點擊解鎖 · CLICK TO REVEAL</div></div></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div class="reveal-wrap" style="max-width:680px;margin:0 auto" onclick="this.classList.toggle('revealed')"><div class="reveal-answer">${sd.answer.replace(/\n/g,'<br>')}</div><div class="conf-stamp">CONFIDENTIAL</div><div class="reveal-lock"><div class="reveal-lock-icon"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="reveal-lock-q">${sd.question.replace(/\n/g,'<br>')}</div><div class="reveal-lock-hint">點擊解鎖 · CLICK TO REVEAL</div></div></div>`;
       break;
     case 'timer':
-      h+=chip;h+=`<div class="bar"></div><h2>${sd.title} <span class="g-orange" style="font-size:.75em">${sd.timerLabel}</span></h2>`;
-      if(sd.content)h+=`<p style="margin-top:.5rem">${sd.content}</p>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      h+=`<h2>${sd.title} <span class="g-orange" style="font-size:.75em">${sd.timerLabel}</span></h2>`;
+      if(sd.content)h+=`<p style="margin-top:.5rem;font-size:clamp(.9rem,1.4vw,1.05rem);color:var(--mid)">${sd.content}</p>`;
+      h+=`</div>`;
       h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
       break;
     case 'profile':{
+      // Legacy profile - redirects to profile-hero
       h+=chip;
-      h+=`<div style="display:flex;align-items:center;gap:2.5rem;flex-wrap:wrap;justify-content:center">`;
-      h+=`<div style="text-align:center;flex-shrink:0"><img src="images/20240118-425.jpg" alt="Vincent" style="width:128px;height:128px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid var(--red);display:block;margin:0 auto .9rem" onerror="this.style.background='rgba(255,255,255,.06)'"><div style="font-size:1.25rem;font-weight:800">Vincent</div><div style="font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);margin-top:.22rem">創新策略 × 商業設計</div></div>`;
-      h+=`<div style="display:flex;flex-direction:column;gap:.65rem;max-width:400px;flex:1">`;
-      [{icon:'🌿',col:'var(--red)',frontLabel:'角色',frontTitle:'EmoTree 共同創辦人',body:'情緒陪伴 AI 創業者。從零到一把一個想法做成真實產品。目前在驗證 PMF。'},{icon:'⚡',col:'var(--orange)',frontLabel:'經驗',frontTitle:'10+ 個從零到一的專案',body:'商業策略、品牌設計、UX、教育產品。每個都從一個「別人沒注意到的痛」開始。'},{icon:'🏆',col:'var(--purple)',frontLabel:'成績',frontTitle:'DFT 商業競賽第一名',body:'台大設計思考競賽冠軍。創業大聯盟參賽者。教這些東西，因為自己也在用。'}].forEach((c,ci)=>{
-        const uid=`pc-${sd.id}-${ci}`;
-        h+=`<div class="profile-card" id="${uid}" onclick="toggleProfileCard('${uid}')"><div class="pc-front"><span class="pc-icon">${c.icon}</span><div><div class="pc-front-label" style="color:${c.col}">${c.frontLabel}</div><div class="pc-front-title">${c.frontTitle}</div></div><span class="pc-toggle">›</span></div><div class="pc-back"><div class="pc-back-content">${c.body}</div></div></div>`;
+      h+=`<div style="text-align:center"><h2>Profile</h2></div>`;
+      break;}
+    case 'profile-hero':{
+      h+=blob('rgba(255,107,0,.1)','rgba(59,130,246,.08)');
+      h+=`<div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.5rem;text-align:center;width:100%">`;
+      h+=chip;
+      // Main hero image - with IDEO/d.school connection
+      h+=`<div style="width:min(500px,85vw);aspect-ratio:16/10;border-radius:16px;overflow:hidden;border:2px solid rgba(255,255,255,.12);box-shadow:0 20px 60px rgba(0,0,0,.5)">`;
+      h+=`<img src="images/4847933632894551843.bb63d732054d4edd9992eba0a6595c53.23020814.jpg" alt="Vincent at Stanford d.school" style="width:100%;height:100%;object-fit:cover">`;
+      h+=`</div>`;
+      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">`;
+      h+=`<div style="font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:-.02em">Vincent</div>`;
+      h+=`<div style="font-size:clamp(.85rem,1.4vw,1.1rem);color:var(--mid);line-height:1.6">Stanford d.school × IDEO 矽谷研習<br>EmoTree Founder · DFT 商業競賽冠軍</div>`;
+      h+=`</div>`;
+      // Credentials row
+      h+=`<div style="display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem">`;
+      [{icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',label:'Stanford d.school',col:'var(--red)'},{icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',label:'IDEO 參訪',col:'var(--orange)'},{icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>',label:'DFT 冠軍',col:'var(--purple)'}].forEach(c=>{
+        h+=`<div style="display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px"><span style="color:${c.col}">${c.icon}</span><span style="font-size:.8rem;font-weight:600;color:var(--ink)">${c.label}</span></div>`;
       });
-      h+=`</div></div>`;break;}
+      h+=`</div>`;
+      h+=`</div>`;
+      break;}
     case 'venn':{
       h+=chip;h+=`<div class="bar"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.7rem">${sd.title}</h2>`;
@@ -449,9 +561,395 @@ function renderSlide(sd,idx){
       h+=`<div id="vd-${vid}" class="venn-detail-box hidden" style="border-color:var(--orange);background:rgba(255,107,0,.08);max-width:min(440px,82vw);width:100%"></div>`;
       h+=`<p style="font-size:.62rem;color:rgba(255,255,255,.22);letter-spacing:.1em;text-transform:uppercase">點擊每個圓圈查看說明</p>`;
       h+=`</div>`;break;}
+    case 'triad-v2':{
+      h+=blob('rgba(59,130,246,.08)','rgba(255,32,85,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1.2rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const triadV2=[
+        {key:'des',en:'DESIRABILITY',zh:'欲求性',col:'var(--red)',bg:'linear-gradient(135deg,rgba(255,32,85,.15),rgba(255,32,85,.05))',border:'rgba(255,32,85,.4)',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+         def:'有人真的想要',plain:'不是說讚，是願意付出代價換取',example:'Airbnb 初期只服務設計研討會參與者',mistake:'把朋友的鼓勵當市場驗證'},
+        {key:'fea',en:'FEASIBILITY',zh:'可行性',col:'var(--blue)',bg:'linear-gradient(135deg,rgba(59,130,246,.12),rgba(59,130,246,.04))',border:'rgba(59,130,246,.4)',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+         def:'你有能力做出來',plain:'在 AI 時代，技術門檻已大幅降低',example:'用 Canva 做圖就是一種可行性證明',mistake:'以為「能做」等於「該做」'},
+        {key:'via',en:'VIABILITY',zh:'存續性',col:'rgba(255,255,255,.85)',bg:'linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02))',border:'rgba(255,255,255,.2)',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+         def:'能持續運作下去',plain:'有商業模式、有護城河、有增長路徑',example:'Spotify 用免費版獲客，付費版獲利',mistake:'只想功能，沒想誰付錢'}
+      ];
+      h+=`<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1">`;
+      triadV2.forEach(t=>{
+        const uid=`tv2-${sd.id}-${t.key}`;
+        h+=`<div class="triad-orb" id="${uid}" onclick="triadToggle('${uid}')" data-glow="${t.border}" style="background:${t.bg};border-color:${t.border};min-width:280px;max-width:320px">`;
+        h+=`<div class="triad-orb-front" style="padding:1.4rem 1.2rem">`;
+        h+=`<div style="color:${t.col};margin-bottom:.4rem">${t.icon}</div>`;
+        h+=`<div style="font-size:.6rem;font-weight:800;letter-spacing:.16em;color:${t.col};margin-bottom:.2rem">${t.en}</div>`;
+        h+=`<div style="font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:800;color:${t.col}">${t.zh}</div>`;
+        h+=`<div style="font-size:clamp(.8rem,1.2vw,.92rem);color:var(--mid);margin-top:.3rem">${t.def}</div>`;
+        h+=`<div style="font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.3;margin-top:.5rem">點擊展開</div>`;
+        h+=`</div>`;
+        h+=`<div class="triad-detail"><div class="triad-detail-inner" style="padding:1rem 1.2rem">`;
+        h+=`<div style="font-size:clamp(.85rem,1.3vw,.98rem);color:var(--ink);line-height:1.6;margin-bottom:.6rem">${t.plain}</div>`;
+        h+=`<div style="display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.4rem"><span style="background:rgba(34,197,94,.6);color:#fff;font-size:.5rem;font-weight:800;padding:.15em .5em;border-radius:3px;white-space:nowrap;margin-top:.2rem">範例</span><span style="font-size:.82rem;color:rgba(255,255,255,.75)">${t.example}</span></div>`;
+        h+=`<div style="display:flex;gap:.5rem;align-items:flex-start"><span style="background:rgba(255,32,85,.6);color:#fff;font-size:.5rem;font-weight:800;padding:.15em .5em;border-radius:3px;white-space:nowrap;margin-top:.2rem">錯法</span><span style="font-size:.82rem;color:rgba(255,255,255,.75)">${t.mistake}</span></div>`;
+        h+=`</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'failure-modes':{
+      h+=blob('rgba(255,32,85,.1)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const failures=[
+        {num:'01',headline:'技術做不出來',col:'var(--blue)',detail:'在 Vibe Coding 與 AI 工具普及的時代，把東西做出來已不再是最高門檻。真正的挑戰是：你的方法論、資料、護城河能否被 defend？競品能否輕易複製你的解法？',source:'Y Combinator 觀察：技術失敗在早期新創中佔比不到 10%',example:'Instagram 的濾鏡技術本身很簡單，但社群網絡效應是護城河'},
+        {num:'02',headline:'市場根本不需要',col:'var(--red)',detail:'CB Insights 數據顯示，42% 的新創失敗根本原因是「No Market Need」。不是技術問題，不是資金問題，是一開始就沒問清楚：誰在痛？痛在哪裡？做出來了，但沒人在意。',source:'CB Insights 2023 Top 20 Reasons Startups Fail',example:'Google Glass 技術驚艷，但沒有解決真實痛點'},
+        {num:'03',headline:'找不到可持續的商業模式',col:'var(--green)',detail:'有人要、做得出來，但沒有辦法讓它活下去。沒有商業模式、沒有可重複的增長路徑、沒有足夠的護城河——陷在有用戶但沒有收入的狀態，最終耗盡資源。',source:'Harvard Business Review: Sustainable Business Models',example:'Twitter 十年虧損，直到廣告模式成熟才轉正'}
+      ];
+      h+=`<div class="mrev-grid cols-3" style="position:relative;z-index:1">`;
+      failures.forEach((f,i)=>{
+        const uid=`fm-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:200px">`;
+        h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${f.col}">`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:.5rem">${f.headline}</div>`;
+        h+=`<div style="font-size:clamp(.78rem,1.15vw,.88rem);color:var(--mid);line-height:1.6;margin-bottom:.6rem">${f.detail}</div>`;
+        h+=`<div style="font-size:.68rem;color:rgba(255,255,255,.4);font-style:italic;margin-bottom:.4rem">${f.source}</div>`;
+        h+=`<div style="display:flex;gap:.4rem;align-items:flex-start"><span style="background:${f.col};color:#fff;font-size:.48rem;font-weight:800;padding:.12em .45em;border-radius:3px;white-space:nowrap;margin-top:.15rem">案例</span><span style="font-size:.75rem;color:rgba(255,255,255,.7)">${f.example}</span></div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask"><div class="card-mask-num" style="color:${f.col};font-size:2rem">${f.num}</div><div class="card-mask-q" style="font-size:clamp(.9rem,1.4vw,1.1rem);font-weight:700;max-width:none">${f.headline}</div><div class="card-mask-hint">點擊解鎖</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'topdown-bottomup':{
+      h+=blob('rgba(168,85,247,.1)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const bottomIcon='<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+      const topIcon='<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>';
+      h+=`<div class="compare-grid" style="position:relative;z-index:1">`;
+      // Bottom-up card
+      h+=`<div class="cmp-card cmp-no" id="bu-${sd.id}" onclick="this.classList.toggle('revealed')">`;
+      h+=`<div style="color:var(--mid);margin-bottom:.4rem">${bottomIcon}</div>`;
+      h+=`<h3 style="color:rgba(255,255,255,.7)">Bottom-up 思維</h3>`;
+      h+=`<ul class="deck-list" style="margin-top:.5rem">`;
+      ['從工具和技術出發','先做出東西再找用戶','「我會這個所以做這個」','容易陷入 Solution 找 Problem'].forEach(it=>{h+=`<li>${it}</li>`;});
+      h+=`</ul>`;
+      h+=`<div style="margin-top:.8rem;padding:.6rem .8rem;background:rgba(255,32,85,.08);border-left:2px solid var(--red);border-radius:0 6px 6px 0;font-size:.78rem;color:rgba(255,255,255,.7)"><strong style="color:var(--red)">反面案例：</strong>Segway — 技術驚人，但沒人真的需要在人行道上騎電動平衡車</div>`;
+      h+=`<div class="cmp-mask"><div class="cmp-mask-icon">${bottomIcon}</div><div style="font-weight:800;font-size:clamp(.88rem,1.45vw,1.1rem);color:var(--ink);margin:.3rem 0">Bottom-up</div><div class="cmp-mask-label">點擊解鎖</div></div>`;
+      h+=`</div>`;
+      // Top-down card
+      h+=`<div class="cmp-card cmp-yes" id="td-${sd.id}" onclick="this.classList.toggle('revealed')">`;
+      h+=`<div style="color:var(--orange);margin-bottom:.4rem">${topIcon}</div>`;
+      h+=`<h3>Top-down 思維</h3>`;
+      h+=`<ul class="deck-list" style="margin-top:.5rem">`;
+      ['從問題和用戶出發','先定義誰在痛、痛什麼','「他需要什麼所以做這個」','讓設計服務策略目標'].forEach(it=>{h+=`<li>${it}</li>`;});
+      h+=`</ul>`;
+      h+=`<div style="margin-top:.8rem;padding:.6rem .8rem;background:rgba(34,197,94,.08);border-left:2px solid var(--green);border-radius:0 6px 6px 0;font-size:.78rem;color:rgba(255,255,255,.7)"><strong style="color:var(--green)">正面案例：</strong>Slack — 先觀察到團隊溝通的痛點，再設計解決方案</div>`;
+      h+=`<div class="cmp-mask"><div class="cmp-mask-icon">${topIcon}</div><div style="font-weight:800;font-size:clamp(.88rem,1.45vw,1.1rem);color:var(--ink);margin:.3rem 0">Top-down</div><div class="cmp-mask-label">點擊解鎖</div></div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      break;}
+    case 'mckinsey-six':{
+      h+=blob('rgba(59,130,246,.1)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:1rem">在開始設計之前，先確認這六件事</p>`;
+      h+=`</div>`;
+      const sixElements=[
+        {key:'context',label:'Context',zh:'背景脈絡',col:'var(--blue)',desc:'這個問題發生在什麼情境下？市場、產業、時機點是什麼？'},
+        {key:'stakeholder',label:'Stakeholder',zh:'利害關係人',col:'var(--purple)',desc:'誰會被這件事影響？誰是 champion？誰會買單？誰會反對？'},
+        {key:'criteria',label:'Criteria',zh:'成功標準',col:'var(--green)',desc:'怎麼判斷成功或失敗？KPI 是什麼？誰來定義「做得好」？'},
+        {key:'constraints',label:'Constraints',zh:'限制條件',col:'var(--red)',desc:'時間、預算、人力、技術上有什麼限制？什麼是不能碰的？'},
+        {key:'scope',label:'Scope',zh:'範圍邊界',col:'var(--orange)',desc:'哪些做、哪些不做？MVP 的邊界在哪裡？'},
+        {key:'insight',label:'Insight',zh:'洞察來源',col:'var(--cyan)',desc:'你的洞察從哪裡來？訪談、數據、觀察、還是直覺？'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;position:relative;z-index:1;max-width:800px;margin:0 auto">`;
+      sixElements.forEach((el,i)=>{
+        const uid=`mc6-${sd.id}-${i}`;
+        h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')" style="border:1.5px solid ${el.col}30">`;
+        h+=`<div class="step-front" style="background:${el.col}10;border:none;padding:.7rem 1rem">`;
+        h+=`<span style="font-size:.55rem;font-weight:800;letter-spacing:.1em;color:${el.col}">${el.label}</span>`;
+        h+=`<span style="margin-left:auto;font-size:.75rem;opacity:.3">+</span>`;
+        h+=`</div>`;
+        h+=`<div class="step-back" style="background:${el.col}08"><div class="step-back-inner" style="padding:.6rem 1rem">`;
+        h+=`<div style="font-weight:700;color:var(--ink);margin-bottom:.3rem">${el.zh}</div>`;
+        h+=`<div style="font-size:.82rem;color:var(--mid)">${el.desc}</div>`;
+        h+=`</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:800px;margin:1rem auto 0;position:relative;z-index:1">Top-down 的重點不是從上往下想，而是先確認這六個錨點，再開始設計</div>`;
+      break;}
+    case 'dt-loop':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:1rem">這是一個反覆迭代的循環，不是單向流程</p>`;
+      h+=`</div>`;
+      const dtSteps=[
+        {n:'01',name:'Empathize',zh:'同理',col:'var(--red)',detail:'觀察、訪談、感同身受',example:'IDEO 的 Deep Dive：設計購物車前先觀察真實購物者',mistake:'跳過這步直接畫圖'},
+        {n:'02',name:'Define',zh:'定義',col:'var(--orange)',detail:'把觀察轉譯為可行動的問題',example:'「如何幫助忙碌的上班族在 5 分鐘內紓壓」',mistake:'問題太大或太模糊'},
+        {n:'03',name:'Ideate',zh:'發想',col:'var(--yellow)',detail:'快速發散，不批判、不收斂',example:'Stanford d.school 的 Crazy 8s：8 分鐘畫 8 個方案',mistake:'太早殺掉點子'},
+        {n:'04',name:'Prototype',zh:'原型',col:'var(--blue)',detail:'20-50-80 法則：不同完成度測不同東西',example:'紙板 + 便利貼就是原型',mistake:'追求完美才願意測試'},
+        {n:'05',name:'Test',zh:'測試',col:'var(--purple)',detail:'觀察行為，不是聽回答',example:'看他怎麼用，不是問他覺得如何',mistake:'只問「你喜歡嗎」'}
+      ];
+      h+=`<div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;max-width:900px;margin:0 auto">`;
+      dtSteps.forEach((s,i)=>{
+        const uid=`dtl-${sd.id}-${i}`;
+        h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')" style="flex:1;min-width:160px;max-width:180px;border:1.5px solid ${s.col}40">`;
+        h+=`<div class="step-front" style="background:${s.col}15;border:none;flex-direction:column;align-items:center;text-align:center;padding:.8rem .6rem;gap:.3rem">`;
+        h+=`<span style="font-size:.55rem;font-weight:800;letter-spacing:.08em;color:${s.col}">${s.n}</span>`;
+        h+=`<span style="font-size:clamp(.85rem,1.35vw,1rem);font-weight:700;color:var(--ink)">${s.name}</span>`;
+        h+=`<span style="font-size:.72rem;color:var(--mid)">${s.zh}</span>`;
+        h+=`</div>`;
+        h+=`<div class="step-back" style="background:${s.col}08;max-height:220px"><div class="step-back-inner" style="padding:.7rem .8rem;font-size:.78rem">`;
+        h+=`<div style="margin-bottom:.4rem">${s.detail}</div>`;
+        h+=`<div style="display:flex;gap:.3rem;align-items:flex-start;margin-bottom:.3rem"><span style="background:var(--green);color:#fff;font-size:.45rem;font-weight:800;padding:.1em .4em;border-radius:2px">範例</span><span style="color:rgba(255,255,255,.7);font-size:.72rem">${s.example}</span></div>`;
+        h+=`<div style="display:flex;gap:.3rem;align-items:flex-start"><span style="background:var(--red);color:#fff;font-size:.45rem;font-weight:800;padding:.1em .4em;border-radius:2px">錯法</span><span style="color:rgba(255,255,255,.7);font-size:.72rem">${s.mistake}</span></div>`;
+        h+=`</div></div>`;
+        h+=`</div>`;
+        if(i<dtSteps.length-1)h+=`<div style="display:flex;align-items:center;color:rgba(255,255,255,.2);font-size:.8rem">→</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="text-align:center;margin-top:.8rem;font-size:.7rem;color:rgba(255,255,255,.3)">↺ 循環反覆，直到找到對的解法</div>`;
+      break;}
+    case 'insight-types':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:1rem">四種不同層次的洞察，越往下挖越有價值</p>`;
+      h+=`</div>`;
+      const insights=[
+        {type:'Consumer Insight',zh:'消費者洞察',col:'var(--blue)',q:'他為什麼買這個東西',example:'不是因為咖啡好喝，是因為需要一個「開始工作」的儀式感'},
+        {type:'Pain Point Insight',zh:'痛點洞察',col:'var(--red)',q:'他到底痛在哪裡、為什麼痛',example:'不是「壓力大」，是「晚上腦袋停不下來，想睡卻睡不著」'},
+        {type:'Value Insight',zh:'價值洞察',col:'var(--green)',q:'他真正要的價值是什麼',example:'買 Notion 不是要筆記軟體，是要「掌控感」和「專業感」'},
+        {type:'Function Insight',zh:'功能洞察',col:'var(--purple)',q:'他要什麼功能、為什麼要這功能',example:'要「一鍵分享」不是因為懶，是因為他想讓朋友覺得他有品味'}
+      ];
+      h+=`<div style="display:flex;flex-direction:column;gap:.6rem;max-width:720px;margin:0 auto">`;
+      insights.forEach((ins,i)=>{
+        const uid=`ins-${sd.id}-${i}`;
+        h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')" style="border:1.5px solid ${ins.col}40">`;
+        h+=`<div class="step-front" style="background:${ins.col}10;border:none">`;
+        h+=`<span style="font-size:.55rem;font-weight:800;letter-spacing:.1em;color:${ins.col};min-width:120px">${ins.type}</span>`;
+        h+=`<span style="font-size:clamp(.85rem,1.35vw,1rem);font-weight:600;color:var(--ink)">${ins.zh}</span>`;
+        h+=`<span style="margin-left:auto;font-size:.75rem;opacity:.3">+</span>`;
+        h+=`</div>`;
+        h+=`<div class="step-back" style="background:${ins.col}08"><div class="step-back-inner">`;
+        h+=`<div style="font-weight:600;color:var(--ink);margin-bottom:.4rem">關鍵問題：${ins.q}</div>`;
+        h+=`<div style="display:flex;gap:.4rem;align-items:flex-start"><span style="background:${ins.col};color:#fff;font-size:.48rem;font-weight:800;padding:.12em .45em;border-radius:3px">範例</span><span style="color:rgba(255,255,255,.75)">${ins.example}</span></div>`;
+        h+=`</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:720px;margin:1rem auto 0">開放式問題才能挖到洞察。「你覺得好用嗎」只會得到「還不錯」</div>`;
+      break;}
+    case 'mece-game':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:1rem">MECE = 相互獨立、完全窮盡（麥肯錫標配工具）</p>`;
+      h+=`</div>`;
+      const meceSteps=[
+        {num:'01',q:'受眾是「年輕人」<br>這是 MECE 嗎',label:'診斷',col:'var(--blue)',ans:'<strong>不是。</strong>「年輕人」沒有邊界，18 歲跟 30 歲的問題完全不同。相互獨立做不到。'},
+        {num:'02',q:'開手搖店<br>怎麼切受眾',label:'實戰',col:'var(--orange)',ans:'按「痛點」切：趕時間 vs 想坐下來 vs 外帶社交。或按「場景」切：上班族午後 vs 學生下課 vs 約會。'},
+        {num:'03',q:'切完之後<br>下一步是什麼',label:'行動',col:'var(--green)',ans:'找出「最值得說話」的那群人。不是服務所有人，是選擇<strong>最痛、最急、最願意行動</strong>的那群。'},
+        {num:'04',q:'MECE 的<br>真正目的',label:'核心',col:'var(--red)',ans:'不是分類完整。是找到「<strong>訊息能穿透的那群人</strong>」，讓你的設計有對象、有靶心。'}
+      ];
+      h+=`<div class="mrev-grid cols-4" style="gap:.6rem">`;
+      meceSteps.forEach((s,i)=>{
+        const uid=`mece-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:150px">`;
+        h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${s.col}">`;
+        h+=`<div class="card-label" style="color:${s.col}">${s.label}</div>`;
+        h+=`<div class="card-body" style="margin-top:.3rem">${s.ans}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask"><div class="card-mask-num" style="color:${s.col}">${s.num}</div><div class="card-mask-q">${s.q}</div><div class="card-mask-hint">點擊解鎖</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'topdown-exercise':{
+      h+=blob('rgba(255,32,85,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:1rem">用麥肯錫六元素檢查你的作品</p>`;
+      h+=`</div>`;
+      const checkItems=[
+        {q:'Context',desc:'你的作品要解決的問題，發生在什麼背景下？',col:'var(--blue)'},
+        {q:'Stakeholder',desc:'誰是你的受眾？誰會買單？誰會反對？',col:'var(--purple)'},
+        {q:'Criteria',desc:'怎麼判斷你的設計成功了？',col:'var(--green)'},
+        {q:'Scope',desc:'這次你只做什麼？不做什麼？',col:'var(--orange)'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;max-width:600px;margin:0 auto 1rem;position:relative;z-index:1">`;
+      checkItems.forEach(c=>{
+        h+=`<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:3px solid ${c.col};border-radius:0 8px 8px 0;padding:.7rem 1rem;text-align:left">`;
+        h+=`<div style="font-weight:700;color:var(--ink);font-size:clamp(.85rem,1.35vw,1rem)">${c.q}</div>`;
+        h+=`<div style="font-size:.78rem;color:var(--mid);margin-top:.2rem">${c.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="timer-wrap" style="position:relative;z-index:1"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      h+=`<div style="margin-top:1rem;font-size:.8rem;color:var(--mid);position:relative;z-index:1">和旁邊的人互相檢查：你能回答出這四個問題嗎？</div>`;
+      break;}
+    case 'audience-layers':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const layers=[
+        {key:'P',name:'Persona',zh:'用戶輪廓',col:'rgba(255,255,255,.6)',bg:'rgba(255,255,255,.04)',border:'rgba(255,255,255,.15)',
+         def:'目標用戶的整體樣貌',desc:'一個有生命的原型人物，不是統計數字。他多大、做什麼、每天在擔心什麼。',example:'25-35 歲城市上班族，有情緒壓力但不認為自己「生病」'},
+        {key:'I',name:'ICP',zh:'理想客群',col:'var(--blue)',bg:'rgba(59,130,246,.08)',border:'rgba(59,130,246,.35)',
+         def:'Ideal Customer Profile',desc:'從 Persona 收斂：最有明確痛點、最有行動意願的那群人。不是平均值，是你最想服務的。',example:'知道自己需要情緒支持，但覺得諮商太貴或有 stigma'},
+        {key:'H',name:'HXC',zh:'高期望消費者',col:'var(--red)',bg:'rgba(255,32,85,.1)',border:'rgba(255,32,85,.45)',
+         def:'High Expectation Consumer',desc:'在 ICP 裡，最急、最痛、最會主動找解法的那個人。他的反應代表市場的邊界。',example:'晚上腦袋停不下來，已經在 App Store 搜過「焦慮」「情緒」'}
+      ];
+      h+=`<div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">`;
+      layers.forEach((l,i)=>{
+        const uid=`al-${sd.id}-${i}`;
+        h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')" style="flex:1;min-width:260px;max-width:320px;border:2px solid ${l.border};background:${l.bg};border-radius:12px">`;
+        h+=`<div class="step-front" style="background:transparent;border:none;padding:1rem 1.2rem;flex-direction:column;align-items:center;text-align:center;gap:.4rem">`;
+        h+=`<span style="font-size:1.8rem;font-weight:800;color:${l.col}">${l.key}</span>`;
+        h+=`<span style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:${l.col}">${l.name}</span>`;
+        h+=`<span style="font-size:.8rem;color:var(--mid)">${l.zh}</span>`;
+        h+=`<span style="font-size:.55rem;color:rgba(255,255,255,.3);margin-top:.3rem">點擊展開</span>`;
+        h+=`</div>`;
+        h+=`<div class="step-back" style="background:rgba(0,0,0,.2);max-height:280px"><div class="step-back-inner" style="padding:.8rem 1.2rem">`;
+        h+=`<div style="font-size:.65rem;font-weight:700;color:${l.col};letter-spacing:.1em;margin-bottom:.3rem">${l.def}</div>`;
+        h+=`<div style="font-size:.85rem;color:rgba(255,255,255,.8);margin-bottom:.5rem">${l.desc}</div>`;
+        h+=`<div style="font-size:.78rem;color:var(--mid);padding:.5rem;background:rgba(255,255,255,.04);border-radius:6px"><strong style="color:${l.col}">範例：</strong>${l.example}</div>`;
+        h+=`</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
+    case 'funnel-v2':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const fid=sd.id;
+      h+=`<div style="display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap">`;
+      h+=`<svg id="funnel-${fid}" viewBox="0 0 440 280" width="420" height="280" style="max-width:min(420px,78vw)" font-family="system-ui,sans-serif">`;
+      h+=`<g class="funnel-layer" id="fl-p-${fid}" onclick="funnelFocus('${fid}','p')"><polygon points="16,10 424,10 330,92 110,92" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/><text x="220" y="52" text-anchor="middle" font-weight="800" font-size="15" fill="rgba(255,255,255,.85)">Persona</text><text x="220" y="72" text-anchor="middle" font-size="10" fill="rgba(255,255,255,.4)">廣泛的用戶輪廓</text></g>`;
+      h+=`<g class="funnel-layer" id="fl-i-${fid}" onclick="funnelFocus('${fid}','i')"><polygon points="110,102 330,102 258,178 182,178" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.55)" stroke-width="1.5"/><text x="220" y="142" text-anchor="middle" font-weight="800" font-size="15" fill="rgba(59,130,246,.95)">ICP</text><text x="220" y="161" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.6)">理想客群</text></g>`;
+      h+=`<g class="funnel-layer" id="fl-h-${fid}" onclick="funnelFocus('${fid}','h')"><polygon points="182,188 258,188 240,268 200,268" fill="rgba(255,32,85,.28)" stroke="rgba(255,32,85,.75)" stroke-width="1.5"/><text x="220" y="228" text-anchor="middle" font-weight="800" font-size="14" fill="#fff">HXC</text><text x="220" y="246" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.75)">最急 · 最痛 · 最行動</text></g>`;
+      h+=`</svg>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.6rem;max-width:210px">`;
+      [['Persona','rgba(255,255,255,.5)','廣泛輪廓','p'],['ICP','rgba(59,130,246,.9)','理想客群','i'],['HXC','var(--red)','最強需求','h']].forEach(([k,c,desc,key])=>{
+        h+=`<div onclick="funnelFocus('${fid}','${key}')" style="cursor:pointer;background:rgba(255,255,255,.04);border-left:3px solid ${c};border-radius:0 8px 8px 0;padding:.6rem 1rem"><div style="font-size:.55rem;color:${c};font-weight:700;letter-spacing:.1em;text-transform:uppercase">${desc}</div><div style="font-weight:800;color:var(--ink);margin-top:.15rem;font-size:clamp(.92rem,1.5vw,1.1rem)">${k}</div></div>`;
+      });
+      h+=`</div></div>`;
+      h+=`<div id="fd-${fid}" style="margin-top:.6rem;padding:.7rem 1.2rem;border-radius:8px;border-left:3px solid var(--orange);background:rgba(255,107,0,.08);font-size:clamp(.82rem,1.3vw,.95rem);color:var(--ink);max-width:600px;margin-left:auto;margin-right:auto;transition:opacity .3s;opacity:0">點擊漏斗層查看說明</div>`;
+      break;}
+    case 'hxc-case-study':{
+      h+=blob('rgba(34,197,94,.08)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const spotifyLayers=[
+        {level:'Persona',col:'rgba(255,255,255,.6)',content:'喜歡聽音樂的人（範圍太廣）'},
+        {level:'ICP',col:'var(--blue)',content:'會付錢買音樂串流服務的人（有付費意願）'},
+        {level:'HXC',col:'var(--red)',content:'「聽到一首新歌會想知道這是誰唱的、馬上加到播放清單、還會分享給朋友」的人'}
+      ];
+      h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:640px;margin:0 auto;position:relative;z-index:1">`;
+      spotifyLayers.forEach((l,i)=>{
+        h+=`<div style="display:flex;align-items:center;gap:1rem;padding:.9rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid ${l.col};border-radius:0 10px 10px 0">`;
+        h+=`<div style="font-size:.65rem;font-weight:800;letter-spacing:.1em;color:${l.col};min-width:70px">${l.level}</div>`;
+        h+=`<div style="font-size:clamp(.88rem,1.4vw,1.05rem);color:var(--ink)">${l.content}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:640px;margin:1rem auto 0;position:relative;z-index:1"><strong>Spotify 的洞察：</strong>HXC 不只是「願意付錢聽歌的人」，而是「會主動探索音樂並分享給朋友的人」——這群人會幫你做口碑傳播</div>`;
+      break;}
+    case 'vitamin-painkiller':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:1rem">你的作品是哪一種</p>`;
+      h+=`</div>`;
+      const vitaminIcon='<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
+      const painkillerIcon='<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
+      h+=`<div class="compare-grid">`;
+      // Vitamin
+      h+=`<div class="cmp-card cmp-no" onclick="this.classList.toggle('revealed')">`;
+      h+=`<div style="color:var(--mid);margin-bottom:.4rem">${vitaminIcon}</div>`;
+      h+=`<h3 style="color:rgba(255,255,255,.7)">維他命 Nice to Have</h3>`;
+      h+=`<ul class="deck-list" style="margin-top:.5rem">`;
+      ['有的話不錯','沒有也過得去','購買動機弱','難以建立急迫性'].forEach(it=>{h+=`<li>${it}</li>`;});
+      h+=`</ul>`;
+      h+=`<div class="cmp-mask"><div class="cmp-mask-icon">${vitaminIcon}</div><div style="font-weight:800;font-size:clamp(.88rem,1.45vw,1.1rem);color:var(--ink);margin:.3rem 0">維他命</div><div class="cmp-mask-label">點擊解鎖</div></div>`;
+      h+=`</div>`;
+      // Painkiller
+      h+=`<div class="cmp-card cmp-yes" onclick="this.classList.toggle('revealed')">`;
+      h+=`<div style="color:var(--orange);margin-bottom:.4rem">${painkillerIcon}</div>`;
+      h+=`<h3>止痛藥 Must Have</h3>`;
+      h+=`<ul class="deck-list" style="margin-top:.5rem">`;
+      ['沒有就真的很痛','用戶主動在找','決策快、行動快','高轉換、高黏著'].forEach(it=>{h+=`<li>${it}</li>`;});
+      h+=`</ul>`;
+      h+=`<div class="cmp-mask"><div class="cmp-mask-icon">${painkillerIcon}</div><div style="font-weight:800;font-size:clamp(.88rem,1.45vw,1.1rem);color:var(--ink);margin:.3rem 0">止痛藥</div><div class="cmp-mask-label">點擊解鎖</div></div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      break;}
+    case 'painkiller-examples':{
+      h+=blob('rgba(34,197,94,.08)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const examples=[
+        {type:'維他命',name:'Evernote',desc:'筆記工具，有很好，沒有用其他的也行',col:'rgba(255,255,255,.5)',isVitamin:true},
+        {type:'止痛藥',name:'Slack',desc:'團隊溝通混亂的痛是真實的，Slack 解決了「訊息散落各處」的焦慮',col:'var(--green)',isVitamin:false},
+        {type:'維他命',name:'健身 App（多數）',desc:'用戶知道該運動，但沒有急迫性，下載後很少打開',col:'rgba(255,255,255,.5)',isVitamin:true},
+        {type:'止痛藥',name:'Uber',desc:'「現在需要一台車」是真實的痛，而且很急',col:'var(--green)',isVitamin:false}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:700px;margin:0 auto;position:relative;z-index:1">`;
+      examples.forEach(ex=>{
+        h+=`<div style="background:${ex.isVitamin?'rgba(255,255,255,.03)':'rgba(34,197,94,.08)'};border:1px solid ${ex.isVitamin?'rgba(255,255,255,.1)':'rgba(34,197,94,.3)'};border-radius:10px;padding:1rem 1.2rem">`;
+        h+=`<div style="font-size:.55rem;font-weight:800;letter-spacing:.1em;color:${ex.col};margin-bottom:.3rem">${ex.type}</div>`;
+        h+=`<div style="font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:700;color:var(--ink);margin-bottom:.3rem">${ex.name}</div>`;
+        h+=`<div style="font-size:.82rem;color:var(--mid);line-height:1.5">${ex.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:700px;margin:1rem auto 0;position:relative;z-index:1">判斷標準：問「如果明天沒有這個，你會怎麼辦？」——他聳肩 = 維他命，他皺眉 = 止痛藥</div>`;
+      break;}
+    case 'pitch-three':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      const pitchSteps=[
+        {num:'01',name:'Hook',label:'前 5 秒抓住注意力',col:'var(--red)',
+         detail:'描述具體情境，說出他說不出口的感覺',
+         good:'「你有沒有過這種經驗：晚上躺在床上，腦袋卻停不下來？」',
+         bad:'「很多人有壓力問題」'},
+        {num:'02',name:'Pain',label:'描述他的具體痛',col:'var(--orange)',
+         detail:'用他的語言說他的痛，讓他點頭說「對！」',
+         good:'「想找人說，但又不知道要說什麼」',
+         bad:'「現代人壓力很大」'},
+        {num:'03',name:'Solution',label:'你的解法如何回應',col:'var(--blue)',
+         detail:'說結果，不說功能。說他能得到什麼，不說你做了什麼',
+         good:'「幫你把混亂說清楚，讓你看見自己在哪裡」',
+         bad:'「我們用 AI 技術做了一個 chatbot」'}
+      ];
+      h+=`<div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">`;
+      pitchSteps.forEach((p,i)=>{
+        const uid=`pt-${sd.id}-${i}`;
+        h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')" style="flex:1;min-width:240px;max-width:300px;border:1.5px solid ${p.col}40">`;
+        h+=`<div class="step-front" style="background:${p.col}15;border:none;flex-direction:column;align-items:center;text-align:center;padding:.9rem 1rem;gap:.3rem">`;
+        h+=`<span style="font-size:.55rem;font-weight:800;letter-spacing:.1em;color:${p.col}">${p.num}</span>`;
+        h+=`<span style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink)">${p.name}</span>`;
+        h+=`<span style="font-size:.78rem;color:var(--mid)">${p.label}</span>`;
+        h+=`</div>`;
+        h+=`<div class="step-back" style="background:${p.col}08;max-height:280px"><div class="step-back-inner" style="padding:.8rem 1rem">`;
+        h+=`<div style="font-size:.85rem;color:var(--ink);margin-bottom:.5rem">${p.detail}</div>`;
+        h+=`<div style="margin-bottom:.4rem"><span style="background:var(--green);color:#fff;font-size:.45rem;font-weight:800;padding:.1em .4em;border-radius:2px;margin-right:.4rem">O</span><span style="font-size:.78rem;color:rgba(255,255,255,.8)">${p.good}</span></div>`;
+        h+=`<div><span style="background:var(--red);color:#fff;font-size:.45rem;font-weight:800;padding:.1em .4em;border-radius:2px;margin-right:.4rem">X</span><span style="font-size:.78rem;color:rgba(255,255,255,.6)">${p.bad}</span></div>`;
+        h+=`</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
     case 'funnel':{
-      h+=chip;h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.7rem">${sd.title}</h2>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`</div>`;
       const fid=sd.id;
       h+=`<div style="display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap">`;
       h+=`<svg id="funnel-${fid}" viewBox="0 0 440 280" width="420" height="280" style="max-width:min(420px,78vw)" font-family="system-ui,sans-serif">`;
@@ -467,22 +965,41 @@ function renderSlide(sd,idx){
       h+=`<div id="fd-${fid}" style="margin-top:.55rem;padding:.65rem 1.2rem;border-radius:8px;border-left:3px solid var(--orange);background:rgba(255,107,0,.08);font-size:clamp(.8rem,1.28vw,.93rem);color:var(--ink);transition:opacity .3s;opacity:0">點擊漏斗層查看說明</div>`;
       break;}
     case 'dt-steps':
-      h+=chip;h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:1.1rem">${sd.title}</h2>`;
-      h+=`<div style="display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;justify-content:center">`;
-      [{n:'Empathize',zh:'同理心',hl:false},{n:'Define',zh:'定義問題',hl:false},{n:'Ideate',zh:'發散構想',hl:false},{n:'Prototype',zh:'快速原型',hl:true},{n:'Test',zh:'測試驗證',hl:false}].forEach((s,i,a)=>{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.9rem,1.4vw,1.05rem);margin-bottom:1rem">點擊每個步驟了解核心概念</p>`;
+      h+=`</div>`;
+      const dtData=[
+        {n:'Empathize',zh:'同理心',hl:false,detail:'觀察、訪談、感同身受。問「上次你怎麼處理這件事？」而不是「你會用嗎？」。<strong>找到真實的痛，不是想像的需求。</strong>'},
+        {n:'Define',zh:'定義問題',hl:false,detail:'把模糊的觀察轉譯為可行動的問題。格式：「如何幫助 ___（誰）解決 ___（什麼痛），讓他能夠 ___（結果）」'},
+        {n:'Ideate',zh:'發散構想',hl:false,detail:'用 Brainstorm 快速發散。不批判、不收斂。先求量，再求質。用「Yes, and...」取代「Yes, but...」'},
+        {n:'Prototype',zh:'快速原型',hl:true,detail:'<strong>20-50-80 法則</strong>：完成度 20% 就測試大方向，50% 測核心功能，80% 測細節體驗。<em>早上用 Canva 做圖 = 你在這一步。</em>'},
+        {n:'Test',zh:'測試驗證',hl:false,detail:'把原型給真實用戶用。觀察他的行為，不是聽他的話。問「你會怎麼用？」看他卡在哪裡。<strong>失敗是資訊，不是結果。</strong>'}
+      ];
+      h+=`<div style="display:flex;flex-direction:column;gap:.6rem;max-width:720px;margin:0 auto">`;
+      dtData.forEach((s,i)=>{
+        const uid=`dt-${sd.id}-${i}`;
         const bg=s.hl?'linear-gradient(135deg,var(--orange),var(--red))':'rgba(255,255,255,.05)';
-        const bord=s.hl?'none':'1px solid rgba(255,255,255,.1)';
-        const col=s.hl?'#fff':'var(--ink)';const sub=s.hl?'rgba(255,255,255,.85)':'var(--mid)';
-        h+=`<div style="background:${bg};border:${bord};border-radius:8px;padding:.88rem 1.05rem;min-width:110px;text-align:center;flex:1"><div style="font-weight:800;font-size:clamp(.85rem,1.38vw,1rem);color:${col}">${s.n}</div><div style="font-size:.75rem;color:${sub};margin-top:.22rem">${s.zh}</div>${s.hl?`<div style="font-size:.58rem;background:rgba(0,0,0,.2);border-radius:4px;padding:.12em .45em;color:rgba(255,255,255,.8);margin-top:.35rem;letter-spacing:.07em">早上在這</div>`:''}</div>`;
-        if(i<a.length-1)h+=`<div style="color:rgba(255,255,255,.2);font-size:.95rem;flex-shrink:0">→</div>`;
+        const bord=s.hl?'rgba(255,107,0,.5)':'rgba(255,255,255,.1)';
+        const col=s.hl?'#fff':'var(--ink)';
+        const sub=s.hl?'rgba(255,255,255,.85)':'var(--mid)';
+        h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')" style="border:1.5px solid ${bord}">`;
+        h+=`<div class="step-front" style="background:${bg};border:none">`;
+        h+=`<span class="step-num" style="color:${s.hl?'#fff':'var(--orange)'}">0${i+1}</span>`;
+        h+=`<span class="step-q" style="color:${col}">${s.n} <span style="color:${sub};font-weight:500;margin-left:.4rem">${s.zh}</span></span>`;
+        h+=`<span class="step-lock">${s.hl?'<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="6"/></svg>':'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'}</span>`;
+        h+=`</div>`;
+        h+=`<div class="step-back"><div class="step-back-inner">${s.detail}</div></div>`;
+        h+=`</div>`;
       });
-      h+=`</div><div style="margin-top:.9rem;padding:.75rem 1.25rem;background:rgba(255,32,85,.07);border-left:3px solid var(--red);border-radius:0 6px 6px 0;font-size:clamp(.85rem,1.32vw,.98rem);color:var(--ink)">早上從 <strong>Prototype</strong> 開始。<span style="color:var(--red);font-weight:700"> 真正的起點是 Empathize。</span></div>`;
+      h+=`</div>`;
+      h+=`<div style="margin-top:1rem;padding:.75rem 1.25rem;background:rgba(255,32,85,.07);border-left:3px solid var(--red);border-radius:0 6px 6px 0;font-size:clamp(.85rem,1.32vw,.98rem);color:var(--ink);max-width:720px;margin-left:auto;margin-right:auto">早上從 <strong>Prototype</strong> 開始。<span style="color:var(--red);font-weight:700"> 真正的起點是 Empathize。</span></div>`;
       break;
     case 'fermi-game':{
-      h+=chip;h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.28rem">${sd.title}</h2>`;
-      if(sd.subtitle)h+=`<p style="color:var(--mid);margin-bottom:.75rem;font-size:clamp(.85rem,1.38vw,.98rem)">${sd.subtitle}</p>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.35rem">${sd.title}</h2>`;
+      if(sd.subtitle)h+=`<p style="color:var(--mid);margin-bottom:.9rem;font-size:clamp(.9rem,1.4vw,1.05rem)">${sd.subtitle}</p>`;
+      h+=`</div>`;
       const steps=[
         {num:'Step 1',q:'台灣 2,300 萬人。<br>有多少比例有飲料習慣？',label:'市場基數',col:'var(--blue)',ans:'約 <strong>40%</strong>。也就是 920 萬個有飲料習慣的人。'},
         {num:'Step 2',q:'這些人平均<br>每週喝幾杯手搖？',label:'消費頻率',col:'var(--cyan)',ans:'估算每週約 <strong>2.5 杯</strong>。一年大約 130 杯。'},
@@ -492,7 +1009,7 @@ function renderSlide(sd,idx){
       h+=`<div class="mrev-grid cols-4" style="gap:.65rem">`;
       steps.forEach((s,si)=>{
         const uid=`${sd.id}-f${si}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="document.getElementById('${uid}').classList.add('unlocked')" style="min-height:145px">`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:145px">`;
         h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${s.col}">`;
         h+=`<div class="card-label" style="color:${s.col}">${s.label}</div>`;
         h+=`<div class="card-body" style="margin-top:.35rem">${s.ans}</div>`;
@@ -502,64 +1019,72 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;break;}
     case 'stat':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.65rem">${sd.title}</h2>`;
+      h+=`</div>`;
       h+=`<div style="text-align:center;margin:.25rem 0 .85rem"><div style="font-size:clamp(5rem,15vw,10rem);font-weight:800;line-height:1;letter-spacing:-.04em;background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">${sd.stat}</div></div>`;
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;max-width:620px;margin:0 auto">`;
       sd.stats3.forEach(s=>{h+=`<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:.82rem 1rem;text-align:center"><div style="font-size:clamp(1.1rem,2vw,1.45rem);font-weight:800;color:${s.c}">${s.n}</div><div style="font-size:.78rem;color:var(--mid);margin-top:.2rem;line-height:1.4">${s.d}</div></div>`;});
       h+=`</div>`;break;
     case 'exercise':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.85rem">${sd.title}</h2>`;
-      h+=`<div style="border:2px solid var(--red);border-radius:12px;padding:1.25rem 1.65rem;margin:.45rem 0;background:rgba(255,32,85,.06)"><p style="font-size:clamp(.98rem,1.65vw,1.22rem);color:var(--ink);line-height:1.75">${sd.template}</p></div>`;
-      if(sd.bullets?.length){h+=`<ul class="deck-list">`;sd.bullets.forEach(b=>{h+=`<li>${b}</li>`;});h+=`</ul>`;}
+      h+=`</div>`;
+      h+=`<div style="border:2px solid var(--red);border-radius:12px;padding:1.25rem 1.65rem;margin:.45rem auto;background:rgba(255,32,85,.06);max-width:680px;text-align:center"><p style="font-size:clamp(.98rem,1.65vw,1.22rem);color:var(--ink);line-height:1.75">${sd.template}</p></div>`;
+      if(sd.bullets?.length){h+=`<ul class="deck-list" style="max-width:680px;margin:1rem auto 0">`;sd.bullets.forEach(b=>{h+=`<li>${b}</li>`;});h+=`</ul>`;}
       break;
     case 'roadmap':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
-      h+=`<div style="display:flex;flex-direction:column;gap:.7rem;max-width:620px">`;
+      h+=`</div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.7rem;max-width:620px;margin:0 auto">`;
       [{time:'14:00–14:30',sec:'① 底層思維',desc:'創新三元 ‧ 設計思維 ‧ MECE ‧ 費米估算',col:'var(--orange)'},{time:'14:30–15:15',sec:'② 欲求性洞察',desc:'Persona ‧ ICP ‧ HXC ‧ 痛點 ‧ EmoTree',col:'var(--blue)'},{time:'15:15–16:00',sec:'③ 存續性發表',desc:'GTM ‧ MVP ‧ Pitch ‧ 上台發表',col:'var(--green)'}].forEach((r,ri)=>{
         const active=ri===0;
         h+=`<div style="display:flex;align-items:center;gap:1rem;background:${active?'rgba(255,107,0,.1)':'rgba(255,255,255,.03)'};border:1px solid ${active?'var(--orange)':'rgba(255,255,255,.08)'};border-left:3px solid ${r.col};border-radius:8px;padding:.85rem 1.2rem"><div style="font-size:clamp(.72rem,.98vw,.82rem);color:var(--mid);min-width:95px">${r.time}</div><div style="flex:1"><div style="font-weight:800;font-size:clamp(.92rem,1.65vw,1.2rem);color:var(--ink)">${r.sec}</div><div style="font-size:.78rem;color:var(--mid);margin-top:.13rem">${r.desc}</div></div>${active?`<div style="background:var(--orange);border-radius:4px;padding:.12rem .52rem;color:#fff;font-size:.56rem;font-weight:800;letter-spacing:.08em">NOW</div>`:''}</div>`;
       });h+=`</div>`;break;
     case 'gtm-steps':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:1.1rem">${sd.title}</h2>`;
+      h+=`</div>`;
       h+=`<div style="display:flex;align-items:stretch;gap:.62rem;flex-wrap:wrap;justify-content:center">`;
       [{n:'①',t:'定義受眾',d:'ICP + HXC\n是誰？',c:'var(--red)'},{n:'②',t:'設計訊息',d:'Hook → Pain\n→ Solution',c:'var(--orange)'},{n:'③',t:'選擇管道',d:'他在哪裡\n你就在哪',c:'var(--blue)'},{n:'④',t:'驅動行動',d:'一個清楚\n的 CTA',c:'var(--purple)'}].forEach((s,i,a)=>{
         h+=`<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-top:3px solid ${s.c};border-radius:8px;padding:1.1rem 1rem;min-width:135px;flex:1;text-align:center"><div style="font-size:.66rem;font-weight:800;letter-spacing:.12em;color:${s.c};margin-bottom:.32rem">${s.n}</div><div style="font-weight:800;font-size:clamp(.92rem,1.65vw,1.2rem);color:var(--ink);margin-bottom:.42rem">${s.t}</div><div style="font-size:.8rem;color:var(--mid);line-height:1.4;white-space:pre-line">${s.d}</div></div>`;
         if(i<a.length-1)h+=`<div style="display:flex;align-items:center;color:rgba(255,255,255,.2);font-size:1rem;flex-shrink:0;padding:.5rem 0">→</div>`;
       });h+=`</div>`;break;
     case 'pitch-demo':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.85rem">${sd.title}</h2>`;
-      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.4rem 1.6rem;display:flex;flex-direction:column;gap:.85rem;max-width:720px">`;
+      h+=`</div>`;
+      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:1.4rem 1.6rem;display:flex;flex-direction:column;gap:.85rem;max-width:720px;margin:0 auto">`;
       [{tag:'Hook',col:'var(--red)',text:'你有沒有試過，很想找個人說說話，但想了半天不知道要說什麼？'},{tag:'Pain',col:'var(--orange)',text:'很多人晚上腦袋停不下來，但諮商太貴，朋友也不好打擾，最後只能一個人耗著。'},{tag:'Solution',col:'var(--blue)',text:'EmoTree 是情緒陪伴 AI，不給答案，幫你把混亂說清楚，讓你看見你在哪裡。'},{tag:'CTA',col:'var(--green)',text:'掃碼試用，感受一次什麼叫被聽見。'}].forEach(d=>{
         h+=`<div style="display:flex;gap:.85rem;align-items:flex-start"><span style="background:${d.col};border-radius:4px;padding:.16rem .52rem;font-size:.56rem;font-weight:800;color:#fff;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;margin-top:.18rem;flex-shrink:0">${d.tag}</span><p style="color:var(--ink);font-size:clamp(.9rem,1.52vw,1.08rem);line-height:1.65;margin:0">${d.text}</p></div>`;
       });
       h+=`<div style="padding-top:.65rem;border-top:1px solid rgba(255,255,255,.07);font-size:.68rem;color:rgba(255,255,255,.28);text-align:center;letter-spacing:.06em">全長約 25–30 秒 · 四句話</div></div>`;
       break;
     case 'pitch-template':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.85rem">${sd.title}</h2>`;
-      h+=`<div style="display:flex;flex-direction:column;gap:.62rem;max-width:680px">`;
-      [{label:'🪝 Hook',col:'var(--red)',ph:'前 5 秒。問句或反常識，讓他停下來。'},{label:'😣 Pain',col:'var(--orange)',ph:'描述他的具體情境。讓他點頭說「對！」'},{label:'💡 Solution',col:'var(--blue)',ph:'你的作品如何回應那個痛。說結果，不說功能。'},{label:'🎯 CTA',col:'var(--green)',ph:'一個清楚的行動。「掃碼 / 試用 / 找我聊聊」。'}].forEach(b=>{
-        h+=`<div style="display:flex;align-items:stretch;border-radius:8px;overflow:hidden;border:1px solid ${b.col}"><div style="background:${b.col};padding:.65rem .9rem;display:flex;align-items:center;min-width:90px;justify-content:center"><span style="color:#fff;font-weight:800;font-size:.78rem;text-align:center;line-height:1.3">${b.label}</span></div><div style="flex:1;background:rgba(255,255,255,.03);padding:.65rem 1.05rem;display:flex;align-items:center"><span style="color:rgba(255,255,255,.3);font-size:clamp(.83rem,1.32vw,.95rem);font-style:italic">${b.ph}</span></div></div>`;
+      h+=`</div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.62rem;max-width:680px;margin:0 auto">`;
+      [{label:'Hook',col:'var(--red)',ph:'前 5 秒。問句或反常識，讓他停下來。',icon:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'},{label:'Pain',col:'var(--orange)',ph:'描述他的具體情境。讓他點頭說「對！」',icon:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>'},{label:'Solution',col:'var(--blue)',ph:'你的作品如何回應那個痛。說結果，不說功能。',icon:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>'},{label:'CTA',col:'var(--green)',ph:'一個清楚的行動。「掃碼 / 試用 / 找我聊聊」。',icon:'<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>'}].forEach(b=>{
+        h+=`<div style="display:flex;align-items:stretch;border-radius:8px;overflow:hidden;border:1px solid ${b.col}"><div style="background:${b.col};padding:.65rem .9rem;display:flex;align-items:center;gap:.4rem;min-width:100px;justify-content:center"><span style="color:#fff">${b.icon}</span><span style="color:#fff;font-weight:800;font-size:.78rem;text-align:center;line-height:1.3">${b.label}</span></div><div style="flex:1;background:rgba(255,255,255,.03);padding:.65rem 1.05rem;display:flex;align-items:center"><span style="color:rgba(255,255,255,.3);font-size:clamp(.83rem,1.32vw,.95rem);font-style:italic">${b.ph}</span></div></div>`;
       });h+=`</div>`;break;
     case 'checklist':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
-      h+=`<div style="display:flex;flex-direction:column;gap:.85rem;max-width:640px">`;
-      sd.items.forEach(it=>{h+=`<div style="display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-left:3px solid ${it.c};border-radius:8px;padding:.95rem 1.25rem"><div style="font-size:1.25rem">✓</div><div><div style="font-weight:700;color:var(--ink);font-size:clamp(.92rem,1.55vw,1.1rem)">${it.q}</div><div style="color:var(--mid);font-size:.83rem;margin-top:.15rem">${it.a}</div></div></div>`;});
       h+=`</div>`;
-      if(sd.footer)h+=`<div class="tip-box" style="max-width:640px;margin-top:.85rem">${sd.footer}</div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.85rem;max-width:640px;margin:0 auto">`;
+      sd.items.forEach(it=>{h+=`<div style="display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-left:3px solid ${it.c};border-radius:8px;padding:.95rem 1.25rem"><div style="color:${it.c}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div style="font-weight:700;color:var(--ink);font-size:clamp(.92rem,1.55vw,1.1rem)">${it.q}</div><div style="color:var(--mid);font-size:.83rem;margin-top:.15rem">${it.a}</div></div></div>`;});
+      h+=`</div>`;
+      if(sd.footer)h+=`<div class="tip-box" style="max-width:640px;margin:.85rem auto 0">${sd.footer}</div>`;
       break;
     case 'resources':
-      h+=chip;h+=`<div class="bar"></div>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
-      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:680px">`;
-      [{icon:'🔗',label:'LinkedIn',desc:'加 Vincent<br>持續獲取洞察',border:'rgba(255,255,255,.1)',hl:false},{icon:'🌿',label:'EmoTree',desc:'情緒陪伴 AI<br>掃碼免費體驗',border:'var(--red)',hl:true},{icon:'📋',label:'課程框架',desc:'三元 · HXC<br>Pitch · GTM',border:'rgba(255,255,255,.1)',hl:false}].forEach(r=>{
-        h+=`<div style="background:rgba(255,255,255,.04);border:1px solid ${r.border};border-radius:12px;padding:1.3rem 1.1rem;text-align:center"><div style="width:65px;height:65px;background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.12);border-radius:10px;margin:0 auto .7rem;display:flex;align-items:center;justify-content:center;font-size:1.6rem">${r.icon}</div><div style="font-weight:700;font-size:.94rem;color:${r.hl?'var(--red)':'var(--ink)'};margin-bottom:.32rem">${r.label}</div><div style="font-size:.78rem;color:var(--mid);line-height:1.5">${r.desc}</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:680px;margin:0 auto">`;
+      [{icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>',label:'LinkedIn',desc:'加 Vincent<br>持續獲取洞察',border:'rgba(255,255,255,.1)',hl:false},{icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',label:'EmoTree',desc:'情緒陪伴 AI<br>掃碼免費體驗',border:'var(--red)',hl:true},{icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',label:'課程框架',desc:'三元 · HXC<br>Pitch · GTM',border:'rgba(255,255,255,.1)',hl:false}].forEach(r=>{
+        h+=`<div style="background:rgba(255,255,255,.04);border:1px solid ${r.border};border-radius:12px;padding:1.3rem 1.1rem;text-align:center"><div style="width:65px;height:65px;background:rgba(255,255,255,.05);border:2px dashed rgba(255,255,255,.12);border-radius:10px;margin:0 auto .7rem;display:flex;align-items:center;justify-content:center;color:${r.hl?'var(--red)':'rgba(255,255,255,.5)'}">${r.icon}</div><div style="font-weight:700;font-size:.94rem;color:${r.hl?'var(--red)':'var(--ink)'};margin-bottom:.32rem">${r.label}</div><div style="font-size:.78rem;color:var(--mid);line-height:1.5">${r.desc}</div></div>`;
       });h+=`</div>`;break;
     default:
       h+=chip;h+=`<h2>${sd.id}</h2>`;
