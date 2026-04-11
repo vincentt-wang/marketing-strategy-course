@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>設計思考 — 台北大學社群行銷工作坊 Day 2 · Vincent</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --bg: #fbfbfd;
+  --ink: #1d1d1f;
+  --mid: #86868b;
+  --line: rgba(0,0,0,0.1);
+  --white: #ffffff;
+  --orange: #FF6B00;
+  --orange-light: rgba(255,107,0,0.12);
+  --orange-border: rgba(255,107,0,0.3);
+  --red: #E6003A;
+  --red-light: rgba(230,0,58,0.1);
+  --blue: #0055CC;
+  --blue-light: rgba(0,85,204,0.1);
+  --glass-bg: rgba(255,255,255,0.65);
+  --glass-border: rgba(255,255,255,0.8);
+  --glass-blur: blur(16px) saturate(180%);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,0.12);
+  --shadow-hover: 0 30px 60px rgba(0,0,0,0.16);
+  --ease-out-back: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-smooth: cubic-bezier(0.4,0.0,0.2,1);
+}
+
+html { font-size: 18px; }
+
+body {
+  font-family: system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  font-size: 18px;
+  color: var(--ink);
+  background: var(--bg);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ── Scroll-Snap Container ── */
+#slides-container {
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  position: fixed;
+  inset: 0;
+  /* hide scrollbar */
+  scrollbar-width: none;
+}
+#slides-container::-webkit-scrollbar { display: none; }
+
+/* ── Slide Base ── */
+.slide {
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem,5vw,5rem) clamp(2rem,5vw,5rem) 60px;
+  background: var(--bg);
+}
+
+/* SVG grid bg */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+  background-size: clamp(40px,7vw,80px) clamp(40px,7vw,80px);
+  z-index: 0;
+}
+
+/* ── Slide types ── */
+.slide-dark {
+  background: #0f0f0f;
+}
+.slide-dark::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+}
+.slide-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(255,107,0,.12), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(230,0,58,.08), transparent 50%);
+  background-size: 200% 200%;
+  animation: aurora 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.slide-section {
+  background: linear-gradient(135deg, #E6003A 0%, #FF4500 100%);
+}
+.slide-section::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+}
+.slide-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 100% 100% at 100% 0%, rgba(255,255,255,.08), transparent 50%);
+  z-index: 0;
+}
+
+.slide-cover {
+  background: #0f0f0f;
+  text-align: center;
+  justify-content: center;
+}
+.slide-cover::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+}
+.slide-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 30%, rgba(255,107,0,.15), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 70% 70%, rgba(230,0,58,.1), transparent 50%);
+  background-size: 200% 200%;
+  animation: aurora 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.slide-close {
+  background: #0f0f0f;
+  text-align: center;
+}
+.slide-close::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+}
+.slide-close::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(255,107,0,.12), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(230,0,58,.08), transparent 50%);
+  background-size: 200% 200%;
+  animation: aurora 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.slide-warm { background: #faf8f4; }
+.slide-cool { background: #f0f4fa; }
+
+/* ── Inner container ── */
+.inner {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 1080px);
+  max-height: calc(100vh - 100px);
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.inner::-webkit-scrollbar { display: none; }
+
+/* ── Slide content animation ── */
+.slide-content {
+  opacity: 0;
+  transform: translateY(32px) scale(.98);
+  transition: opacity .7s var(--ease-smooth), transform .7s var(--ease-out-back);
+}
+.slide.is-visible .slide-content {
+  opacity: 1;
+  transform: none;
+}
+.slide.is-visible .slide-content > * {
+  animation: fade-up .6s var(--ease-out-back) both;
+}
+.slide.is-visible .slide-content > *:nth-child(1) { animation-delay: .05s; }
+.slide.is-visible .slide-content > *:nth-child(2) { animation-delay: .12s; }
+.slide.is-visible .slide-content > *:nth-child(3) { animation-delay: .19s; }
+.slide.is-visible .slide-content > *:nth-child(4) { animation-delay: .26s; }
+.slide.is-visible .slide-content > *:nth-child(5) { animation-delay: .33s; }
+.slide.is-visible .slide-content > *:nth-child(6) { animation-delay: .40s; }
+
+/* ── Animations ── */
+@keyframes aurora {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes hero-drift {
+  0%,100% { transform: scale(1) translate3d(0,0,0); opacity:.45; }
+  50%      { transform: scale(1.04) translate3d(0,-1%,0); opacity:.65; }
+}
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(28px) scale(.98); }
+  to   { opacity:1; transform:none; }
+}
+
+/* ── Typography ── */
+.hero-txt { font-size:clamp(3.2rem,9vw,7.5rem); font-weight:800; line-height:1.02; letter-spacing:-0.03em; }
+h1 { font-size:clamp(2.6rem,6.5vw,5.5rem); font-weight:800; line-height:1.05; letter-spacing:-0.025em; }
+h2 { font-size:clamp(1.9rem,4vw,3.5rem); font-weight:700; line-height:1.08; letter-spacing:-0.02em; }
+h3 { font-size:clamp(1.2rem,2vw,1.9rem); font-weight:600; line-height:1.2; }
+p, li { font-size:clamp(1rem,1.6vw,1.3rem); line-height:1.75; color:var(--mid); }
+strong { color:var(--ink); font-weight:700; }
+.kicker { font-size:clamp(.7rem,.9vw,.85rem); font-weight:800; letter-spacing:.15em; text-transform:uppercase; }
+
+/* Color overrides for dark/section slides */
+.slide-dark h1, .slide-dark h2, .slide-dark h3, .slide-dark .hero-txt { color: #fff; }
+.slide-dark p { color: rgba(255,255,255,.6); }
+.slide-cover h1, .slide-cover h2, .slide-cover .hero-txt { color: #fff; }
+.slide-cover p { color: rgba(255,255,255,.6); }
+.slide-section h1, .slide-section h2, .slide-section h3 { color: #fff; }
+.slide-section p { color: rgba(255,255,255,.75); }
+.slide-close h1, .slide-close h2 { color: #fff; }
+.slide-close p { color: rgba(255,255,255,.65); }
+
+/* ── Gradient text ── */
+.grad-text {
+  background: linear-gradient(135deg, var(--ink) 0%, #555 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-orange {
+  background: linear-gradient(135deg, #FF6B00, #FF8C00);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-red {
+  background: linear-gradient(135deg, #E6003A, #FF2055);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .3em .9em;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.badge-orange { background: var(--orange); color: #fff; }
+.badge-red    { background: var(--red);    color: #fff; }
+.badge-dark   { background: var(--ink);    color: #fff; }
+.badge-glass  {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  color: var(--ink);
+  border: 1px solid var(--glass-border);
+}
+
+/* ── Deck list ── */
+.deck-list {
+  list-style: none;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+.deck-list li {
+  padding: .15rem 0 .15rem 1.4rem;
+  position: relative;
+  font-size: clamp(1rem,1.6vw,1.25rem);
+  color: var(--mid);
+}
+.deck-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--orange);
+  font-weight: 800;
+}
+
+/* ── Tip box ── */
+.tip-box {
+  background: rgba(255,107,0,.07);
+  border-left: 4px solid var(--orange);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.2rem;
+  font-size: clamp(.9rem,1.4vw,1.05rem);
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 1.2rem;
+}
+
+/* ── Glass card ── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: clamp(1.2rem,2.5vw,2rem);
+  box-shadow: var(--shadow-md);
+  transition: transform .3s var(--ease-out-back), box-shadow .3s ease;
+}
+.glass-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+
+/* ── Compare ── */
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem; }
+.cmp-card { border-radius:14px; padding:1.6rem; }
+.cmp-no  { background:rgba(0,0,0,.04); border:1.5px solid var(--line); }
+.cmp-yes { background:rgba(255,107,0,.05); border:1.5px solid var(--orange); }
+.cmp-card h3 { font-size:clamp(1rem,1.8vw,1.4rem); margin:.6rem 0 .5rem; }
+
+/* ── Reveal card ── */
+.reveal-card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 200px;
+  cursor: pointer;
+  background: rgba(15,23,42,.92);
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  margin-top: 1.5rem;
+}
+.reveal-q-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,#1a1a2e,#0f0f0f);
+  transition: opacity .6s ease, transform .4s ease;
+  padding: 2rem;
+}
+.reveal-q-layer p {
+  color: rgba(255,255,255,.9);
+  font-size: clamp(1.1rem,2vw,1.4rem);
+  font-weight: 600;
+  line-height: 1.55;
+  text-align: center;
+}
+.reveal-q-layer .hint {
+  position: absolute;
+  bottom: .8rem;
+  right: 1rem;
+  font-size: .65rem;
+  color: rgba(255,255,255,.35);
+}
+.reveal-a-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, #E6003A 0%, #FF4500 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  font-size: clamp(1rem,1.6vw,1.2rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.6;
+}
+.reveal-card.revealed .reveal-q-layer {
+  opacity: 0;
+  transform: scale(.95);
+  pointer-events: none;
+}
+.reveal-card:not(.revealed):hover .reveal-q-layer {
+  transform: translateY(-4px);
+}
+
+/* ── Timer ── */
+.timer-wrap { display:flex; flex-direction:column; align-items:center; gap:1.5rem; margin-top:1.5rem; }
+.timer-display {
+  font-size: clamp(5rem,18vw,12rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  transition: color .5s;
+  line-height: 1;
+}
+.timer-display.done { color: var(--red); }
+.timer-btn {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: .8rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: .05em;
+  transition: background .2s, transform .15s;
+}
+.timer-btn:hover { background: var(--orange); transform: scale(1.04); }
+.timer-btn.running { background: var(--red); }
+.timer-reset-btn {
+  background: transparent;
+  color: var(--mid);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: .8rem 2rem;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
+.timer-reset-btn:hover { border-color: var(--orange); color: var(--orange); }
+
+/* ── Checklist ── */
+.cl-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.5rem; }
+.cl-item {
+  display: flex;
+  gap: .8rem;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: .9rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s;
+}
+.cl-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.cl-box {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid var(--line);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: .2rem;
+}
+
+/* ── Top Progress Bar ── */
+#prog {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(0,0,0,.08);
+  z-index: 900;
+}
+#prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B00, #E6003A);
+  transition: width .4s ease;
+  width: 0%;
+}
+
+/* ── Breadcrumb ── */
+#breadcrumb {
+  position: fixed;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--mid);
+  background: rgba(251,251,253,.9);
+  backdrop-filter: blur(8px);
+  padding: .2rem .75rem;
+  border-radius: 0 0 6px 6px;
+  z-index: 901;
+  white-space: nowrap;
+  border: 1px solid rgba(0,0,0,.06);
+  border-top: none;
+}
+
+/* ── Section Indicator Pill ── */
+#sec-indicator {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 910;
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  transition: all .25s var(--ease-smooth);
+}
+
+/* ── Vertical Page Indicator (thin progress bar) ── */
+#page-indicator {
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: clamp(80px,15vh,200px);
+  background: rgba(0,0,0,.1);
+  border-radius: 2px;
+  z-index: 900;
+  overflow: hidden;
+}
+#page-indicator-fill {
+  width: 100%;
+  background: var(--orange);
+  border-radius: 2px;
+  transition: height .4s ease;
+  height: 0%;
+}
+
+/* ── Nav Buttons ── */
+.nav-btn {
+  position: fixed;
+  z-index: 900;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--ink);
+  transition: all .25s var(--ease-out-back);
+}
+.nav-btn:hover { transform: scale(1.12); color: var(--orange); box-shadow: var(--shadow-md); }
+#btn-prev { bottom: 70px; right: 72px; }
+#btn-next { bottom: 70px; right: 18px; }
+
+/* ── Counter ── */
+#counter {
+  position: fixed;
+  bottom: 70px;
+  left: 32px;
+  z-index: 900;
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--mid);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  padding: .3rem .8rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Bottom Section Nav ── */
+#sec-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 52px;
+  background: rgba(15,15,15,.92);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  align-items: stretch;
+  z-index: 950;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.sec-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(.6rem,.85vw,.78rem);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-right: 1px solid rgba(255,255,255,.06);
+  transition: color .2s, background .2s;
+  border-top: 2px solid transparent;
+}
+.sec-btn:last-child { border-right: none; }
+.sec-btn:hover { color: #fff; background: rgba(255,107,0,.12); }
+.sec-btn.active { color: #fff; background: rgba(255,107,0,.12); border-top: 2px solid var(--orange); }
+
+/* ── Decorative bar ── */
+.bar {
+  width: 3.5rem;
+  height: 4px;
+  background: var(--red);
+  border-radius: 2px;
+  margin: .8rem 0 1.2rem;
+}
+
+/* ── Footer note ── */
+.footer-note {
+  margin-top: 1.4rem;
+  padding: .8rem 1.2rem;
+  border-left: 4px solid var(--orange);
+  font-size: clamp(.85rem,1.3vw,1rem);
+  color: var(--ink);
+  background: var(--orange-light);
+  border-radius: 0 8px 8px 0;
+  font-weight: 500;
+}
+
+/* ── Body content ── */
+.body-content p { margin-bottom: .4rem; }
+.body-content p + p { margin-top: .4rem; }
+
+/* ── HTML slide inner scrollable ── */
+.slide-html .inner { overflow: auto; }
+
+svg { overflow: visible; }
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="prog"><div id="prog-fill"></div></div>
+
+<!-- Breadcrumb -->
+<div id="breadcrumb">Section 1 · 開場</div>
+
+<!-- Section indicator -->
+<div id="sec-indicator">① 底層思維</div>
+
+<!-- Page indicator -->
+<div id="page-indicator"><div id="page-indicator-fill"></div></div>
+
+<!-- Counter -->
+<div id="counter">1 / 66</div>
+
+<!-- Nav buttons -->
+<button class="nav-btn" id="btn-prev" aria-label="Previous">&#8593;</button>
+<button class="nav-btn" id="btn-next" aria-label="Next">&#8595;</button>
+
+<!-- Slides container -->
+<div id="slides-container"></div>
+
+<!-- Bottom section nav -->
+<div id="sec-nav">
+  <button class="sec-btn active" data-sec="1" onclick="jumpToSection(1)">① 底層思維</button>
+  <button class="sec-btn" data-sec="2" onclick="jumpToSection(2)">② 欲求性洞察</button>
+  <button class="sec-btn" data-sec="3" onclick="jumpToSection(3)">③ 存續性發表</button>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA — all 66 slides preserved exactly
+// ─────────────────────────────────────────────
+const slidesData = [
+  // ══════════════════════════════════════════
+  // SECTION 1: 底層思維 (slides 1–22, index 0–21)
+  // ══════════════════════════════════════════
+
+  // Subsection: 開場 (1–5)
+  {
+    id:'s01', sec:1, subsec:'開場', type:'cover',
+    tag:'台北大學社群行銷工作坊 Day 2 / 14:00–16:00',
+    title:'設計思考',
+    content:'主講：Vincent'
+  },
+  {
+    id:'s02', sec:1, subsec:'開場', type:'normal',
+    tag:'下午跟早上不一樣',
+    title:'早上你學了怎麼做圖。<br>下午我們學<span style="color:var(--red)">為什麼做</span>。',
+    bullets:['工具本身不創造商業價值','讓工具有意義的，是背後的策略判斷','今天下午的目標：讓你的作品有人想要、有人買單']
+  },
+  {
+    id:'s03', sec:1, subsec:'開場', type:'html',
+    tag:'主講人介紹',
+    title:'',
+    content:`<div style="display:flex;align-items:center;justify-content:center;min-height:70vh">
+  <div style="background:#1a1a1a;border-radius:12px;padding:2.5rem 3rem;max-width:680px;width:100%;box-shadow:0 8px 48px rgba(0,0,0,.4);display:flex;gap:2.5rem;align-items:center">
+    <div style="flex-shrink:0;text-align:center">
+      <img src="images/20240118-425.jpg" alt="Vincent" style="width:130px;height:130px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid #E6003A;display:block;margin:0 auto 1rem">
+      <div style="color:#fff;font-size:1.3rem;font-weight:800">Vincent</div>
+      <div style="color:rgba(255,255,255,.45);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;margin-top:.3rem">創新策略 × 商業設計</div>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+      <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:.9rem 1.1rem">
+        <div style="color:#E6003A;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:.3rem">角色</div>
+        <div style="color:#fff;font-size:.9rem">EmoTree 共同創辦人</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:.9rem 1.1rem">
+        <div style="color:#E6003A;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:.3rem">經驗</div>
+        <div style="color:#fff;font-size:.9rem">10+ 個從零到一專案</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:.9rem 1.1rem">
+        <div style="color:#E6003A;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:.3rem">身份</div>
+        <div style="color:#fff;font-size:.9rem">創業大聯盟參賽者</div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border-radius:6px;padding:.9rem 1.1rem">
+        <div style="color:#E6003A;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:.3rem">獎項</div>
+        <div style="color:#fff;font-size:.9rem">DFT 商業競賽第一名</div>
+      </div>
+    </div>
+  </div>
+</div>`
+  },
+  {
+    id:'s05', sec:1, subsec:'開場', type:'normal',
+    tag:'課前說明',
+    title:'幾件事先說清楚',
+    bullets:['內容偏硬，但每一段都有實際應用的方法','可以拍照記錄','隨時可以舉手提問、打斷我','結束前會有一段實作練習']
+  },
+
+  // Subsection: 創新三元 (6–9)
+  {
+    id:'s06', sec:1, subsec:'創新三元', type:'html',
+    tag:'創新三元框架',
+    title:'創新，需要三個條件同時成立',
+    content:`<div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem">
+  <svg viewBox="0 0 500 340" width="500" height="340" style="max-width:min(500px,90vw);overflow:visible" font-family="system-ui,sans-serif">
+    <!-- Circle: Desirability (top, red) -->
+    <circle cx="250" cy="130" r="110" fill="#E6003A" fill-opacity=".18" stroke="#E6003A" stroke-width="2.5"/>
+    <!-- Circle: Feasibility (bottom-left, blue) -->
+    <circle cx="178" cy="250" r="110" fill="#0055CC" fill-opacity=".15" stroke="#0055CC" stroke-width="2.5"/>
+    <!-- Circle: Viability (bottom-right, dark) -->
+    <circle cx="322" cy="250" r="110" fill="#0F0F0F" fill-opacity=".12" stroke="#4A4A4A" stroke-width="2.5"/>
+    <!-- Center label -->
+    <text x="250" y="212" text-anchor="middle" font-weight="800" font-size="14" fill="#0F0F0F">創新</text>
+    <!-- Circle labels -->
+    <text x="250" y="68" text-anchor="middle" font-weight="700" font-size="16" fill="#E6003A">欲求性</text>
+    <text x="250" y="88" text-anchor="middle" font-size="11" fill="#E6003A">Desirability</text>
+    <text x="98" y="285" text-anchor="middle" font-weight="700" font-size="16" fill="#0055CC">可行性</text>
+    <text x="98" y="303" text-anchor="middle" font-size="11" fill="#0055CC">Feasibility</text>
+    <text x="402" y="285" text-anchor="middle" font-weight="700" font-size="16" fill="#4A4A4A">存續性</text>
+    <text x="402" y="303" text-anchor="middle" font-size="11" fill="#4A4A4A">Viability</text>
+    <!-- Sub-intersection labels -->
+    <text x="200" y="168" text-anchor="middle" font-size="10" fill="#555">人們想要</text>
+    <text x="300" y="168" text-anchor="middle" font-size="10" fill="#555">值得做</text>
+    <text x="250" y="265" text-anchor="middle" font-size="10" fill="#555">做得到</text>
+  </svg>
+  <div style="background:rgba(230,0,58,.06);border:1.5px solid #E6003A;border-radius:6px;padding:.9rem 1.6rem;font-size:clamp(.9rem,1.5vw,1.1rem);color:#0F0F0F;text-align:center;max-width:600px">
+    今天早上 → <strong>可行性 ✓</strong>　｜　下午目標 → <strong style="color:#E6003A">欲求性 ＋ 存續性</strong>
+  </div>
+</div>`
+  },
+  {
+    id:'s07', sec:1, subsec:'創新三元', type:'dark',
+    tag:'關鍵問題',
+    title:'你的東西，<span style="color:var(--red)">有人真的想要嗎？</span>',
+    content:'不是有人說讚。是有人願意花時間、注意力、甚至金錢，去換取它。'
+  },
+  {
+    id:'s08', sec:1, subsec:'創新三元', type:'normal',
+    tag:'為什麼多數產品會失敗',
+    title:'問題不在執行，在切入點',
+    bullets:['CB Insights：42% 的新創失敗，原因是市場根本不需要這個東西','設計很好看，文字也通順，但沒有人在意','因為一開始就沒有問：誰的什麼痛？','這就是 Bottom-up 思維的代價']
+  },
+  {
+    id:'s09', sec:1, subsec:'創新三元', type:'compare',
+    tag:'兩種思維方式',
+    title:'工具腦 vs 戰略腦',
+    left:{icon:'🔧',label:'工具腦（Bottom-up）',items:['先做出東西','再想能賣給誰','結果：沒有人買單','結論：設計需要再改']},
+    right:{icon:'🎯',label:'戰略腦（Top-down）',items:['先定義誰在痛、痛什麼','再決定說什麼、怎麼說','讓設計服務這個目的','每個視覺選擇都有理由']}
+  },
+
+  // Subsection: 設計思維 (10–13)
+  {
+    id:'s10', sec:1, subsec:'設計思維', type:'html',
+    tag:'設計思維 Design Thinking',
+    title:'先理解人，才設計物',
+    content:`<div style="margin-top:1rem">
+  <svg viewBox="0 0 800 200" width="800" height="200" style="max-width:min(800px,92vw)" font-family="system-ui,sans-serif">
+    <!-- Step 1: Empathize (highlighted red) -->
+    <rect x="0" y="30" width="148" height="80" rx="6" fill="#E6003A"/>
+    <text x="74" y="66" text-anchor="middle" font-weight="800" font-size="15" fill="#fff">Empathize</text>
+    <text x="74" y="85" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.8)">同理心</text>
+    <!-- Arrow -->
+    <path d="M148 70 L170 70" stroke="#4A4A4A" stroke-width="2" marker-end="url(#arr)"/>
+    <!-- Step 2 -->
+    <rect x="170" y="30" width="148" height="80" rx="6" fill="#F0F4FA" stroke="#D5D5D0" stroke-width="1.5"/>
+    <text x="244" y="66" text-anchor="middle" font-weight="700" font-size="15" fill="#0F0F0F">Define</text>
+    <text x="244" y="85" text-anchor="middle" font-size="11" fill="#4A4A4A">定義問題</text>
+    <!-- Arrow -->
+    <path d="M318 70 L340 70" stroke="#4A4A4A" stroke-width="2" marker-end="url(#arr)"/>
+    <!-- Step 3 -->
+    <rect x="340" y="30" width="148" height="80" rx="6" fill="#F0F4FA" stroke="#D5D5D0" stroke-width="1.5"/>
+    <text x="414" y="66" text-anchor="middle" font-weight="700" font-size="15" fill="#0F0F0F">Ideate</text>
+    <text x="414" y="85" text-anchor="middle" font-size="11" fill="#4A4A4A">發散構想</text>
+    <!-- Arrow -->
+    <path d="M488 70 L510 70" stroke="#4A4A4A" stroke-width="2" marker-end="url(#arr)"/>
+    <!-- Step 4 -->
+    <rect x="510" y="30" width="148" height="80" rx="6" fill="#F0F4FA" stroke="#D5D5D0" stroke-width="1.5"/>
+    <text x="584" y="66" text-anchor="middle" font-weight="700" font-size="15" fill="#0F0F0F">Prototype</text>
+    <text x="584" y="85" text-anchor="middle" font-size="11" fill="#4A4A4A">快速原型</text>
+    <!-- Arrow -->
+    <path d="M658 70 L680 70" stroke="#4A4A4A" stroke-width="2" marker-end="url(#arr)"/>
+    <!-- Step 5 -->
+    <rect x="680" y="30" width="120" height="80" rx="6" fill="#F0F4FA" stroke="#D5D5D0" stroke-width="1.5"/>
+    <text x="740" y="66" text-anchor="middle" font-weight="700" font-size="15" fill="#0F0F0F">Test</text>
+    <text x="740" y="85" text-anchor="middle" font-size="11" fill="#4A4A4A">測試驗證</text>
+    <!-- Arrow marker -->
+    <defs>
+      <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L6,3 L0,6 Z" fill="#4A4A4A"/>
+      </marker>
+    </defs>
+  </svg>
+  <div style="margin-top:1.2rem;padding:.9rem 1.4rem;background:rgba(230,0,58,.06);border-left:3px solid #E6003A;border-radius:0 4px 4px 0;font-size:clamp(.95rem,1.6vw,1.15rem);color:#0F0F0F">
+    今天早上從 <strong>Prototype</strong> 開始。但這不是起點。<span style="color:#E6003A;font-weight:700"> 真正的起點是 Empathize。</span>
+  </div>
+</div>`
+  },
+  {
+    id:'s11', sec:1, subsec:'設計思維', type:'dark',
+    tag:'設計思維：第一步',
+    title:'Empathize<br><span style="color:var(--red)">先理解人</span>',
+    content:'你不是在設計一個「東西」。你在設計一個「人的體驗」。從他的痛開始，不是從你的工具開始。'
+  },
+  {
+    id:'s12', sec:1, subsec:'設計思維', type:'normal',
+    tag:'如何做到同理心',
+    title:'了解你的用戶，不靠猜測',
+    bullets:['直接對話：問「上一次遇到這個問題是什麼時候」','觀察行為：他現在怎麼解決這個問題','注意他說不清楚的事：那裡藏著最大的機會','訪談 5 個真實的人，比問卷 500 人更有用']
+  },
+  {
+    id:'s13', sec:1, subsec:'設計思維', type:'normal',
+    tag:'設計的次序',
+    title:'順序改變結果',
+    bullets:['錯誤次序：做圖 → 發布 → 改設計 → 還是沒人買','正確次序：找人 → 理解痛 → 定義問題 → 設計 → 測試','今天下午，我們要把這個框架裝進你的腦袋','讓你看作品的方式，從此不一樣'],
+    footer:'設計思維的本質：讓你站在對的位置，問對的問題。'
+  },
+
+  // Subsection: 戰略工具 (14–19)
+  {
+    id:'s14', sec:1, subsec:'戰略工具', type:'normal',
+    tag:'戰略工具 1：MECE',
+    title:'把模糊的想法，切成清楚的結構',
+    content:'<p><strong>MECE</strong>：相互獨立，完全窮盡<br>Mutually Exclusive, Collectively Exhaustive</p>',
+    bullets:['每個分類不重疊（不重複說同一件事）','所有分類加起來涵蓋全局（不漏掉任何情況）','麥肯錫顧問的標配思考工具','幫你把「模糊感覺」切成「清楚結構」']
+  },
+  {
+    id:'s15', sec:1, subsec:'戰略工具', type:'normal',
+    tag:'MECE 實際應用',
+    title:'用 MECE 切開你的受眾',
+    content:'<p>你說：「我的受眾是年輕人。」</p><p style="margin-top:.5rem;color:var(--mid)">MECE 這樣問：</p>',
+    bullets:['幾歲到幾歲？有重疊嗎？（相互獨立）','學生 / 職場新人 / 自由工作者？（完全窮盡）','有這個痛 vs 沒有這個痛的人？','付費意願高 vs 低？有在找解法 vs 被動接受？'],
+    footer:'目標不是分類完整，而是找到「最值得說話的那一群」。'
+  },
+  {
+    id:'s16', sec:1, subsec:'戰略工具', type:'html',
+    tag:'戰略工具 2：費米估算',
+    title:'在資訊不完整時，做出有邏輯的判斷',
+    content:`<div style="margin-top:1.5rem">
+  <div style="display:flex;align-items:center;gap:0;justify-content:center;flex-wrap:wrap;margin-bottom:2rem">
+    ${['切割問題','分段估算','合理假設','有意義的數字'].map((s,i,a)=>`
+    <div style="background:${['#E6003A','#0055CC','#4A4A4A','#0F0F0F'][i]};color:#fff;border-radius:6px;padding:1rem 1.4rem;font-weight:700;font-size:clamp(1rem,1.8vw,1.3rem);text-align:center;min-width:140px">${s}</div>
+    ${i<a.length-1?'<div style="color:#4A4A4A;font-size:1.5rem;padding:0 .4rem">→</div>':''}
+    `).join('')}
+  </div>
+  <div style="max-width:640px;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:8px;padding:1.5rem 2rem">
+    <p style="color:var(--ink);font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.7">讓模糊的市場規模變得可以討論。<br><strong>商業 BD 提案的必備能力。</strong></p>
+    <p style="margin-top:.8rem;color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem)">費米估算的核心：不需要精確答案，需要有邏輯的推導路徑。每一步的假設都要說得出來。</p>
+  </div>
+</div>`
+  },
+  {
+    id:'s17', sec:1, subsec:'戰略工具', type:'reveal',
+    tag:'互動挑戰',
+    title:'費米估算練習',
+    question:'全台灣一天賣出幾杯手搖飲？',
+    hint:'想一下你的推導邏輯，再點擊揭曉',
+    answer:`推導過程：
+2,300 萬人 × 有飲料習慣 ~40% × 每週 2.5 杯 ÷ 7
+≈ 每天約 330 萬杯
+
+重點不是精確答案，是你有沒有辦法用邏輯推出一個可討論的數字。`
+  },
+  {
+    id:'s18', sec:1, subsec:'戰略工具', type:'normal',
+    tag:'費米估算：為什麼重要',
+    title:'數字讓你的判斷可以被討論',
+    bullets:['沒有數字：「我覺得這個市場很大」','有數字：「台灣每年手搖飲市場約 400 億，我們只需要拿下 0.1% 就夠了」','數字不需要百分百精確，需要有邏輯','讓你的 Pitch 從感覺，升格為判斷']
+  },
+  {
+    id:'s19', sec:1, subsec:'戰略工具', type:'dark',
+    tag:'戰略的本質',
+    title:'好的策略，<br>是有系統地<br><span style="color:var(--red)">縮小不確定性</span>',
+    content:'不是找到完美答案，是用邏輯縮窄選項。'
+  },
+
+  // Subsection: 切換準備 (20–22)
+  {
+    id:'s20', sec:1, subsec:'切換準備', type:'normal',
+    tag:'Section 1 小結',
+    title:'做圖之前，先確認三件事',
+    bullets:['你的受眾是誰？（不是「所有人」）','他有什麼真實的痛？（止痛藥，不是維他命）','為什麼你的設計能幫到他？（解法，不是裝飾）'],
+    footer:'這三個問題的答案，決定了你的設計值不值得被看見。'
+  },
+  {
+    id:'s21', sec:1, subsec:'切換準備', type:'html',
+    tag:'下午路線圖',
+    title:'接下來兩小時，我們這樣走',
+    content:`<div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:1rem;max-width:680px">
+  <div style="display:flex;align-items:center;gap:1.2rem;background:#E6003A;border-radius:8px;padding:1.2rem 1.6rem">
+    <div style="color:#fff;font-size:clamp(.85rem,1.2vw,.95rem);opacity:.85;min-width:100px">14:00 – 14:30</div>
+    <div style="flex:1">
+      <div style="color:#fff;font-weight:800;font-size:clamp(1.1rem,2vw,1.5rem)">① 底層思維</div>
+      <div style="color:rgba(255,255,255,.75);font-size:.9rem">三元框架 ‧ 設計思維 ‧ 戰略工具</div>
+    </div>
+    <div style="background:rgba(255,255,255,.2);border-radius:4px;padding:.3rem .7rem;color:#fff;font-size:.7rem;font-weight:700">NOW</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.2rem;background:var(--white);border:1.5px solid var(--line);border-radius:8px;padding:1.2rem 1.6rem">
+    <div style="color:var(--mid);font-size:clamp(.85rem,1.2vw,.95rem);min-width:100px">14:30 – 15:15</div>
+    <div style="flex:1">
+      <div style="color:var(--ink);font-weight:800;font-size:clamp(1.1rem,2vw,1.5rem)">② 欲求性洞察</div>
+      <div style="color:var(--mid);font-size:.9rem">Persona ‧ ICP ‧ HXC ‧ 痛點分析 ‧ EmoTree 案例</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:1.2rem;background:var(--white);border:1.5px solid var(--line);border-radius:8px;padding:1.2rem 1.6rem">
+    <div style="color:var(--mid);font-size:clamp(.85rem,1.2vw,.95rem);min-width:100px">15:15 – 16:00</div>
+    <div style="flex:1">
+      <div style="color:var(--ink);font-weight:800;font-size:clamp(1.1rem,2vw,1.5rem)">③ 存續性發表</div>
+      <div style="color:var(--mid);font-size:.9rem">GTM ‧ MVP ‧ Pitch 結構 ‧ 成果發表</div>
+    </div>
+  </div>
+</div>`
+  },
+  {
+    id:'s22', sec:1, subsec:'切換準備', type:'dark',
+    tag:'Section 1 結尾',
+    title:'帶著戰略腦，<br>進入第一個實戰模組。',
+    content:'<p style="color:rgba(255,255,255,.6)">欲求性 Desirability：你在對誰說話？</p>'
+  },
+
+  // ══════════════════════════════════════════
+  // SECTION 2: 欲求性洞察 (slides 23–44, index 22–43)
+  // ══════════════════════════════════════════
+
+  // Subsection: 開場 (23–25)
+  {
+    id:'s23', sec:2, subsec:'開場', type:'section',
+    tag:'Section 2',
+    title:'欲求性 Desirability',
+    content:'你在對誰說話？'
+  },
+  {
+    id:'s24', sec:2, subsec:'開場', type:'dark',
+    tag:'最常見的錯誤',
+    title:'「我的受眾<br>是所有人。」',
+    content:'每次聽到這句話，我知道這個產品大概賣不起來。'
+  },
+  {
+    id:'s25', sec:2, subsec:'開場', type:'normal',
+    tag:'為什麼不能討好所有人',
+    title:'對所有人說話，等於對任何人都沒說',
+    bullets:['訊息越泛，共鳴越淺','每一個「也可以」，都是對核心受眾的稀釋','精準定位 1,000 個真正有痛的人，比模糊觸及 100,000 個無感的人有效','設計，是為那個「最需要」的人而做的']
+  },
+
+  // Subsection: Persona→HXC (26–30)
+  {
+    id:'s26', sec:2, subsec:'Persona→HXC', type:'normal',
+    tag:'第一步：建立 Persona',
+    title:'你在為哪種人設計？',
+    content:'<p>Persona 是你對目標用戶的整體理解。它是一個原型，不是統計數字。</p>',
+    bullets:['年齡／身分／生活情境','他每天在想什麼、擔心什麼','他用什麼方式解決現在的問題','他有什麼挫敗感是說不清楚的'],
+    footer:'好的 Persona 讓你一想到他，就知道要說什麼。'
+  },
+  {
+    id:'s27', sec:2, subsec:'Persona→HXC', type:'normal',
+    tag:'第二步：收斂到 ICP',
+    title:'ICP：理想客群畫像',
+    content:'<p>Ideal Customer Profile — 從 Persona 往下收斂。</p>',
+    bullets:['找出「最能代表核心需求」的那個群體','不是平均值，是你最想服務的那群人','具備：明確痛點 ＋ 搜尋解法的動機 ＋ 一定的付費或行動意願','ICP 越清楚，訊息越有穿透力']
+  },
+  {
+    id:'s28', sec:2, subsec:'Persona→HXC', type:'normal',
+    tag:'第三步：找到 HXC',
+    title:'HXC：需求最強烈的那個人',
+    content:'<p>High Expectation Consumer<br>在 ICP 裡，找到那個<strong>最急、最痛、最會行動</strong>的人。</p>',
+    bullets:['他不會等你推薦，他在主動找解法','他對現有方案最不滿意','他最有可能成為你的第一批使用者','他的反應，代表市場的邊界'],
+    footer:'HXC 不是你最容易服務的人，是你最值得先服務的人。'
+  },
+  {
+    id:'s29', sec:2, subsec:'Persona→HXC', type:'html',
+    tag:'三層受眾收斂',
+    title:'Persona → ICP → HXC',
+    content:`<div style="display:flex;align-items:center;justify-content:center;margin-top:1rem">
+  <svg viewBox="0 0 560 320" width="560" height="320" style="max-width:min(560px,92vw)" font-family="system-ui,sans-serif">
+    <!-- Funnel tiers -->
+    <!-- Tier 1: Persona (wide, light) -->
+    <polygon points="30,20 530,20 420,120 140,120" fill="#E8E8E8" stroke="#D5D5D0" stroke-width="1.5"/>
+    <text x="280" y="75" text-anchor="middle" font-weight="800" font-size="18" fill="#4A4A4A">Persona</text>
+    <text x="280" y="97" text-anchor="middle" font-size="12" fill="#666">目標用戶的整體輪廓</text>
+    <!-- Tier 2: ICP (mid, blue) -->
+    <polygon points="140,130 420,130 340,210 220,210" fill="#D6E4FA" stroke="#0055CC" stroke-width="1.5"/>
+    <text x="280" y="172" text-anchor="middle" font-weight="800" font-size="18" fill="#0055CC">ICP</text>
+    <text x="280" y="193" text-anchor="middle" font-size="12" fill="#0055CC">理想客群 — 最值得服務的那群</text>
+    <!-- Tier 3: HXC (narrow, red) -->
+    <polygon points="220,220 340,220 300,300 260,300" fill="#E6003A" stroke="#E6003A" stroke-width="1.5"/>
+    <text x="280" y="262" text-anchor="middle" font-weight="800" font-size="16" fill="#fff">HXC</text>
+    <text x="280" y="280" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.85)">最急、最痛、最行動</text>
+    <!-- Arrows on side -->
+    <path d="M545,20 L545,300" stroke="#D5D5D0" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="548" y="75" font-size="11" fill="#888">廣</text>
+    <text x="548" y="265" font-size="11" fill="#888">精</text>
+  </svg>
+</div>`
+  },
+  {
+    id:'s30', sec:2, subsec:'Persona→HXC', type:'dark',
+    tag:'關鍵問題',
+    title:'沒有這個，<br>他明天<br><span style="color:var(--red)">會很痛。</span>',
+    content:'那個「他」，就是你的 HXC。'
+  },
+
+  // Subsection: 痛點分析 (31–34)
+  {
+    id:'s31', sec:2, subsec:'痛點分析', type:'compare',
+    tag:'痛點測試',
+    title:'你的作品是維他命，還是止痛藥？',
+    left:{icon:'💊',label:'維他命（Nice to Have）',items:['有的話不錯','沒有也過得去','購買動機弱','難以建立急迫性']},
+    right:{icon:'🩹',label:'止痛藥（Must Have）',items:['沒有就真的很痛','用戶主動在找','決策快、行動快','高轉換、高黏著']}
+  },
+  {
+    id:'s32', sec:2, subsec:'痛點分析', type:'reveal',
+    tag:'互動提問',
+    title:'你早上做的那張圖是哪個？',
+    question:'如果你的受眾明天看不到這張圖，\n他的什麼問題會變得更難解決？',
+    hint:'先想一下，再點擊',
+    answer:`止痛藥的判斷標準：
+✓ 用戶有明確的、可辨認的痛
+✓ 他現在找不到好的解法
+✓ 你的東西讓他的痛減輕了
+✓ 他願意花注意力或金錢換取它
+
+如果四個都成立，你有止痛藥。`
+  },
+  {
+    id:'s33', sec:2, subsec:'痛點分析', type:'normal',
+    tag:'止痛藥的本質',
+    title:'不是你說它是，是他說它是',
+    bullets:['你以為是痛點，他以為是小困擾——這就是維他命','你以為是功能，他覺得「沒有這個我不行」——這就是止痛藥','測試方式：給他看，問他「如果沒有這個你會怎麼辦」','如果他聳肩，繼續找']
+  },
+  {
+    id:'s34', sec:2, subsec:'痛點分析', type:'normal',
+    tag:'案例切入',
+    title:'接下來，用一個真實案例<br>把這些框架走一遍',
+    content:'<p>案例：EmoTree</p><p style="margin-top:.5rem;color:var(--mid)">一個情緒陪伴 AI 工具。<br>我們來看它是怎麼定義受眾、找到痛點、做出切法的。</p>',
+    bullets:['不是教你做一樣的東西','是讓你看到「這種思維方式」長什麼樣子']
+  },
+
+  // Subsection: EmoTree拆解 (35–41)
+  {
+    id:'s35', sec:2, subsec:'EmoTree拆解', type:'normal',
+    tag:'EmoTree 是什麼',
+    title:'情緒陪伴 AI，<br>不是心理諮商',
+    bullets:['幫助用戶整理內心混亂，不是診斷或治療','定位在諮商之前的那個空白','Support first → Action later','核心價值：把說不清楚的感覺，說清楚']
+  },
+  {
+    id:'s36', sec:2, subsec:'EmoTree拆解', type:'html',
+    tag:'市場問題',
+    title:'每 8 人有 1 人有身心困擾',
+    content:`<div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;margin-top:1rem">
+  <div style="text-align:center">
+    <span style="font-size:clamp(4rem,14vw,9rem);font-weight:800;color:#E6003A;line-height:1;letter-spacing:-.04em">1</span>
+    <span style="font-size:clamp(3rem,10vw,7rem);font-weight:800;color:#D5D5D0;line-height:1"> / </span>
+    <span style="font-size:clamp(4rem,14vw,9rem);font-weight:800;color:#4A4A4A;line-height:1;letter-spacing:-.04em">8</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:700px;width:100%">
+    <div style="background:var(--white);border:1px solid var(--line);border-radius:6px;padding:1rem 1.2rem;text-align:center">
+      <div style="font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;color:#E6003A">280萬</div>
+      <div style="font-size:.85rem;color:var(--mid);margin-top:.3rem">台灣身心疾患需求人口</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--line);border-radius:6px;padding:1rem 1.2rem;text-align:center">
+      <div style="font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;color:#4A4A4A">極低</div>
+      <div style="font-size:.85rem;color:var(--mid);margin-top:.3rem">心理諮商滲透率</div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--line);border-radius:6px;padding:1rem 1.2rem;text-align:center">
+      <div style="font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:800;color:#0055CC">3大原因</div>
+      <div style="font-size:.85rem;color:var(--mid);margin-top:.3rem">費用高 ‧ stigma ‧ 不知道怎麼開口</div>
+    </div>
+  </div>
+</div>`
+  },
+  {
+    id:'s37', sec:2, subsec:'EmoTree拆解', type:'normal',
+    tag:'HXC 情境',
+    title:'晚上九點後，<br>腦袋停不下來的人',
+    bullets:['下班後仍沉浸在工作殘影裡','隱約感覺有什麼不對，但說不清楚','不想打給朋友，怕麻煩，也怕說不好','不是病，但也不舒服'],
+    footer:'這就是 EmoTree 的 HXC。他不需要諮商，但他需要被聽見。'
+  },
+  {
+    id:'s38', sec:2, subsec:'EmoTree拆解', type:'normal',
+    tag:'現有方案的缺口',
+    title:'他現在的選擇，都不夠好',
+    bullets:['心理諮商：2,000–3,500 一次，還要等候','冥想 App：需要大量意志力，效果慢','找朋友說：怕麻煩、怕說不清楚','ChatGPT：沒有記憶，每次都要重新解釋自己'],
+    footer:'四個缺口加在一起，就是 EmoTree 存在的理由。'
+  },
+  {
+    id:'s39', sec:2, subsec:'EmoTree拆解', type:'normal',
+    tag:'EmoTree 的切法',
+    title:'Support First,<br>Then Action',
+    bullets:['Step 1：讓你感覺被接住（情緒容納）','Step 2：幫你整理混亂（認知梳理）','Step 3：看見自己的情緒模式（自我覺察）','Step 4：才建議可能的下一步（行動引導）'],
+    footer:'不急著給答案。先讓他知道他在哪裡。'
+  },
+  {
+    id:'s40', sec:2, subsec:'EmoTree拆解', type:'normal',
+    tag:'技術支撐',
+    title:'雙層記憶系統：<br>讓 AI 真的記得你',
+    bullets:['Raw Memory：每次對話的原始情緒紀錄','User Model：從記錄中萃取你的情緒模式','不用每次重新解釋自己','AI 幫你串起脈絡，你只需要說現在的感覺'],
+    footer:'這讓 EmoTree 和一般 GPT 最不一樣的地方。'
+  },
+  {
+    id:'s41', sec:2, subsec:'EmoTree拆解', type:'dark',
+    tag:'核心洞察',
+    title:'用戶買的不是 AI。<br>是<span style="color:var(--red)">「把混亂說清楚」</span>的感受。',
+    content:'功能可以被複製，但這個洞察是護城河。<br>你的設計，也需要找到這一句核心。'
+  },
+
+  // Subsection: 工作坊練習 (42–44)
+  {
+    id:'s42', sec:2, subsec:'工作坊練習', type:'normal',
+    tag:'為什麼不直接給答案',
+    title:'認知負擔，是設計要解決的問題',
+    bullets:['人在情緒高峰時，認知資源最低','這時候要他整理思路再輸入 → 他放棄了','好的設計：接受混亂、不要求整理好再來','讓工具做整理的工作，讓用戶只需要說話'],
+    footer:'降低認知負擔，是最高階的 UX 設計決策之一。'
+  },
+  {
+    id:'s43', sec:2, subsec:'工作坊練習', type:'normal',
+    tag:'實作挑戰 1',
+    title:'把你早上的作品，<br>對準一個真實的人',
+    content:`<div style="margin-top:1.2rem;padding:1.5rem 2rem;background:var(--white);border:2px solid var(--red);border-radius:6px"><p style="font-size:clamp(1.1rem,2vw,1.5rem);color:var(--ink)"><strong>「我的作品，是為了幫助 <span style="color:var(--red)">___</span>（誰）<br>解決 <span style="color:var(--red)">___</span>（什麼痛），<br>讓他能夠 <span style="color:var(--red)">___</span>（達成什麼）。」</strong></p></div>`,
+    bullets:['越具體越好，「年輕人」不算','3 分鐘，先寫出來，不要只在腦袋裡','寫完後，和旁邊的人對看、互評']
+  },
+  {
+    id:'s44', sec:2, subsec:'工作坊練習', type:'timer',
+    tag:'實作計時',
+    title:'HXC 定位練習 — <span style="color:var(--red)">3 分鐘</span>',
+    content:'寫下你的一句話定位',
+    time:180
+  },
+
+  // ══════════════════════════════════════════
+  // SECTION 3: 存續性發表 (slides 45–66, index 44–65)
+  // ══════════════════════════════════════════
+
+  // Subsection: 商業路徑 (45–49)
+  {
+    id:'s45', sec:3, subsec:'商業路徑', type:'section',
+    tag:'Section 3',
+    title:'存續性 Viability',
+    content:'從作品走到市場'
+  },
+  {
+    id:'s46', sec:3, subsec:'商業路徑', type:'normal',
+    tag:'什麼是 GTM',
+    title:'Go-To-Market：<br>讓對的人，在對的時機，看見對的訊息',
+    bullets:['不只是「行銷」，是整合策略','誰（Audience）× 說什麼（Message）× 在哪說（Channel）= GTM','你的 Canva 作品是訊息，GTM 決定誰會看到','今天下午的成果發表，就是你第一次的 GTM 演練']
+  },
+  {
+    id:'s47', sec:3, subsec:'商業路徑', type:'html',
+    tag:'GTM 四步驟',
+    title:'把價值送到對的人面前',
+    content:`<div style="margin-top:1.5rem">
+  <div style="display:flex;align-items:stretch;gap:0;justify-content:center;flex-wrap:wrap;gap:.8rem">
+    ${[
+      {n:'①',t:'定義受眾',d:'清楚說出 ICP + HXC',c:'#E6003A'},
+      {n:'②',t:'設計訊息',d:'Hook → Pain → Solution',c:'#0055CC'},
+      {n:'③',t:'選擇管道',d:'社群 / 社群 / 口碑 / 活動',c:'#4A4A4A'},
+      {n:'④',t:'驅動行動',d:'一個清楚的 CTA',c:'#0F0F0F'}
+    ].map((s,i,a)=>`
+    <div style="background:${s.c};border-radius:8px;padding:1.4rem 1.6rem;min-width:160px;max-width:200px;flex:1;text-align:center">
+      <div style="color:rgba(255,255,255,.6);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:.4rem">${s.n}</div>
+      <div style="color:#fff;font-weight:800;font-size:clamp(1.1rem,1.8vw,1.4rem);margin-bottom:.5rem">${s.t}</div>
+      <div style="color:rgba(255,255,255,.7);font-size:.85rem;line-height:1.4">${s.d}</div>
+    </div>
+    `).join('<div style="display:flex;align-items:center;color:#4A4A4A;font-size:1.3rem">→</div>')}
+  </div>
+</div>`
+  },
+  {
+    id:'s48', sec:3, subsec:'商業路徑', type:'normal',
+    tag:'MVP 最小可行產品',
+    title:'MVP：先驗證，再建造',
+    content:'<p>Minimum Viable Product — 用最低成本，驗證一個假設。</p>',
+    bullets:['不是做出最簡單的版本，是找到最關鍵的驗證點','你今天的 Canva 圖，就是一個 MVP','MVP 不是終點，是假設的起點','「能不能更好」不重要，「對不對方向」才重要']
+  },
+  {
+    id:'s49', sec:3, subsec:'商業路徑', type:'normal',
+    tag:'POC 概念驗證',
+    title:'POC：找到第一個真實訊號',
+    content:'<p>Proof of Concept — 概念驗證</p>',
+    bullets:['用最低成本，驗證你的假設是否成立','不是做出完整產品，是找到一個訊號','今天的成果發表 = 你的第一次 POC','判斷標準：一個陌生人聽完說「對，我也有這個問題」']
+  },
+
+  // Subsection: GTM策略 (50–53)
+  {
+    id:'s50', sec:3, subsec:'GTM策略', type:'dark',
+    tag:'最重要的洞察',
+    title:'陌生人的行動，<br>比朋友的稱讚<br><span style="color:var(--red)">重要 100 倍</span>',
+    content:'朋友說讚，不代表市場有需求。'
+  },
+  {
+    id:'s51', sec:3, subsec:'GTM策略', type:'normal',
+    tag:'正確的順序',
+    title:'GTM → POC → PMF',
+    bullets:['GTM：定義誰是受眾、說什麼、在哪裡說','POC：用最低成本驗證方向','PMF：找到那個「有魔法的訊號」——用戶主動回來、主動分享','最後才是 Scaling：把對的事情做大'],
+    footer:'跳過任何一步，都是在把一個未驗證的假設做大。'
+  },
+  {
+    id:'s52', sec:3, subsec:'GTM策略', type:'normal',
+    tag:'為什麼不能跳步',
+    title:'過早規模化，<br>是把錯誤的方向做大',
+    bullets:['你花了三個月讓一萬人看到這張圖','但這張圖根本沒有對準正確的痛點','結果：規模越大，資源浪費越大','先驗證方向，再投入資源。永遠這個順序。']
+  },
+  {
+    id:'s53', sec:3, subsec:'GTM策略', type:'normal',
+    tag:'對大學生的轉譯',
+    title:'你的版本：<br>從草稿到「有人願意轉發」',
+    bullets:['PMF 不一定是賣錢，是有人主動行動','有人截圖、tag 朋友、主動傳給有相同困擾的人 = PMF 訊號','先從你認識的 5 個人測試','再從陌生人的反應判斷'],
+    footer:'從今天的成果發表開始，你的第一次 GTM + POC 試驗。'
+  },
+
+  // Subsection: Pitch解構 (54–60)
+  {
+    id:'s54', sec:3, subsec:'Pitch解構', type:'normal',
+    tag:'重新定義「發表」',
+    title:'成果發表不是報告，<br>是 Pitch',
+    content:'<p>報告：描述你做了什麼。<br>Pitch：讓對方理解為什麼他應該在乎。</p>',
+    bullets:['報告格式：背景 → 方法 → 結果 → 結論','Pitch 格式：Hook → Pain → Solution → CTA','評審在乎的不是你用了什麼工具，是你的商業洞察','你有 60 秒，讓對的格式幫你']
+  },
+  {
+    id:'s55', sec:3, subsec:'Pitch解構', type:'normal',
+    tag:'Pitch 的真正功能',
+    title:'Pitch 是一種<br>快速建立信任的工具',
+    bullets:['讓對方在 60 秒內理解你、你的問題、你的解法','不是推銷，是讓對方判斷「這值不值得繼續聽」','好的 Pitch 結束後，對方會主動問問題','不好的 Pitch 結束後，現場很安靜']
+  },
+  {
+    id:'s56', sec:3, subsec:'Pitch解構', type:'html',
+    tag:'Pitch 骨架：10 個必要元素',
+    title:'一個完整的 Pitch 包含什麼',
+    content:`<div style="margin-top:1rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:800px">
+  ${[
+    {n:'①',t:'為誰 Who',d:'你的 HXC 是誰'},
+    {n:'②',t:'痛點 Pain',d:'他有什麼真實的痛'},
+    {n:'③',t:'解法 Solution',d:'你怎麼解決它'},
+    {n:'④',t:'為什麼是現在',d:'市場條件為什麼是現在'},
+    {n:'⑤',t:'市場機會 Market',d:'這個痛有多普遍'},
+    {n:'⑥',t:'獲利方式 Revenue',d:'你怎麼從中獲利'},
+    {n:'⑦',t:'目前進展 Traction',d:'你已經做到了什麼'},
+    {n:'⑧',t:'團隊信任 Credibility',d:'為什麼是你來做'},
+    {n:'⑨',t:'差異化 Differentiation',d:'你和現有方案的差別'},
+    {n:'⑩',t:'行動呼籲 CTA',d:'一個清楚的下一步'},
+  ].map(item=>`
+  <div style="display:flex;align-items:flex-start;gap:.8rem;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:.8rem 1rem">
+    <span style="font-size:1.1rem;font-weight:800;color:#E6003A;min-width:1.8rem">${item.n}</span>
+    <div>
+      <div style="font-weight:700;color:var(--ink);font-size:clamp(.9rem,1.5vw,1.05rem)">${item.t}</div>
+      <div style="color:var(--mid);font-size:.85rem;margin-top:.1rem">${item.d}</div>
+    </div>
+  </div>
+  `).join('')}
+</div>`
+  },
+  {
+    id:'s57', sec:3, subsec:'Pitch解構', type:'html',
+    tag:'Pitch 結構詳解 1/3',
+    title:'Hook + Pain + Solution',
+    content:`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1rem">
+  <div style="background:#E6003A;border-radius:10px;padding:1.6rem 1.4rem;color:#fff">
+    <div style="font-size:1.8rem;margin-bottom:.6rem">🪝</div>
+    <div style="font-weight:800;font-size:clamp(1.1rem,2vw,1.5rem);margin-bottom:.8rem">Hook</div>
+    <div style="font-size:clamp(.85rem,1.4vw,1rem);line-height:1.6;opacity:.9">前 5 秒決定他願不願意繼續聽。<br><br>問句、數字、反常識。<br><br><em>禁止：「嗨，我今天要介紹的是⋯⋯」</em></div>
+  </div>
+  <div style="background:#FF6B2B;border-radius:10px;padding:1.6rem 1.4rem;color:#fff">
+    <div style="font-size:1.8rem;margin-bottom:.6rem">😣</div>
+    <div style="font-weight:800;font-size:clamp(1.1rem,2vw,1.5rem);margin-bottom:.8rem">Pain</div>
+    <div style="font-size:clamp(.85rem,1.4vw,1rem);line-height:1.6;opacity:.9">讓他說「對！這就是我的問題！」<br><br>描述具體情境，說出他說不出口的感覺。<br><br>越具體，共鳴越強。</div>
+  </div>
+  <div style="background:#0055CC;border-radius:10px;padding:1.6rem 1.4rem;color:#fff">
+    <div style="font-size:1.8rem;margin-bottom:.6rem">💡</div>
+    <div style="font-weight:800;font-size:clamp(1.1rem,2vw,1.5rem);margin-bottom:.8rem">Solution</div>
+    <div style="font-size:clamp(.85rem,1.4vw,1rem);line-height:1.6;opacity:.9">現在才拿出你的作品。<br><br>說清楚它如何回應那個痛。<br><br>不要描述功能，要說<strong>結果</strong>。</div>
+  </div>
+</div>`
+  },
+  {
+    id:'s58', sec:3, subsec:'Pitch解構', type:'html',
+    tag:'Pitch 結構詳解 2/3',
+    title:'Why Now + Market + Revenue + CTA',
+    content:`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem">
+  <div style="background:#2D2D2D;border-radius:10px;padding:1.4rem 1.2rem;color:#fff">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">⏰</div>
+    <div style="font-weight:800;font-size:clamp(.95rem,1.6vw,1.2rem);margin-bottom:.6rem">Why Now</div>
+    <div style="font-size:clamp(.8rem,1.2vw,.95rem);line-height:1.6;opacity:.8">現在為什麼是對的時機？市場條件、技術成熟度、社會趨勢？</div>
+  </div>
+  <div style="background:#1A3A6B;border-radius:10px;padding:1.4rem 1.2rem;color:#fff">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">📊</div>
+    <div style="font-weight:800;font-size:clamp(.95rem,1.6vw,1.2rem);margin-bottom:.6rem">Market</div>
+    <div style="font-size:clamp(.8rem,1.2vw,.95rem);line-height:1.6;opacity:.8">這個問題有多大？用費米估算說出一個可討論的數字。</div>
+  </div>
+  <div style="background:#1A5C1A;border-radius:10px;padding:1.4rem 1.2rem;color:#fff">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">💰</div>
+    <div style="font-weight:800;font-size:clamp(.95rem,1.6vw,1.2rem);margin-bottom:.6rem">Revenue</div>
+    <div style="font-size:clamp(.8rem,1.2vw,.95rem);line-height:1.6;opacity:.8">你怎麼從這裡獲利？賣什麼、賣給誰、為什麼他會付？</div>
+  </div>
+  <div style="background:#E6003A;border-radius:10px;padding:1.4rem 1.2rem;color:#fff">
+    <div style="font-size:1.5rem;margin-bottom:.5rem">🎯</div>
+    <div style="font-weight:800;font-size:clamp(.95rem,1.6vw,1.2rem);margin-bottom:.6rem">CTA</div>
+    <div style="font-size:clamp(.8rem,1.2vw,.95rem);line-height:1.6;opacity:.8">一個清楚、低門檻的下一步。一個就夠，不要三個。</div>
+  </div>
+</div>`
+  },
+  {
+    id:'s59', sec:3, subsec:'Pitch解構', type:'html',
+    tag:'EmoTree Pitch 示範',
+    title:'30 秒示範',
+    content:`<div style="background:#1A1A1A;border-radius:12px;padding:2rem 2.4rem;max-width:760px;margin-top:1rem">
+  <div style="display:flex;flex-direction:column;gap:1.1rem">
+    <div style="display:flex;gap:1rem;align-items:flex-start">
+      <span style="background:#E6003A;border-radius:4px;padding:.25rem .6rem;font-size:.65rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;margin-top:.2rem">Hook</span>
+      <p style="color:#fff;font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.65;margin:0">你有沒有試過，很想找個人說說話，但想了半天不知道要說什麼？</p>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start">
+      <span style="background:#FF6B2B;border-radius:4px;padding:.25rem .6rem;font-size:.65rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;margin-top:.2rem">Pain</span>
+      <p style="color:rgba(255,255,255,.85);font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.65;margin:0">很多人晚上腦袋停不下來，但諮商太貴，朋友也不好打擾，最後只能一個人耗著。</p>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start">
+      <span style="background:#0055CC;border-radius:4px;padding:.25rem .6rem;font-size:.65rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;margin-top:.2rem">Solution</span>
+      <p style="color:rgba(255,255,255,.85);font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.65;margin:0">EmoTree 是一個情緒陪伴 AI，它不給答案，它幫你把混亂說清楚，讓你看見你在哪裡。</p>
+    </div>
+    <div style="display:flex;gap:1rem;align-items:flex-start">
+      <span style="background:#1A7F1A;border-radius:4px;padding:.25rem .6rem;font-size:.65rem;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;margin-top:.2rem">CTA</span>
+      <p style="color:rgba(255,255,255,.85);font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.65;margin:0">掃碼試用，感受一次什麼叫被聽見。</p>
+    </div>
+  </div>
+  <div style="margin-top:1.4rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;color:rgba(255,255,255,.4);text-align:center">全長約 25–30 秒 ‧ 四句話 ‧ 清楚有力</div>
+</div>`
+  },
+  {
+    id:'s60', sec:3, subsec:'Pitch解構', type:'html',
+    tag:'你的 Pitch 模板',
+    title:'用這個結構寫你的版本',
+    content:`<div style="display:flex;flex-direction:column;gap:1rem;margin-top:1rem;max-width:740px">
+  ${[
+    {label:'🪝 Hook',color:'#E6003A',placeholder:'前 5 秒的問句或反常識句子。讓他停下來。'},
+    {label:'😣 Pain',color:'#FF6B2B',placeholder:'描述他的具體痛苦情境。讓他點頭說「對！」'},
+    {label:'💡 Solution',color:'#0055CC',placeholder:'你的作品如何回應那個痛。說結果，不說功能。'},
+    {label:'🎯 CTA',color:'#1A7F1A',placeholder:'一個清楚的行動。「掃碼 / 試用 / 找我聊聊」。'},
+  ].map(b=>`
+  <div style="display:flex;align-items:stretch;gap:0;border-radius:8px;overflow:hidden;border:1px solid ${b.color}">
+    <div style="background:${b.color};padding:.8rem 1rem;display:flex;align-items:center;min-width:90px;justify-content:center">
+      <span style="color:#fff;font-weight:800;font-size:.85rem;text-align:center;line-height:1.3">${b.label}</span>
+    </div>
+    <div style="flex:1;background:var(--white);padding:.8rem 1.2rem;display:flex;align-items:center">
+      <span style="color:#999;font-size:clamp(.9rem,1.5vw,1.05rem);font-style:italic">${b.placeholder}</span>
+    </div>
+  </div>
+  `).join('')}
+</div>`
+  },
+
+  // Subsection: 練習發表 (61–66)
+  {
+    id:'s61', sec:3, subsec:'練習發表', type:'normal',
+    tag:'實作挑戰 2',
+    title:'15 分鐘內，<br>把你的 Pitch 寫出來',
+    bullets:['結合你早上的 Canva 作品與下午學到的受眾定位','寫完後，大聲唸出來計時','超過 60 秒就刪字，直到能在 60 秒內說完','可以用 Canva / Gamma / AI 工具 / 白紙，工具不限']
+  },
+  {
+    id:'s62', sec:3, subsec:'練習發表', type:'timer',
+    tag:'實作計時',
+    title:'Pitch 練習 — <span style="color:var(--red)">15 分鐘</span>',
+    content:'寫下你的 30–60 秒 Pitch 完整版本',
+    time:900
+  },
+  {
+    id:'s63', sec:3, subsec:'練習發表', type:'normal',
+    tag:'工具推薦',
+    title:'把今天兩天的成果，整理出來',
+    content:'<p>不限工具，選你最熟悉的：</p>',
+    bullets:['Canva — 你已經會了，繼續用','Gamma — AI 輔助簡報，適合快速整理','ChatGPT / Claude — 幫你潤稿、整理訊息結構','你的作品 + 受眾 + 痛點 + Pitch = 今天的完整輸出']
+  },
+  {
+    id:'s64', sec:3, subsec:'練習發表', type:'normal',
+    tag:'發表前確認',
+    title:'上台前，確認這三件事',
+    bullets:['<strong>受眾清楚嗎？</strong>你能用一句話說出你的 HXC','<strong>痛點是止痛藥嗎？</strong>是真實的痛，不是想像的需求','<strong>CTA 明確嗎？</strong>對方聽完知道要採取什麼行動'],
+    footer:'不評設計美感，評商業洞察。'
+  },
+  {
+    id:'s65', sec:3, subsec:'練習發表', type:'html',
+    tag:'資源與連結',
+    title:'帶走這些',
+    content:`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1rem;max-width:780px">
+  <div style="background:var(--white);border:1px solid var(--line);border-radius:10px;padding:1.6rem 1.4rem;text-align:center">
+    <div style="width:80px;height:80px;background:#F5F4F0;border:2px dashed var(--line);border-radius:8px;margin:0 auto .9rem;display:flex;align-items:center;justify-content:center">
+      <span style="font-size:2rem">🔗</span>
+    </div>
+    <div style="font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:.4rem">LinkedIn</div>
+    <div style="font-size:.85rem;color:var(--mid);line-height:1.5">加 Vincent 的 LinkedIn<br>持續獲取洞察</div>
+  </div>
+  <div style="background:var(--white);border:1.5px solid #E6003A;border-radius:10px;padding:1.6rem 1.4rem;text-align:center">
+    <div style="width:80px;height:80px;background:rgba(230,0,58,.06);border:2px dashed #E6003A;border-radius:8px;margin:0 auto .9rem;display:flex;align-items:center;justify-content:center">
+      <span style="font-size:2rem">🌿</span>
+    </div>
+    <div style="font-weight:700;font-size:1rem;color:#E6003A;margin-bottom:.4rem">EmoTree</div>
+    <div style="font-size:.85rem;color:var(--mid);line-height:1.5">情緒陪伴 AI<br>掃碼免費體驗</div>
+  </div>
+  <div style="background:var(--white);border:1px solid var(--line);border-radius:10px;padding:1.6rem 1.4rem;text-align:center">
+    <div style="width:80px;height:80px;background:#F0F4FA;border:2px dashed var(--line);border-radius:8px;margin:0 auto .9rem;display:flex;align-items:center;justify-content:center">
+      <span style="font-size:2rem">📋</span>
+    </div>
+    <div style="font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:.4rem">課程框架</div>
+    <div style="font-size:.85rem;color:var(--mid);line-height:1.5">三元框架 ‧ Persona→HXC<br>Pitch 結構 ‧ GTM 路徑</div>
+  </div>
+</div>`
+  },
+  {
+    id:'s66', sec:3, subsec:'練習發表', type:'close',
+    tag:'結語',
+    title:'設計，是為了<br><span style="color:var(--red)">改變行為</span>',
+    content:'<p>不是為了展示美術，不是為了獲得讚美。</p><p style="margin-top:.8rem">每一個設計選擇，都應該服務於一個目的：<br><strong>讓那個正在痛的人，採取對他有益的行動。</strong></p>',
+    img:'https://easeai.com.tw/assets/qr.jpg',
+    cta:'掃描 QR Code 加 Vincent LinkedIn'
+  },
+];
+
+// ─────────────────────────────────────────────
+// VERIFY COUNT
+// ─────────────────────────────────────────────
+console.assert(slidesData.length === 66, `Expected 66 slides, got ${slidesData.length}`);
+console.log(`Slides loaded: ${slidesData.length}`);
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let cur = 0;
+const total = slidesData.length;
+const timers = {};
+const container = document.getElementById('slides-container');
+
+// Section start indices
+const secStarts = { 1: 0, 2: 22, 3: 44 };
+const secNames  = { 1: '① 底層思維', 2: '② 欲求性洞察', 3: '③ 存續性發表' };
+
+// ─────────────────────────────────────────────
+// TIMER LOGIC
+// ─────────────────────────────────────────────
+function formatTime(s){
+  const m = Math.floor(s/60);
+  const sec = s % 60;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function toggleTimer(id, totalSecs){
+  const dispEl = document.getElementById('td-'+id);
+  const btnEl  = document.getElementById('tb-'+id);
+  if(!dispEl || !btnEl) return;
+
+  if(timers[id]){
+    // pause
+    clearInterval(timers[id]);
+    delete timers[id];
+    btnEl.textContent = '繼續';
+    btnEl.classList.remove('running');
+  } else {
+    // start / resume
+    const parts = dispEl.textContent.split(':');
+    let remaining = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    if(remaining <= 0) { remaining = totalSecs; dispEl.textContent = formatTime(totalSecs); dispEl.classList.remove('done'); }
+    btnEl.textContent = '暫停';
+    btnEl.classList.add('running');
+    timers[id] = setInterval(()=>{
+      remaining--;
+      if(dispEl) dispEl.textContent = formatTime(remaining);
+      if(remaining <= 0){
+        clearInterval(timers[id]);
+        delete timers[id];
+        dispEl.classList.add('done');
+        btnEl.textContent = '完成';
+        btnEl.classList.remove('running');
+      }
+    }, 1000);
+  }
+}
+
+function resetTimer(id, totalSecs){
+  if(timers[id]){ clearInterval(timers[id]); delete timers[id]; }
+  const dispEl = document.getElementById('td-'+id);
+  const btnEl  = document.getElementById('tb-'+id);
+  if(dispEl){ dispEl.textContent = formatTime(totalSecs); dispEl.classList.remove('done'); }
+  if(btnEl){ btnEl.textContent = '開始'; btnEl.classList.remove('running'); }
+}
+
+// ─────────────────────────────────────────────
+// RENDER SLIDE
+// ─────────────────────────────────────────────
+function renderSlide(sd, idx){
+  const section = document.createElement('section');
+  section.className = 'slide';
+  section.dataset.index = idx;
+  section.dataset.id = sd.id;
+  section.dataset.sec = sd.sec;
+  section.dataset.subsec = sd.subsec;
+
+  // Slide type classes
+  switch(sd.type){
+    case 'cover':   section.classList.add('slide-cover'); break;
+    case 'section': section.classList.add('slide-section'); break;
+    case 'dark':    section.classList.add('slide-dark'); break;
+    case 'close':   section.classList.add('slide-close'); break;
+    case 'html':    section.classList.add('slide-html'); break;
+    case 'normal':
+      if(idx % 5 === 1) section.classList.add('slide-warm');
+      else if(idx % 5 === 3) section.classList.add('slide-cool');
+      break;
+    default: break;
+  }
+
+  // Badge class based on type
+  const isDark = ['cover','dark','close','section'].includes(sd.type);
+  const badgeClass = (sd.type === 'reveal') ? 'badge-red' :
+                     (sd.type === 'timer')  ? 'badge-orange' :
+                     isDark                 ? 'badge-glass' : 'badge-dark';
+
+  let html = '';
+
+  // Build badge
+  if(sd.tag){
+    html += `<div class="badge ${badgeClass}">${sd.tag}</div>`;
+  }
+
+  switch(sd.type){
+
+    // ── COVER ──
+    case 'cover':
+      if(sd.title) html += `<h1>${sd.title}</h1>`;
+      html += `<div class="bar" style="margin:1rem 0;background:var(--red)"></div>`;
+      if(sd.content) html += `<p style="font-size:clamp(1.1rem,2vw,1.5rem)">${sd.content}</p>`;
+      break;
+
+    // ── SECTION ──
+    case 'section':
+      html += `<div class="bar" style="background:rgba(255,255,255,.6)"></div>`;
+      if(sd.title) html += `<h1 style="color:#fff;margin-bottom:.8rem">${sd.title}</h1>`;
+      if(sd.content) html += `<p style="color:rgba(255,255,255,.8);font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:600">${sd.content}</p>`;
+      break;
+
+    // ── DARK ──
+    case 'dark':
+      html += `<div class="bar"></div>`;
+      if(sd.title) html += `<h1 style="color:#fff;margin-bottom:1rem">${sd.title}</h1>`;
+      if(sd.content) html += `<p style="color:rgba(255,255,255,.6);font-size:clamp(1.05rem,1.8vw,1.35rem);max-width:700px">${sd.content}</p>`;
+      break;
+
+    // ── NORMAL ──
+    case 'normal':
+      html += `<div class="bar"></div>`;
+      if(sd.title) html += `<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      if(sd.content) html += `<div class="body-content" style="margin-bottom:.4rem">${sd.content}</div>`;
+      if(sd.bullets && sd.bullets.length){
+        html += `<ul class="deck-list">`;
+        sd.bullets.forEach(b => { html += `<li>${b}</li>`; });
+        html += `</ul>`;
+      }
+      if(sd.footer) html += `<div class="tip-box">${sd.footer}</div>`;
+      break;
+
+    // ── COMPARE ──
+    case 'compare':
+      html += `<div class="bar"></div>`;
+      if(sd.title) html += `<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      html += `<div class="compare-grid">`;
+      [sd.left, sd.right].forEach((side, si) => {
+        const cls = si === 0 ? 'cmp-card cmp-no' : 'cmp-card cmp-yes';
+        html += `<div class="${cls}">`;
+        html += `<div style="font-size:2rem;margin-bottom:.5rem">${side.icon}</div>`;
+        html += `<h3>${side.label}</h3>`;
+        html += `<ul class="deck-list">`;
+        side.items.forEach(it => { html += `<li>${it}</li>`; });
+        html += `</ul></div>`;
+      });
+      html += `</div>`;
+      break;
+
+    // ── REVEAL ──
+    case 'reveal':
+      html += `<div class="bar"></div>`;
+      if(sd.title) html += `<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      html += `<div class="reveal-card" onclick="this.classList.toggle('revealed')">`;
+      html += `<div class="reveal-q-layer">`;
+      html += `<p>${sd.question.replace(/\n/g,'<br>')}</p>`;
+      html += `<span class="hint">點擊揭曉</span>`;
+      html += `</div>`;
+      html += `<div class="reveal-a-layer">${sd.answer.replace(/\n/g,'<br>')}</div>`;
+      html += `</div>`;
+      break;
+
+    // ── TIMER ──
+    case 'timer':
+      html += `<div class="bar" style="margin:.8rem 0 1.2rem"></div>`;
+      if(sd.title) html += `<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      if(sd.content) html += `<p style="margin-bottom:1rem">${sd.content}</p>`;
+      html += `<div class="timer-wrap">`;
+      html += `<div class="timer-display" id="td-${sd.id}">${formatTime(sd.time)}</div>`;
+      html += `<div style="display:flex;gap:1rem">`;
+      html += `<button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button>`;
+      html += `<button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button>`;
+      html += `</div>`;
+      html += `</div>`;
+      break;
+
+    // ── HTML ──
+    case 'html':
+      if(sd.title) html += `<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      html += sd.content;
+      break;
+
+    // ── CLOSE ──
+    case 'close':
+      html += `<div class="bar" style="background:var(--red);margin:.8rem 0 1.4rem"></div>`;
+      if(sd.title) html += `<h1 style="color:#fff;margin-bottom:1.2rem">${sd.title}</h1>`;
+      if(sd.content) html += `<div style="max-width:640px;margin:0 auto 1.8rem;font-size:clamp(1rem,1.8vw,1.3rem);line-height:1.7">${sd.content}</div>`;
+      if(sd.img){
+        html += `<div style="margin:1.2rem auto;max-width:200px">
+          <img src="${sd.img}" alt="QR Code" style="width:140px;height:140px;object-fit:cover;border-radius:8px;background:#fff;display:block;margin:0 auto"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div style="display:none;width:140px;height:140px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto;align-items:center;justify-content:center;flex-direction:column;border:2px dashed rgba(255,255,255,.3)">
+            <div style="font-size:.7rem;color:rgba(255,255,255,.5);text-align:center;padding:.5rem">QR Code</div>
+          </div>
+        </div>`;
+      }
+      if(sd.cta) html += `<p style="font-size:.85rem;margin-top:.6rem;color:rgba(255,255,255,.5)">${sd.cta}</p>`;
+      break;
+  }
+
+  // Wrap in slide-content div
+  const inner = document.createElement('div');
+  inner.className = 'inner slide-content';
+  inner.innerHTML = html;
+  section.appendChild(inner);
+  return section;
+}
+
+// ─────────────────────────────────────────────
+// BUILD SLIDES
+// ─────────────────────────────────────────────
+const slideEls = [];
+slidesData.forEach((sd, idx) => {
+  const el = renderSlide(sd, idx);
+  container.appendChild(el);
+  slideEls.push(el);
+});
+
+// ─────────────────────────────────────────────
+// UI UPDATE
+// ─────────────────────────────────────────────
+function setCurrentSlide(idx){
+  cur = Math.max(0, Math.min(idx, total - 1));
+  updateUI();
+}
+
+function updateUI(){
+  const sd = slidesData[cur];
+  const pct = total > 1 ? (cur / (total - 1)) * 100 : 0;
+
+  // Progress bar
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  // Page indicator fill
+  document.getElementById('page-indicator-fill').style.height = pct + '%';
+
+  // Counter
+  document.getElementById('counter').textContent = `${cur + 1} / ${total}`;
+
+  // Breadcrumb
+  document.getElementById('breadcrumb').textContent = `Section ${sd.sec}  ·  ${sd.subsec}`;
+
+  // Section indicator
+  document.getElementById('sec-indicator').textContent = secNames[sd.sec] || '';
+
+  // Section nav buttons
+  document.querySelectorAll('.sec-btn').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.sec) === sd.sec);
+  });
+}
+
+// ─────────────────────────────────────────────
+// SCROLL & NAVIGATION
+// ─────────────────────────────────────────────
+function scrollToSlide(idx){
+  idx = Math.max(0, Math.min(idx, total - 1));
+  slideEls[idx]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setCurrentSlide(idx);
+}
+
+function jumpToSection(sec){
+  const idx = secStarts[sec];
+  if(idx !== undefined) scrollToSlide(idx);
+}
+
+// Nav buttons
+document.getElementById('btn-prev').addEventListener('click', () => scrollToSlide(cur - 1));
+document.getElementById('btn-next').addEventListener('click', () => scrollToSlide(cur + 1));
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if(['ArrowDown',' ','PageDown'].includes(e.key)){
+    e.preventDefault();
+    scrollToSlide(Math.min(cur + 1, total - 1));
+  }
+  if(['ArrowUp','PageUp'].includes(e.key)){
+    e.preventDefault();
+    scrollToSlide(Math.max(cur - 1, 0));
+  }
+  if(e.key === 'Home'){ e.preventDefault(); scrollToSlide(0); }
+  if(e.key === 'End'){  e.preventDefault(); scrollToSlide(total - 1); }
+});
+
+// Wheel with cooldown
+let wlk = false;
+document.addEventListener('wheel', e => {
+  if(wlk) return;
+  wlk = true;
+  scrollToSlide(e.deltaY > 0 ? Math.min(cur + 1, total - 1) : Math.max(cur - 1, 0));
+  setTimeout(() => wlk = false, 900);
+}, { passive: true });
+
+// Touch
+let touchStartY = 0;
+document.addEventListener('touchstart', e => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener('touchend', e => {
+  const dy = touchStartY - e.changedTouches[0].clientY;
+  if(Math.abs(dy) > 50){
+    scrollToSlide(dy > 0 ? Math.min(cur + 1, total - 1) : Math.max(cur - 1, 0));
+  }
+}, { passive: true });
+
+// ─────────────────────────────────────────────
+// INTERSECTION OBSERVER — triggers .is-visible
+// ─────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+      const idx = parseInt(entry.target.dataset.index);
+      if(!isNaN(idx)){
+        cur = idx;
+        updateUI();
+      }
+    } else {
+      entry.target.classList.remove('is-visible');
+    }
+  });
+}, { threshold: 0.55 });
+
+slideEls.forEach(el => observer.observe(el));
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+updateUI();
+</script>
+</body>
+</html>
