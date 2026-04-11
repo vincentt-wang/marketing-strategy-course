@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>你的設計，能賣錢嗎？— Vincent GTM 戰略課</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET & BASE ─────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #F7F6F3;
+      --ink:     #111111;
+      --red:     #E6003A;
+      --blue:    #0055CC;
+      --mid:     #555555;
+      --line:    #D8D8D8;
+      --white:   #FFFFFF;
+      --slide-pad: clamp(2rem, 5vw, 5rem);
+      --r: 4px;
+      font-size: clamp(14px, 1.6vw, 18px);
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      font-family: 'Space Grotesk', 'Noto Sans TC', sans-serif;
+      color: var(--ink);
+    }
+
+    /* ─── PROGRESS BAR ─────────────────────────── */
+    #progress {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 3px; z-index: 999;
+      background: var(--line);
+    }
+    #progress-fill {
+      height: 100%;
+      background: var(--red);
+      width: 0%;
+      transition: width 0.4s cubic-bezier(.77,0,.18,1);
+    }
+
+    /* ─── SLIDE COUNTER ────────────────────────── */
+    #counter {
+      position: fixed; bottom: 1.5rem; left: var(--slide-pad);
+      font-size: 0.7rem; letter-spacing: .12em;
+      color: var(--mid); z-index: 999;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ─── SLIDE WRAPPER ────────────────────────── */
+    #deck {
+      width: 100vw; height: 100vh;
+      position: relative; overflow: hidden;
+    }
+
+    .slide {
+      position: absolute; inset: 0;
+      width: 100vw; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .55s cubic-bezier(.77,0,.18,1),
+                  transform .55s cubic-bezier(.77,0,.18,1);
+      pointer-events: none;
+    }
+    .slide.active {
+      opacity: 1; transform: none;
+      pointer-events: all;
+    }
+    .slide.exit-up {
+      opacity: 0; transform: translateY(-40px);
+    }
+    .slide.exit-down {
+      opacity: 0; transform: translateY(40px);
+    }
+    .slide.enter-from-bottom {
+      opacity: 0; transform: translateY(40px);
+    }
+    .slide.enter-from-top {
+      opacity: 0; transform: translateY(-40px);
+    }
+
+    /* ─── GRID OVERLAY (Swiss feel) ───────────── */
+    .slide::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: clamp(40px, 8vw, 80px) clamp(40px, 8vw, 80px);
+      opacity: .2;
+      pointer-events: none;
+    }
+
+    /* ─── TYPOGRAPHY SYSTEM ────────────────────── */
+    .overline {
+      font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--red); font-weight: 600;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .overline::before {
+      content: ''; display: block;
+      width: 2rem; height: 2px; background: var(--red);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 5.5rem);
+      font-weight: 700; line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    h2 {
+      font-size: clamp(1.4rem, 3.5vw, 3rem);
+      font-weight: 700; line-height: 1.1;
+    }
+    h3 {
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      font-weight: 600; line-height: 1.2;
+    }
+    p, li {
+      font-size: clamp(.8rem, 1.4vw, 1.05rem);
+      line-height: 1.65;
+      color: var(--mid);
+    }
+    strong { color: var(--ink); font-weight: 600; }
+
+    /* ─── LAYOUT HELPERS ────────────────────────── */
+    .inner {
+      position: relative; z-index: 1;
+      width: min(90vw, 1100px);
+      padding: var(--slide-pad);
+    }
+    .stack { display: flex; flex-direction: column; gap: 1.2rem; }
+    .row   { display: flex; gap: 1.5rem; align-items: stretch; }
+    .col   { flex: 1; }
+
+    /* ─── CARD ──────────────────────────────────── */
+    .card {
+      background: var(--white);
+      border-radius: var(--r);
+      padding: clamp(1rem, 2.5vw, 2rem);
+      border: 1px solid var(--line);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+
+    /* ─── TAG / BADGE ───────────────────────────── */
+    .tag {
+      display: inline-block;
+      font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+      font-weight: 700; padding: .25em .7em;
+      border-radius: 2px; background: var(--ink); color: var(--white);
+    }
+    .tag.red   { background: var(--red); }
+    .tag.blue  { background: var(--blue); }
+    .tag.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+
+    /* ─── ACCENT LINE ────────────────────────────── */
+    .accent-bar {
+      width: 3rem; height: 4px;
+      background: var(--red); border-radius: 2px;
+    }
+
+    /* ─── SLIDE-SPECIFIC ─────────────────────────── */
+
+    /* S1 Cover */
+    #s1 { background: var(--ink); }
+    #s1::before { opacity: .07; }
+    #s1 .inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    #s1 .left { color: var(--white); }
+    #s1 .left h1 { color: var(--white); }
+    #s1 .left .sub {
+      font-size: clamp(.85rem, 1.5vw, 1.1rem);
+      color: rgba(255,255,255,.55); margin-top: .75rem;
+      font-weight: 300; letter-spacing: .04em;
+    }
+    #s1 .right {
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    #s1 .meta-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r);
+      padding: 1.2rem 1.5rem;
+      color: rgba(255,255,255,.8);
+      font-size: .85rem;
+    }
+    #s1 .meta-card .label {
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--red); font-weight: 600; margin-bottom: .3rem;
+    }
+    #s1 .red-block {
+      background: var(--red);
+      border-radius: var(--r);
+      padding: 1.2rem 1.5rem;
+      color: var(--white);
+    }
+    #s1 .red-block .label {
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+      font-weight: 600; margin-bottom: .3rem; opacity: .7;
+    }
+    #s1 .red-block .val {
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      font-weight: 700;
+    }
+
+    /* S2 Problem */
+    #s2 .inner { max-width: 900px; }
+    #s2 .big-q {
+      font-size: clamp(4rem, 12vw, 11rem);
+      font-weight: 700; color: var(--red);
+      line-height: 1; letter-spacing: -.04em;
+      position: absolute; right: -1rem; top: 50%;
+      transform: translateY(-50%);
+      opacity: .08; pointer-events: none;
+    }
+
+    /* S3 Goal */
+    #s3 .comparison {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 1.5rem;
+    }
+    #s3 .no-side {
+      border: 2px solid var(--line);
+      border-radius: var(--r); padding: 1.5rem;
+      position: relative;
+    }
+    #s3 .no-side .x {
+      font-size: 1.5rem; color: #CCC; margin-bottom: .5rem;
+    }
+    #s3 .yes-side {
+      border: 2px solid var(--red);
+      border-radius: var(--r); padding: 1.5rem;
+      background: rgba(230,0,58,.04);
+    }
+    #s3 .yes-side .check {
+      font-size: 1.5rem; color: var(--red); margin-bottom: .5rem;
+    }
+
+    /* S4 Triangle */
+    #s4 .triangle-wrap {
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2rem;
+      gap: 3rem;
+    }
+    #s4 svg { width: clamp(180px, 30vw, 280px); flex-shrink: 0; }
+    #s4 .legend { display: flex; flex-direction: column; gap: 1rem; }
+    #s4 .leg-item { display: flex; align-items: flex-start; gap: .75rem; }
+    #s4 .leg-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      flex-shrink: 0; margin-top: .4rem;
+    }
+
+    /* S5 Vitamin vs Painkiller */
+    #s5 .vp-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 1.5rem;
+    }
+    #s5 .vp-card {
+      border-radius: var(--r); padding: 1.8rem;
+      position: relative; overflow: hidden;
+    }
+    #s5 .vp-card .bg-icon {
+      position: absolute; right: -1rem; bottom: -1.5rem;
+      font-size: 6rem; opacity: .08; line-height: 1;
+    }
+    #s5 .vitamin { background: #F0F7FF; border: 1.5px solid #B3D4FF; }
+    #s5 .painkiller { background: #FFF5F7; border: 1.5px solid #FFB3C1; }
+
+    /* S6 HXC */
+    #s6 .hxc-box {
+      background: var(--ink); color: var(--white);
+      border-radius: var(--r); padding: 2.5rem;
+      margin-top: 1.5rem; position: relative; overflow: hidden;
+    }
+    #s6 .hxc-box .bg-text {
+      position: absolute; right: -1rem; bottom: -2rem;
+      font-size: 10rem; font-weight: 700; color: rgba(255,255,255,.04);
+      line-height: 1; letter-spacing: -.05em;
+    }
+    #s6 .hxc-box h2 { color: var(--white); }
+    #s6 .hxc-box p { color: rgba(255,255,255,.6); }
+    #s6 .hxc-attrs {
+      display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;
+    }
+    #s6 .hxc-attr {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r); padding: .6rem 1rem;
+      font-size: .8rem; color: rgba(255,255,255,.8);
+    }
+
+    /* S7 Exercise 1 */
+    #s7 { background: #FFF8F0; }
+    #s7::before { opacity: .12; }
+    #s7 .ex-header { display: flex; align-items: center; gap: 1.5rem; }
+    #s7 .timer-badge {
+      background: var(--red); color: var(--white);
+      border-radius: var(--r); padding: .5rem 1.2rem;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 700; letter-spacing: -.02em; white-space: nowrap;
+    }
+    #s7 .prompt-box {
+      background: var(--white); border: 1.5px solid var(--line);
+      border-left: 4px solid var(--red);
+      border-radius: var(--r); padding: 1.5rem 1.8rem;
+      margin-top: 1.5rem;
+    }
+    #s7 .blank-line {
+      border-bottom: 1.5px solid var(--ink);
+      margin: .8rem 0; height: 2rem;
+      display: flex; align-items: flex-end;
+      font-size: .75rem; color: var(--mid); padding-bottom: .3rem;
+    }
+
+    /* S8 GTM */
+    #s8 .gtm-def {
+      margin-top: 1.5rem;
+      padding: 1.8rem 2rem;
+      border-left: 4px solid var(--blue);
+      background: rgba(0,85,204,.04);
+      border-radius: 0 var(--r) var(--r) 0;
+    }
+    #s8 .gtm-pillars {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    #s8 .pillar {
+      background: var(--white); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 1.2rem;
+      text-align: center;
+    }
+    #s8 .pillar .num {
+      font-size: 2rem; font-weight: 700;
+      color: var(--blue); line-height: 1;
+      margin-bottom: .3rem;
+    }
+
+    /* S9 Pitch Formula */
+    #s9 .formula {
+      display: flex; align-items: stretch;
+      gap: 0; margin-top: 2rem;
+    }
+    #s9 .step {
+      flex: 1; padding: 1.5rem 1rem;
+      text-align: center; position: relative;
+    }
+    #s9 .step::after {
+      content: '→';
+      position: absolute; right: -0.6rem; top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem; color: var(--mid); z-index: 2;
+    }
+    #s9 .step:last-child::after { display: none; }
+    #s9 .step-num {
+      font-size: .6rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--mid); font-weight: 600; margin-bottom: .5rem;
+    }
+    #s9 .step-icon {
+      font-size: 2rem; margin-bottom: .5rem;
+    }
+    #s9 .step h3 { font-size: clamp(.9rem, 1.5vw, 1.2rem); }
+    #s9 .step p  { font-size: clamp(.7rem, 1.1vw, .85rem); margin-top: .3rem; }
+    #s9 .step-1 { background: #FFF5F7; border-radius: var(--r) 0 0 var(--r); border: 1.5px solid #FFB3C1; }
+    #s9 .step-2 { background: #FFF8F0; border: 1.5px solid #FFCC99; border-left: none; }
+    #s9 .step-3 { background: #F0F7FF; border: 1.5px solid #B3D4FF; border-left: none; }
+    #s9 .step-4 { background: #F0FFF4; border-radius: 0 var(--r) var(--r) 0; border: 1.5px solid #99DDBB; border-left: none; }
+
+    /* S10 Case */
+    #s10 .case-grid {
+      display: grid; grid-template-columns: 1fr 2fr;
+      gap: 1.5rem; margin-top: 1.5rem; align-items: start;
+    }
+    #s10 .brand-card {
+      background: linear-gradient(135deg, #1A1A2E, #16213E);
+      color: var(--white); border-radius: var(--r);
+      padding: 2rem; text-align: center;
+    }
+    #s10 .brand-card .logo {
+      font-size: 3rem; margin-bottom: .5rem;
+    }
+    #s10 .brand-card h3 { color: var(--white); }
+    #s10 .brand-card p  { color: rgba(255,255,255,.55); font-size: .8rem; }
+    #s10 .formula-breakdown { display: flex; flex-direction: column; gap: .75rem; }
+    #s10 .fb-row {
+      display: grid; grid-template-columns: 5rem 1fr;
+      gap: 1rem; align-items: start;
+    }
+    #s10 .fb-label {
+      font-size: .65rem; letter-spacing: .1em; text-transform: uppercase;
+      font-weight: 700; padding: .4em .6em; border-radius: 2px;
+      text-align: center; color: var(--white);
+    }
+    #s10 .hook-l  { background: var(--red); }
+    #s10 .pain-l  { background: #E67E00; }
+    #s10 .sol-l   { background: var(--blue); }
+    #s10 .cta-l   { background: #17A34A; }
+
+    /* S11 Exercise 2 */
+    #s11 { background: #F0FFF4; }
+    #s11::before { opacity: .1; }
+    #s11 .script-template {
+      background: var(--white); border: 1.5px solid #99DDBB;
+      border-radius: var(--r); padding: 2rem;
+      margin-top: 1.5rem;
+    }
+    #s11 .script-line {
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: 1.2rem;
+    }
+    #s11 .script-tag {
+      flex-shrink: 0; font-size: .6rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      font-weight: 700; padding: .3em .7em;
+      border-radius: 2px; color: var(--white);
+      width: 4.5rem; text-align: center;
+      margin-top: .15rem;
+    }
+    #s11 .s-hook  { background: var(--red); }
+    #s11 .s-pain  { background: #E67E00; }
+    #s11 .s-sol   { background: var(--blue); }
+    #s11 .s-cta   { background: #17A34A; }
+    #s11 .script-fill {
+      flex: 1; border-bottom: 1.5px solid var(--line);
+      padding-bottom: .4rem; min-height: 1.8rem;
+      font-size: .85rem; color: var(--mid);
+    }
+
+    /* S12 Checklist */
+    #s12 .checklist {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    #s12 .check-item {
+      display: flex; gap: .75rem; align-items: flex-start;
+      background: var(--white); border: 1px solid var(--line);
+      border-radius: var(--r); padding: 1rem 1.2rem;
+    }
+    #s12 .check-box {
+      width: 1.4rem; height: 1.4rem; border-radius: 3px;
+      border: 2px solid var(--line); flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    /* S13 Close */
+    #s13 { background: var(--ink); }
+    #s13::before { opacity: .07; }
+    #s13 .inner {
+      display: grid; grid-template-columns: 1.5fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+    #s13 .left { color: var(--white); }
+    #s13 .left h1 { color: var(--white); }
+    #s13 .left p  { color: rgba(255,255,255,.5); }
+    #s13 .qr-box {
+      background: var(--white); border-radius: var(--r);
+      padding: 2rem; display: flex; flex-direction: column;
+      align-items: center; gap: 1rem;
+    }
+    #s13 .qr-placeholder {
+      width: clamp(100px, 15vw, 160px);
+      height: clamp(100px, 15vw, 160px);
+      background: repeating-linear-gradient(
+        0deg, var(--line) 0, var(--line) 1px, transparent 1px, transparent 8px
+      ), repeating-linear-gradient(
+        90deg, var(--line) 0, var(--line) 1px, transparent 1px, transparent 8px
+      );
+      border: 2px solid var(--ink); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem; color: var(--mid); text-align: center;
+      padding: 1rem; letter-spacing: .05em;
+    }
+    #s13 .qr-box .name {
+      font-weight: 700; font-size: 1rem; color: var(--ink);
+    }
+    #s13 .qr-box .role {
+      font-size: .75rem; color: var(--mid); text-align: center;
+    }
+
+    /* ─── NAV ARROWS ─────────────────────────────── */
+    .nav-btn {
+      position: fixed; bottom: 1.5rem;
+      background: var(--white); border: 1px solid var(--line);
+      width: 2.4rem; height: 2.4rem; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 999;
+      transition: background .2s, border-color .2s;
+      font-size: 1rem; color: var(--ink);
+    }
+    .nav-btn:hover { background: var(--ink); color: var(--white); }
+    #btn-prev { left: 1.5rem; }
+    #btn-next { left: 4.5rem; }
+
+    /* ─── ANIMATION STAGGER ──────────────────────── */
+    .anim {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s cubic-bezier(.77,0,.18,1),
+                  transform .5s cubic-bezier(.77,0,.18,1);
+    }
+    .slide.active .anim { opacity: 1; transform: none; }
+    .slide.active .anim:nth-child(1) { transition-delay: .05s; }
+    .slide.active .anim:nth-child(2) { transition-delay: .12s; }
+    .slide.active .anim:nth-child(3) { transition-delay: .19s; }
+    .slide.active .anim:nth-child(4) { transition-delay: .26s; }
+    .slide.active .anim:nth-child(5) { transition-delay: .33s; }
+    .slide.active .anim:nth-child(6) { transition-delay: .40s; }
+    .slide.active .anim:nth-child(7) { transition-delay: .47s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide, .anim { transition: none !important; }
+    }
+
+    /* Responsive: portrait / small */
+    @media (max-height: 600px) {
+      :root { --slide-pad: 1.2rem; }
+      h1 { font-size: clamp(1.4rem, 4vw, 2.5rem); }
+    }
+    @media (max-width: 700px) {
+      #s1 .inner, #s13 .inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      #s1 .right { display: none; }
+      #s3 .comparison, #s5 .vp-grid, #s10 .case-grid,
+      #s12 .checklist { grid-template-columns: 1fr; }
+      #s9 .formula { flex-direction: column; }
+      #s9 .step::after { content: '↓'; right: 50%; top: auto; bottom: -.7rem; transform: translateX(50%); }
+      #s8 .gtm-pillars { grid-template-columns: 1fr; }
+      .row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"><div id="progress-fill"></div></div>
+<div id="counter">1 / 13</div>
+
+<button class="nav-btn" id="btn-prev" aria-label="上一頁">←</button>
+<button class="nav-btn" id="btn-next" aria-label="下一頁">→</button>
+
+<div id="deck">
+
+  <!-- ── SLIDE 1 · COVER ──────────────────────────── -->
+  <section class="slide" id="s1">
+    <div class="inner">
+      <div class="left">
+        <div class="overline anim" style="color:rgba(255,255,255,.45)">
+          <span style="background:var(--red)">GTM 戰略工作坊</span>
+        </div>
+        <h1 class="anim" style="margin-top:1rem">
+          你的設計，<br>
+          <span style="color:var(--red)">能賣錢嗎？</span>
+        </h1>
+        <p class="sub anim">
+          從客群洞察到商業發表的 Go-To-Market 戰略
+        </p>
+        <div class="anim" style="margin-top:2rem;display:flex;gap:.75rem;align-items:center">
+          <div class="tag red">Day 2 午後</div>
+          <div class="tag ghost" style="color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.3)">14:00 – 16:00</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="red-block anim">
+          <div class="label">主講人</div>
+          <div class="val">Vincent</div>
+        </div>
+        <div class="meta-card anim">
+          <div class="label">授課地點</div>
+          大學社群行銷工作坊
+        </div>
+        <div class="meta-card anim">
+          <div class="label">成果發表</div>
+          16:00 — 學員上台呈現商業價值
+        </div>
+        <div class="meta-card anim" style="font-size:.75rem;opacity:.6">
+          今天早上你用 Canva 做了圖<br>
+          接下來我們要讓它<strong style="color:var(--white)">值錢</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 2 · PROBLEM ────────────────────────── -->
+  <section class="slide" id="s2">
+    <div class="inner stack" style="position:relative">
+      <div class="anim"><div class="overline">Part 1 · 破冰</div></div>
+      <h2 class="anim">為什麼圖做得很美，<br>卻<span style="color:var(--red)">沒有轉換</span>？</h2>
+      <div class="accent-bar anim"></div>
+      <div class="row anim">
+        <div class="card col">
+          <div class="tag" style="background:#EEE;color:var(--mid);margin-bottom:.8rem">Bottom-Up 陷阱</div>
+          <p>先做出一張很美的圖，<br>再想「這張圖應該能賣給誰」。</p>
+          <p style="margin-top:.5rem;color:#CCC">▸ 結果：沒有明確受眾，無法轉換</p>
+        </div>
+        <div class="card col" style="border-color:var(--red)">
+          <div class="tag red" style="margin-bottom:.8rem">Top-Down 戰略</div>
+          <p>先定義目標客群與痛點，<br>再讓設計服務這個目標。</p>
+          <p style="margin-top:.5rem;color:var(--red)">▸ 結果：每一個視覺元素都有商業意圖</p>
+        </div>
+      </div>
+      <p class="anim" style="color:var(--mid);font-size:.85rem">
+        <strong>今天的課</strong>，就是幫你把已有的圖，裝上商業戰略的引擎。
+      </p>
+      <div class="big-q">?</div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 3 · GOAL ALIGNMENT ─────────────────── -->
+  <section class="slide" id="s3">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">目標對齊</div></div>
+      <h2 class="anim">16:00 發表的<span style="color:var(--red)">不是</span>這個</h2>
+      <div class="comparison anim">
+        <div class="no-side">
+          <div class="x">✕</div>
+          <h3 style="color:#AAA">「這張圖多漂亮」</h3>
+          <p style="margin-top:.5rem">美感展示<br>技術炫耀<br>自我滿足</p>
+        </div>
+        <div class="yes-side">
+          <div class="check" style="color:var(--red)">✓</div>
+          <h3>「這張圖創造什麼商業價值」</h3>
+          <p style="margin-top:.5rem;color:var(--mid)">
+            <strong>賣給誰？</strong> — 清楚描述目標客群<br>
+            <strong>解決什麼？</strong> — 對應真實痛點<br>
+            <strong>達成什麼？</strong> — 明確的商業目的
+          </p>
+        </div>
+      </div>
+      <div class="card anim" style="border-left:4px solid var(--red);border-radius:0 var(--r) var(--r) 0">
+        <p>
+          <strong>今天的成功標準：</strong>
+          你能在 60 秒內，清楚說明這張圖「賣給誰、解決什麼痛點、達成什麼商業目的」。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 4 · 創新三元 ──────────────────────── -->
+  <section class="slide" id="s4">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">Part 2 · 欲求性 Desirability</div></div>
+      <h2 class="anim">創新三元：我們現在在哪？</h2>
+      <div class="triangle-wrap anim">
+        <svg viewBox="0 0 240 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="120,10 225,195 15,195" stroke="#D8D8D8" stroke-width="2" fill="#F7F6F3"/>
+          <!-- sides highlight -->
+          <line x1="120" y1="10" x2="225" y2="195" stroke="#E6003A" stroke-width="2.5"/>
+          <!-- nodes -->
+          <circle cx="120" cy="10" r="12" fill="#E6003A"/>
+          <circle cx="225" cy="195" r="12" fill="#D8D8D8"/>
+          <circle cx="15" cy="195" r="12" fill="#0055CC"/>
+          <!-- labels -->
+          <text x="120" y="-6" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="13" font-weight="700" fill="#E6003A">欲求性</text>
+          <text x="120" y="6" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="9" fill="#E6003A">Desirability</text>
+          <text x="245" y="200" font-family="Space Grotesk,sans-serif" font-size="11" fill="#888">可行性</text>
+          <text x="-18" y="215" font-family="Space Grotesk,sans-serif" font-size="11" fill="#0055CC">存續性</text>
+          <!-- center label -->
+          <text x="120" y="120" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="11" fill="#888">創新</text>
+        </svg>
+        <div class="legend">
+          <div class="leg-item">
+            <div class="leg-dot" style="background:var(--red)"></div>
+            <div>
+              <p><strong>欲求性 Desirability ← 現在</strong></p>
+              <p style="font-size:.8rem">客群想要嗎？你在對誰說話？</p>
+            </div>
+          </div>
+          <div class="leg-item">
+            <div class="leg-dot" style="background:#0055CC"></div>
+            <div>
+              <p><strong>存續性 Viability ← Part 3</strong></p>
+              <p style="font-size:.8rem">商業上可持續？GTM 如何設計？</p>
+            </div>
+          </div>
+          <div class="leg-item">
+            <div class="leg-dot" style="background:#CCC"></div>
+            <div>
+              <p><strong>可行性 Feasibility ← 今天早上</strong></p>
+              <p style="font-size:.8rem">技術上可實現？你已用 Canva 完成。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 5 · VITAMIN vs PAINKILLER ──────────── -->
+  <section class="slide" id="s5">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">痛點快篩</div></div>
+      <h2 class="anim">你的素材是<span style="color:#0055CC">維他命</span>，<br>還是<span style="color:var(--red)">止痛藥</span>？</h2>
+      <div class="vp-grid anim">
+        <div class="vp-card vitamin">
+          <div class="tag blue" style="margin-bottom:.8rem">💊 維他命</div>
+          <h3 style="color:#0055CC">Good to Have</h3>
+          <p style="margin-top:.5rem">「有的話不錯，沒有也無所謂。」</p>
+          <p style="margin-top:.5rem">▸ 客群購買動機弱<br>▸ 需要大量教育成本<br>▸ 難以創造急迫性</p>
+          <div class="bg-icon">💊</div>
+        </div>
+        <div class="vp-card painkiller">
+          <div class="tag red" style="margin-bottom:.8rem">🩹 止痛藥</div>
+          <h3 style="color:var(--red)">Must Have</h3>
+          <p style="margin-top:.5rem">「沒有這個，我就很痛。」</p>
+          <p style="margin-top:.5rem">▸ 客群主動尋找解方<br>▸ 購買決策快速<br>▸ 轉換率高</p>
+          <div class="bg-icon">🩹</div>
+        </div>
+      </div>
+      <div class="card anim" style="border-left:4px solid var(--red);border-radius:0 var(--r) var(--r) 0">
+        <p><strong>今天的目標：</strong>讓你的設計素材，從「很漂亮的維他命」，升級為「解決真實痛點的止痛藥」。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 6 · HXC ─────────────────────────────── -->
+  <section class="slide" id="s6">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">客群定位</div></div>
+      <h2 class="anim">拒絕討好<span style="color:var(--red)">所有人</span></h2>
+      <div class="hxc-box anim">
+        <div class="tag red" style="margin-bottom:1rem">HXC — High Expectation Customer</div>
+        <h2 style="color:var(--white);margin-bottom:.5rem">高期望客群</h2>
+        <p>你最理想的那個人。他的需求最強烈，最能代表核心客群，<br>也最有可能成為你的第一批真實用戶。</p>
+        <div class="hxc-attrs">
+          <div class="hxc-attr">有明確痛點</div>
+          <div class="hxc-attr">付費意願高</div>
+          <div class="hxc-attr">會主動分享</div>
+          <div class="hxc-attr">能代表同類族群</div>
+        </div>
+        <div class="bg-text">HXC</div>
+      </div>
+      <p class="anim" style="font-size:.85rem">
+        <strong>練習思考：</strong> 你的圖，最適合哪一個人看到？他幾歲？他在哪裡？他今天最煩惱什麼？
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 7 · EXERCISE 1 ──────────────────────── -->
+  <section class="slide" id="s7">
+    <div class="inner stack">
+      <div class="ex-header anim">
+        <div>
+          <div class="overline">實作演練 1</div>
+          <h2 style="margin-top:.3rem">一句話定位</h2>
+        </div>
+        <div class="timer-badge">⏱ 5 min</div>
+      </div>
+      <div class="prompt-box anim">
+        <p style="color:var(--ink);font-weight:600;margin-bottom:1rem">
+          請寫下你早上做的圖，是為了解決哪群 HXC 的什麼痛點？
+        </p>
+        <div class="blank-line">我的圖，是為了 ____（誰）</div>
+        <div class="blank-line">解決他們 ____（什麼痛點）</div>
+        <div class="blank-line">讓他們能夠 ____（達成什麼）</div>
+      </div>
+      <div class="row anim">
+        <div class="card col" style="text-align:center">
+          <p style="font-size:.7rem;color:var(--mid);margin-bottom:.3rem">範例</p>
+          <p>「為<strong>剛入職的社會新鮮人</strong>，<br>解決<strong>不知道怎麼做職涯規劃</strong>的焦慮，<br>讓他們能夠<strong>在 3 個月內找到方向</strong>。」</p>
+        </div>
+      </div>
+      <p class="anim" style="font-size:.75rem;color:var(--mid)">
+        完成後，請與旁邊的同學分享。5 分鐘後我們一起回顧。
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 8 · GTM ──────────────────────────────── -->
+  <section class="slide" id="s8">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">Part 3 · 存續性 Viability</div></div>
+      <h2 class="anim">什麼是 <span style="color:var(--blue)">Go-To-Market</span>？</h2>
+      <div class="gtm-def anim">
+        <p>
+          GTM 是一套<strong>讓對的人，在對的時機，看到對的訊息</strong>的策略。<br>
+          它不只是「行銷」，而是整合客群洞察、訊息設計、與觸達管道的完整計畫。
+        </p>
+      </div>
+      <div class="gtm-pillars anim">
+        <div class="pillar">
+          <div class="num">01</div>
+          <h3>對的人</h3>
+          <p style="font-size:.8rem">HXC 精準定位，<br>不泛談「所有人」</p>
+        </div>
+        <div class="pillar">
+          <div class="num">02</div>
+          <h3>對的訊息</h3>
+          <p style="font-size:.8rem">訴求對準痛點，<br>止痛藥優先</p>
+        </div>
+        <div class="pillar">
+          <div class="num">03</div>
+          <h3>對的管道</h3>
+          <p style="font-size:.8rem">在客群出沒的地方<br>曝光你的設計</p>
+        </div>
+      </div>
+      <p class="anim" style="font-size:.85rem;color:var(--mid)">
+        今天的發表，就是你的<strong>第一次 GTM 演練</strong>。
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 9 · PITCH FORMULA ───────────────────── -->
+  <section class="slide" id="s9">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">商業發表黃金結構</div></div>
+      <h2 class="anim">Pitch Formula</h2>
+      <div class="formula anim">
+        <div class="step step-1">
+          <div class="step-num">Step 01</div>
+          <div class="step-icon">🪝</div>
+          <h3>鉤子<br>Hook</h3>
+          <p>一句話抓住注意力<br>問句 / 數據 / 反常識</p>
+        </div>
+        <div class="step step-2">
+          <div class="step-num">Step 02</div>
+          <div class="step-icon">😣</div>
+          <h3>痛點<br>Pain</h3>
+          <p>描述 HXC 的<br>真實困境與挫折</p>
+        </div>
+        <div class="step step-3">
+          <div class="step-num">Step 03</div>
+          <div class="step-icon">💡</div>
+          <h3>方案與視覺<br>Solution</h3>
+          <p>展示設計素材，<br>說明如何解決痛點</p>
+        </div>
+        <div class="step step-4">
+          <div class="step-num">Step 04</div>
+          <div class="step-icon">🎯</div>
+          <h3>行動呼籲<br>CTA</h3>
+          <p>明確告訴觀眾<br>下一步要做什麼</p>
+        </div>
+      </div>
+      <p class="anim" style="font-size:.8rem;color:var(--mid)">
+        這個結構適用於：IG 貼文說明、發表簡報、產品頁面、短影音腳本。
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 10 · CASE STUDY ──────────────────────── -->
+  <section class="slide" id="s10">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">案例拆解</div></div>
+      <h2 class="anim">EmoTree — 情緒陪伴工具</h2>
+      <div class="case-grid anim">
+        <div class="brand-card">
+          <div class="logo">🌳</div>
+          <h3>EmoTree</h3>
+          <p style="margin-top:.3rem">情緒陪伴 / 心理健康</p>
+          <div style="margin-top:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:1rem">
+            <p style="font-size:.75rem">HXC：25-35 歲，<br>高壓工作者，<br>不願就診但情緒不穩</p>
+          </div>
+        </div>
+        <div class="formula-breakdown">
+          <div class="fb-row">
+            <div class="fb-label hook-l">🪝 Hook</div>
+            <div class="card" style="padding:.75rem 1rem">
+              <p style="font-size:.85rem">「你上次說出自己心情，是什麼時候？」</p>
+            </div>
+          </div>
+          <div class="fb-row">
+            <div class="fb-label pain-l">😣 Pain</div>
+            <div class="card" style="padding:.75rem 1rem">
+              <p style="font-size:.85rem">忙碌的現代人沒有出口，情緒積壓導致失眠、關係破裂，卻不知如何開口求助。</p>
+            </div>
+          </div>
+          <div class="fb-row">
+            <div class="fb-label sol-l">💡 Solution</div>
+            <div class="card" style="padding:.75rem 1rem">
+              <p style="font-size:.85rem">這張情緒地圖圖文，幫助使用者辨識並命名自己的情緒狀態，降低求助門檻。</p>
+            </div>
+          </div>
+          <div class="fb-row">
+            <div class="fb-label cta-l">🎯 CTA</div>
+            <div class="card" style="padding:.75rem 1rem">
+              <p style="font-size:.85rem">「收藏這張圖，下次情緒來了，先對著它說一句話。」</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 11 · EXERCISE 2 ──────────────────────── -->
+  <section class="slide" id="s11">
+    <div class="inner stack">
+      <div class="ex-header anim">
+        <div>
+          <div class="overline">實作演練 2</div>
+          <h2 style="margin-top:.3rem">撰寫你的 Pitch 講稿</h2>
+        </div>
+        <div class="timer-badge" style="font-size:clamp(1rem,2vw,1.8rem)">⏱ 15 min</div>
+      </div>
+      <div class="script-template anim">
+        <p style="font-size:.75rem;color:var(--mid);margin-bottom:1rem">目標：30 – 60 秒 · 結合 Part 2 的客群定位 + 今早的視覺設計</p>
+        <div class="script-line">
+          <div class="script-tag s-hook">🪝 Hook</div>
+          <div class="script-fill">（一句抓眼球的問句或驚人數據）</div>
+        </div>
+        <div class="script-line">
+          <div class="script-tag s-pain">😣 Pain</div>
+          <div class="script-fill">（描述你的 HXC 在痛什麼）</div>
+        </div>
+        <div class="script-line">
+          <div class="script-tag s-sol">💡 Solution</div>
+          <div class="script-fill">（介紹你的設計如何解決，展示視覺）</div>
+        </div>
+        <div class="script-line">
+          <div class="script-tag s-cta">🎯 CTA</div>
+          <div class="script-fill">（明確告訴觀眾下一步）</div>
+        </div>
+      </div>
+      <p class="anim" style="font-size:.75rem;color:var(--mid)">
+        ✦ 寫完後，請大聲唸出來計時。超過 60 秒就刪字。
+      </p>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 12 · CHECKLIST ──────────────────────── -->
+  <section class="slide" id="s12">
+    <div class="inner stack">
+      <div class="anim"><div class="overline">發表準備 · 15:40 – 16:00</div></div>
+      <h2 class="anim">上台前<span style="color:var(--red)">確認清單</span></h2>
+      <div class="checklist anim">
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <p><strong>客群是否清晰？</strong></p>
+            <p style="font-size:.8rem">能用一句話描述 HXC 嗎？</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <p><strong>痛點是止痛藥嗎？</strong></p>
+            <p style="font-size:.8rem">是真實痛點，還是自我感覺良好的功能？</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <p><strong>賣點是否對準？</strong></p>
+            <p style="font-size:.8rem">設計素材有直接回應痛點嗎？</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <p><strong>CTA 是否明確？</strong></p>
+            <p style="font-size:.8rem">觀眾聽完知道要做什麼嗎？</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <p><strong>時間控制在 60 秒內？</strong></p>
+            <p style="font-size:.8rem">大聲唸過，有計時嗎？</p>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="check-box"></div>
+          <div>
+            <p><strong>視覺素材準備好了？</strong></p>
+            <p style="font-size:.8rem">Canva 連結 / 圖片已開啟待命？</p>
+          </div>
+        </div>
+      </div>
+      <div class="card anim" style="background:#FFF5F7;border-color:#FFB3C1;text-align:center">
+        <p style="font-weight:600;color:var(--red)">
+          ✦ 準備好了，就去改變那個 HXC 的一天。加油！
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 13 · CLOSE ──────────────────────────── -->
+  <section class="slide" id="s13">
+    <div class="inner">
+      <div class="left stack">
+        <div class="anim"><div class="overline" style="color:rgba(255,255,255,.35)">Q&amp;A · 聯繫</div></div>
+        <h1 class="anim">謝謝你，<br><span style="color:var(--red)">去賣錢吧。</span></h1>
+        <p class="anim" style="margin-top:.5rem">
+          今天的核心：<br>
+          好設計 × 對的客群 × 清楚訊息 = 商業價值
+        </p>
+        <div class="anim" style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.5rem">
+          <p style="color:rgba(255,255,255,.4);font-size:.75rem;letter-spacing:.08em">RECALL · 三件事</p>
+          <p>① 我的 HXC 是 ＿＿＿</p>
+          <p>② 他的痛點是 ＿＿＿</p>
+          <p>③ 我的 CTA 是 ＿＿＿</p>
+        </div>
+      </div>
+      <div class="anim" style="display:flex;justify-content:center">
+        <div class="qr-box">
+          <div class="qr-placeholder">
+            請貼上<br>Vincent's<br>LinkedIn<br>QR Code
+          </div>
+          <div class="name">Vincent</div>
+          <div class="role">商業戰略 × 品牌設計<br>LinkedIn / 聯繫我</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /deck -->
+
+<script>
+(function () {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  let animating = false;
+
+  const fill    = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter');
+
+  function show(idx, dir) {
+    if (animating) return;
+    if (idx < 0 || idx >= total) return;
+    animating = true;
+
+    const out = slides[current];
+    const inn = slides[idx];
+    current = idx;
+
+    fill.style.width = ((current + 1) / total * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + total;
+
+    if (out === inn) { animating = false; return; }
+
+    // Position incoming slide off-screen in entry direction (no transition yet)
+    inn.style.transition = 'none';
+    inn.style.transform = dir === 1 ? 'translateY(40px)' : 'translateY(-40px)';
+    inn.style.opacity = '0';
+    inn.style.zIndex = '2';
+    inn.style.pointerEvents = 'none';
+    out.style.zIndex = '1';
+
+    // Double rAF ensures browser commits the starting state before animating
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      inn.style.transition = '';
+      inn.style.transform = '';
+      inn.style.opacity = '';
+      inn.classList.add('active');
+
+      out.classList.add(dir === 1 ? 'exit-up' : 'exit-down');
+
+      setTimeout(() => {
+        out.classList.remove('active', 'exit-up', 'exit-down');
+        out.style.zIndex = '';
+        inn.style.zIndex = '';
+        inn.style.pointerEvents = '';
+        animating = false;
+      }, 580);
+    }));
+  }
+
+  function next() { show(current + 1, 1); }
+  function prev() { show(current - 1, -1); }
+
+  // keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault(); next();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault(); prev();
+    }
+  });
+
+  // buttons
+  document.getElementById('btn-next').addEventListener('click', next);
+  document.getElementById('btn-prev').addEventListener('click', prev);
+
+  // wheel
+  let wheelLock = false;
+  document.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (wheelLock) return;
+    wheelLock = true;
+    if (e.deltaY > 0) next(); else prev();
+    setTimeout(() => { wheelLock = false; }, 700);
+  }, { passive: false });
+
+  // touch
+  let touchStartY = 0, touchStartX = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 40) {
+      if (dy > 0) next(); else prev();
+    } else if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+      if (dx > 0) next(); else prev();
+    }
+  }, { passive: true });
+
+  // init
+  show(0, 1);
+})();
+</script>
+</body>
+</html>
