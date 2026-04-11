@@ -6,207 +6,664 @@
 <title>台北大學社群行銷工作坊 Day 2 — Vincent</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  font-size:18px;
-  --bg:#F5F4F0;--ink:#0F0F0F;--red:#E6003A;--blue:#0055CC;
-  --mid:#4A4A4A;--line:#D5D5D0;--white:#fff;
-  --bg-warm:#FAF8F4;--bg-cool:#F0F4FA;--bg-dark:#0F0F0F;
-  --pad:clamp(2rem,4vw,4rem);
+
+:root {
+  --bg: #fbfbfd;
+  --ink: #1d1d1f;
+  --mid: #86868b;
+  --line: rgba(0,0,0,0.1);
+  --white: #ffffff;
+  --orange: #FF6B00;
+  --orange-light: rgba(255,107,0,0.12);
+  --orange-border: rgba(255,107,0,0.3);
+  --red: #E6003A;
+  --red-light: rgba(230,0,58,0.1);
+  --blue: #0055CC;
+  --blue-light: rgba(0,85,204,0.1);
+  --glass-bg: rgba(255,255,255,0.65);
+  --glass-border: rgba(255,255,255,0.8);
+  --glass-blur: blur(16px) saturate(180%);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,0.12);
+  --shadow-hover: 0 30px 60px rgba(0,0,0,0.16);
+  --ease-out-back: cubic-bezier(0.34,1.56,0.64,1);
+  --ease-smooth: cubic-bezier(0.4,0.0,0.2,1);
 }
-html,body{width:100%;height:100%;overflow:hidden;
-  font-family:system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  color:var(--ink);background:var(--bg-dark)}
 
-/* ── Top progress bar ── */
-#prog-bar{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.12);z-index:1000}
-#prog-fill{height:100%;background:var(--red);width:0;transition:width .4s ease}
+html { font-size: 18px; }
 
-/* ── Breadcrumb ── */
-#breadcrumb{
-  position:fixed;top:6px;left:50%;transform:translateX(-50%);
-  font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;
-  color:#888;background:transparent;z-index:1001;
-  white-space:nowrap;pointer-events:none;
+body {
+  font-family: system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  font-size: 18px;
+  color: var(--ink);
+  background: var(--bg);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
 }
 
-/* ── Stage ── */
-#stage{width:100vw;height:calc(100vh - 52px);margin-top:4px;position:relative;overflow:hidden}
-
-/* ── Slide base ── */
-.slide{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  padding:var(--pad) var(--pad) 1.5rem;
-  opacity:0;transform:translateY(40px);pointer-events:none;
-  transition:opacity .45s ease,transform .45s ease;
-  z-index:0;
-  background:var(--bg);
+/* ── Scroll-Snap Container ── */
+#slides-container {
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  position: fixed;
+  inset: 0;
+  /* hide scrollbar */
+  scrollbar-width: none;
 }
-.slide.active{opacity:1;transform:none;pointer-events:all;z-index:2}
-.slide.exit{opacity:0;transform:translateY(-40px);z-index:1}
+#slides-container::-webkit-scrollbar { display: none; }
 
-/* Grid bg */
-.slide::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
+/* ── Slide Base ── */
+.slide {
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2rem,5vw,5rem) clamp(2rem,5vw,5rem) 60px;
+  background: var(--bg);
+}
+
+/* SVG grid bg */
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background-image:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:clamp(40px,7vw,80px) clamp(40px,7vw,80px);
-  opacity:.12;z-index:0;
+    linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+  background-size: clamp(40px,7vw,80px) clamp(40px,7vw,80px);
+  z-index: 0;
 }
+
+/* ── Slide types ── */
+.slide-dark {
+  background: #0f0f0f;
+}
+.slide-dark::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+}
+.slide-dark::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(255,107,0,.12), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(230,0,58,.08), transparent 50%);
+  background-size: 200% 200%;
+  animation: aurora 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.slide-section {
+  background: linear-gradient(135deg, #E6003A 0%, #FF4500 100%);
+}
+.slide-section::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+}
+.slide-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 100% 100% at 100% 0%, rgba(255,255,255,.08), transparent 50%);
+  z-index: 0;
+}
+
+.slide-cover {
+  background: #0f0f0f;
+  text-align: center;
+  justify-content: center;
+}
+.slide-cover::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+}
+.slide-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 30%, rgba(255,107,0,.15), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 70% 70%, rgba(230,0,58,.1), transparent 50%);
+  background-size: 200% 200%;
+  animation: aurora 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.slide-close {
+  background: #0f0f0f;
+  text-align: center;
+}
+.slide-close::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+}
+.slide-close::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(255,107,0,.12), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 80%, rgba(230,0,58,.08), transparent 50%);
+  background-size: 200% 200%;
+  animation: aurora 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.slide-warm { background: #faf8f4; }
+.slide-cool { background: #f0f4fa; }
 
 /* ── Inner container ── */
-.inner{position:relative;z-index:1;width:min(94vw,1100px);max-height:calc(100vh - 110px);overflow:hidden}
+.inner {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 1080px);
+  max-height: calc(100vh - 100px);
+  overflow: hidden;
+  scrollbar-width: none;
+}
+.inner::-webkit-scrollbar { display: none; }
+
+/* ── Slide content animation ── */
+.slide-content {
+  opacity: 0;
+  transform: translateY(32px) scale(.98);
+  transition: opacity .7s var(--ease-smooth), transform .7s var(--ease-out-back);
+}
+.slide.is-visible .slide-content {
+  opacity: 1;
+  transform: none;
+}
+.slide.is-visible .slide-content > * {
+  animation: fade-up .6s var(--ease-out-back) both;
+}
+.slide.is-visible .slide-content > *:nth-child(1) { animation-delay: .05s; }
+.slide.is-visible .slide-content > *:nth-child(2) { animation-delay: .12s; }
+.slide.is-visible .slide-content > *:nth-child(3) { animation-delay: .19s; }
+.slide.is-visible .slide-content > *:nth-child(4) { animation-delay: .26s; }
+.slide.is-visible .slide-content > *:nth-child(5) { animation-delay: .33s; }
+.slide.is-visible .slide-content > *:nth-child(6) { animation-delay: .40s; }
+
+/* ── Animations ── */
+@keyframes aurora {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes hero-drift {
+  0%,100% { transform: scale(1) translate3d(0,0,0); opacity:.45; }
+  50%      { transform: scale(1.04) translate3d(0,-1%,0); opacity:.65; }
+}
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(28px) scale(.98); }
+  to   { opacity:1; transform:none; }
+}
 
 /* ── Typography ── */
-.hero-txt{font-size:clamp(3.5rem,10vw,8rem);font-weight:800;line-height:.95;letter-spacing:-.04em}
-h1{font-size:clamp(2.8rem,7vw,6rem);font-weight:800;line-height:1;letter-spacing:-.03em}
-h2{font-size:clamp(2rem,4.5vw,3.8rem);font-weight:700;line-height:1.08;letter-spacing:-.02em}
-h3{font-size:clamp(1.3rem,2.2vw,2rem);font-weight:600;line-height:1.2}
-p,li{font-size:clamp(1.05rem,1.8vw,1.4rem);line-height:1.7}
-p{color:var(--mid)}
-.label{font-size:clamp(.75rem,1vw,.9rem);letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.hero-txt { font-size:clamp(3.2rem,9vw,7.5rem); font-weight:800; line-height:1.02; letter-spacing:-0.03em; }
+h1 { font-size:clamp(2.6rem,6.5vw,5.5rem); font-weight:800; line-height:1.05; letter-spacing:-0.025em; }
+h2 { font-size:clamp(1.9rem,4vw,3.5rem); font-weight:700; line-height:1.08; letter-spacing:-0.02em; }
+h3 { font-size:clamp(1.2rem,2vw,1.9rem); font-weight:600; line-height:1.2; }
+p, li { font-size:clamp(1rem,1.6vw,1.3rem); line-height:1.75; color:var(--mid); }
+strong { color:var(--ink); font-weight:700; }
+.kicker { font-size:clamp(.7rem,.9vw,.85rem); font-weight:800; letter-spacing:.15em; text-transform:uppercase; }
 
-/* ── Tag ── */
-.tag{display:inline-block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
-  font-weight:700;padding:.3em .9em;border-radius:3px;margin-bottom:1.1rem}
-.tag-red{background:var(--red);color:#fff}
-.tag-dark{background:var(--ink);color:#fff}
-.tag-ghost{border:1.5px solid currentColor;background:transparent}
-.tag-white{background:rgba(255,255,255,.15);color:#fff}
+/* Color overrides for dark/section slides */
+.slide-dark h1, .slide-dark h2, .slide-dark h3, .slide-dark .hero-txt { color: #fff; }
+.slide-dark p { color: rgba(255,255,255,.6); }
+.slide-cover h1, .slide-cover h2, .slide-cover .hero-txt { color: #fff; }
+.slide-cover p { color: rgba(255,255,255,.6); }
+.slide-section h1, .slide-section h2, .slide-section h3 { color: #fff; }
+.slide-section p { color: rgba(255,255,255,.75); }
+.slide-close h1, .slide-close h2 { color: #fff; }
+.slide-close p { color: rgba(255,255,255,.65); }
 
-/* ── Decorative bar ── */
-.bar{width:3.5rem;height:4px;background:var(--red);border-radius:2px;margin:.8rem 0 1.2rem}
+/* ── Gradient text ── */
+.grad-text {
+  background: linear-gradient(135deg, var(--ink) 0%, #555 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-orange {
+  background: linear-gradient(135deg, #FF6B00, #FF8C00);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.grad-red {
+  background: linear-gradient(135deg, #E6003A, #FF2055);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-/* ── Lists ── */
-ul.bullets{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-top:1rem}
-ul.bullets li{color:var(--mid);padding-left:1.4rem;position:relative;font-size:clamp(1.05rem,1.8vw,1.4rem);line-height:1.65}
-ul.bullets li::before{content:'→';position:absolute;left:0;color:var(--red);font-weight:700}
+/* ── Badge ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .3em .9em;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.badge-orange { background: var(--orange); color: #fff; }
+.badge-red    { background: var(--red);    color: #fff; }
+.badge-dark   { background: var(--ink);    color: #fff; }
+.badge-glass  {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  color: var(--ink);
+  border: 1px solid var(--glass-border);
+}
 
-/* ── Footer note ── */
-.footer-note{margin-top:1.4rem;padding:.8rem 1.2rem;border-left:3px solid var(--red);
-  font-size:clamp(.85rem,1.3vw,1rem);color:var(--mid);background:rgba(230,0,58,.04);border-radius:0 4px 4px 0}
+/* ── Deck list ── */
+.deck-list {
+  list-style: none;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+}
+.deck-list li {
+  padding: .15rem 0 .15rem 1.4rem;
+  position: relative;
+  font-size: clamp(1rem,1.6vw,1.25rem);
+  color: var(--mid);
+}
+.deck-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--orange);
+  font-weight: 800;
+}
 
-/* ── Card ── */
-.card{background:var(--white);border:1px solid var(--line);border-radius:6px;
-  padding:clamp(1.2rem,2.5vw,2rem);box-shadow:0 2px 16px rgba(0,0,0,.06)}
-.card-red{border-color:var(--red);background:rgba(230,0,58,.03)}
-.card-blue{border-color:var(--blue);background:rgba(0,85,204,.03)}
+/* ── Tip box ── */
+.tip-box {
+  background: rgba(255,107,0,.07);
+  border-left: 4px solid var(--orange);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.2rem;
+  font-size: clamp(.9rem,1.4vw,1.05rem);
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 1.2rem;
+}
 
-/* ── Compare layout ── */
-.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.2rem}
-.compare-card{border-radius:8px;padding:1.5rem 1.8rem;border:1px solid var(--line);background:var(--white)}
-.compare-icon{font-size:2.2rem;margin-bottom:.6rem}
-.compare-label{font-size:clamp(.9rem,1.5vw,1.1rem);font-weight:700;color:var(--ink);margin-bottom:.8rem}
-.compare-card ul{margin-top:0;gap:.5rem}
-.compare-card li{font-size:clamp(.9rem,1.4vw,1.1rem)}
+/* ── Glass card ── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: clamp(1.2rem,2.5vw,2rem);
+  box-shadow: var(--shadow-md);
+  transition: transform .3s var(--ease-out-back), box-shadow .3s ease;
+}
+.glass-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
 
-/* ── Slide type: dark ── */
-.slide-dark{background:var(--bg-dark)}
-.slide-dark::before{opacity:.06}
-.slide-dark h1,.slide-dark h2,.slide-dark h3,.slide-dark .hero-txt{color:#fff}
-.slide-dark p{color:rgba(255,255,255,.55)}
-.slide-dark .bar{background:var(--red)}
-.slide-dark .tag-ghost{color:rgba(255,255,255,.6);border-color:rgba(255,255,255,.3)}
+/* ── Compare ── */
+.compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1.5rem; }
+.cmp-card { border-radius:14px; padding:1.6rem; }
+.cmp-no  { background:rgba(0,0,0,.04); border:1.5px solid var(--line); }
+.cmp-yes { background:rgba(255,107,0,.05); border:1.5px solid var(--orange); }
+.cmp-card h3 { font-size:clamp(1rem,1.8vw,1.4rem); margin:.6rem 0 .5rem; }
 
-/* ── Slide type: section (red bg) ── */
-.slide-section{background:var(--red)}
-.slide-section::before{opacity:.07}
-.slide-section h1,.slide-section h2,.slide-section h3{color:#fff}
-.slide-section p{color:rgba(255,255,255,.75)}
-.slide-section .label{color:rgba(255,255,255,.6)}
-
-/* ── Slide type: cover ── */
-.slide-cover{background:var(--bg-dark);align-items:center;justify-content:center;text-align:center}
-.slide-cover::before{opacity:.05}
-.slide-cover h1,.slide-cover .hero-txt{color:#fff}
-.slide-cover p{color:rgba(255,255,255,.55)}
-
-/* ── Slide type: close ── */
-.slide-close{background:var(--bg-dark);text-align:center}
-.slide-close h1,.slide-close h2{color:#fff}
-.slide-close p{color:rgba(255,255,255,.6)}
-
-/* ── warm / cool variants ── */
-.slide-warm{background:var(--bg-warm)}
-.slide-cool{background:var(--bg-cool)}
-
-/* ── Reveal ── */
-.reveal-container{margin-top:1.5rem}
-.reveal-question{background:var(--ink);border-radius:8px;padding:2rem 2.4rem;color:rgba(255,255,255,.9);
-  font-size:clamp(1.1rem,2vw,1.5rem);font-weight:600;line-height:1.5;text-align:center}
-.reveal-hint{text-align:center;margin:.8rem 0;font-size:.85rem;color:var(--mid)}
-.reveal-btn{display:block;margin:.8rem auto 0;padding:.7rem 2rem;background:var(--red);color:#fff;
-  border:none;border-radius:4px;font-size:1rem;font-weight:700;cursor:pointer;
-  transition:opacity .2s,transform .2s}
-.reveal-btn:hover{opacity:.85;transform:scale(1.02)}
-.reveal-answer{margin-top:1rem;background:rgba(230,0,58,.07);border:2px solid var(--red);
-  border-radius:8px;padding:1.5rem 2rem;
-  font-size:clamp(.95rem,1.5vw,1.15rem);color:var(--ink);line-height:1.7;white-space:pre-wrap;
-  display:none}
-.reveal-answer.shown{display:block;animation:fadeIn .4s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* ── Reveal card ── */
+.reveal-card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  min-height: 200px;
+  cursor: pointer;
+  background: rgba(15,23,42,.92);
+  box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  margin-top: 1.5rem;
+}
+.reveal-q-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,#1a1a2e,#0f0f0f);
+  transition: opacity .6s ease, transform .4s ease;
+  padding: 2rem;
+}
+.reveal-q-layer p {
+  color: rgba(255,255,255,.9);
+  font-size: clamp(1.1rem,2vw,1.4rem);
+  font-weight: 600;
+  line-height: 1.55;
+  text-align: center;
+}
+.reveal-q-layer .hint {
+  position: absolute;
+  bottom: .8rem;
+  right: 1rem;
+  font-size: .65rem;
+  color: rgba(255,255,255,.35);
+}
+.reveal-a-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, #E6003A 0%, #FF4500 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  font-size: clamp(1rem,1.6vw,1.2rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.6;
+}
+.reveal-card.revealed .reveal-q-layer {
+  opacity: 0;
+  transform: scale(.95);
+  pointer-events: none;
+}
+.reveal-card:not(.revealed):hover .reveal-q-layer {
+  transform: translateY(-4px);
+}
 
 /* ── Timer ── */
-.timer-display{font-size:clamp(4rem,14vw,10rem);font-weight:800;color:var(--red);
-  letter-spacing:-.04em;text-align:center;line-height:1;margin:1rem 0}
-.timer-btns{display:flex;gap:1rem;justify-content:center;margin-top:1.2rem}
-.timer-btn{padding:.7rem 2rem;border:2px solid var(--red);border-radius:4px;
-  font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
-.timer-start{background:var(--red);color:#fff}
-.timer-start:hover{background:#c4002f}
-.timer-reset{background:transparent;color:var(--red)}
-.timer-reset:hover{background:rgba(230,0,58,.08)}
+.timer-wrap { display:flex; flex-direction:column; align-items:center; gap:1.5rem; margin-top:1.5rem; }
+.timer-display {
+  font-size: clamp(5rem,18vw,12rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  transition: color .5s;
+  line-height: 1;
+}
+.timer-display.done { color: var(--red); }
+.timer-btn {
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: .8rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: .05em;
+  transition: background .2s, transform .15s;
+}
+.timer-btn:hover { background: var(--orange); transform: scale(1.04); }
+.timer-btn.running { background: var(--red); }
+.timer-reset-btn {
+  background: transparent;
+  color: var(--mid);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: .8rem 2rem;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+}
+.timer-reset-btn:hover { border-color: var(--orange); color: var(--orange); }
 
-/* ── Bottom nav ── */
-#bot-nav{position:fixed;bottom:0;left:0;right:0;height:52px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 1.4rem;background:var(--bg-dark);border-top:1px solid rgba(255,255,255,.08);
-  z-index:900}
-.sec-btn{padding:.3rem 1rem;border:1.5px solid rgba(255,255,255,.25);border-radius:3px;
-  background:transparent;color:rgba(255,255,255,.7);font-size:.65rem;letter-spacing:.08em;
-  text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .2s}
-.sec-btn:hover,.sec-btn.active-sec{border-color:var(--red);color:var(--red)}
-.nav-arrows{display:flex;gap:.6rem}
-.nav-arrow{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);
-  background:transparent;color:rgba(255,255,255,.7);font-size:1rem;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:all .2s}
-.nav-arrow:hover{border-color:var(--red);color:var(--red)}
-#slide-counter{font-size:.65rem;color:rgba(255,255,255,.4);letter-spacing:.05em;min-width:4rem;text-align:left}
+/* ── Checklist ── */
+.cl-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.5rem; }
+.cl-item {
+  display: flex;
+  gap: .8rem;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: .9rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform .2s;
+}
+.cl-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.cl-box {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid var(--line);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: .2rem;
+}
 
-/* ── SVG helpers ── */
-svg{overflow:visible}
+/* ── Top Progress Bar ── */
+#prog {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(0,0,0,.08);
+  z-index: 900;
+}
+#prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF6B00, #E6003A);
+  transition: width .4s ease;
+  width: 0%;
+}
 
-/* ── HTML slide ── */
-.slide-html .inner{overflow:auto}
+/* ── Breadcrumb ── */
+#breadcrumb {
+  position: fixed;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--mid);
+  background: rgba(251,251,253,.9);
+  backdrop-filter: blur(8px);
+  padding: .2rem .75rem;
+  border-radius: 0 0 6px 6px;
+  z-index: 901;
+  white-space: nowrap;
+  border: 1px solid rgba(0,0,0,.06);
+  border-top: none;
+}
 
-/* ── Responsive overflow safety ── */
-.inner{scrollbar-width:none}
-.inner::-webkit-scrollbar{display:none}
+/* ── Section Indicator Pill ── */
+#sec-indicator {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  z-index: 910;
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  transition: all .25s var(--ease-smooth);
+}
+
+/* ── Vertical Page Indicator (thin progress bar) ── */
+#page-indicator {
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: clamp(80px,15vh,200px);
+  background: rgba(0,0,0,.1);
+  border-radius: 2px;
+  z-index: 900;
+  overflow: hidden;
+}
+#page-indicator-fill {
+  width: 100%;
+  background: var(--orange);
+  border-radius: 2px;
+  transition: height .4s ease;
+  height: 0%;
+}
+
+/* ── Nav Buttons ── */
+.nav-btn {
+  position: fixed;
+  z-index: 900;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--ink);
+  transition: all .25s var(--ease-out-back);
+}
+.nav-btn:hover { transform: scale(1.12); color: var(--orange); box-shadow: var(--shadow-md); }
+#btn-prev { bottom: 70px; right: 72px; }
+#btn-next { bottom: 70px; right: 18px; }
+
+/* ── Counter ── */
+#counter {
+  position: fixed;
+  bottom: 70px;
+  left: 32px;
+  z-index: 900;
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--mid);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  padding: .3rem .8rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Bottom Section Nav ── */
+#sec-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 52px;
+  background: rgba(15,15,15,.92);
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  align-items: stretch;
+  z-index: 950;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+.sec-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(.6rem,.85vw,.78rem);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.4);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-right: 1px solid rgba(255,255,255,.06);
+  transition: color .2s, background .2s;
+  border-top: 2px solid transparent;
+}
+.sec-btn:last-child { border-right: none; }
+.sec-btn:hover { color: #fff; background: rgba(255,107,0,.12); }
+.sec-btn.active { color: #fff; background: rgba(255,107,0,.12); border-top: 2px solid var(--orange); }
+
+/* ── Decorative bar ── */
+.bar {
+  width: 3.5rem;
+  height: 4px;
+  background: var(--red);
+  border-radius: 2px;
+  margin: .8rem 0 1.2rem;
+}
+
+/* ── Footer note ── */
+.footer-note {
+  margin-top: 1.4rem;
+  padding: .8rem 1.2rem;
+  border-left: 4px solid var(--orange);
+  font-size: clamp(.85rem,1.3vw,1rem);
+  color: var(--ink);
+  background: var(--orange-light);
+  border-radius: 0 8px 8px 0;
+  font-weight: 500;
+}
+
+/* ── Body content ── */
+.body-content p { margin-bottom: .4rem; }
+.body-content p + p { margin-top: .4rem; }
+
+/* ── HTML slide inner scrollable ── */
+.slide-html .inner { overflow: auto; }
+
+svg { overflow: visible; }
 </style>
 </head>
 <body>
 
-<div id="prog-bar"><div id="prog-fill"></div></div>
-<div id="breadcrumb">Section 1 · 開場</div>
-<div id="stage"></div>
+<!-- Progress bar -->
+<div id="prog"><div id="prog-fill"></div></div>
 
-<div id="bot-nav">
-  <div id="slide-counter">1 / 66</div>
-  <div style="display:flex;gap:.6rem">
-    <button class="sec-btn active-sec" onclick="jumpTo(0)">① 底層思維</button>
-    <button class="sec-btn" onclick="jumpTo(22)">② 欲求性洞察</button>
-    <button class="sec-btn" onclick="jumpTo(44)">③ 存續性發表</button>
-  </div>
-  <div class="nav-arrows">
-    <button class="nav-arrow" onclick="navigate(-1)">&#8592;</button>
-    <button class="nav-arrow" onclick="navigate(1)">&#8594;</button>
-  </div>
+<!-- Breadcrumb -->
+<div id="breadcrumb">Section 1 · 開場</div>
+
+<!-- Section indicator -->
+<div id="sec-indicator">① 底層思維</div>
+
+<!-- Page indicator -->
+<div id="page-indicator"><div id="page-indicator-fill"></div></div>
+
+<!-- Counter -->
+<div id="counter">1 / 66</div>
+
+<!-- Nav buttons -->
+<button class="nav-btn" id="btn-prev" aria-label="Previous">&#8593;</button>
+<button class="nav-btn" id="btn-next" aria-label="Next">&#8595;</button>
+
+<!-- Slides container -->
+<div id="slides-container"></div>
+
+<!-- Bottom section nav -->
+<div id="sec-nav">
+  <button class="sec-btn active" data-sec="1" onclick="jumpToSection(1)">① 底層思維</button>
+  <button class="sec-btn" data-sec="2" onclick="jumpToSection(2)">② 欲求性洞察</button>
+  <button class="sec-btn" data-sec="3" onclick="jumpToSection(3)">③ 存續性發表</button>
 </div>
 
 <script>
 // ─────────────────────────────────────────────
-// DATA
+// DATA — all 66 slides preserved exactly
 // ─────────────────────────────────────────────
 const slidesData = [
   // ══════════════════════════════════════════
@@ -988,151 +1445,142 @@ const slidesData = [
 // ─────────────────────────────────────────────
 // VERIFY COUNT
 // ─────────────────────────────────────────────
-console.assert(slidesData.length === 66, `SLIDE COUNT ERROR: expected 66, got ${slidesData.length}`);
-console.log(`✓ Slides loaded: ${slidesData.length}`);
+console.assert(slidesData.length === 66, `Expected 66 slides, got ${slidesData.length}`);
+console.log(`Slides loaded: ${slidesData.length}`);
 
 // ─────────────────────────────────────────────
 // STATE
 // ─────────────────────────────────────────────
-let current = 0;
-let isAnimating = false;
+let cur = 0;
+const total = slidesData.length;
 const timers = {};
+const container = document.getElementById('slides-container');
+
+// Section start indices
+const secStarts = { 1: 0, 2: 22, 3: 44 };
+const secNames  = { 1: '① 底層思維', 2: '② 欲求性洞察', 3: '③ 存續性發表' };
 
 // ─────────────────────────────────────────────
 // TIMER LOGIC
 // ─────────────────────────────────────────────
 function formatTime(s){
   const m = Math.floor(s/60);
-  const sec = s%60;
+  const sec = s % 60;
   return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
 }
-function startTimer(id,totalSecs){
-  if(timers[id]) return;
-  const dispEl = document.getElementById('timer-display-'+id);
-  const btnEl  = document.getElementById('timer-btn-'+id);
+
+function toggleTimer(id, totalSecs){
+  const dispEl = document.getElementById('td-'+id);
+  const btnEl  = document.getElementById('tb-'+id);
   if(!dispEl || !btnEl) return;
-  let remaining = parseInt(dispEl.textContent.replace(':',''))||totalSecs;
-  // parse from display
-  const parts = dispEl.textContent.split(':');
-  remaining = parseInt(parts[0])*60+parseInt(parts[1]);
-  btnEl.textContent = '暫停';
-  timers[id] = setInterval(()=>{
-    remaining--;
-    if(dispEl) dispEl.textContent = formatTime(remaining);
-    if(remaining<=0){
-      clearInterval(timers[id]);
-      delete timers[id];
-      if(dispEl) dispEl.textContent = '00:00';
-      if(btnEl){btnEl.textContent='開始';btnEl.disabled=true;}
-    }
-  },1000);
-}
-function pauseTimer(id){
-  if(timers[id]){clearInterval(timers[id]);delete timers[id];}
-}
-function resetTimer(id,totalSecs){
-  pauseTimer(id);
-  const dispEl = document.getElementById('timer-display-'+id);
-  const btnEl  = document.getElementById('timer-btn-'+id);
-  if(dispEl) dispEl.textContent = formatTime(totalSecs);
-  if(btnEl){btnEl.textContent='開始';btnEl.disabled=false;}
-}
-function toggleTimer(id,totalSecs){
+
   if(timers[id]){
-    pauseTimer(id);
-    const btnEl = document.getElementById('timer-btn-'+id);
-    if(btnEl) btnEl.textContent='繼續';
+    // pause
+    clearInterval(timers[id]);
+    delete timers[id];
+    btnEl.textContent = '繼續';
+    btnEl.classList.remove('running');
   } else {
-    startTimer(id,totalSecs);
+    // start / resume
+    const parts = dispEl.textContent.split(':');
+    let remaining = parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    if(remaining <= 0) { remaining = totalSecs; dispEl.textContent = formatTime(totalSecs); dispEl.classList.remove('done'); }
+    btnEl.textContent = '暫停';
+    btnEl.classList.add('running');
+    timers[id] = setInterval(()=>{
+      remaining--;
+      if(dispEl) dispEl.textContent = formatTime(remaining);
+      if(remaining <= 0){
+        clearInterval(timers[id]);
+        delete timers[id];
+        dispEl.classList.add('done');
+        btnEl.textContent = '完成';
+        btnEl.classList.remove('running');
+      }
+    }, 1000);
   }
 }
 
-// ─────────────────────────────────────────────
-// REVEAL LOGIC
-// ─────────────────────────────────────────────
-function revealAnswer(id){
-  const el = document.getElementById('reveal-ans-'+id);
-  const btn = document.getElementById('reveal-btn-'+id);
-  if(el){el.classList.add('shown');}
-  if(btn){btn.style.display='none';}
+function resetTimer(id, totalSecs){
+  if(timers[id]){ clearInterval(timers[id]); delete timers[id]; }
+  const dispEl = document.getElementById('td-'+id);
+  const btnEl  = document.getElementById('tb-'+id);
+  if(dispEl){ dispEl.textContent = formatTime(totalSecs); dispEl.classList.remove('done'); }
+  if(btnEl){ btnEl.textContent = '開始'; btnEl.classList.remove('running'); }
 }
 
 // ─────────────────────────────────────────────
 // RENDER SLIDE
 // ─────────────────────────────────────────────
 function renderSlide(sd, idx){
-  const el = document.createElement('div');
-  el.className = 'slide';
-  el.dataset.index = idx;
+  const section = document.createElement('section');
+  section.className = 'slide';
+  section.dataset.index = idx;
+  section.dataset.id = sd.id;
+  section.dataset.sec = sd.sec;
+  section.dataset.subsec = sd.subsec;
 
-  // Background variant
-  const bgVariants = ['','slide-warm','slide-cool','','slide-warm',''];
-
+  // Slide type classes
   switch(sd.type){
-    case 'cover':   el.classList.add('slide-cover'); break;
-    case 'section': el.classList.add('slide-section'); break;
-    case 'dark':    el.classList.add('slide-dark'); break;
-    case 'close':   el.classList.add('slide-close'); break;
-    case 'html':    el.classList.add('slide-html'); break;
+    case 'cover':   section.classList.add('slide-cover'); break;
+    case 'section': section.classList.add('slide-section'); break;
+    case 'dark':    section.classList.add('slide-dark'); break;
+    case 'close':   section.classList.add('slide-close'); break;
+    case 'html':    section.classList.add('slide-html'); break;
     case 'normal':
-      // Vary bg
-      if(idx%5===1) el.classList.add('slide-warm');
-      else if(idx%5===3) el.classList.add('slide-cool');
+      if(idx % 5 === 1) section.classList.add('slide-warm');
+      else if(idx % 5 === 3) section.classList.add('slide-cool');
       break;
     default: break;
   }
 
-  const inner = document.createElement('div');
-  inner.className = 'inner';
+  // Badge class based on type
+  const isDark = ['cover','dark','close','section'].includes(sd.type);
+  const badgeClass = (sd.type === 'reveal') ? 'badge-red' :
+                     (sd.type === 'timer')  ? 'badge-orange' :
+                     isDark                 ? 'badge-glass' : 'badge-dark';
 
   let html = '';
 
-  // Tag
+  // Build badge
   if(sd.tag){
-    const tagClass = (sd.type==='cover'||sd.type==='dark'||sd.type==='close') ? 'tag-white tag-ghost' :
-                     (sd.type==='section') ? 'tag-white' : 'tag-dark';
-    html += `<div class="tag ${tagClass}">${sd.tag}</div>`;
+    html += `<div class="badge ${badgeClass}">${sd.tag}</div>`;
   }
 
   switch(sd.type){
+
     // ── COVER ──
     case 'cover':
-      html += `<div style="text-align:center">`;
-      if(sd.title) html += `<h1 style="color:#fff;margin-bottom:1.2rem">${sd.title}</h1>`;
-      html += `<div class="bar" style="margin:1rem auto"></div>`;
-      if(sd.content) html += `<p style="color:rgba(255,255,255,.6);font-size:clamp(1.1rem,2vw,1.5rem)">${sd.content}</p>`;
-      html += `</div>`;
+      if(sd.title) html += `<h1>${sd.title}</h1>`;
+      html += `<div class="bar" style="margin:1rem 0;background:var(--red)"></div>`;
+      if(sd.content) html += `<p style="font-size:clamp(1.1rem,2vw,1.5rem)">${sd.content}</p>`;
       break;
 
     // ── SECTION ──
     case 'section':
-      html += `<div>`;
-      html += `<div class="bar" style="background:#fff;opacity:.6"></div>`;
+      html += `<div class="bar" style="background:rgba(255,255,255,.6)"></div>`;
       if(sd.title) html += `<h1 style="color:#fff;margin-bottom:.8rem">${sd.title}</h1>`;
-      if(sd.content) html += `<p style="color:rgba(255,255,255,.75);font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:600">${sd.content}</p>`;
-      html += `</div>`;
+      if(sd.content) html += `<p style="color:rgba(255,255,255,.8);font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:600">${sd.content}</p>`;
       break;
 
     // ── DARK ──
     case 'dark':
-      html += `<div>`;
       html += `<div class="bar"></div>`;
       if(sd.title) html += `<h1 style="color:#fff;margin-bottom:1rem">${sd.title}</h1>`;
       if(sd.content) html += `<p style="color:rgba(255,255,255,.6);font-size:clamp(1.05rem,1.8vw,1.35rem);max-width:700px">${sd.content}</p>`;
-      html += `</div>`;
       break;
 
     // ── NORMAL ──
     case 'normal':
       html += `<div class="bar"></div>`;
       if(sd.title) html += `<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
-      if(sd.content) html += `<div style="margin-bottom:.4rem">${sd.content}</div>`;
+      if(sd.content) html += `<div class="body-content" style="margin-bottom:.4rem">${sd.content}</div>`;
       if(sd.bullets && sd.bullets.length){
-        html += `<ul class="bullets">`;
-        sd.bullets.forEach(b=>{ html += `<li>${b}</li>`; });
+        html += `<ul class="deck-list">`;
+        sd.bullets.forEach(b => { html += `<li>${b}</li>`; });
         html += `</ul>`;
       }
-      if(sd.footer) html += `<div class="footer-note">${sd.footer}</div>`;
+      if(sd.footer) html += `<div class="tip-box">${sd.footer}</div>`;
       break;
 
     // ── COMPARE ──
@@ -1140,13 +1588,13 @@ function renderSlide(sd, idx){
       html += `<div class="bar"></div>`;
       if(sd.title) html += `<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       html += `<div class="compare-grid">`;
-      [sd.left,sd.right].forEach((side,si)=>{
-        const cls = si===0 ? 'compare-card card-blue' : 'compare-card card-red';
+      [sd.left, sd.right].forEach((side, si) => {
+        const cls = si === 0 ? 'cmp-card cmp-no' : 'cmp-card cmp-yes';
         html += `<div class="${cls}">`;
-        html += `<div class="compare-icon">${side.icon}</div>`;
-        html += `<div class="compare-label">${side.label}</div>`;
-        html += `<ul class="bullets">`;
-        side.items.forEach(it=>{ html += `<li>${it}</li>`; });
+        html += `<div style="font-size:2rem;margin-bottom:.5rem">${side.icon}</div>`;
+        html += `<h3>${side.label}</h3>`;
+        html += `<ul class="deck-list">`;
+        side.items.forEach(it => { html += `<li>${it}</li>`; });
         html += `</ul></div>`;
       });
       html += `</div>`;
@@ -1156,24 +1604,25 @@ function renderSlide(sd, idx){
     case 'reveal':
       html += `<div class="bar"></div>`;
       if(sd.title) html += `<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
-      html += `<div class="reveal-container">`;
-      html += `<div class="reveal-question">${sd.question.replace(/\n/g,'<br>')}</div>`;
-      if(sd.hint) html += `<div class="reveal-hint">${sd.hint}</div>`;
-      html += `<button class="reveal-btn" id="reveal-btn-${sd.id}" onclick="revealAnswer('${sd.id}')">點擊揭曉</button>`;
-      html += `<div class="reveal-answer" id="reveal-ans-${sd.id}">${sd.answer.replace(/\n/g,'<br>')}</div>`;
+      html += `<div class="reveal-card" onclick="this.classList.toggle('revealed')">`;
+      html += `<div class="reveal-q-layer">`;
+      html += `<p>${sd.question.replace(/\n/g,'<br>')}</p>`;
+      html += `<span class="hint">點擊揭曉</span>`;
+      html += `</div>`;
+      html += `<div class="reveal-a-layer">${sd.answer.replace(/\n/g,'<br>')}</div>`;
       html += `</div>`;
       break;
 
     // ── TIMER ──
     case 'timer':
-      html += `<div style="text-align:center">`;
-      html += `<div class="bar" style="margin:.8rem auto 1.2rem"></div>`;
+      html += `<div class="bar" style="margin:.8rem 0 1.2rem"></div>`;
       if(sd.title) html += `<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
       if(sd.content) html += `<p style="margin-bottom:1rem">${sd.content}</p>`;
-      html += `<div class="timer-display" id="timer-display-${sd.id}">${formatTime(sd.time)}</div>`;
-      html += `<div class="timer-btns">`;
-      html += `<button class="timer-btn timer-start" id="timer-btn-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button>`;
-      html += `<button class="timer-btn timer-reset" onclick="resetTimer('${sd.id}',${sd.time})">重設</button>`;
+      html += `<div class="timer-wrap">`;
+      html += `<div class="timer-display" id="td-${sd.id}">${formatTime(sd.time)}</div>`;
+      html += `<div style="display:flex;gap:1rem">`;
+      html += `<button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button>`;
+      html += `<button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button>`;
       html += `</div>`;
       html += `</div>`;
       break;
@@ -1186,150 +1635,150 @@ function renderSlide(sd, idx){
 
     // ── CLOSE ──
     case 'close':
-      html += `<div style="text-align:center">`;
-      html += `<div class="bar" style="background:var(--red);margin:.8rem auto 1.4rem"></div>`;
+      html += `<div class="bar" style="background:var(--red);margin:.8rem 0 1.4rem"></div>`;
       if(sd.title) html += `<h1 style="color:#fff;margin-bottom:1.2rem">${sd.title}</h1>`;
-      if(sd.content) html += `<div style="color:rgba(255,255,255,.7);max-width:640px;margin:0 auto 1.8rem;font-size:clamp(1rem,1.8vw,1.3rem);line-height:1.7">${sd.content}</div>`;
+      if(sd.content) html += `<div style="max-width:640px;margin:0 auto 1.8rem;font-size:clamp(1rem,1.8vw,1.3rem);line-height:1.7">${sd.content}</div>`;
       if(sd.img){
         html += `<div style="margin:1.2rem auto;max-width:200px">
           <img src="${sd.img}" alt="QR Code" style="width:140px;height:140px;object-fit:cover;border-radius:8px;background:#fff;display:block;margin:0 auto"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none;width:140px;height:140px;background:#fff;border-radius:8px;margin:0 auto;align-items:center;justify-content:center;flex-direction:column;gap:.3rem">
-            <div style="font-size:.6rem;color:#aaa;text-align:center;padding:.5rem">QR Code<br>Placeholder</div>
+          <div style="display:none;width:140px;height:140px;background:rgba(255,255,255,.1);border-radius:8px;margin:0 auto;align-items:center;justify-content:center;flex-direction:column;border:2px dashed rgba(255,255,255,.3)">
+            <div style="font-size:.7rem;color:rgba(255,255,255,.5);text-align:center;padding:.5rem">QR Code</div>
           </div>
         </div>`;
       }
-      if(sd.cta) html += `<p style="color:rgba(255,255,255,.5);font-size:.85rem;margin-top:.6rem">${sd.cta}</p>`;
-      html += `</div>`;
+      if(sd.cta) html += `<p style="font-size:.85rem;margin-top:.6rem;color:rgba(255,255,255,.5)">${sd.cta}</p>`;
       break;
   }
 
+  // Wrap in slide-content div
+  const inner = document.createElement('div');
+  inner.className = 'inner slide-content';
   inner.innerHTML = html;
-  el.appendChild(inner);
-  return el;
+  section.appendChild(inner);
+  return section;
 }
 
 // ─────────────────────────────────────────────
-// INIT STAGE
+// BUILD SLIDES
 // ─────────────────────────────────────────────
-const stage = document.getElementById('stage');
-
-slidesData.forEach((sd, idx)=>{
+const slideEls = [];
+slidesData.forEach((sd, idx) => {
   const el = renderSlide(sd, idx);
-  stage.appendChild(el);
+  container.appendChild(el);
+  slideEls.push(el);
 });
 
 // ─────────────────────────────────────────────
-// NAVIGATION
+// UI UPDATE
 // ─────────────────────────────────────────────
-function getSlides(){ return stage.querySelectorAll('.slide'); }
+function setCurrentSlide(idx){
+  cur = Math.max(0, Math.min(idx, total - 1));
+  updateUI();
+}
 
 function updateUI(){
-  const slides = getSlides();
-  const pct = ((current)/(slidesData.length-1))*100;
-  document.getElementById('prog-fill').style.width = pct+'%';
-  document.getElementById('slide-counter').textContent = `${current+1} / ${slidesData.length}`;
+  const sd = slidesData[cur];
+  const pct = total > 1 ? (cur / (total - 1)) * 100 : 0;
+
+  // Progress bar
+  document.getElementById('prog-fill').style.width = pct + '%';
+
+  // Page indicator fill
+  document.getElementById('page-indicator-fill').style.height = pct + '%';
+
+  // Counter
+  document.getElementById('counter').textContent = `${cur + 1} / ${total}`;
 
   // Breadcrumb
-  const sd = slidesData[current];
   document.getElementById('breadcrumb').textContent = `Section ${sd.sec}  ·  ${sd.subsec}`;
 
-  // Section buttons
-  const secBtns = document.querySelectorAll('.sec-btn');
-  secBtns.forEach((btn,i)=>{
-    btn.classList.toggle('active-sec', sd.sec === i+1);
+  // Section indicator
+  document.getElementById('sec-indicator').textContent = secNames[sd.sec] || '';
+
+  // Section nav buttons
+  document.querySelectorAll('.sec-btn').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.sec) === sd.sec);
   });
 }
 
-function goTo(idx, dir=1){
-  if(isAnimating) return;
-  if(idx < 0 || idx >= slidesData.length) return;
-  if(idx === current) return;
-  isAnimating = true;
-
-  const slides = getSlides();
-  const from = slides[current];
-  const to   = slides[idx];
-
-  from.classList.add('exit');
-  from.classList.remove('active');
-
-  // Force reflow for double-rAF
-  requestAnimationFrame(()=>{
-    requestAnimationFrame(()=>{
-      to.style.transform = dir>0 ? 'translateY(40px)' : 'translateY(-40px)';
-      to.style.opacity = '0';
-      to.classList.add('active');
-      // second rAF to trigger transition
-      requestAnimationFrame(()=>{
-        to.style.transform = '';
-        to.style.opacity = '';
-      });
-    });
-  });
-
-  setTimeout(()=>{
-    from.classList.remove('exit');
-    from.style.transform = '';
-    from.style.opacity = '';
-    to.style.transform = '';
-    to.style.opacity = '';
-    current = idx;
-    isAnimating = false;
-    updateUI();
-  }, 460);
-}
-
-function navigate(dir){
-  goTo(current + dir, dir);
-}
-
-function jumpTo(idx){
-  const dir = idx > current ? 1 : -1;
-  goTo(idx, dir);
-}
-
 // ─────────────────────────────────────────────
-// INPUT HANDLERS
+// SCROLL & NAVIGATION
 // ─────────────────────────────────────────────
+function scrollToSlide(idx){
+  idx = Math.max(0, Math.min(idx, total - 1));
+  slideEls[idx]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setCurrentSlide(idx);
+}
+
+function jumpToSection(sec){
+  const idx = secStarts[sec];
+  if(idx !== undefined) scrollToSlide(idx);
+}
+
+// Nav buttons
+document.getElementById('btn-prev').addEventListener('click', () => scrollToSlide(cur - 1));
+document.getElementById('btn-next').addEventListener('click', () => scrollToSlide(cur + 1));
+
 // Keyboard
-document.addEventListener('keydown', e=>{
-  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ') { e.preventDefault(); navigate(1); }
-  if(e.key==='ArrowLeft'||e.key==='ArrowUp') { e.preventDefault(); navigate(-1); }
-  if(e.key==='Home') { e.preventDefault(); jumpTo(0); }
-  if(e.key==='End') { e.preventDefault(); jumpTo(slidesData.length-1); }
+document.addEventListener('keydown', e => {
+  if(['ArrowDown',' ','PageDown'].includes(e.key)){
+    e.preventDefault();
+    scrollToSlide(Math.min(cur + 1, total - 1));
+  }
+  if(['ArrowUp','PageUp'].includes(e.key)){
+    e.preventDefault();
+    scrollToSlide(Math.max(cur - 1, 0));
+  }
+  if(e.key === 'Home'){ e.preventDefault(); scrollToSlide(0); }
+  if(e.key === 'End'){  e.preventDefault(); scrollToSlide(total - 1); }
 });
 
-// Mouse wheel
-let wheelCD = false;
-window.addEventListener('wheel', e=>{
-  e.preventDefault();
-  if(wheelCD) return;
-  wheelCD = true;
-  setTimeout(()=>wheelCD=false, 700);
-  navigate(e.deltaY>0?1:-1);
-},{passive:false});
+// Wheel with cooldown
+let wlk = false;
+document.addEventListener('wheel', e => {
+  if(wlk) return;
+  wlk = true;
+  scrollToSlide(e.deltaY > 0 ? Math.min(cur + 1, total - 1) : Math.max(cur - 1, 0));
+  setTimeout(() => wlk = false, 900);
+}, { passive: true });
 
 // Touch
-let touchStartY = 0, touchStartX = 0;
-window.addEventListener('touchstart', e=>{ touchStartY=e.touches[0].clientY; touchStartX=e.touches[0].clientX; },{passive:true});
-window.addEventListener('touchend', e=>{
+let touchStartY = 0;
+document.addEventListener('touchstart', e => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener('touchend', e => {
   const dy = touchStartY - e.changedTouches[0].clientY;
-  const dx = touchStartX - e.changedTouches[0].clientX;
-  if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>40) navigate(dy>0?1:-1);
-  else if(Math.abs(dx)>40) navigate(dx>0?1:-1);
-},{passive:true});
+  if(Math.abs(dy) > 50){
+    scrollToSlide(dy > 0 ? Math.min(cur + 1, total - 1) : Math.max(cur - 1, 0));
+  }
+}, { passive: true });
+
+// ─────────────────────────────────────────────
+// INTERSECTION OBSERVER — triggers .is-visible
+// ─────────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+      const idx = parseInt(entry.target.dataset.index);
+      if(!isNaN(idx)){
+        cur = idx;
+        updateUI();
+      }
+    } else {
+      entry.target.classList.remove('is-visible');
+    }
+  });
+}, { threshold: 0.55 });
+
+slideEls.forEach(el => observer.observe(el));
 
 // ─────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────
-(function init(){
-  const slides = getSlides();
-  slides[0].classList.add('active');
-  slides[0].style.opacity = '1';
-  slides[0].style.transform = 'none';
-  updateUI();
-})();
+updateUI();
 </script>
 </body>
 </html>
