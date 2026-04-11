@@ -247,6 +247,7 @@ svg{overflow:visible}
 .sec-btn:last-child{border-right:none}
 .sec-btn:hover{color:rgba(255,255,255,.8);background:rgba(255,107,0,.08)}
 .sec-btn.active{color:#fff;background:rgba(255,107,0,.1);border-top-color:var(--orange)}
+.adv-challenge-wrap.adv-open{max-height:400px!important;opacity:1!important}
 </style>
 </head>
 <body>
@@ -270,6 +271,7 @@ const D=[
 {id:'s03',sec:1,sub:'開場',type:'profile-hero',chip:['關於講者','white']},
 {id:'s04',sec:1,sub:'開場',type:'rules',chip:['Before We Start','white'],title:'Two things.',rules:['Feel free to take photos — <span style="color:rgba(255,255,255,.45)">今天不提供講義</span>','Questions are always welcome — <span style="color:rgba(255,255,255,.45)">隨時舉手</span>'],footer:'Notes are optional. Thinking is not.'},
 {id:'s05',sec:1,sub:'創新三元',type:'triad-v2',chip:['Innovation Triad','blue'],title:'創新需要三個條件同時成立'},
+{id:'s05a',sec:1,sub:'創新三元',type:'why-this-matters',chip:['為什麼我要講這件事','orange'],title:'你做的圖，本質上是一個產品'},
 {id:'s05b',sec:1,sub:'創新三元',type:'dfv-combinations',chip:['D/F/V 組合','purple'],title:'三元組合與失敗模式'},
 {id:'s06',sec:1,sub:'創新三元',type:'failure-modes',chip:['三種死法','red'],title:'新產品最常死在哪裡'},
 {id:'s07',sec:1,sub:'創新三元',type:'big-quote',chip:['關鍵診斷','orange'],quote:'多數作品死在<br><span class="g-red">欲求性</span>',sub2:'不是設計不夠好，是一開始就沒問：誰在痛？痛什麼？'},
@@ -449,6 +451,49 @@ function funnelFocus(fid,key){
   if(d){box.style.borderColor=d.col;box.innerHTML=d.text;box.style.opacity='1';}
 }
 
+function dtToggle(sid,si){
+  const steps=[
+    {en:'Empathize',desc:'先理解那個人在想什麼、感受什麼。不是假設，是真正去問、去觀察。',col:'var(--blue)'},
+    {en:'Define',desc:'從觀察中萃取出清晰的問題陳述。「HMW — How Might We」是常見框架。',col:'var(--purple)'},
+    {en:'Ideate',desc:'不評判地產生大量想法。數量優先，質量稍後。',col:'var(--orange)'},
+    {en:'Prototype',desc:'用最低成本讓想法變得可以被測試。你的 Canva 圖就是一種原型。',col:'var(--green)'},
+    {en:'Test',desc:'拿給真實用戶看。他的反應 > 你的感覺。然後循環回第一步。',col:'var(--yellow)'},
+  ];
+  const detail=document.getElementById('dt-detail-'+sid);
+  const desc=document.getElementById('dt-desc-'+sid);
+  // Reset all steps
+  for(let i=0;i<5;i++){
+    const el=document.getElementById('dt-'+sid+'-'+i);
+    if(el){el.style.background='rgba(255,255,255,.03)';el.style.borderColor=steps[i].col;el.style.transform='';}
+    const bg=el?.querySelector(`[class*="dt-bg"]`);
+  }
+  const s=steps[si];
+  const el=document.getElementById('dt-'+sid+'-'+si);
+  if(el){
+    el.style.background=s.col+'22';
+    el.style.borderColor=s.col;
+    el.style.transform='translateY(-4px)';
+  }
+  if(detail&&desc){
+    detail.style.opacity='1';
+    detail.style.borderColor=s.col;
+    desc.textContent=s.desc;
+  }
+}
+
+function insightReveal(uid){
+  const el=document.getElementById(uid);
+  if(!el)return;
+  const mask=el.querySelector('.ins-mask');
+  const answer=el.querySelector('.ins-answer');
+  if(mask&&answer){
+    mask.style.opacity='0';
+    mask.style.transform='scale(.9)';
+    mask.style.pointerEvents='none';
+    answer.style.visibility='visible';
+  }
+}
+
 function renderSlide(sd,idx){
   const sec=document.createElement('section');
   sec.className='slide';
@@ -458,6 +503,25 @@ function renderSlide(sd,idx){
   function blob(c1,c2){return`<div style="position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 70% at 20% 20%,${c1},transparent 55%),radial-gradient(ellipse 70% 80% at 80% 80%,${c2},transparent 55%);background-size:200% 200%;animation:aurora 18s ease-in-out infinite;"></div>`;}
 
   switch(sd.type){
+    case 'why-this-matters':
+      h+=`<div style="max-width:780px">`;
+      h+=chip;
+      h+=`<div class="bar"></div>`;
+      h+=`<h2 style="margin-bottom:1.2rem">${sd.title}</h2>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem">`;
+      h+=`<div style="padding:1.2rem 1.4rem;border-radius:12px;border:1.5px solid rgba(255,107,0,.3);background:rgba(255,107,0,.06)"><div style="font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:.5rem">今天早上</div><h3 style="color:var(--ink);margin-bottom:.4rem">Canva 圖 = Feasibility</h3><p style="font-size:clamp(.82rem,1.3vw,.95rem)">你已經證明了技術可行性。能做出來。</p></div>`;
+      h+=`<div style="padding:1.2rem 1.4rem;border-radius:12px;border:1.5px solid rgba(255,32,85,.3);background:rgba(255,32,85,.06)"><div style="font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem">今天下午</div><h3 style="color:var(--ink);margin-bottom:.4rem">+ Desirability + Viability</h3><p style="font-size:clamp(.82rem,1.3vw,.95rem)">有沒有人要？能不能持續？這才是產品的完整拼圖。</p></div>`;
+      h+=`</div>`;
+      h+=`<div style="padding:1rem 1.4rem;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">`;
+      h+=`<p style="font-size:clamp(.9rem,1.5vw,1.1rem);color:var(--ink);font-weight:600;margin-bottom:.4rem">這堂課拉到這個層次，是因為：</p>`;
+      h+=`<ul class="deck-list">`;
+      h+=`<li>任何作品、設計、服務，本質上都是一種產品</li>`;
+      h+=`<li>做圖只是起點，讓它被需要才是終點</li>`;
+      h+=`<li>這個思維框架，做專案、工作、創業都用得到</li>`;
+      h+=`</ul>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      break;
     case 'cover':
       h+=blob('rgba(255,107,0,.12)','rgba(255,32,85,.09)');
       h+=`<div style="position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1rem">${chip}<div class="hero-txt g-multi">${sd.title}</div><div class="bar" style="margin:.6rem auto"></div><p style="font-size:clamp(1rem,1.8vw,1.25rem);color:var(--mid)">${sd.sub2}</p></div>`;
@@ -1019,6 +1083,7 @@ function renderSlide(sd,idx){
       h+=`<div class="cmp-mask"><div class="cmp-mask-icon">${painkillerIcon}</div><div style="font-weight:800;font-size:clamp(.88rem,1.45vw,1.1rem);color:var(--ink);margin:.3rem 0">止痛藥</div><div class="cmp-mask-label">點擊解鎖</div></div>`;
       h+=`</div>`;
       h+=`</div>`;
+      h+=`<div style="margin-top:.9rem;padding:.85rem 1.2rem;border-radius:8px;background:rgba(168,85,247,.07);border:1px solid rgba(168,85,247,.25);font-size:clamp(.8rem,1.28vw,.92rem);color:var(--mid)"><span style="color:var(--purple);font-weight:700">補充：</span>維他命產品也能成功 — 透過極致的包裝、儀式感設計、品牌敘事，把「Nice to Have」變成生活方式的一部分。LUSH、無印良品、韓系保養品都是案例。重點是：你要知道你在賣哪種，並且用對應的策略。</div>`;
       break;}
     case 'painkiller-examples':{
       h+=blob('rgba(34,197,94,.08)','rgba(255,107,0,.06)');
@@ -1318,30 +1383,37 @@ function renderSlide(sd,idx){
       h+=`<div class="tip-box" style="max-width:900px;margin:1.2rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">核心目的：</strong>找出「最高風險的假設」和「ROI 最高的槓桿點」</div>`;
       break;}
     case 'dt-loop-auto':{
-      h+=blob('rgba(6,182,212,.08)','rgba(168,85,247,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">反覆迭代，不是線性流程</p>`;
-      h+=`</div>`;
-      const dtSteps=[
-        {n:'1',name:'Empathize',zh:'同理',col:'var(--red)',desc:'觀察、訪談、感同身受'},
-        {n:'2',name:'Define',zh:'定義',col:'var(--orange)',desc:'把觀察轉譯為問題'},
-        {n:'3',name:'Ideate',zh:'發想',col:'var(--yellow)',desc:'快速發散，不批判'},
-        {n:'4',name:'Prototype',zh:'原型',col:'var(--blue)',desc:'快速做出可測版本'},
-        {n:'5',name:'Test',zh:'測試',col:'var(--purple)',desc:'觀察行為，不聽回答'}
+      const steps=[
+        {key:'empathize',en:'Empathize',zh:'同理心',col:'var(--blue)',desc:'先理解那個人在想什麼、感受什麼。不是假設，是真正去問、去觀察。'},
+        {key:'define',en:'Define',zh:'定義問題',col:'var(--purple)',desc:'從觀察中萃取出清晰的問題陳述。「HMW — How Might We」是常見框架。'},
+        {key:'ideate',en:'Ideate',zh:'發散構想',col:'var(--orange)',desc:'不評判地產生大量想法。數量優先，質量稍後。'},
+        {key:'prototype',en:'Prototype',zh:'快速原型',col:'var(--green)',desc:'用最低成本讓想法變得可以被測試。你的 Canva 圖就是一種原型。'},
+        {key:'test',en:'Test',zh:'測試驗證',col:'var(--yellow)',desc:'拿給真實用戶看。他的反應 > 你的感覺。然後循環回第一步。'},
       ];
-      h+=`<div style="display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;max-width:1000px;margin:0 auto;position:relative;z-index:1">`;
-      dtSteps.forEach((s,i)=>{
-        h+=`<div style="flex:0 0 auto;width:150px;border:2px solid ${s.col}50;border-radius:12px;background:${s.col}15;padding:1rem .8rem;text-align:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.12}s">`;
-        h+=`<div style="width:36px;height:36px;border-radius:50%;background:${s.col};color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto .4rem;font-size:1.1rem">${s.n}</div>`;
-        h+=`<div style="font-size:clamp(1rem,1.5vw,1.15rem);font-weight:700;color:var(--ink)">${s.name}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-top:.2rem">${s.zh}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.5);margin-top:.4rem">${s.desc}</div>`;
-        h+=`</div>`;
-        if(i<dtSteps.length-1)h+=`<div style="color:${s.col};font-size:1.3rem;opacity:0;animation:fade-up .3s ease forwards;animation-delay:${.3+i*.12}s">→</div>`;
+      h+=`<div style="max-width:900px">`;
+      h+=chip;
+      h+=`<div class="bar"></div><h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:clamp(.82rem,1.3vw,.92rem);color:var(--mid);margin-bottom:1.2rem">點擊每個步驟展開說明</p>`;
+      // Build step row
+      h+=`<div style="display:flex;gap:.6rem;margin-bottom:1rem;flex-wrap:nowrap" id="dt-row-${sd.id}">`;
+      steps.forEach((s,si)=>{
+        const uid=`dt-${sd.id}-${si}`;
+        h+=`<div id="${uid}" onclick="dtToggle('${sd.id}',${si})" style="flex:1;padding:1rem .8rem;border-radius:12px;border:1.5px solid ${s.col};background:rgba(255,255,255,.03);cursor:pointer;text-align:center;transition:all .35s var(--ease-back);position:relative;overflow:hidden" data-col="${s.col}">`;
+        h+=`<div style="position:absolute;inset:0;background:${s.col};opacity:0;transition:opacity .3s" class="dt-bg-${sd.id}-${si}"></div>`;
+        h+=`<div style="position:relative;z-index:1">`;
+        h+=`<div style="font-size:.55rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${s.col};margin-bottom:.3rem;transition:color .3s" class="dt-en-${sd.id}-${si}">${s.en}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;color:var(--ink)">${s.zh}</div>`;
+        h+=`<div style="font-size:.6rem;color:rgba(255,255,255,.25);margin-top:.4rem;text-transform:uppercase;letter-spacing:.1em">點擊</div>`;
+        h+=`</div></div>`;
       });
       h+=`</div>`;
-      h+=`<div style="text-align:center;margin-top:1rem;font-size:var(--min-font);color:rgba(255,255,255,.4);position:relative;z-index:1;opacity:0;animation:fade-up .5s ease forwards;animation-delay:1s">↺ 循環反覆直到找到對的解法</div>`;
+      // Detail panel
+      h+=`<div id="dt-detail-${sd.id}" style="padding:1.2rem 1.5rem;border-radius:10px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);min-height:80px;transition:all .35s ease;opacity:0">`;
+      h+=`<p id="dt-desc-${sd.id}" style="font-size:clamp(.9rem,1.5vw,1.1rem);color:var(--ink);line-height:1.7"></p>`;
+      h+=`</div>`;
+      // Note at bottom
+      h+=`<div class="tip-box" style="margin-top:.8rem">早上從 Prototype 出發沒錯。但最強的設計師，從 Empathize 就開始了。</div>`;
+      h+=`</div>`;
       break;}
     case 'insight-types-auto':{
       h+=blob('rgba(255,107,0,.08)','rgba(255,32,85,.06)');
@@ -1791,28 +1863,37 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       break;}
     case 'insight-types-coffee':{
-      h+=blob('rgba(255,107,0,.08)','rgba(255,32,85,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">四種層次的洞察，以咖啡為例</p>`;
-      h+=`</div>`;
       const insights=[
-        {type:'Consumer',zh:'消費者洞察',col:'var(--blue)',q:'他為什麼買咖啡？',example:'不是因為咖啡好喝，是需要「開始工作」的儀式感'},
-        {type:'Pain Point',zh:'痛點洞察',col:'var(--red)',q:'他對咖啡有什麼痛？',example:'不是「想喝咖啡」，是「下午三點撐不住但不想喝太多咖啡因」'},
-        {type:'Value',zh:'價值洞察',col:'var(--green)',q:'他要什麼價值？',example:'買星巴克不是要咖啡，是要「在專業空間工作」的感覺'},
-        {type:'Function',zh:'功能洞察',col:'var(--purple)',q:'他要什麼功能？',example:'要「手機點餐」是因為不想在櫃檯等，不是愛用 App'}
+        {num:'01',q:'他為什麼買咖啡？',color:'var(--orange)',label:'Functional',reveals:['表面答案：提神、補充咖啡因','真實洞察：切換工作狀態的儀式感','買咖啡 = 「現在我要開始認真了」的信號','這就是為什麼星巴克能賣 150 元的美式']},
+        {num:'02',q:'他為什麼買 iPhone？',color:'var(--blue)',label:'Social',reveals:['表面答案：手機效能好、相機優','真實洞察：社交身份的象徵與認同','在某些圈子，用 iPhone = 一種默認的語言','「Android 換 iPhone」常是某個人生轉折點']},
+        {num:'03',q:'他為什麼去健身房？',color:'var(--green)',label:'Emotional',reveals:['表面答案：想變健康、想練肌肉','真實洞察：尋找生活中少數能控制的事','當工作、感情都失控時，身材是少數能掌控的','Keep 的爆發不是因為大家突然想健康']},
+        {num:'04',q:'他為什麼辦信用卡？',color:'var(--purple)',label:'Identity',reveals:['表面答案：有回饋、有優惠','真實洞察：成為「精打細算的成熟大人」這個身份','黑卡的真正產品不是額度，是稀缺感與地位認同','Insight：人買的不是功能，是他想成為的版本']},
       ];
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
-      insights.forEach((ins,i)=>{
-        h+=`<div style="border:2px solid ${ins.col}40;border-radius:12px;background:${ins.col}12;padding:1rem 1.2rem;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.15}s">`;
-        h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem">`;
-        h+=`<span style="width:36px;height:36px;border-radius:8px;background:${ins.col};display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:1rem">${i+1}</span>`;
-        h+=`<div><div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${ins.type}</div><div style="font-size:var(--min-font);color:var(--mid)">${ins.zh}</div></div>`;
+      h+=`<div style="max-width:900px">`;
+      h+=chip;
+      h+=`<div class="bar"></div><h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:clamp(.82rem,1.3vw,.92rem);color:var(--mid);margin-bottom:1.1rem">先猜答案，再點擊看真正的消費洞察</p>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem">`;
+      insights.forEach((ins,ii)=>{
+        const uid=`ins-${sd.id}-${ii}`;
+        h+=`<div id="${uid}" onclick="insightReveal('${uid}')" style="position:relative;border-radius:12px;overflow:hidden;cursor:pointer;min-height:140px;border:1.5px solid ${ins.color};background:rgba(255,255,255,.03);transition:transform .2s var(--ease-back)"`;
+        h+=` onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''">`;
+        // Answer layer (hidden behind mask)
+        h+=`<div class="ins-answer" style="padding:1.2rem;visibility:hidden">`;
+        h+=`<div style="font-size:.55rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${ins.color};margin-bottom:.4rem">${ins.label} Insight</div>`;
+        ins.reveals.forEach((r,ri)=>{
+          h+=`<div style="display:flex;align-items:baseline;gap:.5rem;margin-bottom:.25rem"><span style="color:${ins.color};font-weight:800;flex-shrink:0">${ri===ins.reveals.length-1?'→':'·'}</span><span style="font-size:clamp(.78rem,1.25vw,.9rem);color:${ri===ins.reveals.length-1?'var(--ink)':'var(--mid)'};${ri===ins.reveals.length-1?'font-weight:700;':''}">${r}</span></div>`;
+        });
         h+=`</div>`;
-        h+=`<div style="font-size:var(--min-font);color:${ins.col};font-weight:600;margin-bottom:.3rem">${ins.q}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.75);padding:.5rem .7rem;background:rgba(255,255,255,.04);border-radius:6px">${ins.example}</div>`;
-        h+=`</div>`;
+        // Mask layer
+        h+=`<div class="ins-mask" style="position:absolute;inset:0;background:rgba(10,10,18,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:1.2rem;text-align:center;transition:opacity .45s ease,transform .45s var(--ease-back)">`;
+        h+=`<div style="font-size:2.2rem;font-weight:800;color:${ins.color};opacity:.3;line-height:1">${ins.num}</div>`;
+        h+=`<div style="font-size:clamp(.95rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);line-height:1.4">${ins.q}</div>`;
+        h+=`<div style="font-size:.58rem;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem">點擊解鎖洞察</div>`;
+        h+=`</div></div>`;
       });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="margin-top:.9rem">消費者買的從來不是你的產品，是他想要的感受或想成為的樣子。這就是洞察的起點。</div>`;
       h+=`</div>`;
       break;}
     case 'observe-insight-v3':{
@@ -2089,7 +2170,7 @@ function renderSlide(sd,idx){
         {name:'ChatGPT',answer:'止痛藥',reason:'「寫不出來、查不到」的即時痛點，用了回不去',isVitamin:false},
         {name:'Duolingo',answer:'維他命',reason:'學語言是長期目標，沒有急迫性',isVitamin:true},
         {name:'Uber Eats',answer:'止痛藥',reason:'「餓了但不想出門」是真實的即時痛點',isVitamin:false},
-        {name:'BeReal',answer:'維他命',reason:'社交壓力不夠痛，多數人玩幾天就放棄',isVitamin:true}
+        {name:'Threads',answer:'維他命',reason:'Meta 的新社群平台，搶 Twitter 市場，但用戶無急迫需求切換',isVitamin:true}
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
       products.forEach((p,i)=>{
@@ -2158,6 +2239,14 @@ function renderSlide(sd,idx){
       h+=`<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem"><div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.3rem">高價值範例</div><div style="font-size:var(--min-font);color:var(--mid)">「30 天學會英文」比「2 年學會英文」有價值，因為時間更短</div></div>`;
       h+=`<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem"><div style="font-size:var(--min-font);font-weight:700;color:var(--orange);margin-bottom:.3rem">應用到你的作品</div><div style="font-size:var(--min-font);color:var(--mid)">增大分子（結果更好、更可信）、減小分母（更少付出、更快見效）</div></div>`;
       h+=`</div></div>`;
+      h+=`<div style="margin-top:1rem;padding:1.2rem;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)">`;
+      h+=`<div style="font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:.7rem">用你自己的作品填一次</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">`;
+      h+=`<div style="padding:.8rem 1rem;border-radius:8px;border:1.5px solid rgba(34,197,94,.3);background:rgba(34,197,94,.06)"><div style="font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.3rem">Dream Outcome ↑</div><div style="font-size:.78rem;color:var(--mid);margin-bottom:.4rem">他最想要的結果是？</div><div style="border-bottom:1px solid rgba(255,255,255,.15);padding:.3rem 0;font-size:.82rem;color:rgba(255,255,255,.3);min-height:1.6rem">在這裡思考...</div></div>`;
+      h+=`<div style="padding:.8rem 1rem;border-radius:8px;border:1.5px solid rgba(59,130,246,.3);background:rgba(59,130,246,.06)"><div style="font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.3rem">實現可能性 ↑</div><div style="font-size:.78rem;color:var(--mid);margin-bottom:.4rem">他相信能做到嗎？</div><div style="border-bottom:1px solid rgba(255,255,255,.15);padding:.3rem 0;font-size:.82rem;color:rgba(255,255,255,.3);min-height:1.6rem">在這裡思考...</div></div>`;
+      h+=`<div style="padding:.8rem 1rem;border-radius:8px;border:1.5px solid rgba(255,107,0,.3);background:rgba(255,107,0,.06)"><div style="font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.3rem">Time Delay ↓</div><div style="font-size:.78rem;color:var(--mid);margin-bottom:.4rem">需要等多久才看到效果？</div><div style="border-bottom:1px solid rgba(255,255,255,.15);padding:.3rem 0;font-size:.82rem;color:rgba(255,255,255,.3);min-height:1.6rem">在這裡思考...</div></div>`;
+      h+=`<div style="padding:.8rem 1rem;border-radius:8px;border:1.5px solid rgba(255,32,85,.3);background:rgba(255,32,85,.06)"><div style="font-size:.55rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:.3rem">Effort / Sacrifice ↓</div><div style="font-size:.78rem;color:var(--mid);margin-bottom:.4rem">他需要犧牲什麼？</div><div style="border-bottom:1px solid rgba(255,255,255,.15);padding:.3rem 0;font-size:.82rem;color:rgba(255,255,255,.3);min-height:1.6rem">在這裡思考...</div></div>`;
+      h+=`</div></div>`;
       break;}
     case 'hormozi-example':{
       h+=blob('rgba(34,197,94,.08)','rgba(255,107,0,.06)');
@@ -2219,6 +2308,19 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;
       h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      // Advanced challenge button
+      h+=`<div style="margin-top:1.2rem;text-align:center">`;
+      h+=`<button onclick="document.getElementById('adv-${sd.id}').classList.toggle('adv-open')" style="background:rgba(255,255,255,.05);border:1.5px dashed rgba(255,255,255,.2);color:rgba(255,255,255,.5);border-radius:8px;padding:.55rem 1.6rem;font-size:.78rem;font-weight:700;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;transition:all .2s" onmouseenter="this.style.borderColor='rgba(255,107,0,.5)';this.style.color='var(--orange)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.5)'">+ 進階挑戰（提早完成者）</button>`;
+      h+=`<div id="adv-${sd.id}" style="max-height:0;overflow:hidden;transition:max-height .45s var(--ease-smooth),opacity .35s ease;opacity:0" class="adv-challenge-wrap">`;
+      h+=`<div style="margin-top:.9rem;padding:1.2rem 1.5rem;border-radius:10px;background:rgba(255,107,0,.06);border:1.5px solid rgba(255,107,0,.25);text-align:left">`;
+      h+=`<div style="font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem">進階挑戰 — How Might We</div>`;
+      h+=`<ul class="deck-list" style="gap:.5rem">`;
+      h+=`<li>把你的受眾從「年輕人」細化到一個具體的人：幾歲、什麼職業、今天最在意什麼</li>`;
+      h+=`<li>把痛點從表面原因挖到更深一層：他說「好貴」，他真正怕的是什麼？</li>`;
+      h+=`<li>套入 Hormozi 公式：Dream Outcome / 實現可能性 / 需要多久 / 需要付出什麼</li>`;
+      h+=`<li>寫一句「他在晚上 11 點會對自己說的那句話」</li>`;
+      h+=`</ul>`;
+      h+=`</div></div></div>`;
       h+=`</div>`;
       break;}
     case 'exercise-tpo-v2':{
@@ -2241,6 +2343,19 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;
       h+=`<div class="timer-wrap" style="position:relative;z-index:1"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      // Advanced challenge button
+      h+=`<div style="margin-top:1.2rem;text-align:center">`;
+      h+=`<button onclick="document.getElementById('adv-${sd.id}').classList.toggle('adv-open')" style="background:rgba(255,255,255,.05);border:1.5px dashed rgba(255,255,255,.2);color:rgba(255,255,255,.5);border-radius:8px;padding:.55rem 1.6rem;font-size:.78rem;font-weight:700;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;transition:all .2s" onmouseenter="this.style.borderColor='rgba(255,107,0,.5)';this.style.color='var(--orange)'" onmouseleave="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.5)'">+ 進階挑戰（提早完成者）</button>`;
+      h+=`<div id="adv-${sd.id}" style="max-height:0;overflow:hidden;transition:max-height .45s var(--ease-smooth),opacity .35s ease;opacity:0" class="adv-challenge-wrap">`;
+      h+=`<div style="margin-top:.9rem;padding:1.2rem 1.5rem;border-radius:10px;background:rgba(255,107,0,.06);border:1.5px solid rgba(255,107,0,.25);text-align:left">`;
+      h+=`<div style="font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem">進階挑戰 — How Might We</div>`;
+      h+=`<ul class="deck-list" style="gap:.5rem">`;
+      h+=`<li>把你的受眾從「年輕人」細化到一個具體的人：幾歲、什麼職業、今天最在意什麼</li>`;
+      h+=`<li>把痛點從表面原因挖到更深一層：他說「好貴」，他真正怕的是什麼？</li>`;
+      h+=`<li>套入 Hormozi 公式：Dream Outcome / 實現可能性 / 需要多久 / 需要付出什麼</li>`;
+      h+=`<li>寫一句「他在晚上 11 點會對自己說的那句話」</li>`;
+      h+=`</ul>`;
+      h+=`</div></div></div>`;
       break;}
     case 'gtm-interactive-v2':{
       h+=blob('rgba(59,130,246,.08)','rgba(34,197,94,.06)');
