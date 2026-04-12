@@ -4138,6 +4138,12 @@ function findNextRevealable(){
     return ans&&ans.style.visibility!=='visible';
   });
   if(ins)return ins;
+  // 4. First collapsed category button (tools-wall-v2 etc.)
+  const catBtn=[...slideEl.querySelectorAll('button[data-reveal-btn]')].find(btn=>{
+    const body=btn.nextElementSibling;
+    return body&&body.style.display==='none';
+  });
+  if(catBtn)return catBtn;
   return null;
 }
 document.addEventListener('keydown',e=>{
