@@ -313,9 +313,13 @@ const D=[
 {id:'s30',sec:2,sub:'Section 2 結尾',type:'section',chip:['Section 2 結尾','white'],title:'你現在知道<br>在對誰說話了',sub2:'Section 3：存續性 — 從作品走到市場'},
 
 {id:'s36',sec:3,sub:'開場',type:'section-cover',secNum:'③',secTitle:'存續性',secEn:'Viability',sub2:'從作品走到市場'},
+{id:'s36a',sec:3,sub:'價值提案',type:'value-prop-what',chip:['價值提案','green'],title:'你的作品能為他做什麼？'},
+{id:'s36b',sec:3,sub:'價值提案',type:'value-prop-canvas',chip:['畫布工具','cyan'],title:'Value Proposition Canvas'},
+{id:'s36c',sec:3,sub:'價值提案',type:'pricing-as-product',chip:['定價策略','yellow'],title:'定價不是算成本，是產品設計'},
 {id:'s37',sec:3,sub:'GTM',type:'gtm-interactive-v2',chip:['Go-To-Market','blue'],title:'讓對的人看見對的訊息'},
 {id:'s38',sec:3,sub:'GTM',type:'gtm-poc-pmf-v2',chip:['驗證三階段','green'],title:'GTM → POC → PMF'},
 {id:'s39',sec:3,sub:'GTM',type:'big-quote',chip:['最重要的判斷','red'],quote:'陌生人的行動<br>比朋友的稱讚<br><span class="g-red">重要 100 倍</span>',sub2:'PMF 訊號：他截圖、tag 朋友、主動傳給有相同困擾的人'},
+{id:'s39a',sec:3,sub:'GTM',type:'tools-wall',chip:['工具總覽','purple'],title:'你可以用的武器'},
 {id:'s40',sec:3,sub:'Pitch',type:'pitch-deck-structure',chip:['Pitch Deck 架構','orange'],title:'一份完整的 Pitch Deck'},
 {id:'s41',sec:3,sub:'Pitch',type:'pitch-elements',chip:['十大元素','blue'],title:'Pitch 的十個關鍵元素'},
 {id:'s42',sec:3,sub:'Pitch',type:'elevator-pitch',chip:['電梯簡報','purple'],title:'30 秒說服一個人'},
@@ -2570,6 +2574,119 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:640px;margin:.85rem auto 0">不評設計美感，評商業洞察</div>`;
+      break;}
+    case 'value-prop-what':{
+      h+=blob('rgba(34,197,94,.08)','rgba(6,182,212,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">你的作品、服務或想法，對一個真實的人，創造了什麼具體的改變？</p>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:900px;margin:0 auto .8rem;position:relative;z-index:1">`;
+      [{icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>',
+        label:'你提供什麼',col:'var(--green)',mask:'我的作品 / 服務',answer:'具體的解法或產品形式。不是「設計」，而是「一份說服老闆加薪的 Canva 模板」'},
+       {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+        label:'他得到什麼',col:'var(--red)',mask:'改變 / 結果',answer:'他的生活或狀態改變了什麼。不是「好設計」，而是「朋友問他推薦哪個品牌時，他說得出口」'},
+       {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+        label:'為什麼選你',col:'var(--orange)',mask:'差異化 / 你的優勢',answer:'你能做到、別人做不到的那一件事。可以是風格、速度、理解力、或是你本身的故事'}
+      ].forEach((c,i)=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:190px">`;
+        h+=`<div class="card-answer" style="background:${c.col}12;border:2px solid ${c.col}40;border-radius:12px;padding:1.2rem">`;
+        h+=`<div style="color:${c.col};margin-bottom:.4rem">${c.icon}</div>`;
+        h+=`<div style="font-size:var(--min-label);font-weight:700;color:${c.col};margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.06em">0${i+1}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:.5rem">${c.label}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.6">${c.answer}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${c.col}20"><div style="color:${c.col}">${c.icon}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--mid);margin-top:.3rem">點擊看說明</div><div style="font-size:clamp(1.1rem,1.7vw,1.3rem);font-weight:700;color:var(--ink);margin-top:.15rem">${c.mask}</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:0 auto;position:relative;z-index:1"><strong style="color:var(--green)">公式：</strong>幫 <em style="color:var(--ink)">（誰）</em> 解決 <em style="color:var(--ink)">（什麼痛）</em>，讓他能夠 <em style="color:var(--ink)">（得到什麼結果）</em>，而不需要 <em style="color:var(--ink)">（犧牲什麼）</em></div>`;
+      break;}
+    case 'value-prop-canvas':{
+      h+=blob('rgba(6,182,212,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center;margin-bottom:.7rem">${chip}<div class="bar" style="margin:.6rem auto .6rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font)">點擊各區塊查看說明</p>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;max-width:950px;margin:0 auto;position:relative;z-index:1;align-items:center">`;
+      // Left: Value Map
+      h+=`<div style="background:rgba(6,182,212,.06);border:2px solid rgba(6,182,212,.3);border-radius:14px;padding:1rem">`;
+      h+=`<div style="text-align:center;font-size:var(--min-font);font-weight:700;color:var(--cyan);margin-bottom:.7rem;letter-spacing:.06em;text-transform:uppercase">你的 Value Map</div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.5rem">`;
+      [{label:'Products & Services',zh:'你提供什麼',desc:'具體的作品、服務、工具、內容形式',col:'var(--cyan)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>'},
+       {label:'Pain Relievers',zh:'如何消除他的痛',desc:'你的解法對應他的哪一個具體困擾',col:'var(--orange)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'},
+       {label:'Gain Creators',zh:'如何創造他想要的',desc:'讓他感覺更好、更有能力、更被看見',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'}
+      ].forEach(r=>{
+        h+=`<div onclick="this.classList.toggle('vp-open')" style="cursor:pointer;background:${r.col}10;border:1.5px solid ${r.col}30;border-radius:8px;padding:.6rem .9rem;transition:background .3s">`;
+        h+=`<div style="display:flex;align-items:center;gap:.5rem"><span style="color:${r.col}">${r.icon}</span><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${r.zh}</span><span style="margin-left:auto;font-size:.65rem;color:var(--mid);font-weight:600;letter-spacing:.05em">${r.label}</span></div>`;
+        h+=`<div style="max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:var(--min-label);color:var(--mid);margin-top:0" class="vp-detail">${r.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div></div>`;
+      // Middle: fit symbol
+      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:.3rem">`;
+      h+=`<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:#fff;text-align:center;line-height:1.2">FIT</div>`;
+      h+=`<div style="font-size:.6rem;color:var(--mid);text-transform:uppercase;letter-spacing:.08em">左右吻合</div>`;
+      h+=`</div>`;
+      // Right: Customer Profile
+      h+=`<div style="background:rgba(168,85,247,.06);border:2px solid rgba(168,85,247,.3);border-radius:14px;padding:1rem">`;
+      h+=`<div style="text-align:center;font-size:var(--min-font);font-weight:700;color:var(--purple);margin-bottom:.7rem;letter-spacing:.06em;text-transform:uppercase">他的 Customer Profile</div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.5rem">`;
+      [{label:'Customer Jobs',zh:'他想完成什麼',desc:'功能性任務（找工作、賣東西）、社會性任務（被看見、被認可）、情感性任務（有安全感）',col:'var(--purple)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>'},
+       {label:'Pains',zh:'他的痛點是什麼',desc:'阻礙他完成任務的事、風險、挫敗感、浪費的資源',col:'var(--red)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'},
+       {label:'Gains',zh:'他想得到什麼',desc:'他渴望的結果、夢想、社會地位、省下的時間或金錢',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'}
+      ].forEach(r=>{
+        h+=`<div onclick="this.classList.toggle('vp-open')" style="cursor:pointer;background:${r.col}10;border:1.5px solid ${r.col}30;border-radius:8px;padding:.6rem .9rem;transition:background .3s">`;
+        h+=`<div style="display:flex;align-items:center;gap:.5rem"><span style="color:${r.col}">${r.icon}</span><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${r.zh}</span><span style="margin-left:auto;font-size:.65rem;color:var(--mid);font-weight:600;letter-spacing:.05em">${r.label}</span></div>`;
+        h+=`<div style="max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:var(--min-label);color:var(--mid);margin-top:0" class="vp-detail">${r.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div></div>`;
+      h+=`</div>`;
+      break;}
+    case 'pricing-as-product':{
+      h+=blob('rgba(251,191,36,.07)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">定價本身就是一種溝通，傳遞你對自己作品的評價</p>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:900px;margin:0 auto .85rem;position:relative;z-index:1">`;
+      [{tag:'免費',sub:'Free',col:'var(--green)',signal:'降低嘗試成本',example:'IG 限動範本、Notion 工具頁',why:'讓陌生人先體驗價值，建立信任再轉換',icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'},
+       {tag:'低定價',sub:'Anchor',col:'var(--orange)',signal:'建立認知錨點',example:'Canva Pro $150/月；起步 $29 方案',why:'讓他覺得「這個超值」，錨點比絕對價格更重要',icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>'},
+       {tag:'高定價',sub:'Premium',col:'var(--red)',signal:'傳遞品質訊號',example:'一頁 Notion 工具 $299；一對一指導 $800/hr',why:'價格本身就在說「這是稀缺的、認真的」',icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'}
+      ].forEach((p,i)=>{
+        h+=`<div style="background:${p.col}10;border:2px solid ${p.col}35;border-radius:12px;padding:1.1rem;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.12}s">`;
+        h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem"><span style="color:${p.col}">${p.icon}</span><div><div style="font-size:clamp(1.1rem,1.7vw,1.3rem);font-weight:700;color:${p.col}">${p.tag}</div><div style="font-size:.65rem;color:var(--mid);text-transform:uppercase;letter-spacing:.08em">${p.sub}</div></div></div>`;
+        h+=`<div style="font-size:var(--min-label);font-weight:700;color:var(--ink);margin-bottom:.25rem">${p.signal}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${p.col};margin-bottom:.4rem;padding:.3rem .5rem;background:${p.col}15;border-radius:4px">${p.example}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.55">${p.why}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:0 auto;position:relative;z-index:1"><strong style="color:var(--yellow)">Hormozi 說：</strong>不要用成本定價。要問「他得到這個之後，能值多少」，然後從那裡出發</div>`;
+      break;}
+    case 'tools-wall':{
+      h+=blob('rgba(168,85,247,.08)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.85rem">工具是地圖，策略才是目的地。先想清楚要去哪，再選工具</p>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
+      [{cat:'內容創作',col:'var(--orange)',icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>',tools:['Canva','CapCut','Notion','Adobe Express']},
+       {cat:'受眾研究',col:'var(--blue)',icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',tools:['Google Forms','Dcard / PTT','IG Insights','SimilarWeb']},
+       {cat:'發佈排程',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',tools:['Buffer','Later','Meta Business Suite','Notion 行事曆']},
+       {cat:'成效追蹤',col:'var(--cyan)',icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',tools:['Google Analytics','Linktree','UTM Builder','IG/Threads 洞察']}
+      ].forEach((cat,i)=>{
+        h+=`<div style="background:${cat.col}10;border:1.5px solid ${cat.col}35;border-radius:12px;padding:.9rem;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.15+i*.1}s">`;
+        h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem"><span style="color:${cat.col}">${cat.icon}</span><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${cat.cat}</span></div>`;
+        h+=`<div style="display:flex;flex-direction:column;gap:.3rem">`;
+        cat.tools.forEach(t=>{
+          h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.25rem .5rem;background:rgba(255,255,255,.04);border-radius:4px;border-left:2px solid ${cat.col}50">${t}</div>`;
+        });
+        h+=`</div></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:960px;margin:.7rem auto 0;position:relative;z-index:1"><strong style="color:var(--purple)">原則：</strong>先把一個平台做好，再考慮擴張。同時經營五個平台，等於哪個都沒做好</div>`;
       break;}
     // ========== END NEW RENDER CASES V2 ==========
     default:
