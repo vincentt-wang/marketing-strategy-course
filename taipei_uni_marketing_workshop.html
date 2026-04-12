@@ -576,37 +576,43 @@ function renderSlide(sd,idx){
   }
 
   switch(sd.type){
-    case 'why-this-matters':
-      h+=`<div style="max-width:860px;margin:0 auto;text-align:center">`;
+    case 'why-this-matters':{
+      h+=blob('rgba(255,107,0,.1)','rgba(168,85,247,.07)');
+      h+=`<div style="position:relative;z-index:1;text-align:center;max-width:950px;margin:0 auto">`;
       h+=chip;
       h+=`<div class="bar" style="margin:.5rem auto"></div>`;
-      h+=`<h2 style="margin-bottom:1.1rem">${sd.title}</h2>`;
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.1rem">`;
-      h+=`<div style="padding:1.2rem 1.4rem;border-radius:14px;border:1.5px solid rgba(255,107,0,.3);background:rgba(255,107,0,.06);text-align:center"><div style="font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:.45rem">今天早上</div><h3 style="color:var(--ink);margin-bottom:.4rem;font-size:clamp(1rem,1.7vw,1.3rem)">Canva 圖 = Feasibility</h3><p style="font-size:var(--min-font);color:var(--mid)">你已經證明了技術可行性。能做出來。</p></div>`;
-      h+=`<div style="padding:1.2rem 1.4rem;border-radius:14px;border:1.5px solid rgba(255,32,85,.3);background:rgba(255,32,85,.06);text-align:center"><div style="font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:.45rem">今天下午</div><h3 style="color:var(--ink);margin-bottom:.4rem;font-size:clamp(1rem,1.7vw,1.3rem)">+ Desirability + Viability</h3><p style="font-size:var(--min-font);color:var(--mid)">有沒有人要？能不能持續？這才是產品的完整拼圖。</p></div>`;
-      h+=`</div>`;
-      // Redesigned bottom section
-      h+=`<div style="background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:1.1rem 1.4rem">`;
-      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--orange);margin-bottom:.85rem;letter-spacing:.04em">學怎麼把作品當產品思考</div>`;
-      const wtmItems=[
-        {icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',col:'var(--blue)',text:'Canva 教的是做得出來'},
-        {icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',col:'var(--red)',text:'但你還要確認有人要、以及它能不能成立'},
-        {icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',col:'var(--orange)',text:'任何作品、設計、服務，本質上都可以被理解成一種產品'},
+      h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:1.2rem">三元裡缺任何一個，產品都無法成立</p>`;
+      const wtmCards=[
+        {label:'有 D + F，沒有 V',cols:['var(--red)','var(--blue)'],miss:'V',missName:'存續性',headline:'很多人愛用，但不會賺錢',example:'早期 Twitter',detail:'大家都在用，廣告也很難賣。好產品不等於好生意。',col:'rgba(168,85,247',tagCol:'var(--purple)'},
+        {label:'有 F + V，沒有 D',cols:['var(--blue)','var(--green)'],miss:'D',missName:'欲求性',headline:'做得出來，也可能有商模，但沒人要',example:'Google Glass',detail:'技術領先、商業計劃完整，但真實生活中沒人需要它。',col:'rgba(59,130,246',tagCol:'var(--blue)'},
+        {label:'有 D + V，沒有 F',cols:['var(--red)','var(--green)'],miss:'F',missName:'可行性',headline:'很多人想要，但做不出來',example:'2015 年的 AI 助理',detail:'需求明確、商模清晰，但當時技術根本不支援。時機未到。',col:'rgba(255,32,85',tagCol:'var(--red)'},
       ];
-      h+=`<div style="display:flex;flex-direction:column;gap:.6rem">`;
-      wtmItems.forEach((item,i)=>{
-        const isLast=i===wtmItems.length-1;
-        h+=`<div style="display:flex;align-items:center;gap:.8rem;padding:.7rem 1rem;border-radius:10px;background:${isLast?`rgba(255,107,0,.07);border:1.5px solid rgba(255,107,0,.25)`:`rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)`}">`;
-        h+=`<span style="color:${item.col};flex-shrink:0">${item.icon}</span>`;
-        h+=`<span style="font-size:var(--min-font);color:${isLast?'var(--ink)':'rgba(255,255,255,.75)'};font-weight:${isLast?'700':'500'};line-height:1.5">${item.text}</span>`;
-        if(i<wtmItems.length-1)h+=`<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="2" style="margin-left:auto;flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;position:relative;z-index:1">`;
+      wtmCards.forEach((c,i)=>{
+        const uid=`wtm-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:210px">`;
+        h+=`<div class="card-answer" style="background:${c.col},.07);border:1.5px solid ${c.col},.35);border-radius:12px;padding:1.1rem;text-align:left">`;
+        h+=`<div style="display:flex;gap:.35rem;margin-bottom:.6rem">`;
+        c.cols.forEach(col=>{
+          h+=`<span style="font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:.2em .55em;border-radius:999px;background:${col}22;color:${col};border:1px solid ${col}55">${col===c.cols[0]?'D ':''}${col===c.cols[1]&&c.miss!=='V'?'V':''}${col===c.cols[0]&&c.miss==='V'?'D ':''}${col===c.cols[1]&&c.miss==='D'?'V ':''}${col===c.cols[0]&&c.miss==='F'?'D ':''}${col===c.cols[1]&&c.miss==='F'?'V':''}</span>`;
+        });
+        h+=`<span style="font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:.2em .55em;border-radius:999px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.15);text-decoration:line-through">缺 ${c.miss}</span>`;
         h+=`</div>`;
-        if(i<wtmItems.length-1)h+=`<div style="text-align:center;color:rgba(255,255,255,.15);font-size:.7rem;line-height:1">↓</div>`;
+        h+=`<div style="font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:700;color:var(--ink);margin-bottom:.5rem;line-height:1.35">${c.headline}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.55;margin-bottom:.6rem">${c.detail}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.45);padding:.3rem .6rem;background:rgba(255,255,255,.04);border-radius:6px;display:inline-block">案例：${c.example}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${c.col},.12);border:1.5px solid ${c.col},.3)">`;
+        h+=`<div style="font-size:var(--min-label);font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-bottom:.4rem">${c.label}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);line-height:1.3">${c.headline}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.3);margin-top:.5rem">點擊展開</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
       });
       h+=`</div>`;
       h+=`</div>`;
-      h+=`</div>`;
-      break;
+      break;}
     case 'cover':
       h+=blob('rgba(255,107,0,.12)','rgba(255,32,85,.09)');
       h+=`<div style="position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1rem">${chip}<div class="hero-txt g-multi" style="font-size:clamp(2.8rem,7vw,5.5rem)">${sd.title}</div><div class="bar" style="margin:.6rem auto"></div><p style="font-size:clamp(1rem,1.8vw,1.25rem);color:var(--mid)">${sd.sub2}</p></div>`;
