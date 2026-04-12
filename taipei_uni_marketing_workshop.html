@@ -2324,6 +2324,43 @@ function renderSlide(sd,idx){
       h+=`<div style="text-align:center;margin-top:.8rem;font-size:var(--min-font);color:var(--mid)">如果對方答不出來，就是還沒想清楚的地方</div>`;
       h+=`</div>`;
       break;}
+    case 'precision-math':{
+      h+=blob('rgba(255,107,0,.12)','rgba(168,85,247,.08)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="color:rgba(255,255,255,.45);font-size:var(--min-font);margin-bottom:1.4rem">精準打 <strong style="color:var(--orange)">1,000 個有痛的人</strong>，勝過廣播給 <strong style="color:rgba(255,255,255,.25)">100 萬個無感的人</strong></p>`;
+      h+=`</div>`;
+      // Equation row
+      h+=`<div style="display:flex;align-items:center;justify-content:center;gap:.5rem;max-width:880px;margin:0 auto 1.2rem;position:relative;z-index:1;flex-wrap:wrap">`;
+      const pmSteps=[
+        {num:'1,000',unit:'個精準 ICP',col:'#3b82f6',desc:'鎖定有明確痛點、有付費意願的人<br><em style="color:rgba(255,255,255,.35)">不是所有人，是最痛的那群</em>',op:null},
+        {num:'× 10%',unit:'轉換率',col:'#a855f7',desc:'精準受眾轉換率是廣播的 100 倍<br><em style="color:rgba(255,255,255,.35)">訊息直接打中他的痛</em>',op:'×'},
+        {num:'= 100',unit:'個死忠客戶',col:'#ff6b00',desc:'100 個真正需要你的人<br><em style="color:rgba(255,255,255,.35)">這才是 ICP 的意義</em>',op:'='},
+      ];
+      pmSteps.forEach((s,i)=>{
+        if(s.op)h+=`<div style="font-size:2.2rem;font-weight:900;color:rgba(255,255,255,.25);flex-shrink:0">${s.op}</div>`;
+        h+=`<div style="flex:1;min-width:200px;max-width:250px;background:${s.col}18;border:2px solid ${s.col}55;border-radius:16px;padding:1.3rem 1rem;text-align:center">`;
+        h+=`<div style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;line-height:1;margin-bottom:.3rem">${s.num}</div>`;
+        h+=`<div style="font-size:.8rem;font-weight:700;color:${s.col};margin-bottom:.6rem">${s.unit}</div>`;
+        h+=`<div style="font-size:.72rem;color:rgba(255,255,255,.55);line-height:1.5">${s.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      // Comparison
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:880px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.9rem 1.2rem">`;
+      h+=`<div style="font-size:.65rem;font-weight:800;letter-spacing:.15em;color:rgba(255,255,255,.3);margin-bottom:.5rem">廣播思維 ✗</div>`;
+      h+=`<div style="font-size:.85rem;color:rgba(255,255,255,.7)">觸及 <strong>100 萬人</strong> × 轉換率 <strong>0.01%</strong> = 100 個客戶</div>`;
+      h+=`<div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.3rem">燒掉大量預算與時間，信任感低</div>`;
+      h+=`</div>`;
+      h+=`<div style="background:rgba(255,107,0,.08);border:2px solid rgba(255,107,0,.35);border-radius:12px;padding:.9rem 1.2rem">`;
+      h+=`<div style="font-size:.65rem;font-weight:800;letter-spacing:.15em;color:#ff6b00;margin-bottom:.5rem">精準思維 ✓</div>`;
+      h+=`<div style="font-size:.85rem;color:rgba(255,255,255,.7)">觸及 <strong style="color:#ff6b00">1,000 個有痛的 ICP</strong> × <strong style="color:#ff6b00">10%</strong> = 100 個客戶</div>`;
+      h+=`<div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:.3rem">成本低 100 倍，轉換品質高 10 倍</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:880px;margin:.9rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">Small Numbers Law：</strong>先找 10 個真正需要你的人，就能找到 100 個。HXC 就是你的起點。</div>`;
+      break;}
     case 'funnel-v3-examples':{
       h+=blob('rgba(255,107,0,.12)','rgba(168,85,247,.08)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .8rem"></div>`;
