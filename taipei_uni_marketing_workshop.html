@@ -3499,15 +3499,15 @@ function renderSlide(sd,idx){
          when:'只需要讓別人看懂你在做什麼，不需要可以用',
          ex:'手繪草圖、Canva 示意圖、假截圖 — 不需要可點擊',
          fidelity:'保真度 10%'},
-        {short:'POC',full:'Proof of Concept',zh:'概念驗證',col:'var(--orange)',
-         def:'驗證核心假設是否可行的互動版本',
-         when:'想測試用戶的使用流程或技術上是否能做到',
-         ex:'用 Figma 做可點擊流程，或 Google Form 測試報名意願',
-         fidelity:'保真度 30-60%'},
         {short:'MVP',full:'Minimum Viable Product',zh:'最小可行產品',col:'var(--green)',
-         def:'能真的用、能提供核心價值的第一版',
-         when:'準備推給第一批真實用戶，收集真實回饋',
-         ex:'Dropbox 初版只有一個文件夾同步功能，沒有協作',
+         def:'核心功能可用，能讓首批真實用戶實際體驗',
+         when:'準備推給第一批真實用戶，收集真實行為回饋',
+         ex:'Dropbox 初版只有一個資料夾同步功能，沒有協作',
+         fidelity:'保真度 30-60%'},
+        {short:'POC',full:'Proof of Concept',zh:'概念驗證',col:'var(--orange)',
+         def:'完整驗證技術可行性與商業模式的成熟版本',
+         when:'核心假設都已驗證，準備擴大規模前的完整確認',
+         ex:'用真實數據證明留存率、付費轉換率達到可持續門檻',
          fidelity:'保真度 70-80%'},
         {short:'MVC',full:'Minimum Viable Category',zh:'最小可行品類',col:'var(--purple)',
          def:'能讓用戶清楚你是「什麼類型」的產品',
@@ -3528,6 +3528,17 @@ function renderSlide(sd,idx){
         h+=`<div class="card-mask" style="border-radius:12px;background:${p.col}18"><div style="font-size:clamp(1.4rem,2.2vw,1.8rem);font-weight:800;color:${p.col}">${p.short}</div><div style="font-size:var(--min-font);color:var(--mid);margin-top:.3rem">${p.zh}</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.3);margin-top:.5rem">點擊了解何時用</div></div>`;
         h+=`</div>`;
       });
+      h+=`</div>`;
+      // Feedback emphasis row
+      h+=`<div style="max-width:900px;margin:.75rem auto 0;position:relative;z-index:1;background:rgba(255,107,0,.07);border:1.5px solid rgba(255,107,0,.3);border-radius:12px;padding:.75rem 1.1rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.55rem"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--orange)" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span style="font-size:var(--min-label);font-weight:800;color:var(--orange);letter-spacing:.1em;text-transform:uppercase">每個階段都要收 Feedback</span></div>`;
+      h+=`<div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.5rem">`;
+      [{pct:'10%',col:'var(--blue)',note:'方向修正'},{pct:'30%',col:'var(--green)',note:'功能取捨'},{pct:'50%',col:'var(--yellow)',note:'體驗優化'},{pct:'80%',col:'var(--orange)',note:'上市準備'}].forEach((s,i,arr)=>{
+        h+=`<div style="flex:1;text-align:center;padding:.35rem .2rem;background:${s.col}15;border-radius:7px;border:1px solid ${s.col}40"><div style="font-size:var(--min-font);font-weight:800;color:${s.col}">${s.pct}</div><div style="font-size:var(--min-label);color:var(--mid)">${s.note}</div></div>`;
+        if(i<arr.length-1)h+=`<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2.5" style="flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.55);font-style:italic;border-top:1px solid rgba(255,255,255,.08);padding-top:.45rem;margin-top:.1rem">「如果拿產品給別人看時你不感到尷尬，那你已經太晚了。」— Reid Hoffman</div>`;
       h+=`</div>`;
       break;}
     case 'ideate-prototype-test':{
