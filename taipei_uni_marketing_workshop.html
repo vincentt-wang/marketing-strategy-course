@@ -3413,40 +3413,40 @@ function renderSlide(sd,idx){
       h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">每個類別點擊可展開工具清單</p>`;
       h+=`</div>`;
       const toolCats=[
-        {cat:'AI 生成',en:'Create',col:'var(--purple)',colR:'rgba(168,85,247',
-         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+        {cat:'AI 寫程式',en:'Vibe Coding',col:'var(--purple)',colR:'rgba(168,85,247',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
          tools:[
-           {name:'ChatGPT / Claude',desc:'文字、策略、腳本'},
-           {name:'Midjourney',desc:'圖像生成'},
-           {name:'Cursor / v0',desc:'Vibe Coding'},
+           {name:'Cursor',desc:'自帶 Claude，寫 Code 像在對話'},
+           {name:'VS Code + Copilot',desc:'業界標準，保守派首選'},
+           {name:'v0.dev',desc:'AI 直接生成 UI 元件'},
          ]},
         {cat:'設計視覺',en:'Design',col:'var(--cyan)',colR:'rgba(6,182,212',
          icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="3.5"/><circle cx="17.5" cy="10.5" r="3.5"/><circle cx="8.5" cy="7.5" r="3.5"/><circle cx="6.5" cy="12.5" r="3.5"/><path d="M12 20v-8"/></svg>',
          tools:[
            {name:'Canva',desc:'快速設計，模板豐富'},
            {name:'Figma',desc:'UI/UX 原型設計'},
-           {name:'Remove.bg',desc:'一鍵去背'},
+           {name:'Tailwind + Shadcn',desc:'現代 CSS 框架，複製即用'},
          ]},
         {cat:'研究驗證',en:'Research',col:'var(--blue)',colR:'rgba(59,130,246',
          icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
          tools:[
            {name:'Google Forms',desc:'問卷調查，POC 驗證'},
            {name:'Typeform',desc:'互動式問卷'},
-           {name:'Meta 廣告圖書館',desc:'查競品廣告'},
+           {name:'Meta 廣告圖書館',desc:'查競品廣告策略'},
          ]},
-        {cat:'發佈曝光',en:'Distribute',col:'var(--orange)',colR:'rgba(255,107,0',
+        {cat:'開發部署',en:'Ship It',col:'var(--orange)',colR:'rgba(255,107,0',
          icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',
          tools:[
-           {name:'Instagram / Threads',desc:'視覺內容為主'},
-           {name:'YouTube Shorts',desc:'短影音，高觸及'},
-           {name:'Substack',desc:'電子報建立社群'},
+           {name:'Next.js',desc:'React 生態系王者，資源最多'},
+           {name:'Vercel',desc:'Next.js 親爸，部署體驗最佳'},
+           {name:'Supabase',desc:'開源 Firebase，SQL 資料庫'},
          ]},
-        {cat:'數據追蹤',en:'Analytics',col:'var(--green)',colR:'rgba(34,197,94',
-         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+        {cat:'金流收款',en:'Get Paid',col:'var(--green)',colR:'rgba(34,197,94',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
          tools:[
-           {name:'Google Analytics',desc:'網站流量分析'},
-           {name:'Mixpanel',desc:'用戶行為追蹤'},
-           {name:'UTM Builder',desc:'追蹤各管道轉換率'},
+           {name:'Stripe',desc:'全球金流首選，手續費最低'},
+           {name:'LemonSqueezy',desc:'SaaS 首選，自動處理稅務'},
+           {name:'綠界 / 藍新',desc:'台灣本地金流，支援超商'},
          ]},
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem;max-width:1020px;margin:0 auto;position:relative;z-index:1">`;
