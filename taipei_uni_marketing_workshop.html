@@ -2363,50 +2363,26 @@ function renderSlide(sd,idx){
       h+=`<div class="tip-box" style="max-width:880px;margin:.9rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">Small Numbers Law：</strong>先找 10 個真正需要你的人，就能找到 100 個。HXC 就是你的起點。</div>`;
       break;}
     case 'funnel-v3-examples':{
-      h+=blob('rgba(255,107,0,.12)','rgba(168,85,247,.08)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .8rem"></div>`;
-      if(sd.title)h+=`<h2 style="font-size:clamp(2rem,4vw,3rem);font-weight:900;margin-bottom:.2rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">精準打 <strong style="color:var(--orange)">1,000 個有痛的人</strong>，勝過廣播給 <strong style="color:rgba(255,255,255,.3)">100 萬個無感的人</strong></p>`;
+      h+=blob('rgba(168,85,247,.1)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
-      // Equation cards — click to reveal
-      const eqCards=[
-        {top:'STEP 1',num:'1,000',unit:'個精準 ICP',col:'var(--blue)',op:null,desc:'鎖定「有明確痛點、有付費意願」的那群人',sub:'不是所有人，是最痛的那群'},
-        {top:'STEP 2',num:'× 10%',unit:'轉換率',col:'var(--purple)',op:'×',desc:'精準受眾的轉換率是廣播的 100 倍以上',sub:'因為你的訊息直接打中他的痛'},
-        {top:'RESULT',num:'100',unit:'個死忠客戶',col:'var(--orange)',op:'=',desc:'100 個真正需要你的人，勝過 10,000 個點了讚就走的人',sub:'這才是 ICP 的意義'},
+      const funnelExamples=[
+        {level:'Persona',col:'rgba(255,255,255,.5)',product:'Nike',desc:'「喜歡運動的人」',note:'範圍太廣',advantage:'品牌認知度高、全球供應鏈'},
+        {level:'ICP',col:'var(--blue)',product:'Lululemon',desc:'「願意為高品質瑜珈服付費的都會女性」',note:'有明確痛點',advantage:'社群忠誠度、瑜珈文化代言'},
+        {level:'HXC',col:'var(--red)',product:'Peloton',desc:'「家裡沒時間去健身房但願意花 $2000 買飛輪」',note:'最急最痛',advantage:'高黏著度、訂閱收入穩定'}
       ];
-      h+=`<div style="display:flex;align-items:stretch;justify-content:center;gap:.6rem;max-width:900px;margin:0 auto 1.1rem;position:relative;z-index:1">`;
-      eqCards.forEach((c,i)=>{
-        if(c.op)h+=`<div style="display:flex;align-items:center;font-size:2rem;font-weight:900;color:var(--mid);flex-shrink:0">${c.op}</div>`;
-        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="flex:1;min-height:190px;max-width:260px">`;
-        h+=`<div class="card-answer" style="background:${c.col}12;border:2px solid ${c.col}40;border-radius:14px;padding:1.2rem 1rem;text-align:center;height:100%;box-sizing:border-box">`;
-        h+=`<div style="font-size:.62rem;font-weight:800;letter-spacing:.18em;color:${c.col};margin-bottom:.5rem">${c.top}</div>`;
-        h+=`<div style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:var(--ink);line-height:1">${c.num}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:${c.col};font-weight:700;margin:.3rem 0 .6rem">${c.unit}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.5">${c.desc}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:${c.col};margin-top:.4rem;font-style:italic">${c.sub}</div>`;
+      h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
+      funnelExamples.forEach((f,i)=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:auto">`;
+        h+=`<div class="card-answer" style="display:grid;grid-template-columns:100px 1fr;gap:1rem;padding:1rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:4px solid ${f.col};border-radius:0 10px 10px 0;align-items:center">`;
+        h+=`<div><div style="font-size:var(--min-label);font-weight:800;color:${f.col}">${f.level}</div><div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${f.product}</div></div>`;
+        h+=`<div><div style="font-size:var(--min-font);color:var(--ink)">${f.desc}</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${f.note}</div><div style="font-size:var(--min-label);color:${f.col};margin-top:.3rem"><strong>優勢：</strong>${f.advantage}</div></div>`;
         h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:14px;background:${c.col}20;flex-direction:column;gap:.4rem">`;
-        h+=`<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="${c.col}" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;
-        h+=`<div style="font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;color:var(--ink)">${c.num}</div>`;
-        h+=`<div style="font-size:.65rem;color:var(--mid)">點擊解鎖</div>`;
-        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:0 10px 10px 0;flex-direction:row;justify-content:space-between;padding:0 1.5rem"><span style="font-weight:800;color:${f.col}">${f.level}</span><span style="font-size:var(--min-font);color:var(--mid)">點擊看案例</span></div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
-      // Broadcast vs Precision comparison
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
-      h+=`<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.9rem 1.1rem">`;
-      h+=`<div style="font-size:.65rem;font-weight:800;letter-spacing:.15em;color:rgba(255,255,255,.3);margin-bottom:.4rem">廣播思維 ✗</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink)">觸及 <strong style="color:rgba(255,255,255,.6)">100 萬人</strong> × 轉換率 <strong style="color:rgba(255,255,255,.6)">0.01%</strong></div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.3rem">= 100 個客戶，但你燒掉了大量預算與時間</div>`;
-      h+=`</div>`;
-      h+=`<div style="background:rgba(255,107,0,.08);border:2px solid rgba(255,107,0,.3);border-radius:12px;padding:.9rem 1.1rem">`;
-      h+=`<div style="font-size:.65rem;font-weight:800;letter-spacing:.15em;color:var(--orange);margin-bottom:.4rem">精準思維 ✓</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink)">觸及 <strong style="color:var(--orange)">1,000 個有痛的 ICP</strong> × 轉換率 <strong style="color:var(--orange)">10%</strong></div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.3rem">= 100 個客戶，成本低 100 倍，品質高 10 倍</div>`;
-      h+=`</div>`;
-      h+=`</div>`;
-      h+=`<div class="tip-box" style="max-width:900px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">Small Numbers Law：</strong>找到 10 個真正需要你的人，就能找到 100 個。HXC 就是你的起點。</div>`;
       break;}
     case 'pmf-pillars-v2':{
       h+=blob('rgba(255,32,85,.08)','rgba(34,197,94,.06)');
