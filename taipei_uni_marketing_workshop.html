@@ -710,37 +710,43 @@ function renderSlide(sd,idx){
       break;
     case 'rules':
       h+=blob('rgba(255,255,255,.04)','rgba(255,107,0,.06)');
-      h+=`<div style="position:relative;z-index:1;max-width:820px;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">`;
-      h+=`<div>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center;max-width:840px;margin:0 auto">`;
       h+=chip;
-      h+=`<div class="bar"></div>`;
-      if(sd.title)h+=`<h1 style="font-size:clamp(2.4rem,6vw,4.8rem);margin-bottom:1.4rem">${sd.title}</h1>`;
+      h+=`<div class="bar" style="margin:.5rem auto .9rem"></div>`;
+      if(sd.title)h+=`<h1 style="font-size:clamp(2.8rem,7vw,5rem);margin-bottom:1.2rem">${sd.title}</h1>`;
+      // Two rules — equal cards
       if(sd.rules?.length){
-        h+=`<div style="display:flex;flex-direction:column;gap:.85rem;margin-bottom:1.2rem">`;
-        sd.rules.forEach((r,i)=>{
-          h+=`<div style="display:flex;align-items:baseline;gap:1rem;padding:.9rem 1.2rem;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03)">`;
-          h+=`<span style="font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;color:var(--orange);line-height:1;flex-shrink:0;min-width:1.6rem">${i+1}</span>`;
-          h+=`<span style="font-size:clamp(.95rem,1.7vw,1.25rem);font-weight:600;color:var(--ink);line-height:1.5">${r}</span>`;
+        h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.9rem">`;
+        sd.rules.forEach(r=>{
+          const parts=r.split(' — ');
+          const en=parts[0]||r, zh=parts[1]||'';
+          h+=`<div style="padding:1rem 1.4rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);text-align:left">`;
+          h+=`<div style="font-size:clamp(1rem,1.7vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:.3rem">${en}</div>`;
+          if(zh)h+=`<div style="font-size:var(--min-label);color:var(--orange);font-weight:600;letter-spacing:.04em">${zh}</div>`;
           h+=`</div>`;
         });
         h+=`</div>`;
       }
-      if(sd.footer)h+=`<div style="padding:.6rem 0;border-top:1px solid rgba(255,255,255,.08);font-size:clamp(.8rem,1.3vw,.95rem);color:rgba(255,255,255,.38);letter-spacing:.06em;font-style:italic">${sd.footer}</div>`;
+      if(sd.footer)h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.28);letter-spacing:.06em;font-style:italic;margin-bottom:1.2rem">${sd.footer}</div>`;
+      // Divider
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.85rem">`;
+      h+=`<div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>`;
+      h+=`<div style="font-size:var(--min-label);font-weight:800;color:var(--orange);letter-spacing:.12em;text-transform:uppercase">今天會學到</div>`;
+      h+=`<div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>`;
       h+=`</div>`;
-      // Right column: 這堂課會教你
-      h+=`<div style="background:rgba(255,107,0,.06);border:1.5px solid rgba(255,107,0,.2);border-radius:14px;padding:1.2rem 1.3rem">`;
-      h+=`<div style="font-size:var(--min-label);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.7rem">這堂課會教你</div>`;
+      // 5 lesson items — equal grid
       const courseItems=[
-        '怎麼分辨受眾與真正需求',
-        '怎麼把問題拆清楚',
-        '怎麼判斷一個作品值不值得做',
-        '怎麼把作品做成有價值的提案',
-        '怎麼用這套思維回到未來的專案、工作與創業',
+        {n:'01',t:'分辨受眾與真正需求'},
+        {n:'02',t:'把問題框架拆清楚'},
+        {n:'03',t:'判斷作品值不值得做'},
+        {n:'04',t:'把作品做成有力的提案'},
+        {n:'05',t:'把思維帶回你的創業'},
       ];
-      courseItems.forEach((item,i)=>{
-        h+=`<div style="display:flex;align-items:flex-start;gap:.65rem;margin-bottom:.6rem">`;
-        h+=`<div style="flex-shrink:0;width:20px;height:20px;border-radius:5px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:900;color:#fff;margin-top:.15rem">${i+1}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.85);line-height:1.55">${item}</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem">`;
+      courseItems.forEach(item=>{
+        h+=`<div style="padding:.85rem .7rem;border-radius:10px;background:rgba(255,107,0,.06);border:1.5px solid rgba(255,107,0,.18);display:flex;flex-direction:column;align-items:center;gap:.45rem;text-align:center">`;
+        h+=`<div style="font-size:.55rem;font-weight:900;color:var(--orange);letter-spacing:.12em;opacity:.7">${item.n}</div>`;
+        h+=`<div style="font-size:var(--min-label);font-weight:700;color:var(--ink);line-height:1.55">${item.t}</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
