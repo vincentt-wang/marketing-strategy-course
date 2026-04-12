@@ -584,29 +584,29 @@ function renderSlide(sd,idx){
       h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
       h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:1.2rem">三元裡缺任何一個，產品都無法成立</p>`;
       const wtmCards=[
-        {label:'有 D + F，沒有 V',cols:['var(--red)','var(--blue)'],miss:'V',missName:'存續性',headline:'很多人愛用，但不會賺錢',example:'早期 Twitter',detail:'大家都在用，廣告也很難賣。好產品不等於好生意。',col:'rgba(168,85,247',tagCol:'var(--purple)'},
-        {label:'有 F + V，沒有 D',cols:['var(--blue)','var(--green)'],miss:'D',missName:'欲求性',headline:'做得出來，也可能有商模，但沒人要',example:'Google Glass',detail:'技術領先、商業計劃完整，但真實生活中沒人需要它。',col:'rgba(59,130,246',tagCol:'var(--blue)'},
-        {label:'有 D + V，沒有 F',cols:['var(--red)','var(--green)'],miss:'F',missName:'可行性',headline:'很多人想要，但做不出來',example:'2015 年的 AI 助理',detail:'需求明確、商模清晰，但當時技術根本不支援。時機未到。',col:'rgba(255,32,85',tagCol:'var(--red)'},
+        {label:'有 D + F，沒有 V',has:[{t:'D',c:'var(--red)','cr':'rgba(255,32,85'},{t:'F',c:'var(--blue)','cr':'rgba(59,130,246'}],miss:{t:'V',c:'var(--green)'},headline:'很多人愛用，但不會賺錢',example:'早期 Twitter',detail:'大家都在用，廣告也很難賣。好產品不等於好生意。',col:'rgba(168,85,247'},
+        {label:'有 F + V，沒有 D',has:[{t:'F',c:'var(--blue)','cr':'rgba(59,130,246'},{t:'V',c:'var(--green)','cr':'rgba(34,197,94'}],miss:{t:'D',c:'var(--red)'},headline:'做得出來，也可能有商模，但沒人要',example:'Google Glass',detail:'技術領先、商業計劃完整，但真實生活中沒人需要它。',col:'rgba(59,130,246'},
+        {label:'有 D + V，沒有 F',has:[{t:'D',c:'var(--red)','cr':'rgba(255,32,85'},{t:'V',c:'var(--green)','cr':'rgba(34,197,94'}],miss:{t:'F',c:'var(--blue)'},headline:'很多人想要，但做不出來',example:'2015 年的 AI 助理',detail:'需求明確、商模清晰，但當時技術根本不支援。時機未到。',col:'rgba(255,32,85'},
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;position:relative;z-index:1">`;
       wtmCards.forEach((c,i)=>{
         const uid=`wtm-${sd.id}-${i}`;
         h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:210px">`;
         h+=`<div class="card-answer" style="background:${c.col},.07);border:1.5px solid ${c.col},.35);border-radius:12px;padding:1.1rem;text-align:left">`;
-        h+=`<div style="display:flex;gap:.35rem;margin-bottom:.6rem">`;
-        c.cols.forEach(col=>{
-          h+=`<span style="font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:.2em .55em;border-radius:999px;background:${col}22;color:${col};border:1px solid ${col}55">${col===c.cols[0]?'D ':''}${col===c.cols[1]&&c.miss!=='V'?'V':''}${col===c.cols[0]&&c.miss==='V'?'D ':''}${col===c.cols[1]&&c.miss==='D'?'V ':''}${col===c.cols[0]&&c.miss==='F'?'D ':''}${col===c.cols[1]&&c.miss==='F'?'V':''}</span>`;
+        h+=`<div style="display:flex;gap:.35rem;margin-bottom:.6rem;flex-wrap:wrap">`;
+        c.has.forEach(b=>{
+          h+=`<span style="font-size:.58rem;font-weight:800;letter-spacing:.1em;padding:.2em .55em;border-radius:999px;background:${b.cr},.15);color:${b.c};border:1px solid ${b.cr},.4)">${b.t} ✓</span>`;
         });
-        h+=`<span style="font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:.2em .55em;border-radius:999px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.15);text-decoration:line-through">缺 ${c.miss}</span>`;
+        h+=`<span style="font-size:.58rem;font-weight:800;letter-spacing:.1em;padding:.2em .55em;border-radius:999px;background:rgba(255,255,255,.04);color:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.12);text-decoration:line-through">缺 ${c.miss.t}</span>`;
         h+=`</div>`;
         h+=`<div style="font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:700;color:var(--ink);margin-bottom:.5rem;line-height:1.35">${c.headline}</div>`;
         h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.55;margin-bottom:.6rem">${c.detail}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.45);padding:.3rem .6rem;background:rgba(255,255,255,.04);border-radius:6px;display:inline-block">案例：${c.example}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.4);padding:.3rem .6rem;background:rgba(255,255,255,.04);border-radius:6px;display:inline-block">案例：${c.example}</div>`;
         h+=`</div>`;
         h+=`<div class="card-mask" style="border-radius:12px;background:${c.col},.12);border:1.5px solid ${c.col},.3)">`;
-        h+=`<div style="font-size:var(--min-label);font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.08em;margin-bottom:.4rem">${c.label}</div>`;
-        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);line-height:1.3">${c.headline}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.3);margin-top:.5rem">點擊展開</div>`;
+        h+=`<div style="font-size:var(--min-label);font-weight:800;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-bottom:.5rem">${c.label}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.15rem);font-weight:700;color:var(--ink);line-height:1.35">${c.headline}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.3);margin-top:.6rem">點擊展開</div>`;
         h+=`</div>`;
         h+=`</div>`;
       });
