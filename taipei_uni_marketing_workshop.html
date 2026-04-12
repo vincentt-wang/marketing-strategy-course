@@ -650,12 +650,17 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`</div>`;
       // QR + CTA at bottom
-      h+=`<div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">`;
-      h+=`<div style="width:90px;height:90px;border:2px dashed rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.25rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" style="color:rgba(255,255,255,.4)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid)">QR CODE</div>`;
+      h+=`<div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:row;align-items:flex-end;gap:2rem;padding-bottom:.2rem">`;
+      // LinkedIn QR
+      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">`;
+      h+=`<img src="images/Linkedin.jpg" alt="LinkedIn QR" style="width:150px;height:150px;object-fit:cover;border-radius:12px;border:3px solid rgba(255,255,255,.15)">`;
+      h+=`<div style="font-size:.72rem;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.06em">LinkedIn</div>`;
       h+=`</div>`;
-      if(sd.cta)h+=`<p style="margin-top:.4rem;font-size:var(--min-label);color:rgba(255,255,255,.25)">${sd.cta}</p>`;
+      // EmoTree QR
+      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:.5rem">`;
+      h+=`<img src="images/Emotree.jpg" alt="EmoTree QR" style="width:150px;height:150px;object-fit:cover;border-radius:12px;border:3px solid rgba(255,255,255,.15)">`;
+      h+=`<div style="font-size:.72rem;font-weight:600;color:rgba(255,255,255,.45);letter-spacing:.06em">EmoTree</div>`;
+      h+=`</div>`;
       h+=`</div>`;
       h+=`</div>`;
       // Carousel script
