@@ -2905,9 +2905,10 @@ function renderSlide(sd,idx){
         h+=`</div>`;
       });
       h+=`</div>`;
-      // Timing highlight section
-      h+=`<div style="max-width:960px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(6,182,212,.07));border:2px solid rgba(34,197,94,.45);border-radius:14px;padding:.85rem 1.2rem">`;
-      h+=`<div style="text-align:center;min-width:80px">`;
+      // Timing unlock card
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="max-width:960px;margin:0 auto;position:relative;z-index:1;min-height:90px">`;
+      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(6,182,212,.07));border:2px solid rgba(34,197,94,.45);border-radius:14px;padding:.85rem 1.2rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center">`;
+      h+=`<div style="text-align:center;min-width:90px">`;
       h+=`<div style="font-size:var(--min-label);font-weight:800;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem">最重要的元素</div>`;
       h+=`<div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:var(--green);line-height:1">Timing</div>`;
       h+=`<div style="font-size:var(--min-label);color:var(--mid)">時機</div>`;
@@ -2917,6 +2918,12 @@ function renderSlide(sd,idx){
       h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.35rem">— 雷軍（小米創辦人）</div>`;
       h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.75)">Audience、Message、Channel 都對，但時機錯了，再好的產品也難逃失敗。<br>反過來，站在正在成長的趨勢上，平凡的執行也能帶來爆發性結果。</div>`;
       h+=`</div></div>`;
+      h+=`<div class="card-mask" style="border-radius:14px;background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(6,182,212,.05));border:2px solid rgba(34,197,94,.3)">`;
+      h+=`<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+      h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:800;color:var(--green);margin-top:.5rem">GTM 四要素中，最重要的是哪一個？</div>`;
+      h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.35);margin-top:.4rem">點擊揭曉答案</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
       break;}
     case 'gtm-poc-pmf-v2':{
       h+=blob('rgba(34,197,94,.08)','rgba(59,130,246,.06)');
