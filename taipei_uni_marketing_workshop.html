@@ -4058,6 +4058,40 @@ function renderSlide(sd,idx){
         h+=`<div style="display:flex;gap:.4rem;align-items:flex-start"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="${item.col}" stroke-width="2.5" style="flex-shrink:0;margin-top:3px"><polyline points="9 18 15 12 9 6"/></svg><span style="font-size:var(--min-font);color:${item.col}">${item.q}</span></div>`;
       });
       h+=`</div></div>`;
+      // Mandala chart
+      h+=`<div style="max-width:940px;margin:.65rem auto;position:relative;z-index:1;background:rgba(168,85,247,.06);border:1.5px solid rgba(168,85,247,.25);border-radius:14px;padding:.85rem 1.2rem">`;
+      h+=`<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-bottom:.75rem">`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:800;color:var(--purple)">曼陀羅九宮格 — 大谷翔平用的目標發想法</div><div style="font-size:var(--min-label);color:var(--mid)">把核心目標放中央，8 個方向各自展開 → 每個方向再展開一張九宮格 = 64 個具體行動</div></div>`;
+      h+=`</div>`;
+      const mandalaLabels=[
+        {t:'技能發展',c:'rgba(168,85,247'},
+        {t:'知識學習',c:'rgba(59,130,246'},
+        {t:'人際關係',c:'rgba(34,197,94'},
+        {t:'身體健康',c:'rgba(255,107,0'},
+        {t:'你的核心目標',c:'rgba(168,85,247',center:true},
+        {t:'心理強化',c:'rgba(6,182,212'},
+        {t:'財務規劃',c:'rgba(251,191,36'},
+        {t:'習慣建立',c:'rgba(255,32,85'},
+        {t:'工具應用',c:'rgba(168,85,247'},
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;max-width:480px;margin:0 auto">`;
+      mandalaLabels.forEach(cell=>{
+        if(cell.center){
+          h+=`<div style="background:rgba(168,85,247,.25);border:2px solid rgba(168,85,247,.7);border-radius:8px;padding:.55rem .3rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60px">`;
+          h+=`<div style="font-size:var(--min-label);font-weight:900;color:var(--purple);line-height:1.3">${cell.t}</div>`;
+          h+=`<div style="font-size:.52rem;color:rgba(168,85,247,.6);margin-top:.2rem">← → ↑ ↓ 展開</div>`;
+        } else {
+          h+=`<div style="background:${cell.c},.08);border:1.5px solid ${cell.c},.3);border-radius:8px;padding:.45rem .3rem;text-align:center;display:flex;align-items:center;justify-content:center;min-height:60px;position:relative">`;
+          h+=`<div style="font-size:var(--min-label);font-weight:700;color:${cell.c},1);line-height:1.3">${cell.t}</div>`;
+          // mini 3x3 indicator in corner
+          h+=`<div style="position:absolute;bottom:3px;right:3px;display:grid;grid-template-columns:repeat(3,4px);gap:1px">`;
+          for(let i=0;i<9;i++)h+=`<div style="width:4px;height:4px;border-radius:1px;background:${cell.c},${i===4?'.8':'.25'})"></div>`;
+          h+=`</div>`;
+        }
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`</div>`;
       h+=`<div style="position:relative;z-index:1"><div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div></div>`;
       break;}
     case 'goal-oriented-iterate':{
