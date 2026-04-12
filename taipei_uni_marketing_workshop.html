@@ -3493,15 +3493,15 @@ function renderSlide(sd,idx){
       h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">從最粗糙到最完整，每一種都有它的使命</p>`;
       h+=`</div>`;
       const ptypes=[
-        {short:'POC',full:'Proof of Concept',zh:'概念驗證',col:'var(--orange)',
-         def:'最低成本驗證一個核心假設',
-         when:'還不確定某個技術或想法是否可行時',
-         ex:'用 Google Form 收表單測試是否有人願意報名，不需要做網站',
-         fidelity:'保真度 10%'},
         {short:'Proto',full:'Prototype',zh:'原型',col:'var(--blue)',
-         def:'可互動、可展示，但不完整',
-         when:'想測試用戶的使用流程和主要體驗',
-         ex:'用 Figma 做出可點擊的 App 畫面，不需要真的寫程式',
+         def:'最粗糙的可視化版本，傳達想法即可',
+         when:'只需要讓別人看懂你在做什麼，不需要可以用',
+         ex:'手繪草圖、Canva 示意圖、假截圖 — 不需要可點擊',
+         fidelity:'保真度 10%'},
+        {short:'POC',full:'Proof of Concept',zh:'概念驗證',col:'var(--orange)',
+         def:'驗證核心假設是否可行的互動版本',
+         when:'想測試用戶的使用流程或技術上是否能做到',
+         ex:'用 Figma 做可點擊流程，或 Google Form 測試報名意願',
          fidelity:'保真度 30-60%'},
         {short:'MVP',full:'Minimum Viable Product',zh:'最小可行產品',col:'var(--green)',
          def:'能真的用、能提供核心價值的第一版',
