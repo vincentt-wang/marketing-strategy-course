@@ -276,6 +276,7 @@ svg{overflow:visible}
   <button class="sec-btn"        data-sec="2" onclick="jumpToSection(2)">② 欲求性</button>
   <button class="sec-btn"        data-sec="3" onclick="jumpToSection(3)">③ 可行性</button>
   <button class="sec-btn"        data-sec="4" onclick="jumpToSection(4)">④ 存續性</button>
+  <button class="sec-btn"        data-sec="5" onclick="jumpToSection(5)">⑤ 成長思維</button>
 </div>
 <script>
 const D=[
@@ -355,17 +356,18 @@ const D=[
 {id:'s43c',sec:4,sub:'存續性｜簡報',type:'ppt-visual',chip:['視覺原則','orange'],title:'三個讓簡報更專業的技巧'},
 {id:'s44',sec:4,sub:'存續性｜發表',type:'checklist-v2',chip:['上台前確認','yellow'],title:'發表前最後確認'},
 {id:'s45',sec:4,sub:'存續性｜發表',type:'big-quote',chip:['最後一句話','white'],quote:'做圖不是目的<br><span class="g-orange">讓那個人採取行動</span><br>才是',sub2:'今天學的所有工具，都服務這一個目標'},
-{id:'s46',sec:4,sub:'存續性｜收尾',type:'resources',chip:['帶走這些','white'],title:'帶走這些'},
-{id:'s47',sec:4,sub:'存續性｜收尾',type:'close-carousel',chip:['Q&A','white'],cta:'掃描 QR Code 加 Vincent LinkedIn'},
+{id:'s46',sec:4,sub:'存續性｜收尾',type:'section',chip:['Section 4 收尾','white'],title:'價值已經說清楚<br>接下來：成長思維',sub2:'Section 5：成長思維 — 擴展你的邊界'},
 // ── SECTION 5：成長思維｜擴展邊界 ──────────────────────────────────────
 {id:'s5a0',sec:5,sub:'成長思維｜開場',type:'section-cover',secNum:'⑤',secTitle:'成長思維',secEn:'Growth Mindset',sub2:'擴展你的邊界'},
 {id:'s5a1',sec:5,sub:'成長思維｜心態',type:'growth-fixed-mindset',chip:['兩種心態','purple'],title:'Growth Mindset vs Fixed Mindset'},
 {id:'s5a2',sec:5,sub:'成長思維｜槓桿',type:'leverage-safety',chip:['槓桿與安全邊際','blue'],title:'Leverage 與 Safety Margin'},
 {id:'s5a3',sec:5,sub:'成長思維｜認知',type:'pattern-awareness',chip:['覺察力','green'],title:'Pattern Recognition 與 Self-Awareness'},
 {id:'s5a4',sec:5,sub:'成長思維｜收尾',type:'growth-final',chip:['最後一課','orange'],title:'擴展認知的邊界'},
+{id:'s5a5',sec:5,sub:'成長思維｜收尾',type:'resources',chip:['帶走這些','white'],title:'帶走這些'},
+{id:'s5a6',sec:5,sub:'成長思維｜收尾',type:'close-carousel',chip:['Q&A','white'],cta:'掃描 QR Code 加 Vincent LinkedIn'},
 ];
 const total=D.length;
-const secStarts={1:0,2:26,3:46,4:54,5:74};
+const secStarts={1:0,2:27,3:47,4:55,5:73};
 const secNames={1:'① 策略思維',2:'② 欲求性',3:'③ 可行性',4:'④ 存續性',5:'⑤ 成長思維'};
 let cur=0;
 const timers={};
@@ -600,18 +602,18 @@ function renderSlide(sd,idx){
         @keyframes floatQuote2 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(6px,10px) rotate(2deg)} }
         @keyframes floatQuote3 { 0%,100%{transform:translate(0,0) rotate(-1deg)} 50%{transform:translate(-8px,-6px) rotate(1deg)} }
         @keyframes titlePulse { 0%,100%{opacity:1} 50%{opacity:.85} }
-        .float-quote{position:absolute;padding:.5rem .8rem;border-radius:8px;font-size:var(--min-label);font-weight:600;max-width:160px;text-align:center;backdrop-filter:blur(8px);cursor:pointer;transition:all .3s ease;opacity:.6}
+        .float-quote{position:absolute;padding:.5rem .8rem;border-radius:8px;font-size:var(--min-label);font-weight:600;max-width:140px;text-align:center;backdrop-filter:blur(8px);cursor:pointer;transition:all .3s ease;opacity:.4;z-index:0}
         .float-quote:hover{transform:scale(1.1)!important;opacity:1;z-index:10}
         .carousel-title-clean{font-size:clamp(1.6rem,4vw,2.8rem);line-height:1.3;font-weight:800;color:var(--orange);animation:titlePulse 3s ease-in-out infinite}
       </style>`;
       h+=`<div style="position:relative;z-index:1;text-align:center;max-width:950px;margin:0 auto;min-height:480px">`;
       h+=chip;
       h+=`<div class="bar" style="margin:.6rem auto .8rem"></div>`;
-      // Floating quotes around edges
+      // Floating quotes around edges - pushed further out to avoid overlap
       const positions=[
-        {top:'8%',left:'3%',anim:0},{top:'5%',right:'5%',anim:1},
-        {top:'40%',left:'0',anim:2},{top:'38%',right:'2%',anim:3},
-        {bottom:'25%',left:'5%',anim:0},{bottom:'22%',right:'3%',anim:1}
+        {top:'2%',left:'0',anim:0},{top:'2%',right:'0',anim:1},
+        {top:'35%',left:'-5%',anim:2},{top:'35%',right:'-5%',anim:3},
+        {bottom:'8%',left:'0',anim:0},{bottom:'8%',right:'0',anim:1}
       ];
       cqQuotes.slice(0,6).forEach((q,i)=>{
         const pos=positions[i];
@@ -620,7 +622,7 @@ function renderSlide(sd,idx){
         h+=`${q.q}</div>`;
       });
       // Center carousel with WHITE BOARD background to prevent overlap
-      h+=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:75%;max-width:620px;background:rgba(10,10,18,.95);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem 2.5rem;backdrop-filter:blur(12px)">`;
+      h+=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70%;max-width:580px;background:rgba(10,10,18,.98);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:2rem 2.5rem;backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:5">`;
       h+=`<div id="cq-wrap-${sd.id}" style="min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer" onclick="cqNext_${sd.id}()">`;
       h+=`<h1 id="cq-title-${sd.id}" class="carousel-title-clean">${cqQuotes[0].q}</h1>`;
       h+=`<p id="cq-sub-${sd.id}" style="margin-top:.8rem;font-size:var(--min-font);color:var(--mid);transition:opacity .4s">${cqQuotes[0].s}</p>`;
@@ -643,7 +645,7 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       // Carousel script
       const cqData=JSON.stringify(cqQuotes.map(q=>({q:q.q,s:q.s})));
-      h+=`<script>(function(){var qs=${cqData};var cur=0;var sid='${sd.id}';function go(n){cur=((n%qs.length)+qs.length)%qs.length;var t=document.getElementById('cq-title-'+sid);var s=document.getElementById('cq-sub-'+sid);if(t){t.style.opacity='0';s.style.opacity='0';setTimeout(function(){t.textContent=qs[cur].q;s.textContent=qs[cur].s;t.style.opacity='1';s.style.opacity='1';},300);}document.querySelectorAll('.cq-dot-'+sid).forEach(function(d,i){d.style.width=i===cur?'18px':'6px';d.style.background=i===cur?'var(--orange)':'rgba(255,255,255,.2)';});}window['cqGo_'+sid]=go;window['cqNext_'+sid]=function(){go(cur+1);};var timer=setInterval(function(){if(!document.getElementById('cq-title-'+sid)){clearInterval(timer);return;}go(cur+1);},4500);})();<\/script>`;
+      h+=`<script>(function(){var qs=${cqData};var cur=0;var sid='${sd.id}';function go(n){cur=((n%qs.length)+qs.length)%qs.length;var t=document.getElementById('cq-title-'+sid);var s=document.getElementById('cq-sub-'+sid);if(t){t.style.opacity='0';s.style.opacity='0';setTimeout(function(){t.textContent=qs[cur].q;s.textContent=qs[cur].s;t.style.opacity='1';s.style.opacity='1';},150);}document.querySelectorAll('.cq-dot-'+sid).forEach(function(d,i){d.style.width=i===cur?'18px':'6px';d.style.background=i===cur?'var(--orange)':'rgba(255,255,255,.2)';});}window['cqGo_'+sid]=go;window['cqNext_'+sid]=function(){go(cur+1);};var timer=setInterval(function(){if(!document.getElementById('cq-title-'+sid)){clearInterval(timer);return;}go(cur+1);},1000);})();<\/script>`;
       break;}
     case 'close':
       h+=blob('rgba(255,107,0,.12)','rgba(255,32,85,.09)');
@@ -1384,10 +1386,10 @@ function renderSlide(sd,idx){
       h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
-      h+=`<div style="display:flex;flex-direction:column;gap:.7rem;max-width:620px;margin:0 auto">`;
-      [{time:'14:00–14:30',sec:'① 底層思維',desc:'創新三元 ‧ 設計思維 ‧ MECE ‧ 費米估算',col:'var(--orange)'},{time:'14:30–15:15',sec:'② 欲求性洞察',desc:'Persona ‧ ICP ‧ HXC ‧ 痛點分析',col:'var(--blue)'},{time:'15:15–16:00',sec:'③ 存續性發表',desc:'GTM ‧ POC ‧ PMF ‧ Pitch ‧ 上台發表',col:'var(--green)'}].forEach((r,ri)=>{
+      h+=`<div style="display:flex;flex-direction:column;gap:.6rem;max-width:640px;margin:0 auto">`;
+      [{time:'14:00–14:25',sec:'① 策略思維',desc:'創新三元 · Top-down · MECE · 費米估算',col:'var(--orange)'},{time:'14:25–14:50',sec:'② 欲求性',desc:'Persona · ICP · HXC · 痛點分析 · 價值公式',col:'var(--blue)'},{time:'14:50–15:10',sec:'③ 可行性',desc:'AI 工具 · Prototype · MVP · 快速驗證',col:'var(--green)'},{time:'15:10–15:40',sec:'④ 存續性',desc:'GTM · Pitch · 簡報技巧 · 上台發表',col:'var(--yellow)'},{time:'15:40–16:00',sec:'⑤ 成長思維',desc:'Growth Mindset · 槓桿 · 覺察力 · Q&A',col:'var(--purple)'}].forEach((r,ri)=>{
         const active=ri===0;
-        h+=`<div style="display:flex;align-items:center;gap:1rem;background:${active?'rgba(255,107,0,.1)':'rgba(255,255,255,.03)'};border:1px solid ${active?'var(--orange)':'rgba(255,255,255,.08)'};border-left:3px solid ${r.col};border-radius:8px;padding:.85rem 1.2rem"><div style="font-size:clamp(.72rem,.98vw,.82rem);color:var(--mid);min-width:95px">${r.time}</div><div style="flex:1"><div style="font-weight:800;font-size:clamp(.92rem,1.65vw,1.2rem);color:var(--ink)">${r.sec}</div><div style="font-size:.78rem;color:var(--mid);margin-top:.13rem">${r.desc}</div></div>${active?`<div style="background:var(--orange);border-radius:4px;padding:.12rem .52rem;color:#fff;font-size:.56rem;font-weight:800;letter-spacing:.08em">NOW</div>`:''}</div>`;
+        h+=`<div style="display:flex;align-items:center;gap:1rem;background:${active?'rgba(255,107,0,.1)':'rgba(255,255,255,.03)'};border:1px solid ${active?'var(--orange)':'rgba(255,255,255,.08)'};border-left:3px solid ${r.col};border-radius:8px;padding:.75rem 1.1rem"><div style="font-size:clamp(.68rem,.92vw,.78rem);color:var(--mid);min-width:90px">${r.time}</div><div style="flex:1"><div style="font-weight:800;font-size:clamp(.88rem,1.5vw,1.1rem);color:var(--ink)">${r.sec}</div><div style="font-size:.75rem;color:var(--mid);margin-top:.1rem">${r.desc}</div></div>${active?`<div style="background:var(--orange);border-radius:4px;padding:.1rem .5rem;color:#fff;font-size:.54rem;font-weight:800;letter-spacing:.08em">NOW</div>`:''}</div>`;
       });h+=`</div>`;break;
     case 'gtm-steps':
       h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
@@ -2938,18 +2940,18 @@ function renderSlide(sd,idx){
       h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
       // Large centered Venn SVG - Labels in CENTER of circles
       h+=`<svg viewBox="0 0 400 300" width="400" height="300" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
-      // Desirability top - label at circle center (200, 75)
+      // Desirability top - circle center at (200, 105), label near top of circle
       h+=`<circle cx="200" cy="105" r="90" fill="rgba(255,32,85,.12)" stroke="rgba(255,32,85,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="200" y="52" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(255,32,85,1)">欲求性</text>`;
-      h+=`<text x="200" y="68" text-anchor="middle" font-size="10" fill="rgba(255,32,85,.7)">Desirability</text>`;
-      // Feasibility bottom-left - label at circle center (140, 210)
+      h+=`<text x="200" y="50" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(255,32,85,1)">欲求性</text>`;
+      h+=`<text x="200" y="66" text-anchor="middle" font-size="10" fill="rgba(255,32,85,.7)">Desirability</text>`;
+      // Feasibility bottom-left - circle center at (140, 210), label at center of circle
       h+=`<circle cx="140" cy="210" r="90" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="95" y="260" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
-      h+=`<text x="95" y="276" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
-      // Viability bottom-right - label at circle center (260, 210)
+      h+=`<text x="90" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
+      h+=`<text x="90" y="216" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
+      // Viability bottom-right - circle center at (260, 210), label at center of circle
       h+=`<circle cx="260" cy="210" r="90" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="305" y="260" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
-      h+=`<text x="305" y="276" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
+      h+=`<text x="310" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
+      h+=`<text x="310" y="216" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
       h+=`</svg>`;
       // Balanced definition boxes for all three
       h+=`<div style="display:flex;gap:.8rem;max-width:820px;flex-wrap:wrap;justify-content:center">`;
@@ -2967,7 +2969,6 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`</div>`;
       h+=`</div>`;
-      if(sd.xrefs)h+=renderXrefs(sd.xrefs);
       break;}
     case 'ai-feasibility':{
       h+=blob('rgba(6,182,212,.08)','rgba(34,197,94,.06)');
