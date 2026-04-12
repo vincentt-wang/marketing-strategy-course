@@ -505,11 +505,20 @@ function dtToggle(sid,si){
   ];
   const detail=document.getElementById('dt-detail-'+sid);
   const desc=document.getElementById('dt-desc-'+sid);
+  // Toggle: re-clicking the active button collapses it
+  if(detail&&detail.dataset.activeIdx!==undefined&&parseInt(detail.dataset.activeIdx)===si){
+    detail.style.opacity='0';
+    delete detail.dataset.activeIdx;
+    for(let i=0;i<5;i++){
+      const el=document.getElementById('dt-'+sid+'-'+i);
+      if(el){el.style.background='rgba(255,255,255,.03)';el.style.borderColor=steps[i].col;el.style.transform='';}
+    }
+    return;
+  }
   // Reset all steps
   for(let i=0;i<5;i++){
     const el=document.getElementById('dt-'+sid+'-'+i);
     if(el){el.style.background='rgba(255,255,255,.03)';el.style.borderColor=steps[i].col;el.style.transform='';}
-    const bg=el?.querySelector(`[class*="dt-bg"]`);
   }
   const s=steps[si];
   const el=document.getElementById('dt-'+sid+'-'+si);
@@ -522,6 +531,7 @@ function dtToggle(sid,si){
     detail.style.opacity='1';
     detail.style.borderColor=s.col;
     desc.textContent=s.desc;
+    detail.dataset.activeIdx=String(si);
   }
 }
 
