@@ -3449,21 +3449,25 @@ function renderSlide(sd,idx){
            {name:'綠界 / 藍新',desc:'台灣本地金流，支援超商'},
          ]},
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.7rem;max-width:1020px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
       toolCats.forEach((cat,i)=>{
-        const uid=`tw-${sd.id}-${i}`;
-        h+=`<div class="step-item" id="${uid}" onclick="toggleStep('${uid}')" style="border:1.5px solid ${cat.colR},.3);border-radius:12px;min-height:auto">`;
-        h+=`<div class="step-front" style="background:${cat.colR},.1);border:none;flex-direction:column;align-items:center;text-align:center;padding:.9rem .7rem;gap:.35rem;border-radius:10px">`;
-        h+=`<span style="color:${cat.col}">${cat.icon}</span>`;
-        h+=`<span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${cat.cat}</span>`;
-        h+=`<span style="font-size:var(--min-label);color:var(--mid)">${cat.en}</span>`;
-        h+=`<span style="font-size:var(--min-label);color:${cat.col}">${cat.tools.length} 工具</span>`;
-        h+=`</div>`;
-        h+=`<div class="step-back" style="background:${cat.colR},.06);max-height:300px"><div class="step-back-inner" style="padding:.8rem;display:flex;flex-direction:column;gap:.35rem">`;
+        const uid=`tw2-${sd.id}-${i}`;
+        h+=`<div style="border-radius:14px;overflow:hidden;border:2px solid ${cat.colR},.3)">`;
+        // header button
+        h+=`<button onclick="(function(btn){var c=btn.nextElementSibling;var open=c.style.display!=='none';c.style.display=open?'none':'block';btn.querySelector('.tw-arr').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;background:${cat.colR},.1);border:none;cursor:pointer;padding:.9rem 1.1rem;display:flex;align-items:center;gap:.7rem;text-align:left">`;
+        h+=`<span style="color:${cat.col};flex-shrink:0">${cat.icon}</span>`;
+        h+=`<span style="flex:1"><span style="display:block;font-size:var(--min-font);font-weight:700;color:var(--ink)">${cat.cat}</span><span style="font-size:var(--min-label);color:var(--mid)">${cat.en} · ${cat.tools.length} 工具</span></span>`;
+        h+=`<svg class="tw-arr" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="${cat.col}" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
+        h+=`</button>`;
+        // body — hidden by default
+        h+=`<div style="display:none;background:${cat.colR},.06);padding:.7rem .8rem;display:flex;flex-direction:column;gap:.45rem">`;
         cat.tools.forEach(t=>{
-          h+=`<div style="padding:.35rem .6rem;background:rgba(255,255,255,.04);border-radius:5px;border-left:2px solid ${cat.colR},.5)"><div style="font-size:var(--min-font);font-weight:600;color:var(--ink)">${t.name}</div><div style="font-size:var(--min-label);color:var(--mid)">${t.desc}</div></div>`;
+          h+=`<div style="padding:.5rem .75rem;background:rgba(255,255,255,.04);border-radius:8px;border-left:3px solid ${cat.colR},.55)">`;
+          h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.15rem">${t.name}</div>`;
+          h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.45">${t.desc}</div>`;
+          h+=`</div>`;
         });
-        h+=`</div></div>`;
+        h+=`</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
