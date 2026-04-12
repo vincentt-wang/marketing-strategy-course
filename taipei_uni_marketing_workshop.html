@@ -1938,23 +1938,41 @@ function renderSlide(sd,idx){
       break;}
     case 'pitch-deck-structure':{
       h+=blob('rgba(255,107,0,.08)','rgba(255,32,85,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">每一頁不超過 30 秒，控制在 10 頁內</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .7rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.8rem">每一頁不超過 30 秒，控制在 10 頁內</p>`;
       h+=`</div>`;
       const deckStructure=[
         {n:'1',name:'Hook',desc:'抓住注意力',col:'var(--red)'},
         {n:'2',name:'Problem',desc:'痛點定義',col:'var(--orange)'},
         {n:'3',name:'Solution',desc:'你的解法',col:'var(--blue)'},
         {n:'4',name:'Market',desc:'市場規模與趨勢',col:'var(--green)'},
-        {n:'5',name:'Traction',desc:'成長動能',col:'var(--cyan)'}
+        {n:'5',name:'Traction',desc:'成長動能',col:'var(--cyan)'},
+        {n:'6',name:'Business Model',desc:'怎麼賺錢',col:'var(--yellow)'},
+        {n:'7',name:'Competition',desc:'競爭差異化',col:'var(--purple)'},
+        {n:'8',name:'Team',desc:'為什麼是你們',col:'var(--blue)'},
+        {n:'9',name:'Financials',desc:'財務規劃',col:'var(--green)'},
+        {n:'10',name:'Ask',desc:'你需要什麼',col:'var(--orange)'},
       ];
-      h+=`<div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="display:flex;gap:.45rem;justify-content:center;flex-wrap:wrap;max-width:940px;margin:0 auto .7rem;position:relative;z-index:1">`;
       deckStructure.forEach((d,i)=>{
-        h+=`<div style="flex:0 0 auto;width:140px;background:${d.col}15;border:2px solid ${d.col}40;border-radius:10px;padding:.9rem;text-align:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.1+i*.1}s">`;
-        h+=`<div style="width:28px;height:28px;border-radius:50%;background:${d.col};color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto .4rem;font-size:.9rem">${d.n}</div>`;
+        h+=`<div style="flex:0 0 auto;width:120px;background:${d.col}15;border:2px solid ${d.col}40;border-radius:10px;padding:.75rem;text-align:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.05+i*.07}s">`;
+        h+=`<div style="width:26px;height:26px;border-radius:50%;background:${d.col};color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto .35rem;font-size:.8rem">${d.n}</div>`;
         h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.name}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${d.desc}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.15rem">${d.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      // Quick-make row
+      h+=`<div style="max-width:940px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem">`;
+      [{n:'1',name:'先寫大綱',desc:'3-5 個標題說完整個故事',time:'2 min',col:'var(--red)'},
+       {n:'2',name:'一頁一重點',desc:'每頁最多 20 字，只說一件事',time:'3 min',col:'var(--orange)'},
+       {n:'3',name:'找圖配色',desc:'Unsplash + 品牌色',time:'3 min',col:'var(--blue)'},
+       {n:'4',name:'AI 生成初版',desc:'Gamma · Manus · Claude 輸入大綱 10 秒出簡報',time:'1 min',col:'var(--purple)'}].forEach(s=>{
+        h+=`<div style="background:${s.col}10;border:1px solid ${s.col}30;border-radius:9px;padding:.6rem .75rem;display:flex;align-items:center;gap:.6rem">`;
+        h+=`<div style="width:22px;height:22px;border-radius:50%;background:${s.col};color:#fff;font-weight:800;font-size:.7rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">${s.n}</div>`;
+        h+=`<div style="flex:1;min-width:0"><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${s.name}</div><div style="font-size:var(--min-label);color:var(--mid);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.desc}</div></div>`;
+        h+=`<div style="font-size:var(--min-label);color:${s.col};font-weight:700;flex-shrink:0">${s.time}</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
