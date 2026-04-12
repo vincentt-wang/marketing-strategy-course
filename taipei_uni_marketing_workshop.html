@@ -4110,9 +4110,31 @@ function jumpToSection(sec){const idx=secStarts[sec];if(idx!==undefined)scrollTo
 function jumpToSlide(slideId){const idx=D.findIndex(s=>s.id===slideId);if(idx!==-1)scrollToSlide(idx);}
 document.getElementById('btn-prev').addEventListener('click',()=>scrollToSlide(cur-1));
 document.getElementById('btn-next').addEventListener('click',()=>scrollToSlide(cur+1));
+// Sequential reveal: find next locked element in the current slide and trigger it
+function findNextRevealable(){
+  const slideEl=document.querySelector(`.slide[data-index="${cur}"]`);
+  if(!slideEl)return null;
+  // 1. First unlock-card not yet unlocked
+  const card=slideEl.querySelector('.unlock-card:not(.unlocked)');
+  if(card)return card;
+  // 2. First triad-orb not yet opened
+  const orb=slideEl.querySelector('.triad-orb:not(.to-open)');
+  if(orb)return orb;
+  // 3. First insightReveal box whose answer is still hidden
+  const ins=[...slideEl.querySelectorAll('[onclick*="insightReveal"]')].find(el=>{
+    const ans=el.querySelector('.ins-answer');
+    return ans&&ans.style.visibility!=='visible';
+  });
+  if(ins)return ins;
+  return null;
+}
 document.addEventListener('keydown',e=>{
-  if(['ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();scrollToSlide(cur+1);}
-  if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();scrollToSlide(cur-1);}
+  if(['ArrowDown','ArrowRight',' ','PageDown'].includes(e.key)){
+    e.preventDefault();
+    const target=findNextRevealable();
+    if(target){target.click();}else{scrollToSlide(cur+1);}
+  }
+  if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();scrollToSlide(cur-1);}
   if(e.key==='Home'){e.preventDefault();scrollToSlide(0);}
   if(e.key==='End'){e.preventDefault();scrollToSlide(total-1);}
 });
