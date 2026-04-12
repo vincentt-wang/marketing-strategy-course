@@ -1964,24 +1964,71 @@ function renderSlide(sd,idx){
     case 'pitch-elements':{
       h+=blob('rgba(59,130,246,.08)','rgba(168,85,247,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個元素，展開說明與技巧</p>`;
       h+=`</div>`;
-      const elements=[
-        {name:'Hook',desc:'吸引注意力',col:'var(--red)'},{name:'Problem',desc:'痛點定義',col:'var(--orange)'},
-        {name:'Solution',desc:'解決方案',col:'var(--blue)'},{name:'Market',desc:'市場規模',col:'var(--green)'},
-        {name:'Traction',desc:'成長動能',col:'var(--cyan)'},{name:'Business Model',desc:'怎麼賺錢',col:'var(--yellow)'},
-        {name:'Competition',desc:'競爭分析',col:'var(--purple)'},{name:'Team',desc:'為什麼是你',col:'var(--red)'},
-        {name:'Financials',desc:'財務預測',col:'var(--orange)'},{name:'Ask',desc:'你需要什麼',col:'var(--green)'}
+      const pitchElems=[
+        {n:'01',name:'Hook',zh:'抓住注意力',col:'var(--red)',
+         goal:'讓聽眾在前 5 秒決定要不要繼續聽',
+         tip:'問句、數字震撼、或反常識陳述',
+         ex:'「台灣每年有 5,000 家新餐廳開業，80% 在兩年內關閉。為什麼？」'},
+        {n:'02',name:'Problem',zh:'痛點定義',col:'var(--orange)',
+         goal:'讓聽眾點頭說「對！這就是我的問題」',
+         tip:'具體情境 + 描述現有解法的不足',
+         ex:'「找外燴廠商要打 20 通電話，還不確定品質」'},
+        {n:'03',name:'Solution',zh:'解決方案',col:'var(--blue)',
+         goal:'說結果，不說功能；一句話說清楚',
+         tip:'類比法：「我們是 _____ 界的 Uber」',
+         ex:'「一鍵比價 30 家廠商，三天內完成預訂」'},
+        {n:'04',name:'Market',zh:'市場規模',col:'var(--green)',
+         goal:'證明這個問題值得解決',
+         tip:'TAM → SAM → SOM 漏斗，從大到小',
+         ex:'「台灣活動外燴市場 120 億，先從婚宴切入」'},
+        {n:'05',name:'Traction',zh:'成長動能',col:'var(--cyan)',
+         goal:'用數字證明有真實需求',
+         tip:'用戶數、MRR、留存率、NPS 擇一最強的說',
+         ex:'「上線 3 個月，200 筆成交，月成長率 40%」'},
+        {n:'06',name:'Business Model',zh:'怎麼賺錢',col:'var(--yellow)',
+         goal:'說清楚你的變現路徑與單位經濟',
+         tip:'每筆交易賺多少？LTV 和 CAC 的關係？',
+         ex:'「每筆訂單抽 8%，目標月交易額達 500 萬」'},
+        {n:'07',name:'Competition',zh:'競爭分析',col:'var(--purple)',
+         goal:'說明差異化，而不是說「沒有競爭者」',
+         tip:'競爭矩陣，X/Y 軸選對你有利的維度',
+         ex:'「現有解法要嘛太貴要嘛太慢，我們是首個...」'},
+        {n:'08',name:'Team',zh:'為什麼是你',col:'var(--blue)',
+         goal:'讓聽眾相信你有能力執行',
+         tip:'相關經歷 + 互補能力，不要只說學歷',
+         ex:'「CTO 做過 3 個上線產品，CEO 在外燴業工作 5 年」'},
+        {n:'09',name:'Financials',zh:'財務預測',col:'var(--orange)',
+         goal:'說明你怎麼用這筆資金，以及里程碑',
+         tip:'12-18 個月計畫，關鍵時間點要具體',
+         ex:'「募 300 萬：6 個月達 BEP，12 個月擴北部」'},
+        {n:'10',name:'Ask',zh:'你需要什麼',col:'var(--green)',
+         goal:'清楚的行動號召，讓對方知道下一步',
+         tip:'具體金額或資源 + 用途 + 你能給的回報',
+         ex:'「尋找種子輪 300 萬，或餐飲業人脈連結」'},
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
-      elements.forEach((e,i)=>{
-        h+=`<div style="background:${e.col}15;border:1.5px solid ${e.col}40;border-radius:8px;padding:.8rem .6rem;text-align:center;opacity:0;animation:fade-up .4s ease forwards;animation-delay:${.1+i*.05}s">`;
-        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${e.name}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${e.desc}</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
+      pitchElems.forEach((e,i)=>{
+        const uid=`pe-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
+        h+=`<div class="card-answer" style="background:${e.col}10;border:1.5px solid ${e.col}40;border-top:3px solid ${e.col};border-radius:10px;padding:.85rem .8rem">`;
+        h+=`<div style="font-size:.5rem;font-weight:800;letter-spacing:.12em;color:${e.col};margin-bottom:.2rem">${e.n}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.55rem">${e.name}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.3rem;display:flex;gap:.3rem;align-items:flex-start"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="${e.col}" stroke-width="2.5" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>${e.goal}</span></div>`;
+        h+=`<div style="font-size:var(--min-label);color:${e.col};margin-bottom:.3rem;padding:.25rem .4rem;background:${e.col}15;border-radius:4px">💡 ${e.tip}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.5);font-style:italic;line-height:1.4">${e.ex}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:10px;background:${e.col}18;border:1.5px solid ${e.col}40">`;
+        h+=`<div style="font-size:.5rem;font-weight:800;letter-spacing:.14em;color:${e.col};margin-bottom:.2rem">${e.n}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:800;color:var(--ink)">${e.name}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${e.zh}</div>`;
+        h+=`</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
-      h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--blue)">電梯簡報：</strong>Hook → Pain → Solution → CTA，30 秒說服一個人</div>`;
+      h+=`<div class="tip-box" style="max-width:960px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:var(--blue)">核心順序：</strong>Hook → Problem → Solution → Ask。其餘元素視場合增減，但這四個不能少。</div>`;
       break;}
     case 'elevator-pitch':{
       h+=blob('rgba(168,85,247,.08)','rgba(255,107,0,.06)');
