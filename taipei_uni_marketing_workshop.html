@@ -4235,6 +4235,12 @@ function findNextRevealable(){
     return body&&body.style.display==='none';
   });
   if(catBtn)return catBtn;
+  // 5. First step-item accordion not yet open (audience-layers etc.)
+  const stepItem=slideEl.querySelector('.step-item:not(.open)');
+  if(stepItem)return stepItem;
+  // 6. First compare card not yet revealed (vitamin-painkiller etc.)
+  const cmpCard=slideEl.querySelector('.cmp-card:not(.revealed)');
+  if(cmpCard)return cmpCard;
   return null;
 }
 document.addEventListener('keydown',e=>{
