@@ -2907,6 +2907,36 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--green)">順序不能錯：</strong>先有方向，再驗證，再放大</div>`;
       break;}
+    case 'viability-exercise':{
+      h+=blob('rgba(255,107,0,.08)','rgba(251,191,36,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .7rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.8rem">針對你自己的作品，誠實回答這四個問題</p>`;
+      h+=`</div>`;
+      const vExItems=[
+        {num:'01',col:'var(--green)',colR:'rgba(34,197,94',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',label:'價值主張',q:'你的作品幫助誰解決什麼問題？',hint:'用一句話：「幫助 ___ 做到 ___，不需要 ___」'},
+        {num:'02',col:'var(--yellow)',colR:'rgba(251,191,36',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',label:'定價策略',q:'你的作品值多少錢？為什麼這個價格合理？',hint:'用成本？競品比較？用戶省下的時間或金錢？'},
+        {num:'03',col:'var(--blue)',colR:'rgba(59,130,246',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',label:'GTM 起點',q:'你的第一批真實用戶在哪裡？怎麼找到他們？',hint:'不是「所有人」，是第一個願意掏錢的那個人'},
+        {num:'04',col:'var(--orange)',colR:'rgba(255,107,0',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',label:'Pitch Hook',q:'你的 Hook 是什麼？讓陌生人 10 秒內想聽下去。',hint:'用數字、衝突、或「你有沒有遇過…」開場'},
+      ];
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;max-width:920px;margin:0 auto .75rem;position:relative;z-index:1">`;
+      vExItems.forEach(item=>{
+        h+=`<div style="background:${item.colR},.07);border:2px solid ${item.colR},.28);border-radius:12px;padding:.9rem 1rem;display:flex;gap:.75rem;align-items:flex-start">`;
+        h+=`<div style="flex-shrink:0;width:32px;height:32px;border-radius:8px;background:${item.col};display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;color:#fff">${item.num}</div>`;
+        h+=`<div style="flex:1;min-width:0">`;
+        h+=`<div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem">`;
+        h+=`<span style="color:${item.col}">${item.icon}</span>`;
+        h+=`<span style="font-size:var(--min-font);font-weight:800;color:${item.col}">${item.label}</span>`;
+        h+=`</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.25rem">${item.q}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.5">${item.hint}</div>`;
+        h+=`</div></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="max-width:920px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
+      h+=`</div>`;
+      break;}
     case 'pitch-combined':{
       h+=blob('rgba(255,32,85,.08)','rgba(34,197,94,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
