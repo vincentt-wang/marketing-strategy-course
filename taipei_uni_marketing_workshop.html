@@ -1604,41 +1604,60 @@ function renderSlide(sd,idx){
     // ========== NEW RENDER CASES ==========
     case 'topdown-bottomup-v2':{
       h+=blob('rgba(168,85,247,.1)','rgba(255,107,0,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
-      // 先說明兩種思維
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto 1.2rem;position:relative;z-index:1">`;
-      h+=`<div style="background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.15);border-radius:12px;padding:1.2rem;text-align:center">`;
-      h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:700;color:rgba(255,255,255,.7);margin-bottom:.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Bottom-up</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid)">「我會什麼技術，就做什麼產品」<br>從能力出發，再找市場</div>`;
+      // Two definition cards
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto .9rem;position:relative;z-index:1">`;
+      // Bottom-up card
+      h+=`<div style="background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.12);border-radius:14px;padding:1.2rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>`;
+      h+=`<span style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:rgba(255,255,255,.65)">Bottom-up</span>`;
       h+=`</div>`;
-      h+=`<div style="background:rgba(255,107,0,.08);border:2px solid rgba(255,107,0,.35);border-radius:12px;padding:1.2rem;text-align:center">`;
-      h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:700;color:var(--orange);margin-bottom:.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg> Top-down</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid)">「誰最痛？痛什麼？」<br>從問題出發，再想解法</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem;font-style:italic">「我會什麼、我能做什麼？」</div>`;
+      h+=`<ul style="list-style:none;display:flex;flex-direction:column;gap:.35rem">`;
+      ['先想我有什麼技術或資源','再去找誰可能會用','從能力出發，向外尋找市場'].forEach(it=>{
+        h+=`<li style="font-size:var(--min-font);color:rgba(255,255,255,.75);padding-left:1.1rem;position:relative"><span style="position:absolute;left:0;color:rgba(255,255,255,.3)">·</span>${it}</li>`;
+      });
+      h+=`</ul>`;
+      h+=`</div>`;
+      // Top-down card
+      h+=`<div style="background:rgba(255,107,0,.08);border:2px solid rgba(255,107,0,.35);border-radius:14px;padding:1.2rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>`;
+      h+=`<span style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--orange)">Top-down</span>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem;font-style:italic">「誰需要？目標是什麼？」</div>`;
+      h+=`<ul style="list-style:none;display:flex;flex-direction:column;gap:.35rem">`;
+      ['先想誰最痛、痛在哪裡','再設定要解決的目標','最後回推你需要做什麼'].forEach(it=>{
+        h+=`<li style="font-size:var(--min-font);color:rgba(255,255,255,.75);padding-left:1.1rem;position:relative"><span style="position:absolute;left:0;color:var(--orange)">→</span>${it}</li>`;
+      });
+      h+=`</ul>`;
       h+=`</div>`;
       h+=`</div>`;
-      // 真實案例對比
-      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem 1.5rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
-      h+=`<div style="text-align:center;margin-bottom:1rem"><div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.3rem">真實案例對比</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink)">同樣想做「待辦清單」</div></div>`;
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
-      // Evernote (失敗)
-      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
-      h+=`<div class="card-answer" style="background:rgba(255,32,85,.06);border:1.5px solid rgba(255,32,85,.25);border-radius:10px;padding:1rem">`;
-      h+=`<div style="font-size:var(--min-label);color:var(--red);font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Evernote</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">功能齊全的筆記 App</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">從「做最好的筆記工具」出發。功能越加越多，但用戶不知道要用來幹嘛。</div>`;
+      // Warning box
+      h+=`<div style="max-width:900px;margin:0 auto .9rem;padding:.9rem 1.2rem;background:rgba(255,32,85,.06);border:1.5px solid rgba(255,32,85,.3);border-radius:12px;display:flex;align-items:flex-start;gap:.8rem;position:relative;z-index:1">`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--red)" stroke-width="2" style="flex-shrink:0;margin-top:.1rem"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.25rem">不是說 Bottom-up 一定錯</div><div style="font-size:var(--min-font);color:var(--mid);line-height:1.6">而是它很容易讓人<strong style="color:var(--red)">先做再找理由</strong>。做完了才發現沒人要，成本已經付出去了。Top-down 的優點是先驗證問題再動手。</div></div>`;
       h+=`</div>`;
-      h+=`<div class="card-mask" style="border-radius:10px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--mid)"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">Bottom-up 案例</div></div>`;
+      // Case study
+      h+=`<div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.9rem 1.2rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.6rem;text-align:center">同樣的任務：做筆記工具</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">`;
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
+      h+=`<div class="card-answer" style="background:rgba(255,32,85,.05);border:1.5px solid rgba(255,32,85,.2);border-radius:10px;padding:.9rem">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--red);font-weight:700;margin-bottom:.35rem">↑ Bottom-up：Evernote</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">「做最好的筆記工具」— 功能越加越多，用戶不知道要幹嘛。</div>`;
       h+=`</div>`;
-      // Notion (成功)
-      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
-      h+=`<div class="card-answer" style="background:rgba(34,197,94,.06);border:1.5px solid rgba(34,197,94,.25);border-radius:10px;padding:1rem">`;
-      h+=`<div style="font-size:var(--min-label);color:var(--green);font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Notion</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">「團隊知識管理混亂」的痛點</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">從問題出發：文件散落各處、協作困難。解法：All-in-one workspace。估值 100 億美元。</div>`;
+      h+=`<div class="card-mask" style="border-radius:10px"><div style="font-weight:700;color:rgba(255,255,255,.6);font-size:var(--min-font)">Bottom-up 案例</div></div>`;
       h+=`</div>`;
-      h+=`<div class="card-mask" style="border-radius:10px"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--orange)"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">Top-down 案例</div></div>`;
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
+      h+=`<div class="card-answer" style="background:rgba(34,197,94,.05);border:1.5px solid rgba(34,197,94,.2);border-radius:10px;padding:.9rem">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--green);font-weight:700;margin-bottom:.35rem">↓ Top-down：Notion</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">從「團隊文件散落各處」的痛出發 → All-in-one workspace → 估值百億美元。</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:10px"><div style="font-weight:700;color:var(--orange);font-size:var(--min-font)">Top-down 案例</div></div>`;
       h+=`</div>`;
       h+=`</div></div>`;
       break;}
