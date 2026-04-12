@@ -562,7 +562,7 @@ function renderSlide(sd,idx){
   sec.className='slide';
   sec.dataset.index=idx;sec.dataset.id=sd.id;sec.dataset.sec=sd.sec;sec.dataset.sub=sd.sub;
   let h='';
-  const chip=sd.chip?`<div class="${cc(sd.chip[1])}">${sd.chip[0]}</div>`:'';
+  const chip=sd.chip?`<div class="${cc(sd.chip[1],sd.chip[2])}">${sd.chip[0]}</div>`:'';
   function blob(c1,c2){return`<div style="position:absolute;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 80% 70% at 20% 20%,${c1},transparent 55%),radial-gradient(ellipse 70% 80% at 80% 80%,${c2},transparent 55%);background-size:200% 200%;animation:aurora 18s ease-in-out infinite;"></div>`;}
   function renderXrefs(xrefs){
     if(!xrefs||!xrefs.length)return'';
