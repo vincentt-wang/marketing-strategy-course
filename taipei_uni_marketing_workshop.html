@@ -3119,12 +3119,12 @@ function renderSlide(sd,idx){
       h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
       desItems.forEach((d,i)=>{
         h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:90px">`;
-        h+=`<div class="card-answer" style="background:${d.col}10;border:1.5px solid ${d.col}40;border-radius:12px;padding:1rem;display:flex;gap:1rem;align-items:flex-start">`;
-        h+=`<div style="color:${d.col};flex-shrink:0">${d.icon}</div>`;
-        h+=`<div style="flex:1"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem"><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.label}</span><span style="font-size:var(--min-label);color:var(--mid)">${d.en}</span></div>`;
-        h+=`<div style="font-size:var(--min-font);color:${d.col};margin-bottom:.3rem">${d.q}</div>`;
+        h+=`<div class="card-answer" style="background:${d.col}10;border:1.5px solid ${d.col}40;border-radius:12px;padding:1rem 1.2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.35rem">`;
+        h+=`<div style="color:${d.col}">${d.icon}</div>`;
+        h+=`<div style="display:flex;align-items:center;justify-content:center;gap:.5rem"><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.label}</span><span style="font-size:var(--min-label);color:var(--mid)">${d.en}</span></div>`;
+        h+=`<div style="font-size:var(--min-font);color:${d.col}">${d.q}</div>`;
         h+=`<div style="font-size:var(--min-label);color:var(--mid)">評審想看：${d.how}</div>`;
-        h+=`</div></div>`;
+        h+=`</div>`;
         h+=`<div class="card-mask" style="border-radius:12px;background:${d.col}20"><div style="color:${d.col}">${d.icon}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">${d.label}</div></div>`;
         h+=`</div>`;
       });
@@ -3144,12 +3144,12 @@ function renderSlide(sd,idx){
       h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
       feaItems.forEach((d,i)=>{
         h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:90px">`;
-        h+=`<div class="card-answer" style="background:${d.col}10;border:1.5px solid ${d.col}40;border-radius:12px;padding:1rem;display:flex;gap:1rem;align-items:flex-start">`;
-        h+=`<div style="color:${d.col};flex-shrink:0">${d.icon}</div>`;
-        h+=`<div style="flex:1"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem"><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.label}</span><span style="font-size:var(--min-label);color:var(--mid)">${d.en}</span></div>`;
-        h+=`<div style="font-size:var(--min-font);color:${d.col};margin-bottom:.3rem">${d.q}</div>`;
+        h+=`<div class="card-answer" style="background:${d.col}10;border:1.5px solid ${d.col}40;border-radius:12px;padding:1rem 1.2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.35rem">`;
+        h+=`<div style="color:${d.col}">${d.icon}</div>`;
+        h+=`<div style="display:flex;align-items:center;justify-content:center;gap:.5rem"><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.label}</span><span style="font-size:var(--min-label);color:var(--mid)">${d.en}</span></div>`;
+        h+=`<div style="font-size:var(--min-font);color:${d.col}">${d.q}</div>`;
         h+=`<div style="font-size:var(--min-label);color:var(--mid)">評審想看：${d.how}</div>`;
-        h+=`</div></div>`;
+        h+=`</div>`;
         h+=`<div class="card-mask" style="border-radius:12px;background:${d.col}20"><div style="color:${d.col}">${d.icon}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">${d.label}</div></div>`;
         h+=`</div>`;
       });
@@ -3169,12 +3169,12 @@ function renderSlide(sd,idx){
       h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
       viaItems.forEach((d,i)=>{
         h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:90px">`;
-        h+=`<div class="card-answer" style="background:${d.col}10;border:1.5px solid ${d.col}40;border-radius:12px;padding:1rem;display:flex;gap:1rem;align-items:flex-start">`;
-        h+=`<div style="color:${d.col};flex-shrink:0">${d.icon}</div>`;
-        h+=`<div style="flex:1"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem"><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.label}</span><span style="font-size:var(--min-label);color:var(--mid)">${d.en}</span></div>`;
-        h+=`<div style="font-size:var(--min-font);color:${d.col};margin-bottom:.3rem">${d.q}</div>`;
+        h+=`<div class="card-answer" style="background:${d.col}10;border:1.5px solid ${d.col}40;border-radius:12px;padding:1rem 1.2rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.35rem">`;
+        h+=`<div style="color:${d.col}">${d.icon}</div>`;
+        h+=`<div style="display:flex;align-items:center;justify-content:center;gap:.5rem"><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${d.label}</span><span style="font-size:var(--min-label);color:var(--mid)">${d.en}</span></div>`;
+        h+=`<div style="font-size:var(--min-font);color:${d.col}">${d.q}</div>`;
         h+=`<div style="font-size:var(--min-label);color:var(--mid)">評審想看：${d.how}</div>`;
-        h+=`</div></div>`;
+        h+=`</div>`;
         h+=`<div class="card-mask" style="border-radius:12px;background:${d.col}20"><div style="color:${d.col}">${d.icon}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">${d.label}</div></div>`;
         h+=`</div>`;
       });
