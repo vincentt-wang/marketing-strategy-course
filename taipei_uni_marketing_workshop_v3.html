@@ -318,21 +318,21 @@ const D=[
 {id:'s05a',sec:1,sub:'策略思維｜創新三元',type:'why-this-matters',chip:['缺一角','orange'],title:'缺一角，會發生什麼'},
 {id:'s05b',sec:1,sub:'策略思維｜創新三元',type:'dfv-combinations',chip:['三種陷阱','red'],title:'只靠一個，就是陷阱'},
 {id:'s05c',sec:1,sub:'策略思維｜創新三元',type:'dfv-only-one',chip:['關鍵一句','orange'],title:'多數產品不是死在做不出來，而是死在沒人需要'},
-{id:'s06',sec:1,sub:'策略思維｜創新三元',type:'failure-modes',chip:['三種死法','red'],title:'新產品最常死在哪裡'},
+// ❌ 移除 s06 failure-modes（與 s05c 重複）
 {id:'s07',sec:1,sub:'策略思維｜創新三元',type:'big-quote',chip:['關鍵診斷','orange'],quote:'多數作品死在<br><span class="g-red">欲求性</span>',sub2:'不是設計不夠好，是一開始就沒問：誰在痛？痛什麼？'},
 {id:'s08',sec:1,sub:'策略思維｜底層思維',type:'topdown-bottomup-v2',chip:['兩種思維','purple'],title:'Top-down vs Bottom-up'},
 {id:'s08b',sec:1,sub:'策略思維｜底層思維',type:'mckinsey-six-v2',chip:['麥肯錫六元素','blue'],title:'Top-down 思維的六個錨點'},
-{id:'s08c',sec:1,sub:'策略思維｜底層思維',type:'risk-leverage',chip:['風險與槓桿','red'],title:'最高風險假設與最高 ROI 槓桿點'},
-{id:'s08d',sec:1,sub:'策略思維｜底層思維',type:'topdown-cases',chip:['商業案例','purple'],title:'Top-down 思維的商業威力'},
+// ❌ 移除 s08c risk-leverage（對大學生太抽象）
+// ❌ 移除 s08d topdown-cases（s08 已有案例）
 {id:'s12',sec:1,sub:'策略思維｜工具',type:'mece-intro-v2',chip:['MECE','yellow'],title:'MECE：相互獨立，完全窮盡'},
 {id:'s12b',sec:1,sub:'策略思維｜工具',type:'mece-game-v2',chip:['MECE 猜猜看','yellow'],title:'這是 MECE 嗎？'},
 {id:'s12c',sec:1,sub:'策略思維｜工具',type:'mece-tree',chip:['議題樹','yellow'],title:'MECE 的商業應用：議題樹'},
 {id:'s13',sec:1,sub:'策略思維｜費米估算',type:'fermi-game-v2',chip:['費米估算','cyan','lg'],title:'全台灣一天賣出幾杯手搖飲',subtitle:'先猜一個數字，再一起推導'},
-{id:'s13b',sec:1,sub:'策略思維｜費米估算',type:'fermi-trash-v2',chip:['費米估算 2','cyan','lg'],title:'全台灣有幾個垃圾桶',subtitle:'公家單位的資源回收桶有多少？'},
+// ❌ 移除 s13b fermi-trash（一個費米例子就夠了）
+// ❌ 移除 s14 dark（已被 s13c 涵蓋）
 {id:'s13c',sec:1,sub:'策略思維｜費米估算',type:'indie-hacker-math',chip:['精準的數學','orange','lg'],title:'你不需要百萬用戶'},
-{id:'s14',sec:1,sub:'策略思維｜費米估算',type:'dark',chip:['為什麼重要','cyan','lg'],title:'數字讓判斷可以被討論',bullets:['沒有數字：「我覺得這個市場很大」','有數字：「台灣手搖飲年市場約 660 億，只需拿下 0.1%」','數字不需要百分百精確，需要有邏輯','Pitch 從感覺升格為判斷的關鍵'],footer:'商業提案的核心能力：在資訊不完整時，做出有邏輯的數字判斷。'},
-{id:'s14b',sec:1,sub:'策略思維｜費米估算',type:'fermi-practice',chip:['Bottom-up 練習','green','lg'],title:'換你來：全台灣有幾家便利商店',subtitle:'用費米估算，3 分鐘推導',time:180},
-{id:'s15',sec:1,sub:'策略思維｜收尾',type:'topdown-exercise-v2',chip:['實戰練習','red'],title:'Top-down 思維檢核',timerLabel:'3 分鐘',time:180},
+{id:'s14b',sec:1,sub:'策略思維｜費米估算',type:'fermi-practice',chip:['換你算算看','green','lg'],title:'換你來：全台灣有幾家便利商店',subtitle:'用費米估算，3 分鐘推導',time:180,theme:'warm'},
+{id:'s15',sec:1,sub:'策略思維｜收尾',type:'topdown-exercise-v2',chip:['實戰練習','red'],title:'Top-down 思維檢核',timerLabel:'3 分鐘',time:180,theme:'warm'},
 {id:'s16',sec:1,sub:'策略思維｜收尾',type:'roadmap',chip:['下午路線圖','white'],title:'接下來兩小時'},
 {id:'s17',sec:1,sub:'策略思維｜收尾',type:'section',chip:['Section 1 收尾','white'],title:'帶著戰略腦<br>進入實戰',sub2:'Section 2：欲求性 — 你在對誰說話？'},
 // ── SECTION 2：欲求性｜需求探索 ──────────────────────────────────────
@@ -340,26 +340,25 @@ const D=[
 {id:'s19',sec:2,sub:'欲求性｜開場',type:'big-quote',chip:['最常見的錯誤','red'],quote:'「我的受眾<br><span class="g-red">是所有人」</span>',sub2:'每次聽到這句話，我知道這個東西大概賣不起來'},
 {id:'s20',sec:2,sub:'欲求性｜開場',type:'dark',chip:['精準定位','orange'],title:'對所有人說話<br>等於對任何人都沒說',bullets:['訊息越泛，共鳴越淺','精準定位 1,000 個有痛的人，比觸及 100,000 個無感的人有效','每一個「也可以」，都是對核心受眾的稀釋'],footer:'設計，是為那個「最需要」的人而做的'},
 {id:'s21',sec:2,sub:'欲求性｜ICP 與 HXC',type:'audience-layers',chip:['三層受眾收斂','blue'],title:'Persona → ICP → HXC'},
-{id:'s22',sec:2,sub:'欲求性｜ICP 與 HXC',type:'funnel-v3-examples',chip:['三層收斂視覺化','purple'],title:'點擊每一層看商業案例'},
+// ❌ 移除 s22 funnel-v3-examples（s21 + s23 已足夠）
 {id:'s23',sec:2,sub:'欲求性｜ICP 與 HXC',type:'hxc-case-study',chip:['案例分析','green'],title:'Spotify 如何找到 HXC'},
 {id:'s09',sec:2,sub:'欲求性｜設計思維',type:'dt-loop-auto',chip:['Design Thinking','cyan'],title:'設計思維是一個循環',xrefs:[{id:'s3a4',label:'Prototype 在哪'}]},
 {id:'s10',sec:2,sub:'欲求性｜設計思維',type:'insight-types-coffee',chip:['挖掘洞察','orange'],title:'如何從訪談中挖出 Insight'},
 {id:'s11',sec:2,sub:'欲求性｜設計思維',type:'observe-insight-v3',chip:['提問與觀察','blue'],title:'好問題與觀察讓洞察浮現'},
 {id:'s24',sec:2,sub:'欲求性｜PMF',type:'pmf-pillars-v2',chip:['PMF 三支柱','red'],title:'好產品帶來的三種成長'},
-{id:'s24b',sec:2,sub:'欲求性｜PMF',type:'psf-pmf-scale',chip:['成長階段','green'],title:'PSF → PMF → Scale'},
+// ❌ 移除 s24b psf-pmf-scale（對大學生太學術）
 {id:'s24c',sec:2,sub:'欲求性｜PMF',type:'pmf-signals-game',chip:['PMF 訊號辨識','green'],title:'這是 PMF 訊號嗎？'},
 {id:'s25',sec:2,sub:'欲求性｜痛點',type:'vitamin-painkiller',chip:['痛點測試','orange'],title:'維他命 vs 止痛藥'},
 {id:'s25b',sec:2,sub:'欲求性｜痛點',type:'painkiller-game',chip:['互動遊戲','green'],title:'猜猜看：維他命還是止痛藥？'},
-{id:'s25c',sec:2,sub:'欲求性｜痛點',type:'sean-ellis',chip:['40% 法則','blue'],title:'Sean Ellis 的 PMF 測試'},
+// ❌ 移除 s25c sean-ellis（40% 法則太學術）
 {id:'s25d',sec:2,sub:'欲求性｜痛點',type:'vitamin-to-painkiller-v2',chip:['包裝策略','purple'],title:'維他命也能包裝成止痛藥'},
-{id:'s25e',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value',chip:['價值公式 A','orange'],title:'Alex Hormozi 的價值公式',xrefs:[{id:'s36d',label:'定價策略'}]},
-{id:'s25e2',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value-b',chip:['價值公式 B','green'],title:'四個變數，怎麼用在你的作品上'},
+{id:'s25e',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value',chip:['價值公式','orange'],title:'Alex Hormozi 的價值公式',xrefs:[{id:'s36d',label:'定價策略'}]},
+{id:'s25e2',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value-b',chip:['四個變數','green'],title:'四個變數，怎麼用在你的作品上'},
 {id:'s25f',sec:2,sub:'欲求性｜價值公式',type:'hormozi-example',chip:['Canva 案例','green'],title:'用 Canva 拆解價值公式'},
-{id:'s26',sec:2,sub:'欲求性｜痛點',type:'reveal-examples',chip:['互動測試','red'],title:'測試你的作品'},
 {id:'s27',sec:2,sub:'欲求性｜痛點',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是，是他說它是',bullets:['你以為是痛點，他以為是小困擾：維他命','你以為是功能，他覺得「沒有這個我不行」：止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩，繼續找']},
-{id:'s28',sec:2,sub:'欲求性｜練習',type:'exercise-persona-v2',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',time:180},
-{id:'s29',sec:2,sub:'欲求性｜練習',type:'exercise-tpo-v2',chip:['TPO 練習','purple'],title:'Time · Place · Occasion',time:180},
-{id:'s29b',sec:2,sub:'欲求性｜練習',type:'hormozi-exercise',chip:['價值公式練習','orange'],title:'套用 Hormozi 公式優化你的作品',time:180,xrefs:[{id:'s25e',label:'價值公式'}]},
+{id:'s28',sec:2,sub:'欲求性｜練習',type:'exercise-persona-v2',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',time:180,theme:'warm'},
+{id:'s29',sec:2,sub:'欲求性｜練習',type:'exercise-tpo-v2',chip:['TPO 練習','purple'],title:'Time · Place · Occasion',time:180,theme:'blue-light'},
+{id:'s29b',sec:2,sub:'欲求性｜練習',type:'hormozi-exercise',chip:['價值公式練習','orange'],title:'套用 Hormozi 公式優化你的作品',time:180,theme:'warm',xrefs:[{id:'s25e',label:'價值公式'}]},
 {id:'s30',sec:2,sub:'欲求性｜收尾',type:'section',chip:['Section 2 收尾','white'],title:'你現在知道<br>在對誰說話了',sub2:'Section 3：可行性 — 快速把想法做出來'},
 // ── SECTION 3：可行性｜快速驗證 ──────────────────────────────────────
 {id:'s3a0',sec:3,sub:'可行性｜開場',type:'section-cover',secNum:'③',secTitle:'可行性',secEn:'Feasibility',sub2:'快速把想法做出來'},
@@ -367,8 +366,8 @@ const D=[
 {id:'s3a3',sec:3,sub:'可行性｜原型',type:'prototype-types',chip:['原型類型','purple'],title:'Prototype / MVP / MVC / POC 的差別',xrefs:[{id:'s38',label:'GTM→POC→PMF'}]},
 {id:'s3a4',sec:3,sub:'可行性｜原型',type:'ideate-prototype-test',chip:['設計思維循環','orange'],title:'Ideate → Prototype → Test',xrefs:[{id:'s09',label:'設計思維循環'}]},
 {id:'s3a5',sec:3,sub:'可行性｜工具庫',type:'tools-wall-v2',chip:['一人軍隊工具庫','purple'],title:'工具推薦：一人軍隊的完整軍火庫'},
-{id:'s3a5b',sec:3,sub:'可行性｜工具庫',type:'ai-orchestration',chip:['AI Orchestration','cyan'],title:'新時代軍火庫：從 Agent 到 Orchestration'},
-{id:'s3a6',sec:3,sub:'可行性｜練習',type:'feasibility-exercise',chip:['可行性練習','green'],title:'把你的想法做出第一版',time:300},
+// ❌ 移除 s3a5b ai-orchestration（太技術性）
+{id:'s3a6',sec:3,sub:'可行性｜練習',type:'feasibility-exercise',chip:['可行性練習','green'],title:'把你的想法做出第一版',time:300,theme:'green-light'},
 {id:'s3a7',sec:3,sub:'可行性｜收尾',type:'section',chip:['Section 3 收尾','white'],title:'工具在手<br>讓市場說話',sub2:'Section 4：存續性 — 從作品走到市場'},
 // ── SECTION 4：存續性｜價值表達 ──────────────────────────────────────
 {id:'s36',sec:4,sub:'存續性｜開場',type:'section-cover',secNum:'④',secTitle:'存續性',secEn:'Viability',sub2:'從作品走到市場'},
@@ -378,14 +377,14 @@ const D=[
 {id:'s38',sec:4,sub:'存續性｜GTM',type:'gtm-poc-pmf-v2',chip:['驗證三階段','green'],title:'GTM → POC → PMF',xrefs:[{id:'s3a3',label:'原型類型'}]},
 {id:'s39',sec:4,sub:'存續性｜GTM',type:'big-quote',chip:['最重要的判斷','red'],quote:'陌生人的行動<br>比朋友的稱讚<br><span class="g-red">重要 100 倍</span>',sub2:'PMF 訊號：他截圖、tag 朋友、主動傳給有相同困擾的人'},
 {id:'s42b',sec:4,sub:'存續性｜Pitch',type:'pitch-combined',chip:['Pitch 四要素','red'],title:'Hook → Pain → Solution → CTA'},
-{id:'s41',sec:4,sub:'存續性｜Pitch',type:'pitch-elements',chip:['十大元素','blue'],title:'Pitch 的十個關鍵元素'},
-{id:'s43b',sec:4,sub:'存續性｜簡報',type:'ppt-structure',chip:['真實案例','purple'],title:'來看一個真實案例'},
+// ❌ 移除 s41 pitch-elements（十大元素對學生太繁，s42b 已涵蓋）
+// ❌ 移除 s43b ppt-structure（戰術細節可口頭補充）
 {id:'s44a',sec:4,sub:'存續性｜評審視角',type:'external-review-triad',chip:['評審怎麼看','orange'],title:'外部評審如何檢驗你的作品'},
-{id:'s44b',sec:4,sub:'存續性｜評審視角',type:'external-review-desirability',chip:['創新能力','red'],title:'欲求性：創新與痛點解決能力'},
-{id:'s44c',sec:4,sub:'存續性｜評審視角',type:'external-review-feasibility',chip:['競爭能力','blue'],title:'可行性：市場競爭與落地能力'},
-{id:'s44d',sec:4,sub:'存續性｜評審視角',type:'external-review-viability',chip:['發展能力','green'],title:'存續性：團隊與發展策略'},
+{id:'s44b',sec:4,sub:'存續性｜評審視角',type:'external-review-desirability',chip:['欲求性評分','red'],title:'欲求性：創新與痛點解決能力'},
+// ❌ 移除 s44c 可行性細節（簡報時間有限，44a+44b+44d 足夠）
+// ❌ 移除 s44d 存續性細節（合併進 44a 口頭補充）
 {id:'s45',sec:4,sub:'存續性｜發表',type:'big-quote',chip:['最後一句話','white'],quote:'做圖不是目的<br><span class="g-orange">讓那個人採取行動</span><br>才是',sub2:'今天學的所有工具，都服務這一個目標'},
-{id:'s4ex',sec:4,sub:'存續性｜練習',type:'viability-exercise',chip:['存續性自檢','orange'],title:'把今天學的用出來',time:300},
+{id:'s4ex',sec:4,sub:'存續性｜練習',type:'viability-exercise',chip:['存續性自檢','orange'],title:'把今天學的用出來',time:300,theme:'warm'},
 {id:'s46',sec:4,sub:'存續性｜收尾',type:'section',chip:['Section 4 收尾','white'],title:'<span style="display:block;white-space:nowrap">價值已經說清楚</span><span style="display:block;white-space:nowrap">接下來：成長思維</span>',sub2:'Section 5：成長思維 — 擴展你的邊界'},
 // ── SECTION 5：成長思維｜擴展邊界 ──────────────────────────────────────
 {id:'s5a0',sec:5,sub:'成長思維｜開場',type:'section-cover',secNum:'⑤',secTitle:'成長思維',secEn:'Growth Mindset',sub2:'擴展你的邊界'},
