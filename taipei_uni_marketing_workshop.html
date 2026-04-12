@@ -3756,49 +3756,53 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
       h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">定價不是數字問題，是訊號設計</p>`;
       h+=`</div>`;
-      const pricingStrats=[
-        {name:'Free + Freemium',zh:'免費策略',col:'var(--cyan)',colR:'rgba(6,182,212',
-         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
-         when:'需要快速獲取用戶、靠口碑傳播',
-         risk:'免費不等於沒價值。付費版必須有清楚的「值得升級」理由',
-         ex:'Notion、Canva、Spotify — 免費留人，付費解鎖'},
-        {name:'Subscription',zh:'訂閱制',col:'var(--blue)',colR:'rgba(59,130,246',
-         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-         when:'提供持續更新的服務、內容或工具',
-         risk:'必須持續提供「今天的我比上個月更有價值」的理由',
-         ex:'Adobe CC、Netflix、Substack — 月費換持續存取'},
-        {name:'One-time Purchase',zh:'買斷制',col:'var(--orange)',colR:'rgba(255,107,0',
-         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
-         when:'產品本身完整、不依賴持續更新',
-         risk:'用戶有心理帳戶，買斷價格必須「感覺合理」',
-         ex:'Figma 插件、電子書、課程 — 一次買斷終身用'},
-        {name:'Anchor Pricing',zh:'錨點定價',col:'var(--purple)',colR:'rgba(168,85,247',
-         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>',
-         when:'有多個方案，想引導用戶選中間選項',
-         risk:'錨點必須合理，太誇張反而失去可信度',
-         ex:'Wine 清單：放 3000 元讓 800 元看起來划算'},
-        {name:'Value-based',zh:'價值定價',col:'var(--green)',colR:'rgba(34,197,94',
-         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
-         when:'你的服務能讓客戶的結果提升，而且這個提升可以量化',
-         risk:'需要客戶先相信你有能力交付，門檻比較高',
-         ex:'律師按勝訴費率收費、廣告公司按 ROAS 抽成'},
-        {name:'Community Pricing',zh:'社群定價',col:'var(--red)',colR:'rgba(255,32,85',
-         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-         when:'你的核心價值來自於「在裡面的人」，而不只是產品本身',
-         risk:'社群需要持續有人維護，退出的門檻也要管理',
-         ex:'Discord 伺服器、Patreon、Discord 付費社群'}
+      const pricingTiers=[
+        {zh:'免費',en:'Free / Freemium',tagline:'先給，再賺',col:'var(--cyan)',colR:'rgba(6,182,212',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>',
+         subs:[
+           {name:'Freemium',desc:'免費吸用戶，付費解鎖進階功能',ex:'Notion、Canva、Spotify',risk:'付費版必須有「值得升級」的理由'},
+           {name:'社群定價',desc:'社群即產品，「在裡面的人」才是核心價值',ex:'Discord 付費頻道、Patreon',risk:'需持續維護社群溫度'},
+         ]},
+        {zh:'低定價',en:'Subscription / 買斷',tagline:'可預期，好決策',col:'var(--blue)',colR:'rgba(59,130,246',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+         subs:[
+           {name:'訂閱制',desc:'月/年費換持續存取，收入穩定可預測',ex:'Adobe CC、Netflix、Substack',risk:'必須持續交付比上個月更多的價值'},
+           {name:'買斷制',desc:'一次付清，產品完整不依賴更新',ex:'Figma 插件、電子書、線上課程',risk:'用戶心理帳戶高，定價需「感覺合理」'},
+         ]},
+        {zh:'高定價',en:'Value-based / Anchor',tagline:'賣結果，不賣時間',col:'var(--yellow)',colR:'rgba(251,191,36',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+         subs:[
+           {name:'價值定價',desc:'依客戶能獲得的結果定價，而非你的成本',ex:'律師按勝訴費率、廣告公司按 ROAS 抽成',risk:'需讓客戶先相信你能交付'},
+           {name:'錨點定價',desc:'放高價讓目標價「看起來划算」',ex:'Wine 單：$3000 旁邊的 $800 顯得合理',risk:'錨點太誇張反而失去可信度'},
+         ]},
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
-      pricingStrats.forEach((p,i)=>{
-        const uid=`pr-${sd.id}-${i}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
-        h+=`<div class="card-answer" style="background:${p.colR},.08);border:1.5px solid ${p.colR},.3);border-radius:11px;padding:1rem">`;
-        h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem"><span style="color:${p.col}">${p.icon}</span><div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${p.name}</div><div style="font-size:var(--min-label);color:var(--mid)">${p.zh}</div></div></div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.35rem"><strong style="color:${p.col}">何時用：</strong>${p.when}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.35rem;padding:.35rem .5rem;background:rgba(255,32,85,.06);border-radius:4px;border-left:2px solid rgba(255,32,85,.3)"><strong style="color:rgba(255,32,85,.8)">風險：</strong>${p.risk}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${p.ex}</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
+      pricingTiers.forEach((t,i)=>{
+        const uid=`prt-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:200px">`;
+        // Answer (revealed)
+        h+=`<div class="card-answer" style="background:${t.colR},.07);border:2px solid ${t.colR},.3);border-radius:13px;padding:1.1rem">`;
+        h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem">`;
+        h+=`<span style="color:${t.col}">${t.icon}</span>`;
+        h+=`<div><div style="font-size:clamp(1.2rem,1.9vw,1.5rem);font-weight:800;color:${t.col}">${t.zh}</div><div style="font-size:var(--min-label);color:var(--mid)">${t.en}</div></div>`;
         h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:11px;background:${p.colR},.15)"><div style="color:${p.col}">${p.icon}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-top:.3rem">${p.name}</div><div style="font-size:var(--min-label);color:var(--mid)">${p.zh}</div></div>`;
+        t.subs.forEach((s,si)=>{
+          h+=`<div style="margin-bottom:.55rem;padding:.55rem .7rem;background:${t.colR},.1);border-radius:8px;border-left:3px solid ${t.colR},.5)">`;
+          h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.18rem">${s.name}</div>`;
+          h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.18rem">${s.desc}</div>`;
+          h+=`<div style="font-size:var(--min-label);color:${t.col};font-style:italic">${s.ex}</div>`;
+          h+=`<div style="font-size:var(--min-label);color:rgba(255,32,85,.65);margin-top:.15rem">⚠ ${s.risk}</div>`;
+          h+=`</div>`;
+        });
+        h+=`</div>`;
+        // Mask (front face)
+        h+=`<div class="card-mask" style="border-radius:13px;background:${t.colR},.18)">`;
+        h+=`<div style="color:${t.col};margin-bottom:.5rem">${t.icon}</div>`;
+        h+=`<div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:${t.col}">${t.zh}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin:.25rem 0">${t.en}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${t.col};opacity:.7;margin-top:.3rem;font-style:italic">${t.tagline}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.28);margin-top:.6rem;letter-spacing:.1em">點擊展開策略</div>`;
+        h+=`</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
