@@ -591,45 +591,51 @@ function renderSlide(sd,idx){
         @keyframes floatQuote1 { 0%,100%{transform:translate(0,0) rotate(1deg)} 50%{transform:translate(-10px,-8px) rotate(-2deg)} }
         @keyframes floatQuote2 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(6px,10px) rotate(2deg)} }
         @keyframes floatQuote3 { 0%,100%{transform:translate(0,0) rotate(-1deg)} 50%{transform:translate(-8px,-6px) rotate(1deg)} }
-        @keyframes floatQuote4 { 0%,100%{transform:translate(0,0) rotate(2deg)} 50%{transform:translate(12px,8px) rotate(-1deg)} }
-        @keyframes floatQuote5 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(-6px,12px) rotate(-2deg)} }
-        @keyframes floatQuote6 { 0%,100%{transform:translate(0,0) rotate(-2deg)} 50%{transform:translate(10px,-10px) rotate(2deg)} }
-        @keyframes floatQuote7 { 0%,100%{transform:translate(0,0) rotate(1deg)} 50%{transform:translate(-12px,6px) rotate(-1deg)} }
-        .float-quote{position:absolute;padding:.6rem 1rem;border-radius:10px;font-size:var(--min-font);font-weight:600;max-width:200px;text-align:center;backdrop-filter:blur(8px);cursor:pointer;transition:all .3s ease;opacity:.85}
-        .float-quote:hover{transform:scale(1.08)!important;opacity:1;z-index:10}
+        @keyframes titleGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        .float-quote{position:absolute;padding:.5rem .8rem;border-radius:8px;font-size:var(--min-label);font-weight:600;max-width:160px;text-align:center;backdrop-filter:blur(8px);cursor:pointer;transition:all .3s ease;opacity:.7}
+        .float-quote:hover{transform:scale(1.1)!important;opacity:1;z-index:10}
+        .carousel-title{font-size:clamp(1.6rem,4vw,2.8rem);line-height:1.3;font-weight:800;background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--green),var(--cyan),var(--blue),var(--purple),var(--red));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleGradient 8s linear infinite}
       </style>`;
-      h+=`<div style="position:relative;z-index:1;text-align:center;max-width:900px;margin:0 auto">`;
+      h+=`<div style="position:relative;z-index:1;text-align:center;max-width:950px;margin:0 auto;min-height:480px">`;
       h+=chip;
-      h+=`<div class="bar" style="margin:.8rem auto 1rem"></div>`;
-      // Floating quotes container
-      h+=`<div style="position:relative;height:380px;margin-bottom:1rem">`;
-      // Position quotes in a loose spiral/cloud pattern
+      h+=`<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      // Floating quotes around edges
       const positions=[
-        {top:'5%',left:'5%',anim:0},{top:'2%',left:'55%',anim:1},{top:'8%',right:'8%',anim:2},
-        {top:'35%',left:'2%',anim:3},{top:'32%',right:'5%',anim:4},
-        {top:'55%',left:'12%',anim:5},{top:'60%',right:'15%',anim:6},
-        {bottom:'12%',left:'25%',anim:7},{bottom:'8%',right:'22%',anim:0},{bottom:'5%',left:'48%',anim:1}
+        {top:'8%',left:'3%',anim:0},{top:'5%',right:'5%',anim:1},
+        {top:'40%',left:'0',anim:2},{top:'38%',right:'2%',anim:3},
+        {bottom:'25%',left:'5%',anim:0},{bottom:'22%',right:'3%',anim:1}
       ];
-      cqQuotes.forEach((q,i)=>{
+      cqQuotes.slice(0,6).forEach((q,i)=>{
         const pos=positions[i];
         const posStyle=Object.entries(pos).filter(([k])=>k!=='anim').map(([k,v])=>`${k}:${v}`).join(';');
-        h+=`<div class="float-quote" style="${posStyle};background:${q.col}18;border:1.5px solid ${q.col}50;color:${q.col};animation:floatQuote${pos.anim} ${4+i*0.3}s ease-in-out infinite;animation-delay:${i*0.2}s" onclick="this.style.transform=this.style.transform==='scale(1.15)'?'':'scale(1.15)'">`;
-        h+=`<div style="line-height:1.4">${q.q}</div>`;
-        h+=`</div>`;
+        h+=`<div class="float-quote" style="${posStyle};background:${q.col}15;border:1px solid ${q.col}40;color:${q.col};animation:floatQuote${pos.anim} ${5+i*0.5}s ease-in-out infinite;animation-delay:${i*0.3}s">`;
+        h+=`${q.q}</div>`;
+      });
+      // Center carousel with animated title
+      h+=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70%;max-width:600px">`;
+      h+=`<div id="cq-wrap-${sd.id}" style="min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer" onclick="cqNext_${sd.id}()">`;
+      h+=`<h1 id="cq-title-${sd.id}" class="carousel-title">${cqQuotes[0].q}</h1>`;
+      h+=`<p id="cq-sub-${sd.id}" style="margin-top:.8rem;font-size:var(--min-font);color:var(--mid);transition:opacity .4s">${cqQuotes[0].s}</p>`;
+      h+=`</div>`;
+      // Dots
+      h+=`<div style="display:flex;gap:.4rem;justify-content:center;margin-top:1rem">`;
+      cqQuotes.forEach((_,i)=>{
+        h+=`<div class="cq-dot-${sd.id}" onclick="event.stopPropagation();cqGo_${sd.id}(${i})" style="width:${i===0?'18px':'6px'};height:6px;border-radius:3px;background:${i===0?'var(--orange)':'rgba(255,255,255,.2)'};transition:all .3s;cursor:pointer"></div>`;
       });
       h+=`</div>`;
-      // Center message
-      h+=`<div style="margin-bottom:1.2rem">`;
-      h+=`<h2 style="font-size:clamp(1.4rem,3vw,2rem);background:linear-gradient(135deg,var(--orange),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">今天的關鍵概念</h2>`;
-      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-top:.4rem">點擊任意卡片放大</p>`;
       h+=`</div>`;
-      // QR + CTA
-      h+=`<div style="margin:0 auto;width:100px;height:100px;border:2px dashed rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.3rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:rgba(255,255,255,.4)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid);letter-spacing:.08em">QR CODE</div>`;
+      // QR + CTA at bottom
+      h+=`<div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center">`;
+      h+=`<div style="width:90px;height:90px;border:2px dashed rgba(255,255,255,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.25rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" style="color:rgba(255,255,255,.4)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid)">QR CODE</div>`;
       h+=`</div>`;
-      if(sd.cta)h+=`<p style="margin-top:.5rem;font-size:var(--min-font);color:rgba(255,255,255,.28);letter-spacing:.06em">${sd.cta}</p>`;
+      if(sd.cta)h+=`<p style="margin-top:.4rem;font-size:var(--min-label);color:rgba(255,255,255,.25)">${sd.cta}</p>`;
       h+=`</div>`;
+      h+=`</div>`;
+      // Carousel script
+      const cqData=JSON.stringify(cqQuotes.map(q=>({q:q.q,s:q.s})));
+      h+=`<script>(function(){var qs=${cqData};var cur=0;var sid='${sd.id}';function go(n){cur=((n%qs.length)+qs.length)%qs.length;var t=document.getElementById('cq-title-'+sid);var s=document.getElementById('cq-sub-'+sid);if(t){t.style.opacity='0';s.style.opacity='0';setTimeout(function(){t.textContent=qs[cur].q;s.textContent=qs[cur].s;t.style.opacity='1';s.style.opacity='1';},300);}document.querySelectorAll('.cq-dot-'+sid).forEach(function(d,i){d.style.width=i===cur?'18px':'6px';d.style.background=i===cur?'var(--orange)':'rgba(255,255,255,.2)';});}window['cqGo_'+sid]=go;window['cqNext_'+sid]=function(){go(cur+1);};var timer=setInterval(function(){if(!document.getElementById('cq-title-'+sid)){clearInterval(timer);return;}go(cur+1);},4500);})();<\/script>`;
       break;}
     case 'close':
       h+=blob('rgba(255,107,0,.12)','rgba(255,32,85,.09)');
@@ -1414,7 +1420,7 @@ function renderSlide(sd,idx){
     case 'resources':
       h+=blob('rgba(255,255,255,.03)','rgba(59,130,246,.05)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      if(sd.title)h+=`<h2 onclick="jumpToSlide('s03')" style="margin-bottom:.3rem;cursor:pointer;transition:color .3s" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color=''">${sd.title} <span style="font-size:.6em;opacity:.5">↩</span></h2>`;
       h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">今天給你的思維武器 — 帶回去用</p>`;
       h+=`</div>`;
       // Framework grid
@@ -1446,11 +1452,6 @@ function renderSlide(sd,idx){
       h+=`<div style="width:44px;height:44px;background:rgba(255,255,255,.07);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>`;
       h+=`<div><div style="font-weight:700;color:var(--ink);margin-bottom:.1rem">LinkedIn</div><div style="font-size:var(--min-label);color:var(--mid)">搜尋 Vincent — 持續獲取洞察</div></div>`;
       h+=`</div>`;
-      h+=`</div>`;
-      // Back to speaker link
-      h+=`<div onclick="jumpToSlide('s03')" style="margin:1rem auto 0;padding:.6rem 1.1rem;background:rgba(255,107,0,.08);border:1.5px solid rgba(255,107,0,.3);border-radius:10px;cursor:pointer;transition:all .3s ease;display:inline-flex;align-items:center;gap:.7rem;position:relative;z-index:1" onmouseover="this.style.background='rgba(255,107,0,.15)'" onmouseout="this.style.background='rgba(255,107,0,.08)'">`;
-      h+=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`;
-      h+=`<span style="font-size:var(--min-font);color:var(--orange);font-weight:600">← 回到講者介紹</span>`;
       h+=`</div>`;
       break;
     // ========== NEW RENDER CASES ==========
@@ -2219,10 +2220,10 @@ function renderSlide(sd,idx){
       if(sd.subtitle)h+=`<p style="color:var(--mid);margin-bottom:.9rem;font-size:var(--min-font)">${sd.subtitle}</p>`;
       h+=`</div>`;
       const trashSteps=[
-        {num:'Step 1',q:'台灣 36,000 km²<br>多少比例是公共場所',label:'公共面積',col:'var(--blue)',ans:'約 <strong style="color:var(--blue)">15%</strong> 為公共用地<br><span style="font-size:var(--min-label);color:var(--mid)">公園、車站、學校、商圈等</span>'},
-        {num:'Step 2',q:'公共場所平均<br>每多少平方公尺一個垃圾桶',label:'密度估算',col:'var(--cyan)',ans:'約每 <strong style="color:var(--cyan)">500 m²</strong> 一個<br><span style="font-size:var(--min-label);color:var(--mid)">含回收桶約乘 2-3 倍</span>'},
-        {num:'Step 3',q:'換算下來<br>有多少公共垃圾桶',label:'數量計算',col:'var(--orange)',ans:'36000×0.15×1000000÷500 ≈ <strong style="color:var(--orange)">1,000 萬個</strong><br><span style="font-size:var(--min-label);color:var(--mid)">含一般桶與回收桶</span>'},
-        {num:'結論',q:'這個數字<br>合理嗎',label:'交叉驗證',col:'var(--green)',ans:'環保署資料：約 <strong style="color:var(--green)">600 萬</strong> 公共垃圾桶<br><span style="font-size:var(--min-label);color:var(--mid)">估算誤差 2 倍內，算合理</span>'},
+        {num:'Step 1',q:'台灣有多少<br>公共場所',label:'場所數量',col:'var(--blue)',ans:'學校 4,000 + 車站 2,500 + 公園 6,000 + 政府機關 3,000 ≈ <strong style="color:var(--blue)">1.5 萬處</strong><br><span style="font-size:var(--min-label);color:var(--mid)">Source: 內政部統計處 2024</span>'},
+        {num:'Step 2',q:'每個場所平均<br>有幾個垃圾桶',label:'密度估算',col:'var(--cyan)',ans:'小型場所 5 個，大型場所 50 個，<br>平均約 <strong style="color:var(--cyan)">20 個</strong><br><span style="font-size:var(--min-label);color:var(--mid)">Source: 環保署資源回收網</span>'},
+        {num:'Step 3',q:'換算下來<br>有多少公共垃圾桶',label:'數量計算',col:'var(--orange)',ans:'15,000 × 20 = <strong style="color:var(--orange)">30 萬個</strong><br><span style="font-size:var(--min-label);color:var(--mid)">僅計算「公家單位」的回收桶</span>'},
+        {num:'結論',q:'這個估算<br>合理嗎',label:'交叉驗證',col:'var(--green)',ans:'環保署 2023：全台公家機關回收桶約 <strong style="color:var(--green)">28 萬個</strong><br><span style="font-size:var(--min-label);color:var(--mid)">估算 vs 實際誤差 < 10%，合理！</span>'},
       ];
       h+=`<div class="mrev-grid cols-4" style="gap:.7rem;max-width:920px;margin:0 auto">`;
       trashSteps.forEach((s,si)=>{
@@ -2915,48 +2916,42 @@ function renderSlide(sd,idx){
       h+=`<div class="tip-box" style="max-width:950px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">結論：</strong>D + F + V 三個同時成立才叫創新。缺一個都不算，你的作品在哪個象限？</div>`;
       break;}
     case 'feasibility-in-triad':{
-      h+=blob('rgba(255,32,85,.1)','rgba(34,197,94,.07)');
+      h+=blob('rgba(59,130,246,.1)','rgba(168,85,247,.07)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:1.5rem">${sd.title}</h2>`;
       h+=`</div>`;
       // Centered layout with larger Venn
       h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
-      // Large centered Venn SVG - Labels INSIDE circles, D+V highlighted, F muted
-      h+=`<svg viewBox="0 0 400 320" width="400" height="320" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
-      // Desirability top - HIGHLIGHTED
-      h+=`<circle cx="200" cy="110" r="95" fill="rgba(255,32,85,.18)" stroke="rgba(255,32,85,.9)" stroke-width="4"/>`;
-      h+=`<text x="200" y="100" text-anchor="middle" font-weight="800" font-size="18" fill="rgba(255,32,85,1)">欲求性</text>`;
-      h+=`<text x="200" y="118" text-anchor="middle" font-size="11" fill="rgba(255,32,85,.75)">Desirability</text>`;
-      // Feasibility bottom-left - MUTED
-      h+=`<circle cx="140" cy="220" r="95" fill="rgba(59,130,246,.06)" stroke="rgba(59,130,246,.3)" stroke-width="2" stroke-dasharray="8 4"/>`;
-      h+=`<text x="100" y="255" text-anchor="middle" font-weight="700" font-size="16" fill="rgba(59,130,246,.5)">可行性</text>`;
-      h+=`<text x="100" y="273" text-anchor="middle" font-size="11" fill="rgba(59,130,246,.35)">Feasibility</text>`;
-      // Viability bottom-right - HIGHLIGHTED
-      h+=`<circle cx="260" cy="220" r="95" fill="rgba(34,197,94,.15)" stroke="rgba(34,197,94,.85)" stroke-width="4"/>`;
-      h+=`<text x="300" y="255" text-anchor="middle" font-weight="800" font-size="18" fill="rgba(34,197,94,1)">存續性</text>`;
-      h+=`<text x="300" y="273" text-anchor="middle" font-size="11" fill="rgba(34,197,94,.75)">Viability</text>`;
-      // Center innovation
-      h+=`<circle cx="200" cy="195" r="28" fill="rgba(255,107,0,.2)" stroke="rgba(255,107,0,.5)" stroke-width="2"/>`;
-      h+=`<text x="200" y="192" text-anchor="middle" font-weight="800" font-size="11" fill="rgba(255,107,0,.9)">創新</text>`;
-      h+=`<text x="200" y="204" text-anchor="middle" font-size="9" fill="rgba(255,107,0,.6)">Innovation</text>`;
-      // Focus indicator - moved to show D+V focus
-      h+=`<rect x="160" y="35" width="80" height="22" rx="11" fill="rgba(255,32,85,.35)"/>`;
-      h+=`<text x="200" y="50" text-anchor="middle" font-weight="700" font-size="11" fill="rgba(255,32,85,1)">今天焦點</text>`;
-      h+=`<rect x="260" y="290" width="80" height="22" rx="11" fill="rgba(34,197,94,.35)"/>`;
-      h+=`<text x="300" y="305" text-anchor="middle" font-weight="700" font-size="11" fill="rgba(34,197,94,1)">今天焦點</text>`;
+      // Large centered Venn SVG - Labels INSIDE circles, balanced design
+      h+=`<svg viewBox="0 0 400 300" width="400" height="300" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
+      // Desirability top
+      h+=`<circle cx="200" cy="105" r="90" fill="rgba(255,32,85,.12)" stroke="rgba(255,32,85,.6)" stroke-width="2.5"/>`;
+      h+=`<text x="200" y="75" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(255,32,85,1)">欲求性</text>`;
+      h+=`<text x="200" y="92" text-anchor="middle" font-size="10" fill="rgba(255,32,85,.7)">Desirability</text>`;
+      // Feasibility bottom-left
+      h+=`<circle cx="140" cy="210" r="90" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.6)" stroke-width="2.5"/>`;
+      h+=`<text x="95" y="245" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
+      h+=`<text x="95" y="262" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
+      // Viability bottom-right
+      h+=`<circle cx="260" cy="210" r="90" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.6)" stroke-width="2.5"/>`;
+      h+=`<text x="305" y="245" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
+      h+=`<text x="305" y="262" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
       h+=`</svg>`;
-      // Updated definition box for D+V focus
-      h+=`<div style="display:flex;gap:1rem;max-width:700px">`;
-      h+=`<div style="flex:1;background:rgba(255,32,85,.1);border:2px solid rgba(255,32,85,.4);border-radius:14px;padding:1rem 1.2rem;text-align:center">`;
-      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--red);margin-bottom:.3rem">欲求性</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid)">有人真的<strong style="color:var(--red)">想要</strong>嗎？</div>`;
+      // Balanced definition boxes for all three
+      h+=`<div style="display:flex;gap:.8rem;max-width:820px;flex-wrap:wrap;justify-content:center">`;
+      h+=`<div style="flex:1;min-width:200px;background:rgba(255,32,85,.08);border:1.5px solid rgba(255,32,85,.35);border-radius:12px;padding:.9rem 1rem;text-align:center">`;
+      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--red);margin-bottom:.2rem">欲求性</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid)">有人真的<strong style="color:var(--red)">想要</strong>嗎？</div>`;
       h+=`</div>`;
-      h+=`<div style="flex:1;background:rgba(34,197,94,.1);border:2px solid rgba(34,197,94,.4);border-radius:14px;padding:1rem 1.2rem;text-align:center">`;
-      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--green);margin-bottom:.3rem">存續性</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid)">能<strong style="color:var(--green)">持續運作</strong>下去嗎？</div>`;
+      h+=`<div style="flex:1;min-width:200px;background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,.35);border-radius:12px;padding:.9rem 1rem;text-align:center">`;
+      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--blue);margin-bottom:.2rem">可行性</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid)">你<strong style="color:var(--blue)">做得出來</strong>嗎？</div>`;
+      h+=`</div>`;
+      h+=`<div style="flex:1;min-width:200px;background:rgba(34,197,94,.08);border:1.5px solid rgba(34,197,94,.35);border-radius:12px;padding:.9rem 1rem;text-align:center">`;
+      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.2rem">存續性</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid)">能<strong style="color:var(--green)">持續運作</strong>嗎？</div>`;
       h+=`</div>`;
       h+=`</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid);text-align:center">AI 時代<strong style="color:var(--blue)">可行性</strong>門檻已大幅下降，真正難的是這兩個</div>`;
       h+=`</div>`;
       if(sd.xrefs)h+=renderXrefs(sd.xrefs);
       break;}
@@ -2992,7 +2987,7 @@ function renderSlide(sd,idx){
       h+=`<div style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1;background:rgba(6,182,212,.07);border:1.5px solid rgba(6,182,212,.3);border-radius:10px;padding:1rem 1.3rem;text-align:center">`;
       h+=`<div style="font-size:clamp(1rem,1.6vw,1.25rem);font-weight:700;color:var(--cyan);margin-bottom:.3rem">Vibe Coding</div>`;
       h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.8)">用自然語言描述想要的功能，AI 生成程式碼。非工程師也能在一天內做出可點擊的原型</div>`;
-      h+=`<div style="margin-top:.6rem;font-size:var(--min-label);color:var(--mid)">工具：Cursor · v0 · Bolt · Replit Agent · Claude Artifacts</div>`;
+      h+=`<div style="margin-top:.6rem;font-size:var(--min-label);color:var(--mid)">工具：Cursor · v0 · Bolt · Manus · Claude Artifacts</div>`;
       h+=`</div>`;
       break;}
     case 'prototype-types':{
