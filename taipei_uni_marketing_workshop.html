@@ -423,7 +423,7 @@ function resetTimer(id,tot){
   if(d){d.textContent=fmt(tot);d.classList.remove('done');}
   if(b){b.textContent='開始';b.classList.remove('running');}
 }
-function cc(c){return`chip chip-${c||'white'}`}
+function cc(c,sz){return`chip chip-${c||'white'}${sz?' chip-'+sz:''}`}
 function toggleStep(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
 function toggleProfileCard(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
 
