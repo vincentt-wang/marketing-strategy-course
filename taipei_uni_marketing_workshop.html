@@ -4070,11 +4070,27 @@ function renderSlide(sd,idx){
         h+=`<div style="display:flex;gap:.4rem;align-items:flex-start"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="${item.col}" stroke-width="2.5" style="flex-shrink:0;margin-top:3px"><polyline points="9 18 15 12 9 6"/></svg><span style="font-size:var(--min-font);color:${item.col}">${item.q}</span></div>`;
       });
       h+=`</div></div>`;
-      // Mandala chart
-      h+=`<div style="max-width:940px;margin:.65rem auto;position:relative;z-index:1;background:rgba(168,85,247,.06);border:1.5px solid rgba(168,85,247,.25);border-radius:14px;padding:.85rem 1.2rem">`;
-      h+=`<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem;margin-bottom:.75rem">`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:800;color:var(--purple)">曼陀羅九宮格 — 大谷翔平用的目標發想法</div><div style="font-size:var(--min-label);color:var(--mid)">把核心目標放中央，8 個方向各自展開 → 每個方向再展開一張九宮格 = 64 個具體行動</div></div>`;
+      h+=`<div style="position:relative;z-index:1"><div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div></div>`;
+      break;}
+    case 'dfv-mandala':{
+      h+=blob('rgba(168,85,247,.1)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">大谷翔平 18 歲時用這個方法，把「進入 MLB」拆解成 64 個具體行動</p>`;
       h+=`</div>`;
+      // Explanation strip
+      h+=`<div style="display:flex;gap:1.2rem;align-items:flex-start;max-width:960px;margin:0 auto 1.2rem;position:relative;z-index:1;flex-wrap:wrap">`;
+      [{num:'①',col:'var(--purple)',title:'定核心目標',desc:'把你最重要的目標放在中心格'},
+       {num:'②',col:'var(--blue)',title:'展開 8 個維度',desc:'8 個方向：技能、健康、心理、人脈…'},
+       {num:'③',col:'var(--green)',title:'每維度再展 8 個行動',desc:'每格再展開 → 1 個目標 = 64 個行動'},
+      ].forEach(s=>{
+        h+=`<div style="flex:1;min-width:200px;display:flex;gap:.7rem;align-items:flex-start">`;
+        h+=`<div style="width:32px;height:32px;border-radius:8px;background:${s.col};display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;flex-shrink:0;font-size:.9rem">${s.num}</div>`;
+        h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${s.title}</div><div style="font-size:var(--min-label);color:var(--mid)">${s.desc}</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      // Mandala 3x3 grid
       const mandalaLabels=[
         {t:'技能發展',c:'rgba(168,85,247'},
         {t:'知識學習',c:'rgba(59,130,246'},
@@ -4086,25 +4102,24 @@ function renderSlide(sd,idx){
         {t:'習慣建立',c:'rgba(255,32,85'},
         {t:'工具應用',c:'rgba(168,85,247'},
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;max-width:480px;margin:0 auto">`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:520px;margin:0 auto 1rem;position:relative;z-index:1">`;
       mandalaLabels.forEach(cell=>{
         if(cell.center){
-          h+=`<div style="background:rgba(168,85,247,.25);border:2px solid rgba(168,85,247,.7);border-radius:8px;padding:.55rem .3rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60px">`;
-          h+=`<div style="font-size:var(--min-label);font-weight:900;color:var(--purple);line-height:1.3">${cell.t}</div>`;
-          h+=`<div style="font-size:.52rem;color:rgba(168,85,247,.6);margin-top:.2rem">← → ↑ ↓ 展開</div>`;
+          h+=`<div style="background:rgba(168,85,247,.25);border:2px solid rgba(168,85,247,.7);border-radius:10px;padding:.7rem .5rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80px">`;
+          h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="2" style="margin-bottom:.3rem"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+          h+=`<div style="font-size:var(--min-font);font-weight:900;color:var(--purple);line-height:1.3">${cell.t}</div>`;
+          h+=`<div style="font-size:.5rem;color:rgba(168,85,247,.55);margin-top:.2rem">中央目標</div>`;
         } else {
-          h+=`<div style="background:${cell.c},.08);border:1.5px solid ${cell.c},.3);border-radius:8px;padding:.45rem .3rem;text-align:center;display:flex;align-items:center;justify-content:center;min-height:60px;position:relative">`;
-          h+=`<div style="font-size:var(--min-label);font-weight:700;color:${cell.c},1);line-height:1.3">${cell.t}</div>`;
-          // mini 3x3 indicator in corner
-          h+=`<div style="position:absolute;bottom:3px;right:3px;display:grid;grid-template-columns:repeat(3,4px);gap:1px">`;
-          for(let i=0;i<9;i++)h+=`<div style="width:4px;height:4px;border-radius:1px;background:${cell.c},${i===4?'.8':'.25'})"></div>`;
+          h+=`<div style="background:${cell.c},.08);border:1.5px solid ${cell.c},.3);border-radius:10px;padding:.5rem .4rem;text-align:center;display:flex;align-items:center;justify-content:center;min-height:80px;position:relative">`;
+          h+=`<div style="font-size:var(--min-label);font-weight:700;color:${cell.c},1);line-height:1.4">${cell.t}</div>`;
+          h+=`<div style="position:absolute;bottom:4px;right:4px;display:grid;grid-template-columns:repeat(3,4px);gap:1px">`;
+          for(let i=0;i<9;i++)h+=`<div style="width:4px;height:4px;border-radius:1px;background:${cell.c},${i===4?'.8':'.2'})"></div>`;
           h+=`</div>`;
         }
         h+=`</div>`;
       });
       h+=`</div>`;
-      h+=`</div>`;
-      h+=`<div style="position:relative;z-index:1"><div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div></div>`;
+      h+=`<div class="tip-box" style="max-width:520px;margin:0 auto;position:relative;z-index:1;text-align:center"><strong style="color:var(--purple)">每個外圍格子</strong>，都可以成為另一張九宮格的中心 → 從 1 個目標，展出 64 個具體行動計畫</div>`;
       break;}
     case 'goal-oriented-iterate':{
       h+=blob('rgba(34,197,94,.1)','rgba(6,182,212,.06)');
