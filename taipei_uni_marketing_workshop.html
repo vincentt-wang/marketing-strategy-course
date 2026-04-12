@@ -1612,36 +1612,48 @@ function renderSlide(sd,idx){
       break;}
     case 'dt-loop-auto':{
       const steps=[
-        {key:'empathize',en:'Empathize',zh:'同理心',col:'var(--blue)',desc:'先理解那個人在想什麼、感受什麼。不是假設，是真正去問、去觀察。'},
-        {key:'define',en:'Define',zh:'定義問題',col:'var(--purple)',desc:'從觀察中萃取出清晰的問題陳述。「HMW — How Might We」是常見框架。'},
-        {key:'ideate',en:'Ideate',zh:'發散構想',col:'var(--orange)',desc:'不評判地產生大量想法。數量優先，質量稍後。'},
-        {key:'prototype',en:'Prototype',zh:'快速原型',col:'var(--green)',desc:'用最低成本讓想法變得可以被測試。你的 Canva 圖就是一種原型。'},
-        {key:'test',en:'Test',zh:'測試驗證',col:'var(--yellow)',desc:'拿給真實用戶看。他的反應 > 你的感覺。然後循環回第一步。'},
+        {en:'Empathize',zh:'同理心',col:'var(--blue)',colR:'rgba(59,130,246',num:'01',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+         desc:'先理解那個人在想什麼、感受什麼。<strong style="color:var(--blue)">不是假設</strong>，是真正去問、去觀察。'},
+        {en:'Define',zh:'定義問題',col:'var(--purple)',colR:'rgba(168,85,247',num:'02',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+         desc:'從觀察中萃取出清晰的問題陳述。<strong style="color:var(--purple)">HMW（How Might We）</strong>是常見框架。'},
+        {en:'Ideate',zh:'發散構想',col:'var(--orange)',colR:'rgba(255,107,0',num:'03',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+         desc:'<strong style="color:var(--orange)">不評判</strong>地產生大量想法。數量優先，質量稍後。'},
+        {en:'Prototype',zh:'快速原型',col:'var(--green)',colR:'rgba(34,197,94',num:'04',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>',
+         desc:'用最低成本讓想法<strong style="color:var(--green)">可以被測試</strong>。你的 Canva 圖就是一種原型。'},
+        {en:'Test',zh:'測試驗證',col:'var(--yellow)',colR:'rgba(251,191,36',num:'05',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+         desc:'拿給<strong style="color:var(--yellow)">真實用戶</strong>看。他的反應 &gt; 你的感覺。然後循環回第一步。'},
       ];
-      h+=`<div style="max-width:900px">`;
-      h+=chip;
-      h+=`<div class="bar"></div><h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
-      h+=`<p style="font-size:clamp(.82rem,1.3vw,.92rem);color:var(--mid);margin-bottom:1.2rem">點擊每個步驟展開說明</p>`;
-      // Build step row
-      h+=`<div style="display:flex;gap:.6rem;margin-bottom:1rem;flex-wrap:nowrap" id="dt-row-${sd.id}">`;
+      h+=blob('rgba(59,130,246,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:1rem">按下一步逐一展開每個階段</p>`;
+      h+=`</div>`;
+      // Build unlock-card row
+      h+=`<div style="display:flex;gap:.55rem;max-width:960px;margin:0 auto 1rem;position:relative;z-index:1;flex-wrap:nowrap">`;
       steps.forEach((s,si)=>{
         const uid=`dt-${sd.id}-${si}`;
-        h+=`<div id="${uid}" onclick="dtToggle('${sd.id}',${si})" style="flex:1;padding:1rem .8rem;border-radius:12px;border:1.5px solid ${s.col};background:rgba(255,255,255,.03);cursor:pointer;text-align:center;transition:all .35s var(--ease-back);position:relative;overflow:hidden" data-col="${s.col}">`;
-        h+=`<div style="position:absolute;inset:0;background:${s.col};opacity:0;transition:opacity .3s" class="dt-bg-${sd.id}-${si}"></div>`;
-        h+=`<div style="position:relative;z-index:1">`;
-        h+=`<div style="font-size:.55rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${s.col};margin-bottom:.3rem;transition:color .3s" class="dt-en-${sd.id}-${si}">${s.en}</div>`;
-        h+=`<div style="font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;color:var(--ink)">${s.zh}</div>`;
-        h+=`<div style="font-size:.6rem;color:rgba(255,255,255,.25);margin-top:.4rem;text-transform:uppercase;letter-spacing:.1em">點擊</div>`;
-        h+=`</div></div>`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="flex:1;min-height:170px">`;
+        h+=`<div class="card-answer" style="background:${s.colR},.08);border:1.5px solid ${s.colR},.3);border-radius:12px;padding:.9rem .75rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:.45rem">`;
+        h+=`<div style="color:${s.col}">${s.icon}</div>`;
+        h+=`<div style="font-size:.52rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${s.col};opacity:.8">${s.en}</div>`;
+        h+=`<div style="font-size:clamp(.95rem,1.5vw,1.1rem);font-weight:800;color:var(--ink)">${s.zh}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.7);line-height:1.6;text-align:left">${s.desc}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${s.colR},.1);border:1.5px solid ${s.colR},.25)">`;
+        h+=`<div style="font-size:.6rem;font-weight:800;letter-spacing:.15em;color:${s.col};opacity:.6;text-transform:uppercase">${s.num}</div>`;
+        h+=`<div style="color:${s.col};margin:.4rem 0">${s.icon}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.5vw,1.15rem);font-weight:800;color:var(--ink)">${s.zh}</div>`;
+        h+=`<div style="font-size:.55rem;color:rgba(255,255,255,.25);margin-top:.3rem">點擊展開</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
       });
       h+=`</div>`;
-      // Detail panel
-      h+=`<div id="dt-detail-${sd.id}" style="padding:1.2rem 1.5rem;border-radius:10px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);min-height:80px;transition:all .35s ease;opacity:0">`;
-      h+=`<p id="dt-desc-${sd.id}" style="font-size:clamp(.9rem,1.5vw,1.1rem);color:var(--ink);line-height:1.7"></p>`;
-      h+=`</div>`;
-      // Note at bottom
-      h+=`<div class="tip-box" style="margin-top:.8rem">早上從 Prototype 出發沒錯。但最強的設計師，從 Empathize 就開始了。</div>`;
-      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:960px;margin:0 auto;position:relative;z-index:1">早上從 Prototype 出發沒錯。但最強的設計師，從 Empathize 就開始了。</div>`;
       break;}
     case 'insight-types-auto':{
       h+=blob('rgba(255,107,0,.08)','rgba(255,32,85,.06)');
