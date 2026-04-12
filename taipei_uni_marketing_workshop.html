@@ -1212,6 +1212,40 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:640px;margin:1rem auto 0;position:relative;z-index:1"><strong>Spotify 的洞察：</strong>HXC 不只是「願意付錢聽歌的人」，而是「會主動探索音樂並分享給朋友的人」——這群人會幫你做口碑傳播</div>`;
       break;}
+    case 'pmf-signals-game':{
+      h+=blob('rgba(34,197,94,.08)','rgba(59,130,246,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個情境，判斷它是不是真正的 PMF 訊號</p>`;
+      h+=`</div>`;
+      const pmfSignals=[
+        {emoji:'📸',scenario:'陌生人主動截圖你的作品，tag 給有相同困擾的朋友',isPmf:true,label:'PMF 訊號 ✓',why:'有機傳播 = 他認為這值得分享。朋友推薦的信任度是廣告的 10 倍。',col:'var(--green)'},
+        {emoji:'👩‍👧',scenario:'你媽說：「這個做得很棒！」還把你的作品分享給所有親戚',isPmf:false,label:'不是 PMF ✗',why:'認識你的人帶有情感濾鏡。PMF 需要來自陌生人的真實行動，不是善意稱讚。',col:'var(--red)'},
+        {emoji:'💳',scenario:'有人主動問：「這個有沒有付費進階版？我願意每月訂閱」',isPmf:true,label:'PMF 訊號 ✓',why:'願意掏錢 = 真實痛點。問這個問題代表你的解法已命中他的痛。',col:'var(--green)'},
+        {emoji:'❤️',scenario:'IG 發文後按讚破千，留言滿是「好讚！」「厲害！」',isPmf:false,label:'不是 PMF ✗',why:'Engagement ≠ 購買意願。按讚零成本；付費才是真正的投票。',col:'var(--red)'},
+        {emoji:'🔄',scenario:'用戶每週自發回來使用，你完全沒有做任何推廣',isPmf:true,label:'PMF 訊號 ✓',why:'自發留存 = 已融入生活習慣。這是最強的 PMF 訊號，沒有之一。',col:'var(--green)'},
+        {emoji:'💬',scenario:'朋友說「等你做完記得通知我！」但發布後完全沒有回音',isPmf:false,label:'不是 PMF ✗',why:'嘴說想要 ≠ 真的需要。Sean Ellis 說：觀察行動，不要問意願。',col:'var(--red)'},
+      ];
+      h+=`<div class="mrev-grid cols-3" style="gap:.7rem;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
+      pmfSignals.forEach((s,si)=>{
+        const uid=`pmfs-${sd.id}-${si}`;
+        const isGreen=s.col==='var(--green)';
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:145px">`;
+        h+=`<div class="card-answer" style="background:${isGreen?'rgba(34,197,94,.07)':'rgba(255,32,85,.07)'};border:1.5px solid ${isGreen?'rgba(34,197,94,.3)':'rgba(255,32,85,.3)'};border-top:3px solid ${s.col};border-radius:10px;padding:1rem">`;
+        h+=`<div style="font-size:var(--min-label);font-weight:800;color:${s.col};margin-bottom:.4rem">${s.label}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.4rem">${s.scenario}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.04);border-radius:6px">${s.why}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:10px;flex-direction:column;gap:.5rem;padding:1rem">`;
+        h+=`<div style="font-size:2rem">${s.emoji}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--ink);text-align:center;line-height:1.5">${s.scenario}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">PMF 訊號嗎？點擊判斷</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:960px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:var(--green)">真正的 PMF 訊號：</strong>陌生人的行動、自發留存、付費意願。你媽的稱讚很溫暖，但不算數。</div>`;
+      break;}
     case 'vitamin-painkiller':{
       h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
