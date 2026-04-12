@@ -1219,12 +1219,12 @@ function renderSlide(sd,idx){
       h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個情境，判斷它是不是真正的 PMF 訊號</p>`;
       h+=`</div>`;
       const pmfSignals=[
-        {emoji:'📸',scenario:'陌生人主動截圖你的作品，tag 給有相同困擾的朋友',isPmf:true,label:'PMF 訊號 ✓',why:'有機傳播 = 他認為這值得分享。朋友推薦的信任度是廣告的 10 倍。',col:'var(--green)'},
-        {emoji:'👩‍👧',scenario:'你媽說：「這個做得很棒！」還把你的作品分享給所有親戚',isPmf:false,label:'不是 PMF ✗',why:'認識你的人帶有情感濾鏡。PMF 需要來自陌生人的真實行動，不是善意稱讚。',col:'var(--red)'},
-        {emoji:'💳',scenario:'有人主動問：「這個有沒有付費進階版？我願意每月訂閱」',isPmf:true,label:'PMF 訊號 ✓',why:'願意掏錢 = 真實痛點。問這個問題代表你的解法已命中他的痛。',col:'var(--green)'},
-        {emoji:'❤️',scenario:'IG 發文後按讚破千，留言滿是「好讚！」「厲害！」',isPmf:false,label:'不是 PMF ✗',why:'Engagement ≠ 購買意願。按讚零成本；付費才是真正的投票。',col:'var(--red)'},
-        {emoji:'🔄',scenario:'用戶每週自發回來使用，你完全沒有做任何推廣',isPmf:true,label:'PMF 訊號 ✓',why:'自發留存 = 已融入生活習慣。這是最強的 PMF 訊號，沒有之一。',col:'var(--green)'},
-        {emoji:'💬',scenario:'朋友說「等你做完記得通知我！」但發布後完全沒有回音',isPmf:false,label:'不是 PMF ✗',why:'嘴說想要 ≠ 真的需要。Sean Ellis 說：觀察行動，不要問意願。',col:'var(--red)'},
+        {icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',scenario:'陌生人主動截圖你的作品，tag 給有相同困擾的朋友',isPmf:true,label:'PMF 訊號 ✓',why:'有機傳播 = 他認為這值得分享。朋友推薦的信任度是廣告的 10 倍。',col:'var(--green)'},
+        {icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',scenario:'你媽說：「這個做得很棒！」還把你的作品分享給所有親戚',isPmf:false,label:'不是 PMF ✗',why:'認識你的人帶有情感濾鏡。PMF 需要來自陌生人的真實行動，不是善意稱讚。',col:'var(--red)'},
+        {icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>',scenario:'有人主動問：「這個有沒有付費進階版？我願意每月訂閱」',isPmf:true,label:'PMF 訊號 ✓',why:'願意掏錢 = 真實痛點。問這個問題代表你的解法已命中他的痛。',col:'var(--green)'},
+        {icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',scenario:'IG 發文後按讚破千，留言滿是「好讚！」「厲害！」',isPmf:false,label:'不是 PMF ✗',why:'Engagement ≠ 購買意願。按讚零成本；付費才是真正的投票。',col:'var(--red)'},
+        {icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>',scenario:'用戶每週自發回來使用，你完全沒有做任何推廣',isPmf:true,label:'PMF 訊號 ✓',why:'自發留存 = 已融入生活習慣。這是最強的 PMF 訊號，沒有之一。',col:'var(--green)'},
+        {icon:'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',scenario:'朋友說「等你做完記得通知我！」但發布後完全沒有回音',isPmf:false,label:'不是 PMF ✗',why:'嘴說想要 ≠ 真的需要。Sean Ellis 說：觀察行動，不要問意願。',col:'var(--red)'},
       ];
       h+=`<div class="mrev-grid cols-3" style="gap:.7rem;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
       pmfSignals.forEach((s,si)=>{
@@ -1237,7 +1237,7 @@ function renderSlide(sd,idx){
         h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.04);border-radius:6px">${s.why}</div>`;
         h+=`</div>`;
         h+=`<div class="card-mask" style="border-radius:10px;flex-direction:column;gap:.5rem;padding:1rem">`;
-        h+=`<div style="font-size:2rem">${s.emoji}</div>`;
+        h+=`<div style="color:${s.col};opacity:.9">${s.icon}</div>`;
         h+=`<div style="font-size:var(--min-font);color:var(--ink);text-align:center;line-height:1.5">${s.scenario}</div>`;
         h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">PMF 訊號嗎？點擊判斷</div>`;
         h+=`</div>`;
