@@ -328,6 +328,7 @@ const D=[
 {id:'s27',sec:2,sub:'欲求性｜痛點',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是，是他說它是',bullets:['你以為是痛點，他以為是小困擾：維他命','你以為是功能，他覺得「沒有這個我不行」：止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩，繼續找']},
 {id:'s28',sec:2,sub:'欲求性｜練習',type:'exercise-persona-v2',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',time:180},
 {id:'s29',sec:2,sub:'欲求性｜練習',type:'exercise-tpo-v2',chip:['TPO 練習','purple'],title:'Time · Place · Occasion',time:180},
+{id:'s29b',sec:2,sub:'欲求性｜練習',type:'hormozi-exercise',chip:['價值公式練習','orange'],title:'套用 Hormozi 公式優化你的作品',time:180,xrefs:[{id:'s25e',label:'價值公式'}]},
 {id:'s30',sec:2,sub:'欲求性｜收尾',type:'section',chip:['Section 2 收尾','white'],title:'你現在知道<br>在對誰說話了',sub2:'Section 3：可行性 — 快速把想法做出來'},
 // ── SECTION 3：可行性｜快速驗證 ──────────────────────────────────────
 {id:'s3a0',sec:3,sub:'可行性｜開場',type:'section-cover',secNum:'③',secTitle:'可行性',secEn:'Feasibility',sub2:'快速把想法做出來'},
@@ -336,6 +337,7 @@ const D=[
 {id:'s3a3',sec:3,sub:'可行性｜原型',type:'prototype-types',chip:['原型類型','purple'],title:'Prototype / MVP / MVC / POC 的差別',xrefs:[{id:'s38',label:'GTM→POC→PMF'}]},
 {id:'s3a4',sec:3,sub:'可行性｜原型',type:'ideate-prototype-test',chip:['設計思維循環','orange'],title:'Ideate → Prototype → Test',xrefs:[{id:'s09',label:'設計思維循環'}]},
 {id:'s3a5',sec:3,sub:'可行性｜工具庫',type:'tools-wall-v2',chip:['一人軍隊工具庫','purple'],title:'工具推薦：一人軍隊的完整軍火庫'},
+{id:'s3a5b',sec:3,sub:'可行性｜工具庫',type:'ai-orchestration',chip:['AI Orchestration','cyan'],title:'新時代軍火庫：從 Agent 到 Orchestration'},
 {id:'s3a6',sec:3,sub:'可行性｜練習',type:'feasibility-exercise',chip:['可行性練習','green'],title:'把你的想法做出第一版',time:300},
 {id:'s3a7',sec:3,sub:'可行性｜收尾',type:'section',chip:['Section 3 收尾','white'],title:'工具在手<br>讓市場說話',sub2:'Section 4：存續性 — 從作品走到市場'},
 // ── SECTION 4：存續性｜價值表達 ──────────────────────────────────────
@@ -367,7 +369,7 @@ const D=[
 {id:'s5a6',sec:5,sub:'成長思維｜收尾',type:'close-carousel',chip:['Q&A','white'],cta:'掃描 QR Code 加 Vincent LinkedIn'},
 ];
 const total=D.length;
-const secStarts={1:0,2:27,3:47,4:55,5:73};
+const secStarts={1:0,2:27,3:48,4:57,5:75};
 const secNames={1:'① 策略思維',2:'② 欲求性',3:'③ 可行性',4:'④ 存續性',5:'⑤ 成長思維'};
 let cur=0;
 const timers={};
@@ -1442,7 +1444,7 @@ function renderSlide(sd,idx){
         {label:'TPO 情境',en:'Time Place Occasion',desc:'什麼時候、在哪、什麼心情看到你',col:'var(--blue)',note:'欲求性'},
         {label:'HMW 問題框架',en:'How Might We',desc:'把限制轉成機會的句型',col:'var(--cyan)',note:'欲求性'},
         {label:'Top-down 思維',en:'Problem First',desc:'先找最痛的問題，再想解法',col:'var(--orange)',note:'思維'},
-        {label:'GTM 策略',en:'Go-To-Market',desc:'誰 × 說什麼 × 在哪說',col:'var(--green)',note:'存續性'},
+        {label:'GTM 策略',en:'Go-To-Market',desc:'誰 × 說什麼 × 在哪說 × 何時說',col:'var(--green)',note:'存續性'},
         {label:'Pitch 黃金結構',en:'Hook→CTA',desc:'Hook · Problem · Solution · Evidence · CTA',col:'var(--purple)',note:'存續性'},
       ].forEach((f,i)=>{
         h+=`<div style="background:${f.col}10;border:1.5px solid ${f.col}35;border-radius:10px;padding:.8rem .9rem;opacity:0;animation:fade-up .4s ease forwards;animation-delay:${.1+i*.07}s">`;
@@ -1509,25 +1511,31 @@ function renderSlide(sd,idx){
       h+=blob('rgba(59,130,246,.1)','rgba(168,85,247,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">在開始設計之前，先確認這六件事</p>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個元素展開詳情</p>`;
       h+=`</div>`;
       const sixElements=[
-        {key:'scope',label:'Scope',zh:'範圍邊界',col:'var(--red)',priority:'最重要',desc:'什麼做、什麼不做？'},
-        {key:'constraints',label:'Constraints',zh:'限制條件',col:'var(--orange)',priority:'次重要',desc:'時間、預算、人力'},
-        {key:'stakeholder',label:'Stakeholder',zh:'利害關係人',col:'var(--purple)',priority:'TPO',desc:'誰？何時？何地？何情境？',extra:'Time · Place · Occasion'},
-        {key:'criteria',label:'Criteria',zh:'成功標準',col:'var(--green)',priority:'',desc:'怎麼判斷成功？'},
-        {key:'insight',label:'Insight',zh:'洞察來源',col:'var(--cyan)',priority:'',desc:'訪談、數據、直覺？'},
-        {key:'context',label:'Context',zh:'背景脈絡',col:'var(--blue)',priority:'基本功',desc:'市場、產業、時機點'}
+        {key:'scope',label:'Scope',zh:'範圍邊界',col:'var(--red)',priority:'最重要',desc:'什麼做、什麼不做？',detail:'明確劃定專案邊界，避免 scope creep'},
+        {key:'constraints',label:'Constraints',zh:'限制條件',col:'var(--orange)',priority:'次重要',desc:'時間、預算、人力',detail:'先接受限制，才能找到創意突破口'},
+        {key:'stakeholder',label:'Stakeholder',zh:'利害關係人',col:'var(--purple)',priority:'TPO',desc:'誰？何時？何地？',detail:'Time · Place · Occasion — 找到最痛的那個人'},
+        {key:'criteria',label:'Criteria',zh:'成功標準',col:'var(--green)',priority:'KPI',desc:'怎麼判斷成功？',detail:'沒有明確指標，就沒有結案標準'},
+        {key:'insight',label:'Insight',zh:'洞察來源',col:'var(--cyan)',priority:'驗證',desc:'訪談、數據、直覺？',detail:'洞察的來源決定它的可信度'},
+        {key:'context',label:'Context',zh:'背景脈絡',col:'var(--blue)',priority:'基本功',desc:'市場、產業、時機點',detail:'了解大環境，才能找到差異化空間'}
       ];
-      // 自動展開動畫
-      h+=`<div class="auto-reveal-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;position:relative;z-index:1;max-width:900px;margin:0 auto">`;
+      h+=`<div class="mrev-grid cols-3" style="position:relative;z-index:1;max-width:900px;margin:0 auto;gap:.8rem">`;
       sixElements.forEach((el,i)=>{
-        h+=`<div class="auto-reveal-item" style="background:${el.col}12;border:1.5px solid ${el.col}40;border-radius:10px;padding:1rem;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.3+i*.15}s">`;
-        if(el.priority)h+=`<div style="font-size:var(--min-label);font-weight:700;color:${el.col};margin-bottom:.3rem">${el.priority}</div>`;
+        const uid=`mck-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:140px">`;
+        h+=`<div class="card-answer" style="background:${el.col}12;border:1.5px solid ${el.col}50;border-radius:10px;padding:1rem">`;
+        h+=`<div style="font-size:var(--min-label);font-weight:800;color:${el.col};margin-bottom:.3rem;letter-spacing:.08em">${el.priority}</div>`;
         h+=`<div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${el.label}</div>`;
         h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-top:.2rem">${el.zh}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.6);margin-top:.4rem">${el.desc}</div>`;
-        if(el.extra)h+=`<div style="font-size:var(--min-label);color:${el.col};margin-top:.3rem;font-weight:600">${el.extra}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.7);margin-top:.5rem;padding:.5rem .6rem;background:rgba(255,255,255,.04);border-radius:6px">${el.desc}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${el.col};margin-top:.4rem;font-style:italic">${el.detail}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:10px;background:${el.col}18;border:1.5px solid ${el.col}40">`;
+        h+=`<div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:800;color:${el.col}">${el.label}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-top:.2rem">${el.zh}</div>`;
+        h+=`</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
@@ -1839,7 +1847,7 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
       const stages=[
-        {name:'GTM',zh:'Go-To-Market',col:'var(--blue)',desc:'定義誰、說什麼、在哪說',svg:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>'},
+        {name:'GTM',zh:'Go-To-Market',col:'var(--blue)',desc:'誰 × 說什麼 × 在哪說 × 何時說',svg:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>'},
         {name:'POC',zh:'Proof of Concept',col:'var(--orange)',desc:'最低成本驗證，找到第一個真實訊號',svg:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6l3 6-6 12-6-12 3-6z"/><path d="M9 9h6"/></svg>'},
         {name:'PMF',zh:'Product-Market Fit',col:'var(--green)',desc:'用戶主動回來、分享、推薦',svg:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>'}
       ];
@@ -2023,7 +2031,7 @@ function renderSlide(sd,idx){
       h+=`<div style="max-width:900px">`;
       h+=chip;
       h+=`<div class="bar"></div><h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
-      h+=`<p style="font-size:clamp(.82rem,1.3vw,.92rem);color:var(--mid);margin-bottom:1.1rem">先猜答案，再點擊看真正的消費洞察</p>`;
+      h+=`<p style="font-size:clamp(.82rem,1.3vw,.92rem);color:var(--mid);margin-bottom:1rem">點擊解鎖他們真正在意的 <strong style="color:var(--orange)">Hidden Agenda</strong></p>`;
       h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem">`;
       insights.forEach((ins,ii)=>{
         const uid=`ins-${sd.id}-${ii}`;
@@ -2044,7 +2052,20 @@ function renderSlide(sd,idx){
         h+=`</div></div>`;
       });
       h+=`</div>`;
-      h+=`<div class="tip-box" style="margin-top:.9rem"><strong style="color:var(--orange)">洞察：</strong>消費者買的不是產品，是他想成為的樣子。</div>`;
+      // Value → Function → Currency flow
+      h+=`<div style="margin-top:1.2rem;padding:1rem 1.2rem;background:linear-gradient(135deg,rgba(255,107,0,.08),rgba(168,85,247,.06));border:1.5px solid rgba(255,107,0,.25);border-radius:12px">`;
+      h+=`<div style="font-size:var(--min-label);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem">Hidden Agenda → 變現路徑</div>`;
+      h+=`<div style="display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap">`;
+      h+=`<div style="padding:.5rem .9rem;background:rgba(255,32,85,.15);border-radius:8px;font-size:var(--min-font);font-weight:700;color:var(--red)">Hidden Agenda</div>`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--mid)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+      h+=`<div style="padding:.5rem .9rem;background:rgba(168,85,247,.15);border-radius:8px;font-size:var(--min-font);font-weight:700;color:var(--purple)">Value 價值</div>`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--mid)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+      h+=`<div style="padding:.5rem .9rem;background:rgba(59,130,246,.15);border-radius:8px;font-size:var(--min-font);font-weight:700;color:var(--blue)">Function 功能</div>`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--mid)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
+      h+=`<div style="padding:.5rem .9rem;background:rgba(34,197,94,.15);border-radius:8px;font-size:var(--min-font);font-weight:700;color:var(--green)">Currency 變現</div>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);text-align:center;margin-top:.6rem">找到他真正在意的事 → 創造他願意付費的價值</div>`;
+      h+=`</div>`;
       h+=`</div>`;
       break;}
     case 'observe-insight-v3':{
@@ -2423,26 +2444,69 @@ function renderSlide(sd,idx){
     case 'hormozi-value':{
       h+=blob('rgba(255,107,0,.1)','rgba(255,32,85,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:1.2rem">來自《$100M Offers》— 如何讓產品「貴到賣爆」</p>`;
       h+=`</div>`;
-      h+=`<div style="max-width:800px;margin:0 auto;position:relative;z-index:1">`;
-      h+=`<div style="background:rgba(255,107,0,.08);border:2px solid rgba(255,107,0,.3);border-radius:16px;padding:2rem;text-align:center;margin-bottom:1rem">`;
-      h+=`<div style="font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--ink);margin-bottom:1rem">`;
-      h+=`Value = <span style="color:var(--green)">Dream × Likelihood</span> / <span style="color:var(--red)">Sacrifice × Time</span>`;
+      h+=`<div style="max-width:850px;margin:0 auto;position:relative;z-index:1">`;
+      // Visual Formula with fraction bar
+      h+=`<div style="background:linear-gradient(135deg,rgba(255,107,0,.1),rgba(168,85,247,.06));border:2px solid rgba(255,107,0,.35);border-radius:16px;padding:1.8rem 2rem;text-align:center;margin-bottom:1.2rem">`;
+      h+=`<div style="font-size:var(--min-label);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem">PERCEIVED VALUE FORMULA</div>`;
+      // Fraction display
+      h+=`<div style="display:flex;align-items:center;justify-content:center;gap:1.5rem">`;
+      h+=`<div style="font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--orange)">Value =</div>`;
+      h+=`<div style="display:flex;flex-direction:column;align-items:center">`;
+      // Numerator
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;padding:.6rem 1.2rem;background:rgba(34,197,94,.15);border-radius:10px">`;
+      h+=`<span style="font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:700;color:var(--green)">Dream</span>`;
+      h+=`<span style="font-size:clamp(1.2rem,2.2vw,1.6rem);color:var(--mid)">×</span>`;
+      h+=`<span style="font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:700;color:var(--green)">Likelihood</span>`;
       h+=`</div>`;
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem">`;
-      h+=`<div style="background:rgba(34,197,94,.1);border-radius:10px;padding:1rem"><div style="font-size:var(--min-label);color:var(--green);font-weight:700;margin-bottom:.5rem">分子：增加價值</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.3rem"><strong>Dream 夢想結果</strong>：他想達成什麼？</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink)"><strong>Likelihood 可能性</strong>：他相信能達成嗎？</div></div>`;
-      h+=`<div style="background:rgba(255,32,85,.1);border-radius:10px;padding:1rem"><div style="font-size:var(--min-label);color:var(--red);font-weight:700;margin-bottom:.5rem">分母：減少阻力</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.3rem"><strong>Sacrifice 犧牲</strong>：他要放棄什麼？</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink)"><strong>Time 時間</strong>：要花多久？</div></div>`;
+      // Fraction bar
+      h+=`<div style="width:100%;height:3px;background:var(--ink);margin:.5rem 0;border-radius:2px"></div>`;
+      // Denominator
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;padding:.6rem 1.2rem;background:rgba(255,32,85,.15);border-radius:10px">`;
+      h+=`<span style="font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:700;color:var(--red)">Sacrifice</span>`;
+      h+=`<span style="font-size:clamp(1.2rem,2.2vw,1.6rem);color:var(--mid)">×</span>`;
+      h+=`<span style="font-size:clamp(1.2rem,2.2vw,1.6rem);font-weight:700;color:var(--red)">Time</span>`;
+      h+=`</div>`;
+      h+=`</div></div></div>`;
+      // Four Variables Grid - clickable cards
+      h+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1rem">`;
+      const vars=[
+        {label:'Dream',zh:'夢想結果',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',q:'他想達成什麼？',tip:'越大越好',arrow:'↑'},
+        {label:'Likelihood',zh:'成功機率',col:'var(--blue)',icon:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',q:'他相信能達成嗎？',tip:'越高越好',arrow:'↑'},
+        {label:'Sacrifice',zh:'犧牲成本',col:'var(--orange)',icon:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',q:'他要放棄什麼？',tip:'越低越好',arrow:'↓'},
+        {label:'Time',zh:'所需時間',col:'var(--red)',icon:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',q:'要花多久？',tip:'越短越好',arrow:'↓'}
+      ];
+      vars.forEach((v,i)=>{
+        const isNumer = i < 2;
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:120px">`;
+        h+=`<div class="card-answer" style="background:${v.col}12;border:1.5px solid ${v.col}50;border-radius:10px;padding:.9rem">`;
+        h+=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem">`;
+        h+=`<span style="font-size:1.2rem">${v.icon}</span>`;
+        h+=`<span style="font-size:.7rem;padding:.2rem .5rem;border-radius:4px;background:${v.col}25;color:${v.col};font-weight:700">${v.arrow} ${v.tip}</span>`;
+        h+=`</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:${v.col}">${v.label}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin:.2rem 0">${v.zh}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-top:.4rem">${v.q}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:10px;background:${v.col}20">`;
+        h+=`<div style="font-size:1.5rem;margin-bottom:.3rem">${v.icon}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:${v.col}">${v.label}</div>`;
+        h+=`</div></div>`;
+      });
+      h+=`</div>`;
+      // Strategy summary
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">`;
+      h+=`<div style="background:rgba(34,197,94,.1);border:1.5px solid rgba(34,197,94,.3);border-radius:10px;padding:.9rem;text-align:center">`;
+      h+=`<div style="font-size:var(--min-label);font-weight:700;color:var(--green);margin-bottom:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>分子策略</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)">把結果說得更大、更可信</div>`;
+      h+=`</div>`;
+      h+=`<div style="background:rgba(255,32,85,.1);border:1.5px solid rgba(255,32,85,.3);border-radius:10px;padding:.9rem;text-align:center">`;
+      h+=`<div style="font-size:var(--min-label);font-weight:700;color:var(--red);margin-bottom:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>分母策略</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)">把成本和時間壓到最低</div>`;
+      h+=`</div>`;
       h+=`</div></div>`;
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">`;
-      h+=`<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem"><div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.3rem">高價值範例</div><div style="font-size:var(--min-font);color:var(--mid)">「30 天學會英文」比「2 年學會英文」有價值，因為時間更短、阻力更小</div></div>`;
-      h+=`<div style="background:rgba(255,255,255,.04);border-radius:10px;padding:1rem"><div style="font-size:var(--min-font);font-weight:700;color:var(--orange);margin-bottom:.3rem">設計原則</div><div style="font-size:var(--min-font);color:var(--mid)">增大分子（夢想結果更大、更可信）、減小分母（更少付出、更快見效）</div></div>`;
-      h+=`</div></div>`;
-      h+=`<div class="tip-box" style="max-width:800px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">下一頁：</strong>把公式的四個變數分別拆開，每個都有具體的操作方法</div>`;
       break;}
     case 'hormozi-example':{
       h+=blob('rgba(34,197,94,.08)','rgba(255,107,0,.06)');
@@ -2482,6 +2546,69 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       // Bottom summary
       h+=`<div class="tip-box" style="margin-top:1rem;text-align:center"><strong style="color:var(--purple)">Canva 的勝出公式：</strong>把設計的「結果」最大化，把學習的「門檻」最小化</div>`;
+      h+=`</div>`;
+      break;}
+    case 'hormozi-exercise':{
+      h+=blob('rgba(255,107,0,.1)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">用價值公式檢視你的作品，找到可以優化的地方</p>`;
+      h+=`</div>`;
+      h+=`<div style="position:relative;z-index:1;max-width:800px;margin:0 auto">`;
+      // Formula reminder
+      h+=`<div style="background:linear-gradient(135deg,rgba(255,107,0,.1),rgba(168,85,247,.05));border:1.5px solid rgba(255,107,0,.3);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1rem;text-align:center">`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)">`;
+      h+=`<span style="color:var(--green);font-weight:700"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Dream × <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Likelihood</span>`;
+      h+=` <span style="color:var(--mid)">÷</span> `;
+      h+=`<span style="color:var(--red);font-weight:700"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Time × <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Sacrifice</span>`;
+      h+=` <span style="color:var(--mid)">=</span> `;
+      h+=`<span style="color:var(--orange);font-weight:700">Perceived Value</span>`;
+      h+=`</div></div>`;
+      // Four input areas
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:1rem">`;
+      // Dream
+      h+=`<div style="background:rgba(34,197,94,.08);border:1.5px solid rgba(34,197,94,.35);border-radius:10px;padding:.9rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+      h+=`<span style="font-size:var(--min-font);font-weight:700;color:var(--green)">Dream Outcome</span>`;
+      h+=`<span style="margin-left:auto;font-size:var(--min-label);color:var(--green)">↑ 放大</span>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink)">用戶用了你的作品，最終會達成什麼？</div>`;
+      h+=`<div style="margin-top:.4rem;padding:.5rem;background:rgba(255,255,255,.05);border-radius:6px;min-height:32px;border:1px dashed rgba(34,197,94,.3)"></div>`;
+      h+=`</div>`;
+      // Likelihood
+      h+=`<div style="background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,.35);border-radius:10px;padding:.9rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+      h+=`<span style="font-size:var(--min-font);font-weight:700;color:var(--blue)">Likelihood</span>`;
+      h+=`<span style="margin-left:auto;font-size:var(--min-label);color:var(--blue)">↑ 提高</span>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink)">你有什麼證據讓他相信能成功？</div>`;
+      h+=`<div style="margin-top:.4rem;padding:.5rem;background:rgba(255,255,255,.05);border-radius:6px;min-height:32px;border:1px dashed rgba(59,130,246,.3)"></div>`;
+      h+=`</div>`;
+      // Time
+      h+=`<div style="background:rgba(255,107,0,.08);border:1.5px solid rgba(255,107,0,.35);border-radius:10px;padding:.9rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+      h+=`<span style="font-size:var(--min-font);font-weight:700;color:var(--orange)">Time Delay</span>`;
+      h+=`<span style="margin-left:auto;font-size:var(--min-label);color:var(--orange)">↓ 縮短</span>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink)">用戶多快能看到第一個結果？</div>`;
+      h+=`<div style="margin-top:.4rem;padding:.5rem;background:rgba(255,255,255,.05);border-radius:6px;min-height:32px;border:1px dashed rgba(255,107,0,.3)"></div>`;
+      h+=`</div>`;
+      // Sacrifice
+      h+=`<div style="background:rgba(255,32,85,.08);border:1.5px solid rgba(255,32,85,.35);border-radius:10px;padding:.9rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--red)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`;
+      h+=`<span style="font-size:var(--min-font);font-weight:700;color:var(--red)">Sacrifice</span>`;
+      h+=`<span style="margin-left:auto;font-size:var(--min-label);color:var(--red)">↓ 減少</span>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink)">用戶要付出什麼？如何降低？</div>`;
+      h+=`<div style="margin-top:.4rem;padding:.5rem;background:rgba(255,255,255,.05);border-radius:6px;min-height:32px;border:1px dashed rgba(255,32,85,.3)"></div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      // Timer
+      h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem;justify-content:center"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
       h+=`</div>`;
       break;}
     case 'exercise-persona-v2':{
@@ -2553,26 +2680,28 @@ function renderSlide(sd,idx){
       h+=blob('rgba(59,130,246,.08)','rgba(34,197,94,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">GTM = 三個變數的整合策略</p>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">GTM = 在對的時機，用對的路徑，觸發爆發性增長</p>`;
       h+=`</div>`;
       const gtmSteps=[
-        {q:'誰？',label:'Audience',col:'var(--red)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',answer:'你的 ICP + HXC。不是「所有人」'},
-        {q:'說什麼？',label:'Message',col:'var(--orange)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',answer:'對應他的痛，用他聽得懂的語言'},
-        {q:'在哪說？',label:'Channel',col:'var(--blue)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',answer:'他在哪裡，你就在哪裡說'}
+        {q:'誰？',label:'Audience',col:'var(--red)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',answer:'你的 ICP，不是「所有人」'},
+        {q:'說什麼？',label:'Message',col:'var(--orange)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',answer:'對應他的痛，用他的語言說'},
+        {q:'在哪說？',label:'Channel',col:'var(--blue)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',answer:'他在哪，你就在哪說'},
+        {q:'何時說？',label:'Timing',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',answer:'對的時機 × 對的路徑 = 爆發'}
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:850px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;max-width:950px;margin:0 auto;position:relative;z-index:1">`;
       gtmSteps.forEach((s,i)=>{
-        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:180px">`;
-        h+=`<div class="card-answer" style="background:${s.col}12;border:2px solid ${s.col}40;border-radius:12px;padding:1.2rem;text-align:center">`;
-        h+=`<div style="color:${s.col};margin-bottom:.4rem">${s.icon}</div>`;
-        h+=`<div style="font-size:var(--min-label);font-weight:700;color:${s.col};margin-bottom:.3rem">0${i+1}</div>`;
-        h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink);margin-bottom:.5rem">${s.label}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--mid)">${s.answer}</div>`;
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
+        h+=`<div class="card-answer" style="background:${s.col}12;border:2px solid ${s.col}40;border-radius:12px;padding:1rem;text-align:center">`;
+        h+=`<div style="color:${s.col};margin-bottom:.3rem">${s.icon}</div>`;
+        h+=`<div style="font-size:var(--min-label);font-weight:700;color:${s.col};margin-bottom:.2rem">0${i+1}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:.4rem">${s.label}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid)">${s.answer}</div>`;
         h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:12px;background:${s.col}20"><div style="color:${s.col}">${s.icon}</div><div style="font-size:clamp(1.3rem,2vw,1.6rem);font-weight:700;color:var(--ink);margin-top:.3rem">${s.q}</div></div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${s.col}20"><div style="color:${s.col}">${s.icon}</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink);margin-top:.3rem">${s.q}</div></div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:950px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:var(--green)">程序性關鍵：</strong>時機比內容更重要 — 在市場還沒準備好時進入會死，太晚進入會被淹沒</div>`;
       break;}
     case 'gtm-poc-pmf-v2':{
       h+=blob('rgba(34,197,94,.08)','rgba(59,130,246,.06)');
@@ -2580,7 +2709,7 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
       h+=`</div>`;
       const stages=[
-        {name:'GTM',zh:'Go-To-Market',col:'var(--blue)',desc:'定義誰、說什麼、在哪說',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>'},
+        {name:'GTM',zh:'Go-To-Market',col:'var(--blue)',desc:'誰 × 說什麼 × 在哪說 × 何時說',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>'},
         {name:'POC',zh:'Proof of Concept',col:'var(--orange)',desc:'最低成本驗證，找第一個真實訊號',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'},
         {name:'PMF',zh:'Product-Market Fit',col:'var(--green)',desc:'用戶主動回來、分享、推薦',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'}
       ];
@@ -2856,43 +2985,84 @@ function renderSlide(sd,idx){
       break;}
     // ========== NEW RENDER CASES V3 ==========
     case 'hormozi-value-b':{
-      h+=blob('rgba(255,107,0,.1)','rgba(34,197,94,.06)');
+      h+=blob('rgba(34,197,94,.08)','rgba(255,32,85,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個變數，看操作方法</p>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">分子放大｜分母縮小 — 點擊每個變數看操作方法</p>`;
       h+=`</div>`;
-      const hvVars=[
-        {key:'dream',label:'Dream Outcome',zh:'夢想結果',arrow:'↑ 最大化',col:'var(--green)',def:'他最終想達到的狀態——不是功能，是結果',
-         how:'描述得越具體、越情感化越好。「讓你做出像設計師的作品」而非「提供設計工具」',
-         ex:'Canva：「5 分鐘做出令老闆刮目相看的提案」',
-         q:'你的用戶最想成為什麼樣的人？達成什麼？'},
-        {key:'like',label:'Likelihood',zh:'實現可能性',arrow:'↑ 最大化',col:'var(--blue)',def:'他相信透過你的解法能真的達成那個結果',
-         how:'降低他的懷疑：用案例、數字、社會證明。讓他覺得「別人做到了，我也可以」',
-         ex:'Duolingo：每日連續天數、排行榜讓人相信自己能學會',
-         q:'你能拿什麼讓他從「感覺可以」變成「我確定能做到」？'},
-        {key:'time',label:'Time Delay',zh:'所需時間',arrow:'↓ 最小化',col:'var(--orange)',def:'他從開始到看到結果需要等多久',
-         how:'縮短等待感：快速勝利（Quick Win）、即時回饋、進度條都有效',
-         ex:'Grammarly：貼上文字馬上看到修改建議，1 秒見效',
-         q:'你的用戶能在多快的時間內感受到第一個結果？'},
-        {key:'sac',label:'Sacrifice',zh:'所需犧牲',arrow:'↓ 最小化',col:'var(--red)',def:'他為了獲得那個結果，要付出的努力、金錢、學習成本',
-         how:'減少摩擦：免費試用、零學習門檻、一鍵操作。讓他「什麼都不用放棄」就能開始',
-         ex:'Notion：免費版 + 模板庫，開帳號就能用，不用從零建立',
-         q:'你的用戶最不想付出什麼？你怎麼讓他不必付出那些？'}
-      ];
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
-      hvVars.forEach((v,i)=>{
-        const uid=`hv2-${sd.id}-${i}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:150px">`;
-        h+=`<div class="card-answer" style="background:${v.col}10;border:2px solid ${v.col}35;border-radius:12px;padding:1.1rem">`;
-        h+=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem"><span style="font-size:var(--min-label);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:${v.col}">${v.label}</span><span style="font-size:var(--min-label);padding:.15em .5em;border-radius:4px;background:${v.col}25;color:${v.col};font-weight:700">${v.arrow}</span></div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.4rem">${v.def}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.5rem;padding:.5rem;background:rgba(255,255,255,.04);border-radius:6px;border-left:2px solid ${v.col}50"><strong style="color:${v.col}">怎麼做：</strong>${v.how}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.4rem;font-style:italic">${v.ex}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:${v.col};font-weight:700">${v.q}</div>`;
-        h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:12px;background:${v.col}18"><div style="font-size:clamp(1.2rem,1.8vw,1.5rem);font-weight:800;color:${v.col}">${v.zh}</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.3rem">${v.arrow}</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.4rem">點擊展開操作方法</div></div>`;
-        h+=`</div>`;
-      });
+      h+=`<div style="max-width:920px;margin:0 auto;position:relative;z-index:1">`;
+      // Numerator section (maximize)
+      h+=`<div style="margin-bottom:.8rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem">`;
+      h+=`<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),#10b981);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--green)">分子：越大越好</div><div style="font-size:var(--min-label);color:var(--mid)">增加感知價值</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">`;
+      // Dream
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
+      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(34,197,94,.05));border:1.5px solid rgba(34,197,94,.4);border-radius:12px;padding:1rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--green)">Dream Outcome</div><div style="font-size:var(--min-label);color:var(--mid)">夢想結果</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">描述越具體、越情感化越好</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>「5分鐘做出讓老闆刮目相看的提案」</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--green);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>用戶最想成為什麼樣的人？</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(34,197,94,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-top:.3rem">Dream</div><div style="font-size:var(--min-label);color:var(--mid)">夢想結果</div></div>`;
+      h+=`</div>`;
+      // Likelihood
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
+      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(59,130,246,.05));border:1.5px solid rgba(59,130,246,.4);border-radius:12px;padding:1rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--blue)">Likelihood</div><div style="font-size:var(--min-label);color:var(--mid)">成功機率</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">用案例、數字、社會證明降低懷疑</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Duolingo 連續天數讓人相信能學會</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--blue);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>如何讓他確信「我也做得到」？</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--blue);margin-top:.3rem">Likelihood</div><div style="font-size:var(--min-label);color:var(--mid)">成功機率</div></div>`;
+      h+=`</div>`;
+      h+=`</div></div>`;
+      // Denominator section (minimize)
+      h+=`<div>`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem">`;
+      h+=`<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--red),#f97316);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--red)">分母：越小越好</div><div style="font-size:var(--min-label);color:var(--mid)">減少感知成本</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">`;
+      // Time
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
+      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(255,107,0,.12),rgba(255,107,0,.05));border:1.5px solid rgba(255,107,0,.4);border-radius:12px;padding:1rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--orange)">Time Delay</div><div style="font-size:var(--min-label);color:var(--mid)">所需時間</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">快速勝利、即時回饋、進度可視化</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Grammarly 貼上文字 1 秒見效</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--orange);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>用戶多快能感受到第一個結果？</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(255,107,0,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--orange);margin-top:.3rem">Time</div><div style="font-size:var(--min-label);color:var(--mid)">所需時間</div></div>`;
+      h+=`</div>`;
+      // Sacrifice
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
+      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(255,32,85,.12),rgba(255,32,85,.05));border:1.5px solid rgba(255,32,85,.4);border-radius:12px;padding:1rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--red)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--red)">Sacrifice</div><div style="font-size:var(--min-label);color:var(--mid)">犧牲成本</div></div>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">免費試用、零學習門檻、一鍵操作</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Notion 免費版 + 模板庫，開帳號就能用</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--red);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>用戶最不想付出什麼？如何避免？</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(255,32,85,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--red)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--red);margin-top:.3rem">Sacrifice</div><div style="font-size:var(--min-label);color:var(--mid)">犧牲成本</div></div>`;
+      h+=`</div>`;
+      h+=`</div></div>`;
+      // Bottom formula reminder
+      h+=`<div style="margin-top:1rem;padding:.8rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;text-align:center">`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)"><span style="color:var(--green);font-weight:700"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Dream × <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Likelihood</span> <span style="color:var(--mid)">÷</span> <span style="color:var(--red);font-weight:700"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Time × <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Sacrifice</span> <span style="color:var(--mid)">=</span> <span style="color:var(--orange);font-weight:700">Perceived Value</span></div>`;
+      h+=`</div>`;
       h+=`</div>`;
       break;}
     case 'dfv-only-one':{
@@ -2910,8 +3080,8 @@ function renderSlide(sd,idx){
         {only:'只有 F',name:'工程師陷阱',en:'Engineer Trap',col:'var(--blue)',colRaw:'rgba(59,130,246',
          icon:'<svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
          desc:'做得出來，但沒人要、也沒有商模',
-         example:'Google Glass — 技術超前，製作精良，但沒有真實需求、沒有清晰變現路徑',
-         result:'42% 新創死亡原因'},
+         example:'Segway — 發明者預言改變城市，技術領先，但沒人真的需要它通勤',
+         result:'70% 產品上市失敗'},
         {only:'只有 V',name:'商模陷阱',en:'MBA Trap',col:'rgba(255,255,255,.8)',colRaw:'rgba(255,255,255',
          icon:'<svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
          desc:'有商業邏輯，但沒人想要、也做不出來',
@@ -3153,6 +3323,77 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:1020px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:var(--purple)">原則：</strong>用一個工具做到 80 分，比用五個工具各做到 40 分更有效。先選一個你最順手的，做出來再說</div>`;
+      break;}
+    case 'ai-orchestration':{
+      h+=blob('rgba(6,182,212,.1)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.4rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">2025：AI 不只是工具，是你的<strong style="color:var(--cyan)">協作團隊</strong></p>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      // Evolution timeline - cleaner horizontal bar
+      h+=`<div style="display:flex;align-items:stretch;justify-content:center;gap:0;margin-bottom:1.2rem">`;
+      h+=`<div style="flex:1;max-width:180px;padding:.7rem 1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px 0 0 10px;text-align:center">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.2rem">2023</div>`;
+      h+=`<div style="font-size:var(--min-font);font-weight:600;color:var(--ink)">AI Tools</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid)">單一任務</div>`;
+      h+=`</div>`;
+      h+=`<div style="flex:1;max-width:180px;padding:.7rem 1rem;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.2);text-align:center">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--purple);margin-bottom:.2rem">2024</div>`;
+      h+=`<div style="font-size:var(--min-font);font-weight:600;color:var(--ink)">AI Agents</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid)">自主執行</div>`;
+      h+=`</div>`;
+      h+=`<div style="flex:1;max-width:200px;padding:.7rem 1rem;background:linear-gradient(135deg,rgba(6,182,212,.12),rgba(168,85,247,.08));border:2px solid rgba(6,182,212,.4);border-radius:0 10px 10px 0;text-align:center">`;
+      h+=`<div style="font-size:var(--min-label);color:var(--cyan);margin-bottom:.2rem">2025+</div>`;
+      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--cyan)">AI Orchestration</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--ink)">多 Agent 協作</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      // Main tools - 4 columns, compact design
+      const orchTools=[
+        {name:'Manus',desc:'全自動 AI 員工',col:'var(--cyan)',colR:'rgba(6,182,212',
+         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/><path d="M12 13v4M9 21v-4M15 21v-4"/></svg>'},
+        {name:'Claude Computer Use',desc:'AI 操控電腦',col:'var(--purple)',colR:'rgba(168,85,247',
+         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>'},
+        {name:'Lobechat',desc:'多模型中樞',col:'var(--blue)',colR:'rgba(59,130,246',
+         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="12" cy="20" r="2"/><circle cx="4" cy="12" r="2"/><line x1="12" y1="6" x2="12" y2="9"/><line x1="18" y1="12" x2="15" y2="12"/><line x1="12" y1="15" x2="12" y2="18"/><line x1="9" y1="12" x2="6" y2="12"/></svg>'},
+        {name:'Cursor',desc:'AI Coding',col:'var(--green)',colR:'rgba(34,197,94',
+         icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>'}
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1rem">`;
+      orchTools.forEach(t=>{
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:90px">`;
+        h+=`<div class="card-answer" style="background:${t.colR},.08);border:1.5px solid ${t.colR},.35);border-radius:10px;padding:.8rem;text-align:center">`;
+        h+=`<div style="color:${t.col};margin-bottom:.4rem">${t.icon}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:${t.col}">${t.name}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${t.desc}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:10px;background:${t.colR},.12)">`;
+        h+=`<div style="color:${t.col}">${t.icon}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:${t.col};margin-top:.3rem">${t.name}</div>`;
+        h+=`</div></div>`;
+      });
+      h+=`</div>`;
+      // Key insight - two column comparison
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">`;
+      h+=`<div style="background:rgba(168,85,247,.08);border:1.5px solid rgba(168,85,247,.3);border-radius:10px;padding:.9rem 1rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+      h+=`<span style="font-size:var(--min-label);font-weight:700;color:var(--purple)">舊思維</span>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)">「我要學會用這個 AI 工具」</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.3rem">你是操作員</div>`;
+      h+=`</div>`;
+      h+=`<div style="background:linear-gradient(135deg,rgba(6,182,212,.1),rgba(168,85,247,.05));border:1.5px solid rgba(6,182,212,.4);border-radius:10px;padding:.9rem 1rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.4rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+      h+=`<span style="font-size:var(--min-label);font-weight:700;color:var(--cyan)">新思維</span>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--ink)">「組建 AI 團隊，讓它們協作」</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--cyan);margin-top:.3rem;font-weight:600">你是指揮官</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
       break;}
     case 'feasibility-exercise':{
       h+=blob('rgba(34,197,94,.08)','rgba(6,182,212,.06)');
