@@ -541,10 +541,18 @@ function insightReveal(uid){
   const mask=el.querySelector('.ins-mask');
   const answer=el.querySelector('.ins-answer');
   if(mask&&answer){
-    mask.style.opacity='0';
-    mask.style.transform='scale(.9)';
-    mask.style.pointerEvents='none';
-    answer.style.visibility='visible';
+    const revealed=answer.style.visibility==='visible';
+    if(revealed){
+      mask.style.opacity='1';
+      mask.style.transform='scale(1)';
+      mask.style.pointerEvents='';
+      answer.style.visibility='hidden';
+    } else {
+      mask.style.opacity='0';
+      mask.style.transform='scale(.9)';
+      mask.style.pointerEvents='none';
+      answer.style.visibility='visible';
+    }
   }
 }
 
