@@ -26,12 +26,14 @@ body{font-family:system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;backg
 .slide[data-sec="2"]{background:linear-gradient(165deg,#0e1525 0%,#141c30 35%,#182035 70%,#0e1620 100%)}
 .slide[data-sec="3"]{background:linear-gradient(165deg,#0d1c15 0%,#122218 35%,#162a20 70%,#0e1c16 100%)}
 .slide[data-sec="4"]{background:linear-gradient(165deg,#181410 0%,#221a10 35%,#1e1a14 70%,#151210 100%)}
+.slide[data-sec="5"]{background:linear-gradient(165deg,#14101a 0%,#1c1428 35%,#201830 70%,#161020 100%)}
 .slide::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:clamp(40px,6vw,72px) clamp(40px,6vw,72px);z-index:0}
 .slide::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0}
 .slide[data-sec="1"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(255,32,85,.08),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(168,85,247,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(255,107,0,.04),transparent 50%)}
 .slide[data-sec="2"]::after{background:radial-gradient(ellipse 70% 60% at 20% 20%,rgba(59,130,246,.08),transparent 55%),radial-gradient(ellipse 55% 70% at 80% 80%,rgba(255,32,85,.06),transparent 55%),radial-gradient(ellipse 45% 45% at 60% 40%,rgba(6,182,212,.05),transparent 50%)}
 .slide[data-sec="3"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(34,197,94,.08),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(6,182,212,.06),transparent 55%),radial-gradient(ellipse 40% 40% at 40% 60%,rgba(251,191,36,.04),transparent 50%)}
 .slide[data-sec="4"]::after{background:radial-gradient(ellipse 70% 60% at 20% 20%,rgba(251,191,36,.09),transparent 55%),radial-gradient(ellipse 55% 70% at 80% 80%,rgba(168,85,247,.06),transparent 55%),radial-gradient(ellipse 45% 45% at 55% 45%,rgba(255,107,0,.05),transparent 50%)}
+.slide[data-sec="5"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(168,85,247,.1),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(255,107,0,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(59,130,246,.05),transparent 50%)}
 .inner{position:relative;z-index:2;width:min(94vw,1080px);max-height:calc(100vh - 120px);overflow:hidden;scrollbar-width:none}
 .inner::-webkit-scrollbar{display:none}
 .slide-content{opacity:0;transform:translateY(32px) scale(.97);transition:opacity .6s var(--ease-smooth),transform .6s var(--ease-back)}
@@ -355,10 +357,16 @@ const D=[
 {id:'s45',sec:4,sub:'存續性｜發表',type:'big-quote',chip:['最後一句話','white'],quote:'做圖不是目的<br><span class="g-orange">讓那個人採取行動</span><br>才是',sub2:'今天學的所有工具，都服務這一個目標'},
 {id:'s46',sec:4,sub:'存續性｜收尾',type:'resources',chip:['帶走這些','white'],title:'帶走這些'},
 {id:'s47',sec:4,sub:'存續性｜收尾',type:'close-carousel',chip:['Q&A','white'],cta:'掃描 QR Code 加 Vincent LinkedIn'},
+// ── SECTION 5：成長思維｜擴展邊界 ──────────────────────────────────────
+{id:'s5a0',sec:5,sub:'成長思維｜開場',type:'section-cover',secNum:'⑤',secTitle:'成長思維',secEn:'Growth Mindset',sub2:'擴展你的邊界'},
+{id:'s5a1',sec:5,sub:'成長思維｜心態',type:'growth-fixed-mindset',chip:['兩種心態','purple'],title:'Growth Mindset vs Fixed Mindset'},
+{id:'s5a2',sec:5,sub:'成長思維｜槓桿',type:'leverage-safety',chip:['槓桿與安全邊際','blue'],title:'Leverage 與 Safety Margin'},
+{id:'s5a3',sec:5,sub:'成長思維｜認知',type:'pattern-awareness',chip:['覺察力','green'],title:'Pattern Recognition 與 Self-Awareness'},
+{id:'s5a4',sec:5,sub:'成長思維｜收尾',type:'growth-final',chip:['最後一課','orange'],title:'擴展認知的邊界'},
 ];
 const total=D.length;
-const secStarts={1:0,2:26,3:46,4:54};
-const secNames={1:'① 策略思維',2:'② 欲求性',3:'③ 可行性',4:'④ 存續性'};
+const secStarts={1:0,2:26,3:46,4:54,5:74};
+const secNames={1:'① 策略思維',2:'② 欲求性',3:'③ 可行性',4:'④ 存續性',5:'⑤ 成長思維'};
 let cur=0;
 const timers={};
 const container=document.getElementById('slides-container');
@@ -563,7 +571,7 @@ function renderSlide(sd,idx){
       h+=`<div style="position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1rem">${chip}<div class="hero-txt g-multi">${sd.title}</div><div class="bar" style="margin:.6rem auto"></div><p style="font-size:clamp(1rem,1.8vw,1.25rem);color:var(--mid)">${sd.sub2}</p></div>`;
       break;
     case 'section-cover':{
-      const cols={'②':['rgba(59,130,246,.14)','rgba(168,85,247,.1)'],'③':['rgba(34,197,94,.12)','rgba(6,182,212,.09)'],'④':['rgba(251,191,36,.12)','rgba(255,107,0,.09)']};
+      const cols={'②':['rgba(59,130,246,.14)','rgba(168,85,247,.1)'],'③':['rgba(34,197,94,.12)','rgba(6,182,212,.09)'],'④':['rgba(251,191,36,.12)','rgba(255,107,0,.09)'],'⑤':['rgba(168,85,247,.14)','rgba(255,107,0,.1)']};
       const[c1,c2]=cols[sd.secNum]||['rgba(255,107,0,.12)','rgba(255,32,85,.09)'];
       h+=blob(c1,c2);
       h+=`<div style="position:relative;z-index:1;text-align:center"><div style="font-size:.65rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem">Section ${sd.secNum}</div><div class="hero-txt" style="line-height:1">${sd.secNum}</div><h1 style="margin-top:.25rem">${sd.secTitle}</h1><div style="font-size:.9rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin:.4rem 0 .9rem">${sd.secEn}</div><div class="bar" style="margin:.8rem auto 1rem"></div><p style="font-size:clamp(1.1rem,2vw,1.4rem);color:var(--mid);font-weight:500">${sd.sub2}</p></div>`;
@@ -575,15 +583,15 @@ function renderSlide(sd,idx){
     case 'close-carousel':{
       h+=blob('rgba(255,107,0,.12)','rgba(168,85,247,.09)');
       const cqQuotes=[
-        {q:'設計是為了改變行為',s:'不是展示美術，不是獲得讚美',col:'var(--red)'},
+        {q:'設計是為了改變行為',s:'不是展示美術，不是獲得讚美',col:'var(--orange)'},
         {q:'讓那個正在痛的人，採取對他有益的行動',s:'這就是行銷設計的本質',col:'var(--orange)'},
-        {q:'不是有人說讚，是有人願意花時間、注意力、甚至金錢去換取它',s:'那才叫價值',col:'var(--yellow)'},
+        {q:'不是有人說讚，是有人願意花時間、注意力、甚至金錢去換取它',s:'那才叫價值',col:'var(--orange)'},
         {q:'找那個最痛的人，他就是你的受眾',s:'不是找最多人，是找最對的人',col:'var(--green)'},
         {q:'市場不在乎你的想法，只在乎他的痛',s:'欲求性第一',col:'var(--cyan)'},
         {q:'Top-down 思維：先找最痛的問題，再想解法',s:'不是反過來',col:'var(--blue)'},
         {q:'可行性在 AI 時代已不是障礙，難的是欲求性',s:'你做得出來，但有人要嗎？',col:'var(--purple)'},
-        {q:'Persona 不是年齡性別，是一個有名字的真實的人',s:'你的作品是寫給他的一封信',col:'var(--red)'},
-        {q:'你的作品出現在他最痛的那個 TPO，才有意義',s:'對的人、對的地方、對的時刻',col:'var(--orange)'},
+        {q:'Persona 不是年齡性別，是一個有名字的真實的人',s:'你的作品是寫給他的一封信',col:'var(--orange)'},
+        {q:'你的作品出現在他最痛的那個 TPO，才有意義',s:'對的人、對的地方、對的時刻',col:'var(--cyan)'},
         {q:'一個清晰的 CTA，勝過十個漂亮的設計',s:'告訴他下一步要做什麼',col:'var(--green)'},
       ];
       h+=`<style>
@@ -591,10 +599,10 @@ function renderSlide(sd,idx){
         @keyframes floatQuote1 { 0%,100%{transform:translate(0,0) rotate(1deg)} 50%{transform:translate(-10px,-8px) rotate(-2deg)} }
         @keyframes floatQuote2 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(6px,10px) rotate(2deg)} }
         @keyframes floatQuote3 { 0%,100%{transform:translate(0,0) rotate(-1deg)} 50%{transform:translate(-8px,-6px) rotate(1deg)} }
-        @keyframes titleGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-        .float-quote{position:absolute;padding:.5rem .8rem;border-radius:8px;font-size:var(--min-label);font-weight:600;max-width:160px;text-align:center;backdrop-filter:blur(8px);cursor:pointer;transition:all .3s ease;opacity:.7}
+        @keyframes titlePulse { 0%,100%{opacity:1} 50%{opacity:.85} }
+        .float-quote{position:absolute;padding:.5rem .8rem;border-radius:8px;font-size:var(--min-label);font-weight:600;max-width:160px;text-align:center;backdrop-filter:blur(8px);cursor:pointer;transition:all .3s ease;opacity:.6}
         .float-quote:hover{transform:scale(1.1)!important;opacity:1;z-index:10}
-        .carousel-title{font-size:clamp(1.6rem,4vw,2.8rem);line-height:1.3;font-weight:800;background:linear-gradient(90deg,var(--red),var(--orange),var(--yellow),var(--green),var(--cyan),var(--blue),var(--purple),var(--red));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:titleGradient 8s linear infinite}
+        .carousel-title-clean{font-size:clamp(1.6rem,4vw,2.8rem);line-height:1.3;font-weight:800;color:var(--orange);animation:titlePulse 3s ease-in-out infinite}
       </style>`;
       h+=`<div style="position:relative;z-index:1;text-align:center;max-width:950px;margin:0 auto;min-height:480px">`;
       h+=chip;
@@ -608,13 +616,13 @@ function renderSlide(sd,idx){
       cqQuotes.slice(0,6).forEach((q,i)=>{
         const pos=positions[i];
         const posStyle=Object.entries(pos).filter(([k])=>k!=='anim').map(([k,v])=>`${k}:${v}`).join(';');
-        h+=`<div class="float-quote" style="${posStyle};background:${q.col}15;border:1px solid ${q.col}40;color:${q.col};animation:floatQuote${pos.anim} ${5+i*0.5}s ease-in-out infinite;animation-delay:${i*0.3}s">`;
+        h+=`<div class="float-quote" style="${posStyle};background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);animation:floatQuote${pos.anim} ${5+i*0.5}s ease-in-out infinite;animation-delay:${i*0.3}s">`;
         h+=`${q.q}</div>`;
       });
-      // Center carousel with animated title
-      h+=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70%;max-width:600px">`;
-      h+=`<div id="cq-wrap-${sd.id}" style="min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer" onclick="cqNext_${sd.id}()">`;
-      h+=`<h1 id="cq-title-${sd.id}" class="carousel-title">${cqQuotes[0].q}</h1>`;
+      // Center carousel with WHITE BOARD background to prevent overlap
+      h+=`<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:75%;max-width:620px;background:rgba(10,10,18,.95);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem 2.5rem;backdrop-filter:blur(12px)">`;
+      h+=`<div id="cq-wrap-${sd.id}" style="min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer" onclick="cqNext_${sd.id}()">`;
+      h+=`<h1 id="cq-title-${sd.id}" class="carousel-title-clean">${cqQuotes[0].q}</h1>`;
       h+=`<p id="cq-sub-${sd.id}" style="margin-top:.8rem;font-size:var(--min-font);color:var(--mid);transition:opacity .4s">${cqQuotes[0].s}</p>`;
       h+=`</div>`;
       // Dots
@@ -1986,7 +1994,7 @@ function renderSlide(sd,idx){
       const cases=[
         {school:'YC W15 · 協作',type:'SaaS',name:'Notion',col:'var(--red)',problem:'團隊文件散落各處，協作混亂',solution:'All-in-one workspace，一個地方管理所有知識',insight:'從「做更好的工具」改成「解決協作痛點」'},
         {school:'澳洲新創 · 設計',type:'設計工具',name:'Canva',col:'var(--blue)',problem:'非設計師做不出專業視覺',solution:'模板 + 拖拉介面，人人都能設計',insight:'不是教人設計，是讓設計變簡單'},
-        {school:'瑞典品牌 · 消費品',type:'植物奶',name:'Oatly',col:'var(--purple)',problem:'想喝植物奶但選擇無聊',solution:'燕麥奶 + 潮牌定位 + 咖啡店通路',insight:'把「健康選擇」變成「生活態度」'}
+        {school:'美國新創 · 交通',type:'共享經濟',name:'Uber',col:'var(--purple)',problem:'叫車要打電話等半天，價格不透明',solution:'手機叫車 + 即時定位 + 透明計價',insight:'從「搭車」改成「隨叫隨到的專屬司機」'}
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:950px;margin:0 auto;position:relative;z-index:1">`;
       cases.forEach((c,i)=>{
@@ -2005,10 +2013,10 @@ function renderSlide(sd,idx){
       break;}
     case 'insight-types-coffee':{
       const insights=[
-        {num:'01',q:'他為什麼買咖啡？',color:'var(--orange)',label:'Functional',reveals:['表面答案：提神、補充咖啡因','真實洞察：切換工作狀態的儀式感','買咖啡 = 「現在我要開始認真了」的信號','這就是為什麼星巴克能賣 150 元的美式']},
-        {num:'02',q:'他為什麼買 iPhone？',color:'var(--blue)',label:'Social',reveals:['表面答案：手機效能好、相機優','真實洞察：社交身份的象徵與認同','在某些圈子，用 iPhone = 一種默認的語言','「Android 換 iPhone」常是某個人生轉折點']},
-        {num:'03',q:'他為什麼去健身房？',color:'var(--green)',label:'Emotional',reveals:['表面答案：想變健康、想練肌肉','真實洞察：尋找生活中少數能控制的事','當工作、感情都失控時，身材是少數能掌控的','Keep 的爆發不是因為大家突然想健康']},
-        {num:'04',q:'他為什麼辦信用卡？',color:'var(--purple)',label:'Identity',reveals:['表面答案：有回饋、有優惠','真實洞察：成為「精打細算的成熟大人」這個身份','黑卡的真正產品不是額度，是稀缺感與地位認同','Insight：人買的不是功能，是他想成為的版本']},
+        {num:'01',q:'他為什麼買咖啡？',color:'var(--orange)',label:'Functional',reveals:['表面：提神','洞察：切換工作狀態的儀式感']},
+        {num:'02',q:'他為什麼訂閱 Netflix？',color:'var(--blue)',label:'Social',reveals:['表面：看劇方便','洞察：社交話題的入場券']},
+        {num:'03',q:'他為什麼去健身房？',color:'var(--green)',label:'Emotional',reveals:['表面：想變健康','洞察：尋找生活中能掌控的事']},
+        {num:'04',q:'他為什麼辦信用卡？',color:'var(--purple)',label:'Identity',reveals:['表面：有優惠','洞察：成為「精打細算的成熟大人」']},
       ];
       h+=`<div style="max-width:900px">`;
       h+=chip;
@@ -2017,24 +2025,24 @@ function renderSlide(sd,idx){
       h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem">`;
       insights.forEach((ins,ii)=>{
         const uid=`ins-${sd.id}-${ii}`;
-        h+=`<div id="${uid}" onclick="insightReveal('${uid}')" style="position:relative;border-radius:12px;overflow:hidden;cursor:pointer;min-height:140px;border:1.5px solid ${ins.color};background:rgba(255,255,255,.03);transition:transform .2s var(--ease-back)"`;
+        h+=`<div id="${uid}" onclick="insightReveal('${uid}')" style="position:relative;border-radius:12px;overflow:hidden;cursor:pointer;min-height:120px;border:1.5px solid ${ins.color};background:rgba(255,255,255,.03);transition:transform .2s var(--ease-back)"`;
         h+=` onmouseenter="this.style.transform='translateY(-3px)'" onmouseleave="this.style.transform=''">`;
         // Answer layer (hidden behind mask)
-        h+=`<div class="ins-answer" style="padding:1.2rem;visibility:hidden">`;
+        h+=`<div class="ins-answer" style="padding:1rem;visibility:hidden">`;
         h+=`<div style="font-size:.55rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:${ins.color};margin-bottom:.4rem">${ins.label} Insight</div>`;
         ins.reveals.forEach((r,ri)=>{
-          h+=`<div style="display:flex;align-items:baseline;gap:.5rem;margin-bottom:.25rem"><span style="color:${ins.color};font-weight:800;flex-shrink:0">${ri===ins.reveals.length-1?'→':'·'}</span><span style="font-size:clamp(.78rem,1.25vw,.9rem);color:${ri===ins.reveals.length-1?'var(--ink)':'var(--mid)'};${ri===ins.reveals.length-1?'font-weight:700;':''}">${r}</span></div>`;
+          h+=`<div style="display:flex;align-items:baseline;gap:.5rem;margin-bottom:.3rem"><span style="color:${ins.color};font-weight:800;flex-shrink:0">${ri===ins.reveals.length-1?'→':'·'}</span><span style="font-size:var(--min-font);color:${ri===ins.reveals.length-1?'var(--ink)':'var(--mid)'};${ri===ins.reveals.length-1?'font-weight:700;':''}">${r}</span></div>`;
         });
         h+=`</div>`;
         // Mask layer
-        h+=`<div class="ins-mask" style="position:absolute;inset:0;background:rgba(10,10,18,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;padding:1.2rem;text-align:center;transition:opacity .45s ease,transform .45s var(--ease-back)">`;
-        h+=`<div style="font-size:2.2rem;font-weight:800;color:${ins.color};opacity:.3;line-height:1">${ins.num}</div>`;
-        h+=`<div style="font-size:clamp(.95rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);line-height:1.4">${ins.q}</div>`;
+        h+=`<div class="ins-mask" style="position:absolute;inset:0;background:rgba(10,10,18,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;padding:1rem;text-align:center;transition:opacity .45s ease,transform .45s var(--ease-back)">`;
+        h+=`<div style="font-size:2rem;font-weight:800;color:${ins.color};opacity:.3;line-height:1">${ins.num}</div>`;
+        h+=`<div style="font-size:clamp(.92rem,1.5vw,1.15rem);font-weight:700;color:var(--ink);line-height:1.4">${ins.q}</div>`;
         h+=`<div style="font-size:.58rem;color:rgba(255,255,255,.3);letter-spacing:.12em;text-transform:uppercase;margin-top:.2rem">點擊解鎖洞察</div>`;
         h+=`</div></div>`;
       });
       h+=`</div>`;
-      h+=`<div class="tip-box" style="margin-top:.9rem">消費者買的從來不是你的產品，是他想要的感受或想成為的樣子。這就是洞察的起點。</div>`;
+      h+=`<div class="tip-box" style="margin-top:.9rem"><strong style="color:var(--orange)">洞察：</strong>消費者買的不是產品，是他想成為的樣子。</div>`;
       h+=`</div>`;
       break;}
     case 'observe-insight-v3':{
@@ -2076,23 +2084,29 @@ function renderSlide(sd,idx){
       h+=`<div style="font-size:clamp(1.2rem,2vw,1.6rem);font-weight:600;color:var(--ink);margin-bottom:1.5rem">Mutually Exclusive, Collectively Exhaustive</div>`;
       h+=`</div>`;
       h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:800px;margin:0 auto 1rem;position:relative;z-index:1">`;
-      // 不是 MECE
-      h+=`<div style="background:rgba(255,32,85,.08);border:2px solid rgba(255,32,85,.3);border-radius:12px;padding:1.2rem;text-align:center">`;
-      h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--red);margin-bottom:.6rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:.3rem"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> 不是 MECE</div>`;
+      // 不是 MECE - clickable card
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:150px">`;
+      h+=`<div class="card-answer" style="background:rgba(255,32,85,.08);border:2px solid rgba(255,32,85,.3);border-radius:12px;padding:1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--red);margin-bottom:.6rem;display:flex;align-items:center;justify-content:center;gap:.4rem"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> 不是 MECE</div>`;
       h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem">分類「為什麼不運動」</div>`;
       h+=`<div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">`;
       ['太忙','懶','沒時間'].forEach(t=>{h+=`<span style="padding:.3rem .6rem;background:rgba(255,32,85,.15);border-radius:6px;font-size:var(--min-font);color:var(--ink)">${t}</span>`;});
       h+=`</div>`;
       h+=`<div style="font-size:var(--min-label);color:var(--red);margin-top:.5rem">「懶」和「沒時間」重疊了！</div>`;
       h+=`</div>`;
-      // 是 MECE - 三個可點擊的框
-      h+=`<div style="background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.3);border-radius:12px;padding:1.2rem;text-align:center">`;
-      h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--green);margin-bottom:.6rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:.3rem"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 是 MECE</div>`;
+      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(255,32,85,.12)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--red);margin-top:.4rem">不是 MECE</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊看為什麼</div></div>`;
+      h+=`</div>`;
+      // 是 MECE - clickable card
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:150px">`;
+      h+=`<div class="card-answer" style="background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.3);border-radius:12px;padding:1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--green);margin-bottom:.6rem;display:flex;align-items:center;justify-content:center;gap:.4rem"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 是 MECE</div>`;
       h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.5rem">同樣問題，正確切法</div>`;
       h+=`<div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">`;
       ['動機問題','能力問題','觸及問題'].forEach(t=>{h+=`<span style="padding:.3rem .6rem;background:rgba(34,197,94,.15);border-radius:6px;font-size:var(--min-font);color:var(--ink)">${t}</span>`;});
       h+=`</div>`;
       h+=`<div style="font-size:var(--min-label);color:var(--green);margin-top:.5rem">不重疊、不遺漏！</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(34,197,94,.12)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--green);margin-top:.4rem">是 MECE</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊看正確切法</div></div>`;
       h+=`</div>`;
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:800px;margin:0 auto;position:relative;z-index:1"><strong style="color:var(--yellow)">MECE 的目的：</strong>把大問題拆成小問題，每個小問題都可以獨立分析、不重複計算</div>`;
@@ -2648,7 +2662,7 @@ function renderSlide(sd,idx){
       h+=`<div style="display:flex;gap:.6rem;justify-content:center;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
       h+=`<div style="background:rgba(168,85,247,.1);border:1.5px solid rgba(168,85,247,.4);border-radius:10px;padding:.7rem 1.2rem;display:flex;align-items:center;gap:.6rem">`;
       h+=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--purple)">AI 快速出簡報</div><div style="font-size:var(--min-label);color:var(--mid)">Gamma · Magus · Claude</div></div>`;
+      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--purple)">AI 快速出簡報</div><div style="font-size:var(--min-label);color:var(--mid)">Gamma · Manus · Claude</div></div>`;
       h+=`</div>`;
       h+=`<div style="font-size:var(--min-label);color:var(--mid);display:flex;align-items:center;padding:0 .8rem">輸入大綱，10 秒生成初版</div>`;
       h+=`</div>`;
@@ -2922,20 +2936,20 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       // Centered layout with larger Venn
       h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
-      // Large centered Venn SVG - Labels INSIDE circles, balanced design
+      // Large centered Venn SVG - Labels in CENTER of circles
       h+=`<svg viewBox="0 0 400 300" width="400" height="300" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
-      // Desirability top
+      // Desirability top - label at circle center (200, 75)
       h+=`<circle cx="200" cy="105" r="90" fill="rgba(255,32,85,.12)" stroke="rgba(255,32,85,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="200" y="75" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(255,32,85,1)">欲求性</text>`;
-      h+=`<text x="200" y="92" text-anchor="middle" font-size="10" fill="rgba(255,32,85,.7)">Desirability</text>`;
-      // Feasibility bottom-left
+      h+=`<text x="200" y="52" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(255,32,85,1)">欲求性</text>`;
+      h+=`<text x="200" y="68" text-anchor="middle" font-size="10" fill="rgba(255,32,85,.7)">Desirability</text>`;
+      // Feasibility bottom-left - label at circle center (140, 210)
       h+=`<circle cx="140" cy="210" r="90" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="95" y="245" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
-      h+=`<text x="95" y="262" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
-      // Viability bottom-right
+      h+=`<text x="95" y="260" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
+      h+=`<text x="95" y="276" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
+      // Viability bottom-right - label at circle center (260, 210)
       h+=`<circle cx="260" cy="210" r="90" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="305" y="245" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
-      h+=`<text x="305" y="262" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
+      h+=`<text x="305" y="260" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
+      h+=`<text x="305" y="276" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
       h+=`</svg>`;
       // Balanced definition boxes for all three
       h+=`<div style="display:flex;gap:.8rem;max-width:820px;flex-wrap:wrap;justify-content:center">`;
@@ -3215,6 +3229,129 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:960px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:rgba(251,191,36,.9)">定價的本質：</strong>你的價格對用戶說了一句話。太低說「我不確信自己的價值」，太高說「我不在乎你的風險」。找到讓雙方都感覺公平的那個點</div>`;
       break;}
+    // ========== SECTION 5: 成長思維 RENDER CASES ==========
+    case 'growth-fixed-mindset':{
+      h+=blob('rgba(168,85,247,.1)','rgba(255,107,0,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      // Fixed Mindset
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:260px">`;
+      h+=`<div class="card-answer" style="background:rgba(255,32,85,.07);border:2px solid rgba(255,32,85,.25);border-radius:14px;padding:1.3rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--red)">Fixed Mindset</span></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">相信能力是天生固定的</div>`;
+      [{t:'「我就是不擅長這個」',c:'var(--red)'},{t:'逃避挑戰，害怕失敗',c:'var(--mid)'},{t:'把回饋當作批評',c:'var(--mid)'},{t:'別人成功 = 威脅',c:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${item.c}" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:14px;background:rgba(255,32,85,.15)"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-top:.4rem">Fixed Mindset</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊了解</div></div>`;
+      h+=`</div>`;
+      // Growth Mindset
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:260px">`;
+      h+=`<div class="card-answer" style="background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.3);border-radius:14px;padding:1.3rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/><path d="M16 16l-4-4"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--green)">Growth Mindset</span></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">相信能力可以透過努力培養</div>`;
+      [{t:'「這次還沒學會，下次會更好」',c:'var(--green)'},{t:'擁抱挑戰，視失敗為學習',c:'var(--mid)'},{t:'回饋是成長的養分',c:'var(--mid)'},{t:'別人成功 = 學習對象',c:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.3rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${item.c}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:14px;background:rgba(34,197,94,.15)"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-top:.4rem">Growth Mindset</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊了解</div></div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--purple)">Carol Dweck：</strong>「你的能力不是固定的天花板，而是可以不斷擴展的可能性」</div>`;
+      break;}
+    case 'leverage-safety':{
+      h+=blob('rgba(59,130,246,.1)','rgba(34,197,94,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      // Leverage
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:240px">`;
+      h+=`<div class="card-answer" style="background:rgba(59,130,246,.08);border:2px solid rgba(59,130,246,.3);border-radius:14px;padding:1.3rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--blue)">Leverage 槓桿</span></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">用小投入撬動大結果</div>`;
+      [{t:'找到 20% 的事情，產出 80% 的結果',c:'var(--blue)'},{t:'槓桿點：技能、人脈、工具、平台',c:'var(--mid)'},{t:'問自己：這件事有複利效應嗎？',c:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.4rem"><span style="color:${item.c};flex-shrink:0">•</span><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
+      });
+      h+=`<div style="margin-top:.6rem;padding:.5rem .7rem;background:rgba(59,130,246,.1);border-radius:6px;font-size:var(--min-label);color:var(--ink)">例：學會 AI 工具，一個人做出原本三人團隊的產出</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:14px;background:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-top:.4rem">Leverage</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊了解</div></div>`;
+      h+=`</div>`;
+      // Safety Margin
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:240px">`;
+      h+=`<div class="card-answer" style="background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.3);border-radius:14px;padding:1.3rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--green)">Safety Margin 安全邊際</span></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">預留犯錯的空間</div>`;
+      [{t:'不把自己逼到只能成功的地步',c:'var(--green)'},{t:'保留時間、資源、選項',c:'var(--mid)'},{t:'失敗時有 Plan B 可以撐住',c:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.4rem"><span style="color:${item.c};flex-shrink:0">•</span><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
+      });
+      h+=`<div style="margin-top:.6rem;padding:.5rem .7rem;background:rgba(34,197,94,.1);border-radius:6px;font-size:var(--min-label);color:var(--ink)">例：有本業收入時嘗試副業，比裸辭創業風險低</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:14px;background:rgba(34,197,94,.15)"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--green)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-top:.4rem">Safety Margin</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊了解</div></div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--blue)">平衡：</strong>高槓桿 + 足夠的安全邊際 = 聰明的風險承擔</div>`;
+      break;}
+    case 'pattern-awareness':{
+      h+=blob('rgba(34,197,94,.1)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      // Pattern Recognition
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:220px">`;
+      h+=`<div class="card-answer" style="background:rgba(6,182,212,.08);border:2px solid rgba(6,182,212,.3);border-radius:14px;padding:1.3rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--cyan)">Pattern Recognition</span></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">看見重複出現的結構</div>`;
+      [{t:'創業成功的公司有什麼共通點？',c:'var(--cyan)'},{t:'每次失敗前發生了什麼？',c:'var(--mid)'},{t:'高手和新手的差距在哪裡？',c:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.35rem"><span style="color:${item.c};flex-shrink:0">•</span><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:14px;background:rgba(6,182,212,.15)"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-top:.4rem">Pattern Recognition</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊了解</div></div>`;
+      h+=`</div>`;
+      // Self-Awareness
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:220px">`;
+      h+=`<div class="card-answer" style="background:rgba(168,85,247,.08);border:2px solid rgba(168,85,247,.3);border-radius:14px;padding:1.3rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--purple)">Self-Awareness</span></div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-bottom:.6rem">知道自己正在做什麼、為什麼</div>`;
+      [{t:'我現在的情緒狀態是什麼？',c:'var(--purple)'},{t:'這個決定是出於恐懼還是渴望？',c:'var(--mid)'},{t:'我的盲點可能在哪裡？',c:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.5rem;align-items:flex-start;margin-bottom:.35rem"><span style="color:${item.c};flex-shrink:0">•</span><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:14px;background:rgba(168,85,247,.15)"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-top:.4rem">Self-Awareness</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.35);margin-top:.3rem">點擊了解</div></div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--green)">覺察力：</strong>辨認外在的 Pattern + 內在的 Bias = 更好的判斷力</div>`;
+      break;}
+    case 'growth-final':{
+      h+=blob('rgba(255,107,0,.12)','rgba(168,85,247,.08)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">今天最重要的不是學會什麼工具，而是...</p>`;
+      h+=`</div>`;
+      const finalPoints=[
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',col:'var(--orange)',title:'思維方式可以升級',desc:'Top-down、Growth Mindset、槓桿思維都是可以練習的'},
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',col:'var(--green)',title:'「做不到」只是「還不會」',desc:'每個今天會的事，曾經都不會'},
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg>',col:'var(--blue)',title:'犯錯是學習的必經之路',desc:'保留安全邊際，大膽嘗試'},
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',col:'var(--purple)',title:'認知邊界決定行動邊界',desc:'你相信什麼，就會看見什麼'},
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
+      finalPoints.forEach((p,i)=>{
+        h+=`<div style="background:${p.col}10;border:2px solid ${p.col}40;border-radius:12px;padding:1.2rem;text-align:center;opacity:0;animation:fade-up .5s ease forwards;animation-delay:${.2+i*.12}s">`;
+        h+=`<div style="color:${p.col};margin-bottom:.5rem">${p.icon}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.3rem">${p.title}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid)">${p.desc}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="max-width:700px;margin:1.2rem auto 0;position:relative;z-index:1;text-align:center">`;
+      h+=`<div style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:var(--orange);line-height:1.4">「你的邊界，<br>取決於你願意走多遠」</div>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-top:.6rem">今天只是起點。Go build something.</p>`;
+      h+=`</div>`;
+      break;}
+    // ========== END SECTION 5 RENDER CASES ==========
     // ========== END NEW RENDER CASES V3 ==========
     // ========== END NEW RENDER CASES V2 ==========
     default:
