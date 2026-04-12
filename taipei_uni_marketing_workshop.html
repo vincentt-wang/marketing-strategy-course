@@ -2856,30 +2856,51 @@ function renderSlide(sd,idx){
       break;}
     case 'gtm-interactive-v2':{
       h+=blob('rgba(59,130,246,.08)','rgba(34,197,94,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">GTM = 在對的時機，用對的路徑，觸發爆發性增長</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}`;
+      h+=`<div style="font-size:clamp(1.8rem,3.8vw,3rem);font-weight:900;letter-spacing:-.02em;line-height:1.1;margin:.3rem 0 .2rem;background:linear-gradient(135deg,var(--blue),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Go-To-Market Strategy</div>`;
+      h+=`<div class="bar" style="margin:.5rem auto .6rem"></div>`;
+      if(sd.title)h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.8rem">${sd.title}</p>`;
       h+=`</div>`;
       const gtmSteps=[
-        {q:'誰？',label:'Audience',col:'var(--red)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',answer:'你的 ICP，不是「所有人」'},
-        {q:'說什麼？',label:'Message',col:'var(--orange)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',answer:'對應他的痛，用他的語言說'},
-        {q:'在哪說？',label:'Channel',col:'var(--blue)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',answer:'他在哪，你就在哪說'},
-        {q:'何時說？',label:'Timing',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',answer:'對的時機 × 對的路徑 = 爆發'}
+        {q:'誰？',label:'Audience',col:'var(--red)',colR:'rgba(255,32,85',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+         answer:'你的 ICP，不是「所有人」',detail:'誰痛得最深？誰最急需解決？先服務他，再擴大。'},
+        {q:'說什麼？',label:'Message',col:'var(--orange)',colR:'rgba(255,107,0',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+         answer:'對應他的痛，用他的語言說',detail:'不說功能，說結果。不說「我們有 AI」，說「你的問題消失了」。'},
+        {q:'在哪說？',label:'Channel',col:'var(--blue)',colR:'rgba(59,130,246',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+         answer:'他在哪，你就在哪說',detail:'不是你喜歡的平台，是他出現的地方。找到他每天刷的那個地方。'},
+        {q:'何時說？',label:'Timing',col:'var(--green)',colR:'rgba(34,197,94',
+         icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+         answer:'對的時機 × 對的路徑 = 爆發',detail:'市場正在成長嗎？趨勢站在你這邊嗎？太早死，太晚被淹。'},
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;max-width:950px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;max-width:960px;margin:0 auto .7rem;position:relative;z-index:1">`;
       gtmSteps.forEach((s,i)=>{
-        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
-        h+=`<div class="card-answer" style="background:${s.col}12;border:2px solid ${s.col}40;border-radius:12px;padding:1rem;text-align:center">`;
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:155px">`;
+        h+=`<div class="card-answer" style="background:${s.colR},.1);border:2px solid ${s.colR},.4);border-radius:12px;padding:1rem;text-align:center">`;
         h+=`<div style="color:${s.col};margin-bottom:.3rem">${s.icon}</div>`;
-        h+=`<div style="font-size:var(--min-label);font-weight:700;color:${s.col};margin-bottom:.2rem">0${i+1}</div>`;
-        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:.4rem">${s.label}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid)">${s.answer}</div>`;
+        h+=`<div style="font-size:var(--min-label);font-weight:700;color:${s.col};margin-bottom:.15rem;letter-spacing:.08em">0${i+1}</div>`;
+        h+=`<div style="font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:800;color:var(--ink);margin-bottom:.35rem">${s.label}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${s.col};margin-bottom:.3rem;font-weight:600">${s.answer}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.5">${s.detail}</div>`;
         h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:12px;background:${s.col}20"><div style="color:${s.col}">${s.icon}</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink);margin-top:.3rem">${s.q}</div></div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${s.colR},.22)"><div style="color:${s.col}">${s.icon}</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:800;color:var(--ink);margin-top:.3rem">${s.q}</div><div style="font-size:var(--min-label);color:${s.col};margin-top:.2rem">${s.label}</div></div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
-      h+=`<div class="tip-box" style="max-width:950px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:var(--green)">程序性關鍵：</strong>時機比內容更重要 — 在市場還沒準備好時進入會死，太晚進入會被淹沒</div>`;
+      // Timing highlight section
+      h+=`<div style="max-width:960px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:center;background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(6,182,212,.07));border:2px solid rgba(34,197,94,.45);border-radius:14px;padding:.85rem 1.2rem">`;
+      h+=`<div style="text-align:center;min-width:80px">`;
+      h+=`<div style="font-size:var(--min-label);font-weight:800;color:var(--green);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem">最重要的元素</div>`;
+      h+=`<div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:var(--green);line-height:1">Timing</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid)">時機</div>`;
+      h+=`</div>`;
+      h+=`<div style="border-left:2px solid rgba(34,197,94,.3);padding-left:1rem">`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--ink);margin-bottom:.3rem">「站在風口上，豬都會飛。」</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.35rem">— 雷軍（小米創辦人）</div>`;
+      h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.75)">Audience、Message、Channel 都對，但時機錯了，再好的產品也難逃失敗。<br>反過來，站在正在成長的趨勢上，平凡的執行也能帶來爆發性結果。</div>`;
+      h+=`</div></div>`;
       break;}
     case 'gtm-poc-pmf-v2':{
       h+=blob('rgba(34,197,94,.08)','rgba(59,130,246,.06)');
