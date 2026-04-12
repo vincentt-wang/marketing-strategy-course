@@ -3918,58 +3918,46 @@ function renderSlide(sd,idx){
       break;}
     case 'dfv-personal-exercise':{
       h+=blob('rgba(168,85,247,.1)','rgba(59,130,246,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">拿出紙筆，誠實回答三個圈圈，然後找你的交集點</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .7rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.8rem">拿出紙筆，誠實填完三個圈圈，再找交集</p>`;
       h+=`</div>`;
-      // Three DFV input panels
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.85rem;max-width:940px;margin:0 auto .85rem;position:relative;z-index:1">`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem;max-width:940px;margin:0 auto .7rem;position:relative;z-index:1">`;
       const dfvPanels=[
         {letter:'D',label:'欲求性',en:'Desirability',col:'var(--red)',colRaw:'rgba(255,32,85',
          q:'別人需要你什麼？',
-         prompts:['周圍的人常問你什麼問題？','你曾經幫誰解決過什麼麻煩？','你做什麼事情，別人會說「謝謝，沒你不行」？'],
-         hint:'不是你覺得自己厲害的，是別人真的有需求的'},
+         prompts:['周圍的人常拿什麼問你？','你幫誰解決過什麼問題，對方說「謝謝，你救了我」？']},
         {letter:'F',label:'可行性',en:'Feasibility',col:'var(--blue)',colRaw:'rgba(59,130,246',
          q:'你能做出什麼？',
-         prompts:['你目前有哪些技能或工具？','你能在一週內做出什麼原型或成果？','你學過、用過、做過什麼？'],
-         hint:'不需要完美，需要「現在就能動手」'},
+         prompts:['你現在有哪些技能或工具？','你能在一週內做出什麼成果？']},
         {letter:'V',label:'存續性',en:'Viability',col:'var(--green)',colRaw:'rgba(34,197,94',
-         q:'有人願意為此付費或回報嗎？',
-         prompts:['你的能力在市場上有需求嗎？','有人曾因此給你錢、機會或資源嗎？','你解決的問題，對方願意花多少錢去解決？'],
-         hint:'不需要現在就有人付費，但方向要能通往那裡'},
+         q:'有人願意為此付費嗎？',
+         prompts:['市場上有沒有這個需求？','有人曾給你錢、機會或資源嗎？']},
       ];
       dfvPanels.forEach(p=>{
-        h+=`<div style="background:${p.colRaw},.08);border:2px solid ${p.colRaw},.3);border-radius:14px;padding:1.2rem;display:flex;flex-direction:column;gap:.6rem">`;
-        h+=`<div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.2rem">`;
-        h+=`<div style="width:38px;height:38px;border-radius:10px;background:${p.col};display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:900;color:#fff;flex-shrink:0">${p.letter}</div>`;
-        h+=`<div><div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:800;color:${p.col}">${p.label}</div><div style="font-size:var(--min-label);color:var(--mid)">${p.en}</div></div>`;
+        h+=`<div style="background:${p.colRaw},.08);border:2px solid ${p.colRaw},.3);border-radius:12px;padding:1rem;display:flex;flex-direction:column;gap:.55rem">`;
+        h+=`<div style="display:flex;align-items:center;gap:.6rem">`;
+        h+=`<div style="width:34px;height:34px;border-radius:8px;background:${p.col};display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:900;color:#fff;flex-shrink:0">${p.letter}</div>`;
+        h+=`<div><div style="font-size:var(--min-font);font-weight:800;color:${p.col}">${p.label}</div><div style="font-size:var(--min-label);color:var(--mid)">${p.en}</div></div>`;
         h+=`</div>`;
-        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);padding:.5rem .7rem;background:${p.colRaw},.12);border-radius:8px">${p.q}</div>`;
-        h+=`<div style="display:flex;flex-direction:column;gap:.4rem">`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);padding:.4rem .6rem;background:${p.colRaw},.12);border-radius:7px">${p.q}</div>`;
         p.prompts.forEach((pr,pi)=>{
-          h+=`<div style="display:flex;align-items:flex-start;gap:.5rem">`;
-          h+=`<div style="width:18px;height:18px;border-radius:50%;border:1.5px solid ${p.col};display:flex;align-items:center;justify-content:center;font-size:.55rem;font-weight:800;color:${p.col};flex-shrink:0;margin-top:1px">${pi+1}</div>`;
+          h+=`<div style="display:flex;align-items:flex-start;gap:.45rem">`;
+          h+=`<div style="width:16px;height:16px;min-width:16px;border-radius:50%;border:1.5px solid ${p.col};display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:800;color:${p.col};margin-top:2px">${pi+1}</div>`;
           h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.7);line-height:1.5">${pr}</div>`;
           h+=`</div>`;
         });
         h+=`</div>`;
-        h+=`<div style="font-size:var(--min-label);color:${p.col};padding:.35rem .6rem;background:${p.colRaw},.15);border-radius:6px;font-style:italic">${p.hint}</div>`;
-        h+=`</div>`;
       });
       h+=`</div>`;
-      // Synthesis box
-      h+=`<div style="max-width:940px;margin:0 auto .85rem;position:relative;z-index:1;background:rgba(168,85,247,.08);border:2px solid rgba(168,85,247,.35);border-radius:14px;padding:1rem 1.4rem;display:flex;gap:1.2rem;align-items:center">`;
-      h+=`<div style="flex-shrink:0;text-align:center">`;
-      h+=`<svg viewBox="0 0 60 60" width="52" height="52"><circle cx="30" cy="18" r="14" fill="rgba(255,32,85,.15)" stroke="rgba(255,32,85,.5)" stroke-width="1.5"/><circle cx="18" cy="40" r="14" fill="rgba(59,130,246,.15)" stroke="rgba(59,130,246,.5)" stroke-width="1.5"/><circle cx="42" cy="40" r="14" fill="rgba(34,197,94,.15)" stroke="rgba(34,197,94,.5)" stroke-width="1.5"/><text x="30" y="33" text-anchor="middle" font-size="7" font-weight="800" fill="rgba(168,85,247,1)">你的</text><text x="30" y="41" text-anchor="middle" font-size="7" font-weight="800" fill="rgba(168,85,247,1)">交集</text></svg>`;
-      h+=`</div>`;
-      h+=`<div style="flex:1">`;
-      h+=`<div style="font-size:var(--min-font);font-weight:800;color:var(--purple);margin-bottom:.5rem">找到交集點 — 你的問題</div>`;
-      h+=`<div style="display:flex;flex-direction:column;gap:.4rem">`;
-      [{q:'有沒有一件事，同時符合 D、F、V 三個條件？',col:'var(--purple)'},{q:'如果沒有完整交集，缺的那一塊怎麼補上？',col:'var(--mid)'},{q:'6 個月後，你希望自己在做什麼？',col:'var(--mid)'}].forEach(item=>{
-        h+=`<div style="display:flex;align-items:flex-start;gap:.5rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${item.col}" stroke-width="2.5" style="flex-shrink:0;margin-top:2px"><polyline points="9 18 15 12 9 6"/></svg><span style="font-size:var(--min-font);color:${item.col};line-height:1.5">${item.q}</span></div>`;
+      h+=`<div style="max-width:940px;margin:0 auto .7rem;position:relative;z-index:1;background:rgba(168,85,247,.08);border:2px solid rgba(168,85,247,.35);border-radius:12px;padding:.8rem 1.2rem;display:flex;gap:1rem;align-items:center">`;
+      h+=`<svg viewBox="0 0 54 54" width="46" height="46" flex-shrink="0" style="flex-shrink:0"><circle cx="27" cy="16" r="13" fill="rgba(255,32,85,.15)" stroke="rgba(255,32,85,.5)" stroke-width="1.5"/><circle cx="16" cy="37" r="13" fill="rgba(59,130,246,.15)" stroke="rgba(59,130,246,.5)" stroke-width="1.5"/><circle cx="38" cy="37" r="13" fill="rgba(34,197,94,.15)" stroke="rgba(34,197,94,.5)" stroke-width="1.5"/><text x="27" y="29" text-anchor="middle" font-size="6" font-weight="800" fill="rgba(168,85,247,1)">交集</text></svg>`;
+      h+=`<div style="flex:1;display:flex;flex-direction:column;gap:.35rem">`;
+      h+=`<div style="font-size:var(--min-font);font-weight:800;color:var(--purple)">找到你的黃金交集</div>`;
+      [{q:'有沒有一件事，同時符合 D、F、V 三個條件？那就是你的起點。',col:'var(--ink)'},{q:'缺哪一塊？你打算怎麼補？',col:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.4rem;align-items:flex-start"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="${item.col}" stroke-width="2.5" style="flex-shrink:0;margin-top:3px"><polyline points="9 18 15 12 9 6"/></svg><span style="font-size:var(--min-font);color:${item.col}">${item.q}</span></div>`;
       });
       h+=`</div></div>`;
-      h+=`</div>`;
       h+=`<div style="position:relative;z-index:1"><div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div></div>`;
       break;}
     case 'goal-oriented-iterate':{
