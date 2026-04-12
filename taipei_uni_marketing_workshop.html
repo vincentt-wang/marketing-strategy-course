@@ -299,6 +299,7 @@ const D=[
 {id:'s12b',sec:1,sub:'策略思維｜工具',type:'mece-game-v2',chip:['MECE 猜猜看','yellow'],title:'這是 MECE 嗎？'},
 {id:'s12c',sec:1,sub:'策略思維｜工具',type:'mece-tree',chip:['議題樹','yellow'],title:'MECE 的商業應用：議題樹'},
 {id:'s13',sec:1,sub:'策略思維｜費米估算',type:'fermi-game-v2',chip:['費米估算','cyan'],title:'全台灣一天賣出幾杯手搖飲',subtitle:'先猜一個數字，再一起推導'},
+{id:'s13b',sec:1,sub:'策略思維｜費米估算',type:'fermi-trash-v2',chip:['費米估算 2','cyan'],title:'全台灣有幾個垃圾桶',subtitle:'公家單位的資源回收桶有多少？'},
 {id:'s14',sec:1,sub:'策略思維｜費米估算',type:'dark',chip:['為什麼重要','cyan'],title:'數字讓判斷可以被討論',bullets:['沒有數字：「我覺得這個市場很大」','有數字：「台灣手搖飲年市場約 660 億，只需拿下 0.1%」','數字不需要百分百精確，需要有邏輯','Pitch 從感覺升格為判斷的關鍵'],footer:'商業提案的核心能力：在資訊不完整時，做出有邏輯的數字判斷。'},
 {id:'s14b',sec:1,sub:'策略思維｜費米估算',type:'fermi-practice',chip:['Bottom-up 練習','green'],title:'換你來：全台灣有幾家便利商店',subtitle:'用費米估算，3 分鐘推導',time:180},
 {id:'s15',sec:1,sub:'策略思維｜收尾',type:'topdown-exercise-v2',chip:['實戰練習','red'],title:'Top-down 思維檢核',timerLabel:'3 分鐘',time:180},
@@ -317,12 +318,12 @@ const D=[
 {id:'s25b',sec:2,sub:'欲求性｜痛點',type:'painkiller-game',chip:['互動遊戲','green'],title:'猜猜看：維他命還是止痛藥？'},
 {id:'s25c',sec:2,sub:'欲求性｜痛點',type:'sean-ellis',chip:['40% 法則','blue'],title:'Sean Ellis 的 PMF 測試'},
 {id:'s25d',sec:2,sub:'欲求性｜痛點',type:'vitamin-to-painkiller-v2',chip:['包裝策略','purple'],title:'維他命也能包裝成止痛藥'},
-{id:'s25e',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value',chip:['價值公式 A','orange'],title:'Alex Hormozi 的價值公式',xrefs:[{id:'s28',label:'套入練習'},{id:'s36d',label:'定價策略'}]},
-{id:'s25e2',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value-b',chip:['價值公式 B','green'],title:'四個變數，怎麼用在你的作品上',xrefs:[{id:'s25e',label:'公式本體'},{id:'s25f',label:'Canva 案例'}]},
+{id:'s25e',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value',chip:['價值公式 A','orange'],title:'Alex Hormozi 的價值公式',xrefs:[{id:'s36d',label:'定價策略'}]},
+{id:'s25e2',sec:2,sub:'欲求性｜價值公式',type:'hormozi-value-b',chip:['價值公式 B','green'],title:'四個變數，怎麼用在你的作品上'},
 {id:'s25f',sec:2,sub:'欲求性｜價值公式',type:'hormozi-example',chip:['Canva 案例','green'],title:'用 Canva 拆解價值公式'},
 {id:'s26',sec:2,sub:'欲求性｜痛點',type:'reveal-examples',chip:['互動測試','red'],title:'測試你的作品'},
 {id:'s27',sec:2,sub:'欲求性｜痛點',type:'dark',chip:['止痛藥的本質','orange'],title:'不是你說它是，是他說它是',bullets:['你以為是痛點，他以為是小困擾：維他命','你以為是功能，他覺得「沒有這個我不行」：止痛藥','測試方式：問「如果沒有這個你會怎麼辦」','他聳肩，繼續找']},
-{id:'s28',sec:2,sub:'欲求性｜練習',type:'exercise-persona-v2',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',time:180,xrefs:[{id:'s25e',label:'價值公式'}]},
+{id:'s28',sec:2,sub:'欲求性｜練習',type:'exercise-persona-v2',chip:['實作挑戰','red'],title:'把你的作品對準一個真實的人',time:180},
 {id:'s29',sec:2,sub:'欲求性｜練習',type:'exercise-tpo-v2',chip:['TPO 練習','purple'],title:'Time · Place · Occasion',time:180},
 {id:'s30',sec:2,sub:'欲求性｜收尾',type:'section',chip:['Section 2 收尾','white'],title:'你現在知道<br>在對誰說話了',sub2:'Section 3：可行性 — 快速把想法做出來'},
 // ── SECTION 3：可行性｜快速驗證 ──────────────────────────────────────
@@ -574,41 +575,61 @@ function renderSlide(sd,idx){
     case 'close-carousel':{
       h+=blob('rgba(255,107,0,.12)','rgba(168,85,247,.09)');
       const cqQuotes=[
-        {q:'設計是為了改變行為',s:'不是展示美術，不是獲得讚美',col:'linear-gradient(135deg,var(--red),var(--orange))'},
-        {q:'讓那個正在痛的人，採取對他有益的行動',s:'這就是行銷設計的本質',col:'linear-gradient(135deg,var(--orange),var(--yellow))'},
-        {q:'不是有人說讚，是有人願意花時間、注意力、甚至金錢去換取它',s:'那才叫價值',col:'linear-gradient(135deg,var(--yellow),var(--green))'},
-        {q:'找那個最痛的人，他就是你的受眾',s:'不是找最多人，是找最對的人',col:'linear-gradient(135deg,var(--green),var(--cyan))'},
-        {q:'市場不在乎你的想法，只在乎他的痛',s:'欲求性第一',col:'linear-gradient(135deg,var(--cyan),var(--blue))'},
-        {q:'Top-down 思維：先找最痛的問題，再想解法',s:'不是反過來',col:'linear-gradient(135deg,var(--blue),var(--purple))'},
-        {q:'可行性在 AI 時代已不是障礙，難的是欲求性',s:'你做得出來，但有人要嗎？',col:'linear-gradient(135deg,var(--purple),var(--red))'},
-        {q:'Persona 不是年齡性別，是一個有名字的真實的人',s:'你的作品是寫給他的一封信',col:'linear-gradient(135deg,var(--red),var(--purple))'},
-        {q:'你的作品出現在他最痛的那個 TPO，才有意義',s:'對的人、對的地方、對的時刻',col:'linear-gradient(135deg,var(--orange),var(--red))'},
-        {q:'一個清晰的 CTA，勝過十個漂亮的設計',s:'告訴他下一步要做什麼',col:'linear-gradient(135deg,var(--green),var(--blue))'},
+        {q:'設計是為了改變行為',s:'不是展示美術，不是獲得讚美',col:'var(--red)'},
+        {q:'讓那個正在痛的人，採取對他有益的行動',s:'這就是行銷設計的本質',col:'var(--orange)'},
+        {q:'不是有人說讚，是有人願意花時間、注意力、甚至金錢去換取它',s:'那才叫價值',col:'var(--yellow)'},
+        {q:'找那個最痛的人，他就是你的受眾',s:'不是找最多人，是找最對的人',col:'var(--green)'},
+        {q:'市場不在乎你的想法，只在乎他的痛',s:'欲求性第一',col:'var(--cyan)'},
+        {q:'Top-down 思維：先找最痛的問題，再想解法',s:'不是反過來',col:'var(--blue)'},
+        {q:'可行性在 AI 時代已不是障礙，難的是欲求性',s:'你做得出來，但有人要嗎？',col:'var(--purple)'},
+        {q:'Persona 不是年齡性別，是一個有名字的真實的人',s:'你的作品是寫給他的一封信',col:'var(--red)'},
+        {q:'你的作品出現在他最痛的那個 TPO，才有意義',s:'對的人、對的地方、對的時刻',col:'var(--orange)'},
+        {q:'一個清晰的 CTA，勝過十個漂亮的設計',s:'告訴他下一步要做什麼',col:'var(--green)'},
       ];
-      h+=`<div style="position:relative;z-index:1;text-align:center;max-width:780px;margin:0 auto">`;
+      h+=`<style>
+        @keyframes floatQuote0 { 0%,100%{transform:translate(0,0) rotate(-2deg)} 50%{transform:translate(8px,-12px) rotate(1deg)} }
+        @keyframes floatQuote1 { 0%,100%{transform:translate(0,0) rotate(1deg)} 50%{transform:translate(-10px,-8px) rotate(-2deg)} }
+        @keyframes floatQuote2 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(6px,10px) rotate(2deg)} }
+        @keyframes floatQuote3 { 0%,100%{transform:translate(0,0) rotate(-1deg)} 50%{transform:translate(-8px,-6px) rotate(1deg)} }
+        @keyframes floatQuote4 { 0%,100%{transform:translate(0,0) rotate(2deg)} 50%{transform:translate(12px,8px) rotate(-1deg)} }
+        @keyframes floatQuote5 { 0%,100%{transform:translate(0,0) rotate(0deg)} 50%{transform:translate(-6px,12px) rotate(-2deg)} }
+        @keyframes floatQuote6 { 0%,100%{transform:translate(0,0) rotate(-2deg)} 50%{transform:translate(10px,-10px) rotate(2deg)} }
+        @keyframes floatQuote7 { 0%,100%{transform:translate(0,0) rotate(1deg)} 50%{transform:translate(-12px,6px) rotate(-1deg)} }
+        .float-quote{position:absolute;padding:.6rem 1rem;border-radius:10px;font-size:var(--min-font);font-weight:600;max-width:200px;text-align:center;backdrop-filter:blur(8px);cursor:pointer;transition:all .3s ease;opacity:.85}
+        .float-quote:hover{transform:scale(1.08)!important;opacity:1;z-index:10}
+      </style>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center;max-width:900px;margin:0 auto">`;
       h+=chip;
-      h+=`<div class="bar" style="margin:.8rem auto 1.2rem"></div>`;
-      // Quote carousel area - clickable
-      h+=`<div id="cq-${sd.id}" onclick="cqGoTo_${sd.id}((window.cqCur_${sd.id}||0)+1)" style="min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s ease;cursor:pointer">`;
-      h+=`<h1 id="cq-text-${sd.id}" style="font-size:clamp(1.8rem,4.5vw,3.5rem);line-height:1.25;background:${cqQuotes[0].col};-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">${cqQuotes[0].q}</h1>`;
-      h+=`<p id="cq-sub-${sd.id}" style="margin-top:.8rem;font-size:clamp(.9rem,1.5vw,1.1rem);color:var(--mid)">${cqQuotes[0].s}</p>`;
-      h+=`</div>`;
-      // Dots - clickable
-      h+=`<div style="display:flex;gap:.5rem;justify-content:center;margin-top:1rem">`;
-      cqQuotes.forEach((_,i)=>{
-        h+=`<div class="cq-dot-${sd.id}" style="width:${i===0?'20px':'6px'};height:6px;border-radius:3px;background:${i===0?'linear-gradient(90deg,var(--red),var(--orange))':'rgba(255,255,255,.2)'};transition:all .4s ease;cursor:pointer" onclick="event.stopPropagation();cqGoTo_${sd.id}(${i})"></div>`;
+      h+=`<div class="bar" style="margin:.8rem auto 1rem"></div>`;
+      // Floating quotes container
+      h+=`<div style="position:relative;height:380px;margin-bottom:1rem">`;
+      // Position quotes in a loose spiral/cloud pattern
+      const positions=[
+        {top:'5%',left:'5%',anim:0},{top:'2%',left:'55%',anim:1},{top:'8%',right:'8%',anim:2},
+        {top:'35%',left:'2%',anim:3},{top:'32%',right:'5%',anim:4},
+        {top:'55%',left:'12%',anim:5},{top:'60%',right:'15%',anim:6},
+        {bottom:'12%',left:'25%',anim:7},{bottom:'8%',right:'22%',anim:0},{bottom:'5%',left:'48%',anim:1}
+      ];
+      cqQuotes.forEach((q,i)=>{
+        const pos=positions[i];
+        const posStyle=Object.entries(pos).filter(([k])=>k!=='anim').map(([k,v])=>`${k}:${v}`).join(';');
+        h+=`<div class="float-quote" style="${posStyle};background:${q.col}18;border:1.5px solid ${q.col}50;color:${q.col};animation:floatQuote${pos.anim} ${4+i*0.3}s ease-in-out infinite;animation-delay:${i*0.2}s" onclick="this.style.transform=this.style.transform==='scale(1.15)'?'':'scale(1.15)'">`;
+        h+=`<div style="line-height:1.4">${q.q}</div>`;
+        h+=`</div>`;
       });
       h+=`</div>`;
+      // Center message
+      h+=`<div style="margin-bottom:1.2rem">`;
+      h+=`<h2 style="font-size:clamp(1.4rem,3vw,2rem);background:linear-gradient(135deg,var(--orange),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">今天的關鍵概念</h2>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-top:.4rem">點擊任意卡片放大</p>`;
+      h+=`</div>`;
       // QR + CTA
-      h+=`<div style="margin:1.5rem auto 0;width:110px;height:110px;border:2px dashed rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.4rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" style="color:rgba(255,255,255,.4)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
-      h+=`<div style="font-size:.55rem;color:var(--mid);letter-spacing:.08em">QR CODE</div>`;
+      h+=`<div style="margin:0 auto;width:100px;height:100px;border:2px dashed rgba(255,255,255,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.3rem">`;
+      h+=`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:rgba(255,255,255,.4)"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);letter-spacing:.08em">QR CODE</div>`;
       h+=`</div>`;
-      if(sd.cta)h+=`<p style="margin-top:.6rem;font-size:.75rem;color:rgba(255,255,255,.28);letter-spacing:.06em">${sd.cta}</p>`;
+      if(sd.cta)h+=`<p style="margin-top:.5rem;font-size:var(--min-font);color:rgba(255,255,255,.28);letter-spacing:.06em">${sd.cta}</p>`;
       h+=`</div>`;
-      // Auto-rotate script with gradient colors
-      const cqData=JSON.stringify(cqQuotes.map(q=>({q:q.q,s:q.s,col:q.col})));
-      h+=`<script>(function(){var qs=${cqData};var cur=0;var sid='${sd.id}';window['cqCur_'+sid]=0;function goTo(n){cur=((n%qs.length)+qs.length)%qs.length;window['cqCur_'+sid]=cur;var wrap=document.getElementById('cq-'+sid);if(!wrap)return;wrap.style.opacity='0';setTimeout(function(){var textEl=document.getElementById('cq-text-'+sid);var subEl=document.getElementById('cq-sub-'+sid);if(textEl){textEl.textContent=qs[cur].q;textEl.style.background=qs[cur].col;textEl.style.webkitBackgroundClip='text';textEl.style.webkitTextFillColor='transparent';textEl.style.backgroundClip='text';}if(subEl)subEl.textContent=qs[cur].s;wrap.style.opacity='1';document.querySelectorAll('.cq-dot-'+sid).forEach(function(d,i){d.style.width=i===cur?'20px':'6px';d.style.background=i===cur?qs[cur].col:'rgba(255,255,255,.2)';});},420);}window['cqGoTo_'+sid]=goTo;var timer=setInterval(function(){if(!document.getElementById('cq-'+sid)){clearInterval(timer);return;}goTo(cur+1);},5500);})();<\/script>`;
       break;}
     case 'close':
       h+=blob('rgba(255,107,0,.12)','rgba(255,32,85,.09)');
@@ -1137,8 +1158,14 @@ function renderSlide(sd,idx){
       break;}
     case 'vitamin-painkiller':{
       h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:1rem">你的作品是哪一種</p>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:clamp(.85rem,1.3vw,1rem);margin-bottom:.8rem">你的作品是哪一種</p>`;
+      h+=`</div>`;
+      // DFV context bar
+      h+=`<div style="display:flex;gap:.6rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap">`;
+      h+=`<div style="padding:.4rem .8rem;background:rgba(255,32,85,.12);border:1px solid rgba(255,32,85,.35);border-radius:6px;font-size:var(--min-label);color:var(--red);font-weight:700">欲求性 Desirability</div>`;
+      h+=`<div style="padding:.4rem .8rem;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.2);border-radius:6px;font-size:var(--min-label);color:rgba(59,130,246,.6)">可行性 Feasibility</div>`;
+      h+=`<div style="padding:.4rem .8rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;font-size:var(--min-label);color:rgba(255,255,255,.4)">存續性 Viability</div>`;
       h+=`</div>`;
       const vitaminIcon='<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>';
       const painkillerIcon='<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
@@ -1413,12 +1440,17 @@ function renderSlide(sd,idx){
       h+=`<div style="display:flex;gap:.8rem;justify-content:center;max-width:960px;margin:0 auto;position:relative;z-index:1">`;
       h+=`<div style="flex:0 0 auto;background:rgba(255,32,85,.08);border:1.5px solid rgba(255,32,85,.4);border-radius:12px;padding:.9rem 1.4rem;display:flex;align-items:center;gap:1rem">`;
       h+=`<div style="width:44px;height:44px;background:rgba(255,32,85,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.2rem">🌳</div>`;
-      h+=`<div><div style="font-weight:700;color:var(--red);margin-bottom:.1rem">EmoTree</div><div style="font-size:var(--min-label);color:var(--mid)">情緒陪伴 AI — waiting list</div></div>`;
+      h+=`<div><div style="font-weight:700;color:var(--red);margin-bottom:.1rem">EmoTree</div><div style="font-size:var(--min-label);color:var(--mid)">情緒陪伴 AI · 加入 waiting list</div></div>`;
       h+=`</div>`;
       h+=`<div style="flex:0 0 auto;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:.9rem 1.4rem;display:flex;align-items:center;gap:1rem">`;
       h+=`<div style="width:44px;height:44px;background:rgba(255,255,255,.07);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>`;
       h+=`<div><div style="font-weight:700;color:var(--ink);margin-bottom:.1rem">LinkedIn</div><div style="font-size:var(--min-label);color:var(--mid)">搜尋 Vincent — 持續獲取洞察</div></div>`;
       h+=`</div>`;
+      h+=`</div>`;
+      // Back to speaker link
+      h+=`<div onclick="jumpToSlide('s03')" style="margin:1rem auto 0;padding:.6rem 1.1rem;background:rgba(255,107,0,.08);border:1.5px solid rgba(255,107,0,.3);border-radius:10px;cursor:pointer;transition:all .3s ease;display:inline-flex;align-items:center;gap:.7rem;position:relative;z-index:1" onmouseover="this.style.background='rgba(255,107,0,.15)'" onmouseout="this.style.background='rgba(255,107,0,.08)'">`;
+      h+=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>`;
+      h+=`<span style="font-size:var(--min-font);color:var(--orange);font-weight:600">← 回到講者介紹</span>`;
       h+=`</div>`;
       break;
     // ========== NEW RENDER CASES ==========
@@ -2181,6 +2213,29 @@ function renderSlide(sd,idx){
         h+=`</div>`;
       });
       h+=`</div>`;break;}
+    case 'fermi-trash-v2':{
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.35rem">${sd.title}</h2>`;
+      if(sd.subtitle)h+=`<p style="color:var(--mid);margin-bottom:.9rem;font-size:var(--min-font)">${sd.subtitle}</p>`;
+      h+=`</div>`;
+      const trashSteps=[
+        {num:'Step 1',q:'台灣 36,000 km²<br>多少比例是公共場所',label:'公共面積',col:'var(--blue)',ans:'約 <strong style="color:var(--blue)">15%</strong> 為公共用地<br><span style="font-size:var(--min-label);color:var(--mid)">公園、車站、學校、商圈等</span>'},
+        {num:'Step 2',q:'公共場所平均<br>每多少平方公尺一個垃圾桶',label:'密度估算',col:'var(--cyan)',ans:'約每 <strong style="color:var(--cyan)">500 m²</strong> 一個<br><span style="font-size:var(--min-label);color:var(--mid)">含回收桶約乘 2-3 倍</span>'},
+        {num:'Step 3',q:'換算下來<br>有多少公共垃圾桶',label:'數量計算',col:'var(--orange)',ans:'36000×0.15×1000000÷500 ≈ <strong style="color:var(--orange)">1,000 萬個</strong><br><span style="font-size:var(--min-label);color:var(--mid)">含一般桶與回收桶</span>'},
+        {num:'結論',q:'這個數字<br>合理嗎',label:'交叉驗證',col:'var(--green)',ans:'環保署資料：約 <strong style="color:var(--green)">600 萬</strong> 公共垃圾桶<br><span style="font-size:var(--min-label);color:var(--mid)">估算誤差 2 倍內，算合理</span>'},
+      ];
+      h+=`<div class="mrev-grid cols-4" style="gap:.7rem;max-width:920px;margin:0 auto">`;
+      trashSteps.forEach((s,si)=>{
+        const uid=`${sd.id}-t${si}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:155px">`;
+        h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${s.col}">`;
+        h+=`<div class="card-label" style="color:${s.col};font-size:var(--min-label)">${s.label}</div>`;
+        h+=`<div class="card-body" style="margin-top:.35rem;font-size:var(--min-font)">${s.ans}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask"><div class="card-mask-num" style="color:${s.col};font-size:1.8rem">${s.num}</div><div class="card-mask-q" style="font-size:var(--min-font)">${s.q}</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;break;}
     case 'topdown-exercise-v2':{
       h+=blob('rgba(255,32,85,.08)','rgba(255,107,0,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
@@ -2712,15 +2767,15 @@ function renderSlide(sd,idx){
        {label:'Gain Creators',zh:'如何創造他想要的',desc:'讓他感覺更好、更有能力、更被看見',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'}
       ].forEach(r=>{
         h+=`<div onclick="this.classList.toggle('vp-open')" style="cursor:pointer;background:${r.col}10;border:1.5px solid ${r.col}30;border-radius:8px;padding:.6rem .9rem;transition:background .3s">`;
-        h+=`<div style="display:flex;align-items:center;gap:.5rem"><span style="color:${r.col}">${r.icon}</span><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${r.zh}</span><span style="margin-left:auto;font-size:.65rem;color:var(--mid);font-weight:600;letter-spacing:.05em">${r.label}</span></div>`;
-        h+=`<div style="max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:var(--min-label);color:var(--mid);margin-top:0" class="vp-detail">${r.desc}</div>`;
+        h+=`<div style="display:flex;align-items:center;gap:.5rem"><span style="color:${r.col}">${r.icon}</span><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${r.zh}</span><span style="margin-left:auto;font-size:var(--min-label);color:var(--mid);font-weight:600;letter-spacing:.05em">${r.label}</span></div>`;
+        h+=`<div style="max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:var(--min-font);color:var(--mid);margin-top:0" class="vp-detail">${r.desc}</div>`;
         h+=`</div>`;
       });
       h+=`</div></div>`;
       // Middle: fit symbol
       h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:.3rem">`;
-      h+=`<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;color:#fff;text-align:center;line-height:1.2">FIT</div>`;
-      h+=`<div style="font-size:.6rem;color:var(--mid);text-transform:uppercase;letter-spacing:.08em">左右吻合</div>`;
+      h+=`<div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--min-font);color:#fff;text-align:center;line-height:1.2">FIT</div>`;
+      h+=`<div style="font-size:var(--min-label);color:var(--mid);text-transform:uppercase;letter-spacing:.08em">左右吻合</div>`;
       h+=`</div>`;
       // Right: Customer Profile
       h+=`<div style="background:rgba(168,85,247,.06);border:2px solid rgba(168,85,247,.3);border-radius:14px;padding:1rem">`;
@@ -2731,8 +2786,8 @@ function renderSlide(sd,idx){
        {label:'Gains',zh:'他想得到什麼',desc:'他渴望的結果、夢想、社會地位、省下的時間或金錢',col:'var(--green)',icon:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'}
       ].forEach(r=>{
         h+=`<div onclick="this.classList.toggle('vp-open')" style="cursor:pointer;background:${r.col}10;border:1.5px solid ${r.col}30;border-radius:8px;padding:.6rem .9rem;transition:background .3s">`;
-        h+=`<div style="display:flex;align-items:center;gap:.5rem"><span style="color:${r.col}">${r.icon}</span><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${r.zh}</span><span style="margin-left:auto;font-size:.65rem;color:var(--mid);font-weight:600;letter-spacing:.05em">${r.label}</span></div>`;
-        h+=`<div style="max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:var(--min-label);color:var(--mid);margin-top:0" class="vp-detail">${r.desc}</div>`;
+        h+=`<div style="display:flex;align-items:center;gap:.5rem"><span style="color:${r.col}">${r.icon}</span><span style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${r.zh}</span><span style="margin-left:auto;font-size:var(--min-label);color:var(--mid);font-weight:600;letter-spacing:.05em">${r.label}</span></div>`;
+        h+=`<div style="max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:var(--min-font);color:var(--mid);margin-top:0" class="vp-detail">${r.desc}</div>`;
         h+=`</div>`;
       });
       h+=`</div></div>`;
@@ -2860,40 +2915,48 @@ function renderSlide(sd,idx){
       h+=`<div class="tip-box" style="max-width:950px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">結論：</strong>D + F + V 三個同時成立才叫創新。缺一個都不算，你的作品在哪個象限？</div>`;
       break;}
     case 'feasibility-in-triad':{
-      h+=blob('rgba(59,130,246,.1)','rgba(34,197,94,.07)');
+      h+=blob('rgba(255,32,85,.1)','rgba(34,197,94,.07)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:1.5rem">${sd.title}</h2>`;
       h+=`</div>`;
       // Centered layout with larger Venn
       h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
-      // Large centered Venn SVG
+      // Large centered Venn SVG - Labels INSIDE circles, D+V highlighted, F muted
       h+=`<svg viewBox="0 0 400 320" width="400" height="320" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
-      // Desirability top - muted
-      h+=`<circle cx="200" cy="110" r="95" fill="rgba(255,32,85,.06)" stroke="rgba(255,32,85,.3)" stroke-width="2" stroke-dasharray="8 4"/>`;
-      // Feasibility bottom-left - HIGHLIGHTED
-      h+=`<circle cx="140" cy="220" r="95" fill="rgba(59,130,246,.18)" stroke="rgba(59,130,246,.9)" stroke-width="4"/>`;
-      // Viability bottom-right - muted
-      h+=`<circle cx="260" cy="220" r="95" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.15)" stroke-width="2" stroke-dasharray="8 4"/>`;
-      // Labels - larger, clearer
-      h+=`<text x="200" y="35" text-anchor="middle" font-weight="700" font-size="16" fill="rgba(255,32,85,.6)">欲求性</text>`;
-      h+=`<text x="200" y="52" text-anchor="middle" font-size="11" fill="rgba(255,32,85,.4)">Desirability</text>`;
-      h+=`<text x="50" y="300" text-anchor="middle" font-weight="800" font-size="18" fill="rgba(59,130,246,1)">可行性</text>`;
-      h+=`<text x="50" y="316" text-anchor="middle" font-size="11" fill="rgba(59,130,246,.75)">Feasibility</text>`;
-      h+=`<text x="350" y="300" text-anchor="middle" font-weight="700" font-size="16" fill="rgba(255,255,255,.35)">存續性</text>`;
-      h+=`<text x="350" y="316" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.2)">Viability</text>`;
+      // Desirability top - HIGHLIGHTED
+      h+=`<circle cx="200" cy="110" r="95" fill="rgba(255,32,85,.18)" stroke="rgba(255,32,85,.9)" stroke-width="4"/>`;
+      h+=`<text x="200" y="100" text-anchor="middle" font-weight="800" font-size="18" fill="rgba(255,32,85,1)">欲求性</text>`;
+      h+=`<text x="200" y="118" text-anchor="middle" font-size="11" fill="rgba(255,32,85,.75)">Desirability</text>`;
+      // Feasibility bottom-left - MUTED
+      h+=`<circle cx="140" cy="220" r="95" fill="rgba(59,130,246,.06)" stroke="rgba(59,130,246,.3)" stroke-width="2" stroke-dasharray="8 4"/>`;
+      h+=`<text x="100" y="255" text-anchor="middle" font-weight="700" font-size="16" fill="rgba(59,130,246,.5)">可行性</text>`;
+      h+=`<text x="100" y="273" text-anchor="middle" font-size="11" fill="rgba(59,130,246,.35)">Feasibility</text>`;
+      // Viability bottom-right - HIGHLIGHTED
+      h+=`<circle cx="260" cy="220" r="95" fill="rgba(34,197,94,.15)" stroke="rgba(34,197,94,.85)" stroke-width="4"/>`;
+      h+=`<text x="300" y="255" text-anchor="middle" font-weight="800" font-size="18" fill="rgba(34,197,94,1)">存續性</text>`;
+      h+=`<text x="300" y="273" text-anchor="middle" font-size="11" fill="rgba(34,197,94,.75)">Viability</text>`;
       // Center innovation
       h+=`<circle cx="200" cy="195" r="28" fill="rgba(255,107,0,.2)" stroke="rgba(255,107,0,.5)" stroke-width="2"/>`;
       h+=`<text x="200" y="192" text-anchor="middle" font-weight="800" font-size="11" fill="rgba(255,107,0,.9)">創新</text>`;
       h+=`<text x="200" y="204" text-anchor="middle" font-size="9" fill="rgba(255,107,0,.6)">Innovation</text>`;
-      // Focus indicator
-      h+=`<rect x="100" y="255" width="80" height="22" rx="11" fill="rgba(59,130,246,.35)"/>`;
-      h+=`<text x="140" y="270" text-anchor="middle" font-weight="700" font-size="11" fill="rgba(59,130,246,1)">今天焦點</text>`;
+      // Focus indicator - moved to show D+V focus
+      h+=`<rect x="160" y="35" width="80" height="22" rx="11" fill="rgba(255,32,85,.35)"/>`;
+      h+=`<text x="200" y="50" text-anchor="middle" font-weight="700" font-size="11" fill="rgba(255,32,85,1)">今天焦點</text>`;
+      h+=`<rect x="260" y="290" width="80" height="22" rx="11" fill="rgba(34,197,94,.35)"/>`;
+      h+=`<text x="300" y="305" text-anchor="middle" font-weight="700" font-size="11" fill="rgba(34,197,94,1)">今天焦點</text>`;
       h+=`</svg>`;
-      // Simple definition box
-      h+=`<div style="background:rgba(59,130,246,.1);border:2px solid rgba(59,130,246,.4);border-radius:14px;padding:1.2rem 1.8rem;text-align:center;max-width:500px">`;
-      h+=`<div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:700;color:var(--ink);margin-bottom:.5rem">你有能力做出來嗎？</div>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid)">AI 時代技術門檻已大幅下降，<strong style="color:var(--blue)">做得出來</strong>不再是最難的事</div>`;
+      // Updated definition box for D+V focus
+      h+=`<div style="display:flex;gap:1rem;max-width:700px">`;
+      h+=`<div style="flex:1;background:rgba(255,32,85,.1);border:2px solid rgba(255,32,85,.4);border-radius:14px;padding:1rem 1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--red);margin-bottom:.3rem">欲求性</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid)">有人真的<strong style="color:var(--red)">想要</strong>嗎？</div>`;
       h+=`</div>`;
+      h+=`<div style="flex:1;background:rgba(34,197,94,.1);border:2px solid rgba(34,197,94,.4);border-radius:14px;padding:1rem 1.2rem;text-align:center">`;
+      h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:700;color:var(--green);margin-bottom:.3rem">存續性</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid)">能<strong style="color:var(--green)">持續運作</strong>下去嗎？</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      h+=`<div style="font-size:var(--min-font);color:var(--mid);text-align:center">AI 時代<strong style="color:var(--blue)">可行性</strong>門檻已大幅下降，真正難的是這兩個</div>`;
       h+=`</div>`;
       if(sd.xrefs)h+=renderXrefs(sd.xrefs);
       break;}
