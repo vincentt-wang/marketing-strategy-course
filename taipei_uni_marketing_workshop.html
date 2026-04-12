@@ -2346,13 +2346,13 @@ function renderSlide(sd,idx){
     case 'indie-hacker-math':{
       h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.35rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);margin-bottom:.9rem;font-size:var(--min-font)">精準打 <strong style="color:var(--orange)">1,000 個有痛的人</strong>，勝過廣播給 <strong style="color:rgba(255,255,255,.25)">100 萬個無感的人</strong></p>`;
+      h+=`<p style="color:var(--mid);margin-bottom:.9rem;font-size:var(--min-font)">一個真實案例 — 點擊每張牌，猜猜看結局</p>`;
       h+=`</div>`;
       const ihmSteps=[
-        {num:'1,000',q:'你需要觸及多少<br>潛在受眾',label:'精準 ICP 數量',col:'var(--blue)',ans:'不需要百萬用戶，只需要 <strong style="color:var(--blue)">1,000 個</strong>有真實痛點、有付費意願的精準受眾<br><span style="font-size:var(--min-label);color:var(--mid)">Kevin Kelly《1,000 True Fans》</span>'},
-        {num:'× 10%',q:'精準受眾的<br>轉換率是多少',label:'轉換率估算',col:'var(--purple)',ans:'精準受眾轉換率約 <strong style="color:var(--purple)">10%</strong>，是廣播式行銷的 <strong style="color:var(--purple)">100 倍</strong><br><span style="font-size:var(--min-label);color:var(--mid)">廣播式：0.01%｜精準定位：~10%</span>'},
-        {num:'= 100',q:'最終能留下<br>幾個真客戶',label:'核心用戶數',col:'var(--orange)',ans:'100 個真正需要你的 <strong style="color:var(--orange)">死忠客戶</strong><br>這才是 PMF 的起點<br><span style="font-size:var(--min-label);color:var(--mid)">找到第一個 100，才有第一個 1,000</span>'},
-        {num:'結論',q:'和大品牌的<br>思維有何不同',label:'Indie Hacker 精神',col:'var(--green)',ans:'大品牌燒百萬預算，你用一個<strong style="color:var(--green)">正確的受眾定義</strong>達到同樣結果<br><span style="font-size:var(--min-label);color:var(--mid)">Small Numbers Law：少即是精準</span>'},
+        {num:'?',q:'他是誰<br>靠什麼養活自己',label:'認識這個人',col:'var(--blue)',ans:'<strong style="color:var(--blue)">Pieter Levels</strong> — 荷蘭工程師，一人公司，無融資，無員工<br>靠自己做的網站生活，在咖啡廳用筆電工作<br><span style="font-size:var(--min-label);color:var(--mid)">代表作：Nomad List、Remote OK、Photo AI</span>'},
+        {num:'1,700',q:'Photo AI 有多少<br>付費用戶',label:'付費用戶數',col:'var(--purple)',ans:'AI 專業照片生成工具，付費用戶約 <strong style="color:var(--purple)">1,700 人</strong>（$29/月起）<br><span style="font-size:var(--min-label);color:var(--mid)">不是百萬，是一千七百</span>'},
+        {num:'$50k',q:'這個產品<br>一個月賺多少',label:'月收入',col:'var(--orange)',ans:'Photo AI 月收入 <strong style="color:var(--orange)">$50,000 美元</strong><br>約台幣 160 萬 / 月<br><span style="font-size:var(--min-label);color:var(--mid)">1,700 個對的人，就夠了</span>'},
+        {num:'$2.5M',q:'全部產品加起來<br>一年賺多少',label:'年收入總計',col:'var(--green)',ans:'所有產品年收入 <strong style="color:var(--green)">$2,500,000+</strong>（台幣 8,000 萬+）<br>一人公司，零員工，零融資<br><span style="font-size:var(--min-label);color:var(--mid)">不需要百萬用戶，需要精準的 1,000 個</span>'},
       ];
       h+=`<div class="mrev-grid cols-4" style="gap:.7rem;max-width:920px;margin:0 auto">`;
       ihmSteps.forEach((s,si)=>{
