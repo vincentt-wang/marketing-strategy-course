@@ -2953,28 +2953,53 @@ function renderSlide(sd,idx){
       break;}
     case 'viability-exercise':{
       h+=blob('rgba(255,107,0,.08)','rgba(251,191,36,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .7rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.8rem">針對你自己的作品，誠實回答這四個問題</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .6rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.15rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.7rem">針對你自己的作品，誠實回答以下四個問題</p>`;
       h+=`</div>`;
       const vExItems=[
-        {num:'01',col:'var(--green)',colR:'rgba(34,197,94',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',label:'價值主張',q:'你的作品幫助誰解決什麼問題？',hint:'用一句話：「幫助 ___ 做到 ___，不需要 ___」'},
-        {num:'02',col:'var(--yellow)',colR:'rgba(251,191,36',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',label:'定價策略',q:'你的作品值多少錢？為什麼這個價格合理？',hint:'用成本？競品比較？用戶省下的時間或金錢？'},
-        {num:'03',col:'var(--blue)',colR:'rgba(59,130,246',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',label:'GTM 起點',q:'你的第一批真實用戶在哪裡？怎麼找到他們？',hint:'不是「所有人」，是第一個願意掏錢的那個人'},
-        {num:'04',col:'var(--orange)',colR:'rgba(255,107,0',icon:'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',label:'Pitch Hook',q:'你的 Hook 是什麼？讓陌生人 10 秒內想聽下去。',hint:'用數字、衝突、或「你有沒有遇過…」開場'},
+        {num:'01',col:'var(--green)',colR:'rgba(34,197,94',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+         label:'價值主張',
+         q:'你的作品幫助誰、解決什麼問題？',
+         hint:'「幫助 ___ 做到 ___，不需要 ___」',
+         sub:'寫一句話說清楚'},
+        {num:'02',col:'var(--yellow)',colR:'rgba(251,191,36',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+         label:'定價策略',
+         q:'你的作品值多少錢？憑什麼這個價格？',
+         hint:'成本定價？競品比較？用戶省下了什麼？',
+         sub:'說服自己，才能說服別人'},
+        {num:'03',col:'var(--blue)',colR:'rgba(59,130,246',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+         label:'GTM 起點',
+         q:'你的第一個真實用戶在哪裡找？',
+         hint:'不是「所有人」，而是第一個會掏錢的人',
+         sub:'從一個人開始，再往外擴'},
+        {num:'04',col:'var(--orange)',colR:'rgba(255,107,0',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+         label:'Pitch Hook',
+         q:'你的開場白是什麼？讓人 10 秒內想聽下去。',
+         hint:'用數字、衝突感、或「你有沒有遇過…」',
+         sub:'先讓他停下來，再說內容'},
       ];
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;max-width:920px;margin:0 auto .75rem;position:relative;z-index:1">`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.65rem;max-width:920px;margin:0 auto .65rem;position:relative;z-index:1;align-items:stretch">`;
       vExItems.forEach(item=>{
-        h+=`<div style="background:${item.colR},.07);border:2px solid ${item.colR},.28);border-radius:12px;padding:.9rem 1rem;display:flex;gap:.75rem;align-items:flex-start">`;
-        h+=`<div style="flex-shrink:0;width:32px;height:32px;border-radius:8px;background:${item.col};display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;color:#fff">${item.num}</div>`;
-        h+=`<div style="flex:1;min-width:0">`;
-        h+=`<div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem">`;
-        h+=`<span style="color:${item.col}">${item.icon}</span>`;
+        h+=`<div style="background:${item.colR},.07);border:2px solid ${item.colR},.28);border-radius:12px;padding:.9rem 1rem;display:flex;flex-direction:column;gap:.5rem">`;
+        // Header row: number badge + icon + label
+        h+=`<div style="display:flex;align-items:center;gap:.55rem">`;
+        h+=`<div style="flex-shrink:0;width:28px;height:28px;border-radius:7px;background:${item.col};display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:900;color:#fff">${item.num}</div>`;
+        h+=`<span style="color:${item.col};flex-shrink:0">${item.icon}</span>`;
         h+=`<span style="font-size:var(--min-font);font-weight:800;color:${item.col}">${item.label}</span>`;
         h+=`</div>`;
-        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.25rem">${item.q}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.5">${item.hint}</div>`;
-        h+=`</div></div>`;
+        // Question
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);flex:1;line-height:1.5">${item.q}</div>`;
+        // Hint box
+        h+=`<div style="background:${item.colR},.1);border-left:3px solid ${item.colR},.5);border-radius:0 7px 7px 0;padding:.35rem .7rem">`;
+        h+=`<div style="font-size:var(--min-label);color:${item.col};font-weight:600;margin-bottom:.1rem">${item.hint}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid)">${item.sub}</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
       });
       h+=`</div>`;
       h+=`<div style="max-width:920px;margin:0 auto;position:relative;z-index:1">`;
