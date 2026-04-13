@@ -871,24 +871,31 @@ function renderSlide(sd,idx){
       }
       if(sd.footer)h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.28);letter-spacing:.06em;font-style:italic;margin-bottom:1.2rem">${sd.footer}</div>`;
       // Divider
-      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.85rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.75rem">`;
       h+=`<div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>`;
-      h+=`<div style="font-size:var(--min-label);font-weight:800;color:var(--orange);letter-spacing:.12em;text-transform:uppercase">今天會學到</div>`;
+      h+=`<div style="font-size:var(--min-label);font-weight:800;color:var(--orange);letter-spacing:.12em;text-transform:uppercase">你能帶走的五件事</div>`;
       h+=`<div style="flex:1;height:1px;background:rgba(255,255,255,.08)"></div>`;
       h+=`</div>`;
-      // 5 lesson items — equal grid
       const courseItems=[
-        {n:'01',t:'找到真正受眾與需求'},
-        {n:'02',t:'用框架定義問題方向'},
-        {n:'03',t:'把想法做成有人要的產品'},
-        {n:'04',t:'讓評審和陌生人說 yes'},
-        {n:'05',t:'把思維帶回你的創業'},
+        {n:'01',t:'找到你真正的受眾',col:'var(--orange)',colR:'rgba(255,107,0',detail:'哪些人有這個問題？他們真正需要什麼？（不是你以為的）'},
+        {n:'02',t:'用框架定義問題和方向',col:'var(--blue)',colR:'rgba(59,130,246',detail:'D × F × V 是拆解任何問題的語言，不只是理論'},
+        {n:'03',t:'把想法變成有人要的產品',col:'var(--purple)',colR:'rgba(168,85,247',detail:'從 Prototype 到市場反應，讓數據說話，不是朋友'},
+        {n:'04',t:'看清楚自己真正想做什麼',col:'var(--cyan)',colR:'rgba(6,182,212',detail:'方向不是想出來的，是驗證出來的'},
+        {n:'05',t:'把這套思維帶回去用',col:'var(--green)',colR:'rgba(34,197,94',detail:'創業、做作品、找方向——都是同一套工具'},
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem">`;
-      courseItems.forEach(item=>{
-        h+=`<div style="padding:.8rem .55rem;border-radius:10px;background:rgba(255,107,0,.06);border:1.5px solid rgba(255,107,0,.18);display:flex;flex-direction:column;align-items:center;gap:.45rem;text-align:center">`;
-        h+=`<div style="font-size:.58rem;font-weight:900;color:var(--orange);letter-spacing:.12em;opacity:.7">${item.n}</div>`;
-        h+=`<div style="font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.4;white-space:nowrap">${item.t}</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem">`;
+      courseItems.forEach((item,i)=>{
+        const uid=`ci-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:88px">`;
+        h+=`<div class="card-answer" style="background:${item.colR},.09);border:1.5px solid ${item.colR},.3);border-top:2px solid ${item.col};border-radius:10px;padding:.7rem .5rem;display:flex;flex-direction:column;align-items:center;gap:.28rem;text-align:center">`;
+        h+=`<div style="font-size:.52rem;font-weight:900;color:${item.col};letter-spacing:.12em">${item.n}</div>`;
+        h+=`<div style="font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.3">${item.t}</div>`;
+        h+=`<div style="font-size:.62rem;color:var(--mid);line-height:1.4;margin-top:.08rem">${item.detail}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:10px;background:rgba(255,255,255,.03);border:1.5px solid rgba(255,255,255,.1)">`;
+        h+=`<div style="font-size:.52rem;font-weight:900;color:${item.col};letter-spacing:.12em;margin-bottom:.28rem">${item.n}</div>`;
+        h+=`<div style="font-size:.84rem;font-weight:700;color:var(--ink);line-height:1.35;padding:0 .2rem">${item.t}</div>`;
+        h+=`</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
