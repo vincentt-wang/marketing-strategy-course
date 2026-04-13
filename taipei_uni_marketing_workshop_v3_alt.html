@@ -3899,6 +3899,46 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:900px;margin:1rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">循環速度</strong>才是競爭優勢。每一輪的目標不是「做完」，是「學到一件新事」</div>`;
       break;}
+    case 'agile-lean':{
+      h+=blob('rgba(6,182,212,.08)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:1.2rem">方法論不是流程表——是讓你在不確定中保持前進的節奏</p>`;
+      h+=`</div>`;
+      const agileCards=[
+        {icon:'⚡',label:'2-Week Sprint',en:'Scrum Framework',col:'var(--cyan)',colR:'rgba(6,182,212',
+         q:'一個迭代週期多長？',
+         why:'兩週一個 Sprint：第一天 Planning，每天 Standup，最後一天 Review + Retro。每個 Sprint 都要交付一個可測試的東西。',
+         tip:'不要等到「完美」才測試。Sprint 的目標是讓你下一個 Sprint 更聰明。'},
+        {icon:'📦',label:'Running Lean',en:'Build → Measure → Learn',col:'var(--purple)',colR:'rgba(168,85,247',
+         q:'要驗證假設還是要開發功能？',
+         why:'Ash Maurya 的 Running Lean：先把最大的假設列出來，用最小的代價驗證它。每一輪都在縮小不確定性，而不是增加功能。',
+         tip:'你的第一版不是產品，是一個問題——「這個假設是真的嗎？」'},
+        {icon:'📅',label:'90-Day Cycle',en:'Growth Cadence',col:'var(--orange)',colR:'rgba(255,107,0',
+         q:'三個月能做出什麼？',
+         why:'4-5 個 Sprint 為一個大周期。第一個月驗證核心假設，第二個月建立早期用戶，第三個月找到一個可重複的增長路徑。',
+         tip:'90 天結束時，你不需要有完整產品——你需要有一個清楚的「下個 90 天該做什麼」。'},
+      ];
+      h+=`<div style="display:flex;flex-direction:column;gap:.65rem;max-width:860px;margin:0 auto;position:relative;z-index:1">`;
+      agileCards.forEach((c,i)=>{
+        const uid=`ag-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:72px">`;
+        h+=`<div class="card-answer" style="background:${c.colR},.07);border:1.5px solid ${c.colR},.28);border-left:4px solid ${c.col};border-radius:0 12px 12px 0;padding:.9rem 1.2rem;display:flex;align-items:flex-start;gap:1.1rem">`;
+        h+=`<div style="flex-shrink:0;width:68px;text-align:center;padding-top:.1rem"><div style="font-size:2rem;line-height:1">${c.icon}</div><div style="font-size:.5rem;font-weight:800;letter-spacing:.1em;color:${c.col};opacity:.8;text-transform:uppercase;margin-top:.2rem">${c.en.split(' ')[0]}</div></div>`;
+        h+=`<div style="flex:1"><div style="font-size:clamp(1rem,1.6vw,1.25rem);font-weight:800;color:${c.col};margin-bottom:.2rem">${c.label}</div><div style="font-size:var(--min-font);color:var(--ink);line-height:1.6;margin-bottom:.3rem">${c.why}</div><div style="font-size:var(--min-label);color:var(--mid);font-style:italic">💡 ${c.tip}</div></div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${c.colR},.1);border:1.5px solid ${c.colR},.25);flex-direction:row;align-items:center;gap:1.2rem;padding:.85rem 1.4rem;justify-content:flex-start">`;
+        h+=`<div style="font-size:2rem;flex-shrink:0">${c.icon}</div>`;
+        h+=`<div><div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${c.label}</div><div style="font-size:var(--min-font);color:var(--mid);margin-top:.18rem">${c.q}</div></div>`;
+        h+=`<div style="margin-left:auto;font-size:var(--min-label);color:rgba(255,255,255,.22);letter-spacing:.06em">點擊揭曉</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:860px;margin:.85rem auto 0;position:relative;z-index:1">`;
+      h+=`<strong style="color:var(--cyan)">關鍵問題：</strong>想法、可行性、還是商業模型——哪個最值錢？<span style="color:var(--mid)"> 都不是。<strong style="color:var(--ink)">執行力</strong>才是。方法論的意義在於讓你比競爭者迭代更快。</span>`;
+      h+=`</div>`;
+      break;}
     case 'tools-wall-v2':{
       h+=blob('rgba(168,85,247,.1)','rgba(6,182,212,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
