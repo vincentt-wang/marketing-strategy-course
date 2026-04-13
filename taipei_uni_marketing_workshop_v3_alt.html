@@ -4341,6 +4341,31 @@ D.forEach((sd,idx)=>{
   d.title=`${idx+1}. ${sd.sub}`;d.addEventListener('click',()=>scrollToSlide(idx));dotNav.appendChild(d);
 });
 
+// ── SECTION RAIL ──────────────────────────────────────────────────
+const RAIL=[
+  {n:1,label:'策略思維｜問題框定',c:'#FF2055'},
+  {n:2,label:'欲求性｜需求探索',  c:'#3B82F6'},
+  {n:3,label:'可行性｜快速驗證',  c:'#22C55E'},
+  {n:4,label:'存續性｜價值表達',  c:'#FBBF24'},
+  {n:5,label:'成長思維｜擴展邊界',c:'#A855F7'},
+];
+const railEl=document.getElementById('sec-rail');
+const rItems={},rConns={};
+const chkSvg=`<svg viewBox="0 0 12 12" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,6.2 4.8,9 10,3"/></svg>`;
+RAIL.forEach((s,i)=>{
+  const item=document.createElement('div');
+  item.className='ri';item.dataset.sec=s.n;item.style.setProperty('--rc',s.c);
+  item.innerHTML=`<div class="rnode"><span class="rnum">${i+1}</span><span class="rchk" style="display:none">${chkSvg}</span></div><div class="rlabel">${s.label}</div>`;
+  item.addEventListener('click',()=>jumpToSection(s.n));
+  railEl.appendChild(item);rItems[s.n]=item;
+  if(i<RAIL.length-1){
+    const conn=document.createElement('div');
+    conn.className='rconn';
+    conn.innerHTML=`<div class="rconn-fill" style="background:${s.c}"></div>`;
+    railEl.appendChild(conn);rConns[s.n]=conn;
+  }
+});
+
 function updateUI(){
   const sd=D[cur];const pct=total>1?(cur/(total-1))*100:0;
   document.getElementById('prog-fill').style.width=pct+'%';
