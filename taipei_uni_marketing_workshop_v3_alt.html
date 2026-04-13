@@ -648,11 +648,11 @@ function renderSlide(sd,idx){
       const[c1,c2]=cols[sd.secNum]||['rgba(255,107,0,.12)','rgba(255,32,85,.09)'];
       h+=blob(c1,c2);
       h+=`<div style="position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0">`;
-      h+=`<div style="font-size:clamp(3rem,8vw,5rem);font-weight:900;line-height:1;opacity:.18;letter-spacing:-.02em;margin-bottom:.2rem">${sd.secNum}</div>`;
-      h+=`<h1 style="margin:.1rem 0 .5rem;white-space:nowrap;font-size:clamp(2.4rem,6vw,3.8rem);font-weight:900;letter-spacing:.08em;line-height:1">${sd.secTitle}</h1>`;
-      h+=`<div style="font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);margin:.2rem 0 .8rem">${sd.secEn}</div>`;
-      h+=`<div class="bar" style="margin:.4rem auto .9rem"></div>`;
-      h+=`<p style="font-size:clamp(1rem,1.8vw,1.3rem);color:var(--mid);font-weight:500">${sd.sub2}</p>`;
+      h+=`<div style="font-size:clamp(4rem,10vw,7rem);font-weight:900;line-height:1;opacity:.15;letter-spacing:-.02em;margin-bottom:.1rem">${sd.secNum}</div>`;
+      h+=`<h1 style="margin:.1rem 0 .5rem;white-space:nowrap;font-size:clamp(2.8rem,7vw,5rem);font-weight:900;letter-spacing:.08em;line-height:1">${sd.secTitle}</h1>`;
+      h+=`<div style="font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mid);margin:.2rem 0 .8rem">${sd.secEn}</div>`;
+      h+=`<div class="bar" style="margin:.4rem auto 1rem;width:3.5rem"></div>`;
+      h+=`<p style="font-size:clamp(1.1rem,2vw,1.4rem);color:var(--mid);font-weight:500">${sd.sub2}</p>`;
       h+=`</div>`;
       break;}
     case 'section':
