@@ -2674,7 +2674,6 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`</div>`;
       h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
-      h+=`<div style="text-align:center;margin-top:.8rem;font-size:var(--min-font);color:var(--mid)">如果對方答不出來，就是還沒想清楚的地方</div>`;
       h+=`</div>`;
       break;}
     case 'indie-hacker-math':{
