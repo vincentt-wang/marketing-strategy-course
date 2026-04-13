@@ -647,9 +647,10 @@ function renderSlide(sd,idx){
         const uid=`tb-${sd.id}-${i}`;
         h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:72px">`;
         // Revealed
-        h+=`<div class="card-answer" style="background:${b.colR},.07);border:1.5px solid ${b.colR},.28);border-left:4px solid ${b.col};border-radius:0 12px 12px 0;padding:.9rem 1.2rem;display:flex;align-items:flex-start;gap:1.1rem">`;
-        h+=`<div style="flex-shrink:0;width:80px;text-align:center"><div style="font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:${b.col};line-height:1">${b.pct}</div><div style="font-size:.55rem;font-weight:800;letter-spacing:.12em;color:${b.col};opacity:.7;text-transform:uppercase">${b.en}</div></div>`;
-        h+=`<div style="flex:1"><div style="font-size:clamp(1.1rem,1.7vw,1.4rem);font-weight:800;color:${b.col};margin-bottom:.25rem">${b.label}</div><div style="font-size:var(--min-font);color:var(--ink);line-height:1.6;margin-bottom:.3rem">${b.why}</div><div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${b.insight}</div></div>`;
+        h+=`<div class="card-answer" style="background:${b.colR},.07);border:1.5px solid ${b.colR},.28);border-left:4px solid ${b.col};border-radius:0 12px 12px 0;padding:.72rem 1rem;display:flex;align-items:center;gap:1rem">`;
+        h+=`<div style="flex-shrink:0;width:68px;text-align:center"><div style="font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:900;color:${b.col};line-height:1">${b.pct}</div><div style="font-size:.48rem;font-weight:800;letter-spacing:.12em;color:${b.col};opacity:.7;text-transform:uppercase;margin-top:.1rem">${b.en}</div></div>`;
+        h+=`<div style="flex:1;min-width:0"><div style="font-size:var(--min-font);color:var(--ink);line-height:1.55;margin-bottom:.2rem">${b.why}</div><div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${b.insight}</div></div>`;
+        h+=`<div style="flex-shrink:0;min-width:52px;text-align:center;padding:.3rem .5rem;background:${b.colR},.12);border-radius:6px"><div style="font-size:clamp(.85rem,1.3vw,1rem);font-weight:800;color:${b.col};white-space:nowrap">${b.label}</div></div>`;
         h+=`</div>`;
         // Locked
         h+=`<div class="card-mask" style="border-radius:12px;background:${b.colR},.1);border:1.5px solid ${b.colR},.25);flex-direction:row;align-items:center;gap:1.2rem;padding:.85rem 1.4rem;justify-content:flex-start">`;
