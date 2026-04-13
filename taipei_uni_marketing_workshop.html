@@ -262,6 +262,25 @@ svg{overflow:visible}
 .adv-btn-wrap{margin-top:1.2rem;text-align:center;position:relative;z-index:1}
 .adv-btn{background:linear-gradient(135deg,rgba(255,107,0,.12),rgba(255,32,85,.08));border:1.5px solid rgba(255,107,0,.4);color:var(--orange);border-radius:10px;padding:.55rem 1.8rem;font-size:.78rem;font-weight:800;cursor:pointer;letter-spacing:.1em;text-transform:uppercase;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
 .adv-btn:hover{background:linear-gradient(135deg,rgba(255,107,0,.22),rgba(255,32,85,.15));border-color:var(--orange);transform:scale(1.03)}
+
+/* ── LEFT SECTION RAIL ─────────────────────────────────────────── */
+#sec-rail{position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:900;display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.ri{position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer;pointer-events:all}
+.rnode{width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.12);background:rgba(10,10,15,.65);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;font-size:.52rem;font-weight:900;color:rgba(255,255,255,.2);transition:width .32s var(--ease-back),height .32s var(--ease-back),border-color .3s,background .3s,box-shadow .3s,color .3s}
+.rconn{width:2px;height:26px;background:rgba(255,255,255,.06);position:relative;overflow:hidden;border-radius:1px;margin:0 auto}
+.rconn-fill{position:absolute;top:0;left:0;right:0;height:0%;border-radius:1px;transition:height .4s ease}
+.rlabel{position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.58rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.82);background:rgba(8,8,14,.92);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.09);padding:.22rem .72rem;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .22s;line-height:1}
+.ri.ron .rnode{width:34px;height:34px;color:#fff}
+.ri.ron .rlabel{opacity:1}
+.ri:not(.ron):hover .rlabel{opacity:.8}
+.ri.rdone .rnode{color:#fff}
+/* burst + ring on section completion */
+@keyframes rburst{0%{transform:scale(1)}38%{transform:scale(1.45)}68%{transform:scale(.92)}100%{transform:scale(1)}}
+@keyframes rring{from{transform:scale(1);opacity:.75}to{transform:scale(2.6);opacity:0}}
+.ri.rjustdone .rnode{animation:rburst .55s var(--ease-back) forwards}
+.ri.rjustdone .rnode::after{content:'';position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--rc);animation:rring .55s ease forwards;pointer-events:none}
+/* line that fills downward on section enter */
+@keyframes rfill{from{height:0%}to{height:100%}}
 </style>
 </head>
 <body>
