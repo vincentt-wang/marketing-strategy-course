@@ -3748,44 +3748,42 @@ function renderSlide(sd,idx){
       break;}
     case 'feasibility-in-triad':{
       h+=blob('rgba(59,130,246,.1)','rgba(168,85,247,.07)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:1.5rem">${sd.title}</h2>`;
       h+=`</div>`;
-      const vid=sd.id;
-      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:.55rem;max-width:760px;margin:0 auto;position:relative;z-index:1">`;
-      // Interactive Venn SVG
-      h+=`<svg id="dfv-svg-${vid}" viewBox="0 0 400 300" width="360" height="268" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
-      // D circle
-      h+=`<g id="dfv-circle-des-${vid}" class="dfv-circle" onclick="dfvFocus('${vid}','des')"><circle cx="200" cy="105" r="90" fill="rgba(255,32,85,.12)" stroke="rgba(255,32,85,.6)" stroke-width="2.5"/></g>`;
-      // F circle
-      h+=`<g id="dfv-circle-fea-${vid}" class="dfv-circle" onclick="dfvFocus('${vid}','fea')"><circle cx="140" cy="210" r="90" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.6)" stroke-width="2.5"/></g>`;
-      // V circle
-      h+=`<g id="dfv-circle-via-${vid}" class="dfv-circle" onclick="dfvFocus('${vid}','via')"><circle cx="260" cy="210" r="90" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.6)" stroke-width="2.5"/></g>`;
-      // Center label
-      h+=`<text x="200" y="188" text-anchor="middle" font-weight="900" font-size="13" fill="#FF6B00">創新</text>`;
-      h+=`<text x="200" y="200" text-anchor="middle" font-size="8.5" fill="rgba(255,107,0,.75)">Innovation</text>`;
-      // D label group (clickable)
-      h+=`<g id="dfv-label-des-${vid}" class="dfv-label" onclick="dfvFocus('${vid}','des')">`;
+      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1.2rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
+      // Large Venn SVG
+      h+=`<svg viewBox="0 0 400 300" width="400" height="300" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
+      h+=`<circle cx="200" cy="105" r="90" fill="rgba(255,32,85,.12)" stroke="rgba(255,32,85,.6)" stroke-width="2.5"/>`;
+      h+=`<circle cx="140" cy="210" r="90" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.6)" stroke-width="2.5"/>`;
+      h+=`<circle cx="260" cy="210" r="90" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.6)" stroke-width="2.5"/>`;
+      h+=`<text x="200" y="189" text-anchor="middle" font-weight="900" font-size="13" fill="#FF6B00">創新</text>`;
+      h+=`<text x="200" y="201" text-anchor="middle" font-size="8.5" fill="rgba(255,107,0,.75)">Innovation</text>`;
       h+=`<text x="200" y="50" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(255,32,85,1)">欲求性</text>`;
       h+=`<text x="200" y="66" text-anchor="middle" font-size="10" fill="rgba(255,32,85,.7)">Desirability</text>`;
-      h+=`<text x="200" y="82" text-anchor="middle" font-size="9" fill="rgba(255,32,85,.5)">有人真的想要嗎？</text>`;
-      h+=`</g>`;
-      // F label group (clickable)
-      h+=`<g id="dfv-label-fea-${vid}" class="dfv-label" onclick="dfvFocus('${vid}','fea')">`;
       h+=`<text x="78" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
       h+=`<text x="78" y="216" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
-      h+=`<text x="78" y="232" text-anchor="middle" font-size="9" fill="rgba(59,130,246,.5)">你做得出來嗎？</text>`;
-      h+=`</g>`;
-      // V label group (clickable)
-      h+=`<g id="dfv-label-via-${vid}" class="dfv-label" onclick="dfvFocus('${vid}','via')">`;
       h+=`<text x="322" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
       h+=`<text x="322" y="216" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
-      h+=`<text x="322" y="232" text-anchor="middle" font-size="9" fill="rgba(34,197,94,.5)">能持續運作嗎？</text>`;
-      h+=`</g>`;
       h+=`</svg>`;
-      // Detail box — hidden until circle clicked
-      h+=`<div id="dfv-detail-${vid}" style="display:none;width:100%;max-width:680px;padding:.85rem 1.1rem;border-left:3px solid;border-radius:0 10px 10px 0"></div>`;
-      h+=`<p style="font-size:.6rem;color:rgba(255,255,255,.22);letter-spacing:.1em;text-transform:uppercase;margin:0">點擊圓圈了解每個維度</p>`;
+      // 3 definition boxes
+      h+=`<div style="display:flex;gap:.8rem;width:100%;flex-wrap:wrap;justify-content:center">`;
+      h+=`<div style="flex:1;min-width:190px;background:rgba(255,32,85,.08);border:1.5px solid rgba(255,32,85,.35);border-radius:12px;padding:.9rem 1rem;text-align:center"><div style="font-size:var(--min-font);font-weight:700;color:var(--red);margin-bottom:.2rem">欲求性</div><div style="font-size:var(--min-label);color:var(--mid)">有人真的<strong style="color:var(--red)">想要</strong>嗎？</div></div>`;
+      h+=`<div style="flex:1;min-width:190px;background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,.35);border-radius:12px;padding:.9rem 1rem;text-align:center"><div style="font-size:var(--min-font);font-weight:700;color:var(--blue);margin-bottom:.2rem">可行性</div><div style="font-size:var(--min-label);color:var(--mid)">你<strong style="color:var(--blue)">做得出來</strong>嗎？</div></div>`;
+      h+=`<div style="flex:1;min-width:190px;background:rgba(34,197,94,.08);border:1.5px solid rgba(34,197,94,.35);border-radius:12px;padding:.9rem 1rem;text-align:center"><div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.2rem">存續性</div><div style="font-size:var(--min-label);color:var(--mid)">能<strong style="color:var(--green)">持續運作</strong>嗎？</div></div>`;
+      h+=`</div>`;
+      // Single innovation reveal button
+      const innUid=`inn-${sd.id}`;
+      h+=`<div class="unlock-card" id="${innUid}" onclick="this.classList.toggle('unlocked')" style="min-height:60px;max-width:680px;width:100%">`;
+      h+=`<div class="card-answer" style="background:rgba(255,107,0,.08);border:1.5px solid rgba(255,107,0,.35);border-top:2px solid var(--orange);border-radius:10px;padding:.9rem 1.4rem;text-align:center">`;
+      h+=`<div style="font-size:.55rem;font-weight:900;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3rem">創新的定義</div>`;
+      h+=`<div style="font-size:clamp(1rem,1.8vw,1.3rem);font-weight:700;color:var(--ink)">創新是用可行的新形勢，提高競爭力</div>`;
+      h+=`</div>`;
+      h+=`<div class="card-mask" style="border-radius:10px;background:rgba(255,107,0,.1);border:1.5px solid rgba(255,107,0,.28)">`;
+      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.28rem">你覺得什麼才叫做創新？</div>`;
+      h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.3);letter-spacing:.06em">點擊揭曉</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
       h+=`</div>`;
       break;}
     case 'ai-feasibility':{
