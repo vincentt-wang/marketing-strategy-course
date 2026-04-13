@@ -960,6 +960,56 @@ function renderSlide(sd,idx){
         h+=`</div>`;
       });
       h+=`</div>`;
+      // ── INTERSECTION REVEAL PANEL ─────────────────────────────
+      const inxCards=[
+        {badge:'★ 核心問題',q:'哪個點才叫做「創新」？',qSub:'點擊揭曉',
+         col:'var(--orange)',colR:'rgba(255,107,0',
+         title:'中間那個點 — 三元的交集',
+         body:'只有三個條件同時成立，才叫創新。<br>創新 = 用可行的新形式提升競爭力，<strong style="color:var(--orange)">不管是提升價值還是降低成本，都必須同時滿足三元。</strong>',
+         note:'缺任何一個，都只是「有意思但不完整」的嘗試。'},
+        {badge:'D × F',q:'欲求性 × 可行性 是什麼？',qSub:'缺了存續性',
+         col:'var(--red)',colR:'rgba(255,32,85',
+         title:'做得出來、有人要，但賺不了錢',
+         body:'技術到位、需求也真實，卻找不到可持續的商業模式。',
+         note:'案例：早期 Twitter — 用戶暴增，廣告收入卻遲遲做不起來'},
+        {badge:'D × V',q:'欲求性 × 存續性 是什麼？',qSub:'缺了可行性',
+         col:'var(--green)',colR:'rgba(34,197,94',
+         title:'有人要、商模想好了，但當時做不出來',
+         body:'需求是真的、商業邏輯也清晰，但技術能力還沒到，時機太早。',
+         note:'案例：2015 年的 AI 語音助理 — 概念領先技術整整五年'},
+        {badge:'F × V',q:'可行性 × 存續性 是什麼？',qSub:'缺了欲求性',
+         col:'var(--blue)',colR:'rgba(59,130,246',
+         title:'做得出來、有商模，但沒人需要',
+         body:'技術領先、財務也算得過去，但市場根本不在乎這個產品存在。',
+         note:'案例：Google Glass — 厲害但沒人知道為什麼要買'},
+      ];
+      h+=`<div style="margin-top:.9rem;position:relative;z-index:1">`;
+      h+=`<div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.65rem">`;
+      h+=`<div style="flex:1;height:1px;background:rgba(255,255,255,.07)"></div>`;
+      h+=`<div style="font-size:.6rem;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.3);text-transform:uppercase">交叉點各代表什麼？點擊解析</div>`;
+      h+=`<div style="flex:1;height:1px;background:rgba(255,255,255,.07)"></div>`;
+      h+=`</div>`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem">`;
+      inxCards.forEach((c,i)=>{
+        const uid=`inx-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:118px">`;
+        // Revealed answer
+        h+=`<div class="card-answer" style="background:${c.colR},.07);border:1.5px solid ${c.colR},.28);border-top:2.5px solid ${c.col};border-radius:10px;padding:.8rem .85rem;text-align:left">`;
+        h+=`<div style="font-size:.56rem;font-weight:900;color:${c.col};letter-spacing:.1em;text-transform:uppercase;margin-bottom:.28rem">${c.q}</div>`;
+        h+=`<div style="font-size:clamp(.84rem,1.2vw,.95rem);font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.35rem">${c.title}</div>`;
+        h+=`<div style="font-size:.72rem;color:var(--mid);line-height:1.5;margin-bottom:.35rem">${c.body}</div>`;
+        h+=`<div style="font-size:.68rem;color:${c.col};padding:.25rem .45rem;background:${c.colR},.1);border-radius:4px;font-style:italic">${c.note}</div>`;
+        h+=`</div>`;
+        // Locked mask
+        h+=`<div class="card-mask" style="border-radius:10px;background:${c.colR},.09);border:1.5px solid ${c.colR},.22)">`;
+        h+=`<div style="font-size:.62rem;font-weight:900;color:${c.col};letter-spacing:.1em;margin-bottom:.3rem">${c.badge}</div>`;
+        h+=`<div style="font-size:clamp(.84rem,1.2vw,.95rem);font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.18rem">${c.q}</div>`;
+        h+=`<div style="font-size:.68rem;color:var(--mid)">${c.qSub}</div>`;
+        h+=`<div style="font-size:.6rem;color:rgba(255,255,255,.22);margin-top:.35rem;letter-spacing:.06em">點擊解析 →</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div></div>`;
       break;}
     case 'dfv-combinations':{
       h+=blob('rgba(255,32,85,.1)','rgba(168,85,247,.07)');
