@@ -542,6 +542,64 @@ function funnelFocus(fid,key){
   if(d){box.style.borderColor=d.col;box.innerHTML=d.text;box.style.opacity='1';}
 }
 
+const dfvDetails={
+  des:{col:'rgba(255,32,85',title:'欲求性 Desirability',q:'有人真的想要嗎？',body:'這是最重要的問題。不是「這個功能很酷」，而是「有人現在因為這個問題在痛苦，願意為解法付錢嗎？」超過 42% 的新創失敗，源頭都在這裡。'},
+  fea:{col:'rgba(59,130,246',title:'可行性 Feasibility',q:'你做得出來嗎？',body:'AI 時代這個門檻大幅降低。一個 POC 可以在一天內完成。真正的問題變成：做得出來之後，它還是你的護城河嗎？'},
+  via:{col:'rgba(34,197,94',title:'存續性 Viability',q:'能持續運作嗎？',body:'有商業邏輯嗎？GTM、定價、市場時機——這些不能等到做完才想。大多數 startup 不是死在做不出來，是死在商模沒想清楚就先燒錢。'}
+};
+function dfvFocus(vid,key){
+  const svg=document.getElementById('dfv-svg-'+vid);
+  const box=document.getElementById('dfv-detail-'+vid);
+  if(!svg||!box)return;
+  const keys=['des','fea','via'];
+  const cur=svg.dataset.active||'';
+  if(cur===key){
+    svg.dataset.active='';
+    keys.forEach(k=>{
+      const c=svg.querySelector('#dfv-circle-'+k+'-'+vid);
+      const l=svg.querySelector('#dfv-label-'+k+'-'+vid);
+      if(c)c.classList.remove('dim');if(l)l.classList.remove('dim');
+    });
+    box.style.display='none';
+  } else {
+    svg.dataset.active=key;
+    keys.forEach(k=>{
+      const c=svg.querySelector('#dfv-circle-'+k+'-'+vid);
+      const l=svg.querySelector('#dfv-label-'+k+'-'+vid);
+      const isDim=k!==key;
+      if(c)c.classList.toggle('dim',isDim);if(l)l.classList.toggle('dim',isDim);
+    });
+    const d=dfvDetails[key];
+    box.style.display='block';
+    box.style.borderLeftColor=`rgba(${d.col},.6)`;
+    box.style.background=`rgba(${d.col},.07)`;
+    box.innerHTML=`<div style="font-size:.55rem;font-weight:900;color:rgba(${d.col},1);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.28rem">${d.title}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.28rem">${d.q}</div><div style="font-size:var(--min-font);color:var(--mid);line-height:1.6">${d.body}</div>`;
+  }
+}
+const taDetails={
+  des:{col:'rgba(255,32,85',pct:'50%',label:'欲求性 D',sub:'Desirability',body:'超過一半的時間都在這裡。不停訪談、觀察、反推——直到確定你在解決真實、值得解決的問題。',tip:'YC 建議：先出門和 100 個潛在用戶聊，再開始寫一行程式。'},
+  fea:{col:'rgba(59,130,246',pct:'20%',label:'可行性 F',sub:'Feasibility',body:'AI 工具大幅降低製作門檻，問題已不是「做不做得出來」，而是「做出來有沒有人要」。',tip:'Vibe Coding 時代：一個 POC 可以在一天內完成，可行性不再是最難的門檻。'},
+  via:{col:'rgba(34,197,94',pct:'30%',label:'存續性 V',sub:'Viability',body:'商業邏輯要早想清楚。GTM 策略、定價、市場時機——不能等做完才想，否則做到一半才發現賺不了錢。',tip:'大多數 startup 不是死在做不出來，是死在商模沒想清楚就先燒錢。'}
+};
+function taFocus(sid,key){
+  const detail=document.getElementById('ta-detail-'+sid);
+  const bar=document.getElementById('ta-bar-'+sid);
+  if(!detail)return;
+  const cur=detail.dataset.active||'';
+  if(cur===key){
+    detail.dataset.active='';
+    detail.style.display='none';
+    if(bar)bar.querySelectorAll('[data-key]').forEach(s=>{s.style.opacity='1';s.style.filter='none';});
+  } else {
+    detail.dataset.active=key;
+    if(bar)bar.querySelectorAll('[data-key]').forEach(s=>{s.style.opacity=s.dataset.key===key?'1':'0.3';s.style.filter=s.dataset.key===key?'none':'saturate(.4)';});
+    const d=taDetails[key];
+    detail.style.display='block';
+    detail.style.borderLeftColor=`rgba(${d.col},.6)`;
+    detail.style.background=`rgba(${d.col},.07)`;
+    detail.innerHTML=`<div style="display:flex;align-items:baseline;gap:.7rem;margin-bottom:.38rem"><span style="font-size:clamp(1.5rem,2.6vw,2rem);font-weight:900;color:rgba(${d.col},1);line-height:1">${d.pct}</span><div><div style="font-size:var(--min-font);font-weight:800;color:rgba(${d.col},1)">${d.label}</div><div style="font-size:.5rem;color:var(--mid);font-weight:600;letter-spacing:.1em;text-transform:uppercase">${d.sub}</div></div></div><div style="font-size:var(--min-font);color:var(--ink);line-height:1.6;margin-bottom:.2rem">${d.body}</div><div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${d.tip}</div>`;
+  }
+}
 function dtToggle(sid,si){
   const steps=[
     {en:'Empathize',desc:'先理解那個人在想什麼、感受什麼。不是假設，是真正去問、去觀察。',col:'var(--blue)'},
