@@ -1689,37 +1689,36 @@ function renderSlide(sd,idx){
       break;}
     case 'mckinsey-six-v2':{
       h+=blob('rgba(59,130,246,.1)','rgba(168,85,247,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個元素展開詳情</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">Top-down 思考前，先把這六件事問清楚</p>`;
       h+=`</div>`;
       const sixElements=[
-        {key:'scope',label:'Scope',zh:'範圍邊界',col:'var(--red)',priority:'最重要',desc:'什麼做、什麼不做？',detail:'明確劃定專案邊界，避免 scope creep'},
-        {key:'constraints',label:'Constraints',zh:'限制條件',col:'var(--orange)',priority:'次重要',desc:'時間、預算、人力',detail:'先接受限制，才能找到創意突破口'},
-        {key:'stakeholder',label:'Stakeholder',zh:'利害關係人',col:'var(--purple)',priority:'TPO',desc:'誰？何時？何地？',detail:'Time · Place · Occasion — 找到最痛的那個人'},
-        {key:'criteria',label:'Criteria',zh:'成功標準',col:'var(--green)',priority:'KPI',desc:'怎麼判斷成功？',detail:'沒有明確指標，就沒有結案標準'},
-        {key:'insight',label:'Insight',zh:'洞察來源',col:'var(--cyan)',priority:'驗證',desc:'訪談、數據、直覺？',detail:'洞察的來源決定它的可信度'},
-        {key:'context',label:'Context',zh:'背景脈絡',col:'var(--blue)',priority:'基本功',desc:'市場、產業、時機點',detail:'了解大環境，才能找到差異化空間'}
+        {zh:'做什麼、不做什麼？',en:'Scope',col:'var(--red)',colR:'rgba(255,32,85',q:'這次的範圍是哪裡？邊界在哪？',tip:'沒有邊界的設計，方向會一直跑掉'},
+        {zh:'有哪些限制？',en:'Constraints',col:'var(--orange)',colR:'rgba(255,107,0',q:'時間、預算、人力限制是什麼？',tip:'先接受限制，才能在裡面找到創意'},
+        {zh:'你在對誰說話？',en:'Stakeholder',col:'var(--purple)',colR:'rgba(168,85,247',q:'誰會用？誰付錢？誰反對？',tip:'忽略利害關係人是大多數提案失敗的原因'},
+        {zh:'怎麼算成功？',en:'Criteria',col:'var(--green)',colR:'rgba(34,197,94',q:'什麼樣的結果代表做到了？',tip:'沒有指標，就沒辦法知道到底有沒有做到'},
+        {zh:'你的洞察從哪裡來？',en:'Insight',col:'var(--cyan)',colR:'rgba(6,182,212',q:'是訪談？數據？還是直覺？',tip:'洞察的來源，決定它可不可以被相信'},
+        {zh:'背景脈絡是什麼？',en:'Context',col:'var(--blue)',colR:'rgba(59,130,246',q:'市場、競爭、時機點如何？',tip:'不了解環境，很難做出差異化的設計'}
       ];
-      h+=`<div class="mrev-grid cols-3" style="position:relative;z-index:1;max-width:900px;margin:0 auto;gap:.8rem">`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;max-width:920px;margin:0 auto;position:relative;z-index:1">`;
       sixElements.forEach((el,i)=>{
         const uid=`mck-${sd.id}-${i}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:140px">`;
-        h+=`<div class="card-answer" style="background:${el.col}12;border:1.5px solid ${el.col}50;border-radius:10px;padding:1rem">`;
-        h+=`<div style="font-size:var(--min-label);font-weight:800;color:${el.col};margin-bottom:.3rem;letter-spacing:.08em">${el.priority}</div>`;
-        h+=`<div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${el.label}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-top:.2rem">${el.zh}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.7);margin-top:.5rem;padding:.5rem .6rem;background:rgba(255,255,255,.04);border-radius:6px">${el.desc}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:${el.col};margin-top:.4rem;font-style:italic">${el.detail}</div>`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
+        h+=`<div class="card-answer" style="background:${el.colR},.07);border:1.5px solid ${el.colR},.35);border-radius:12px;padding:.95rem 1rem;text-align:left">`;
+        h+=`<div style="font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:${el.col};margin-bottom:.35rem">${el.en}</div>`;
+        h+=`<div style="font-size:clamp(.95rem,1.45vw,1.1rem);font-weight:700;color:var(--ink);margin-bottom:.45rem">${el.zh}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.75);margin-bottom:.4rem">${el.q}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${el.col};font-style:italic">${el.tip}</div>`;
         h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:10px;background:${el.col}18;border:1.5px solid ${el.col}40">`;
-        h+=`<div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:800;color:${el.col}">${el.label}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin-top:.2rem">${el.zh}</div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${el.colR},.12);border:1.5px solid ${el.colR},.3)">`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.25rem);font-weight:800;color:var(--ink);margin-bottom:.3rem">${el.zh}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${el.col}">${el.en}</div>`;
         h+=`</div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
-      h+=`<div class="tip-box" style="max-width:900px;margin:1.2rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">核心目的：</strong>找出「最高風險的假設」和「ROI 最高的槓桿點」</div>`;
+      h+=`<div class="tip-box" style="max-width:920px;margin:.9rem auto 0;position:relative;z-index:1"><strong style="color:var(--orange)">重點：</strong>這六個問題，是把「直覺出發」升格成「邏輯出發」的關鍵</div>`;
       break;}
     case 'dt-loop-auto':{
       const steps=[
