@@ -1142,13 +1142,13 @@ function renderSlide(sd,idx){
       traps.forEach((t,i)=>{
         const uid=`trap-${sd.id}-${i}`;
         h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:210px">`;
-        h+=`<div class="card-answer" style="background:${t.colR},.07);border:2px solid ${t.colR},.3);border-radius:14px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;text-align:left;height:100%;box-sizing:border-box">`;
+        h+=`<div class="card-answer" style="background:${t.colR},.07);border:2px solid ${t.colR},.3);border-radius:14px;padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;text-align:center;align-items:center;height:100%;box-sizing:border-box">`;
         h+=`<div style="color:${t.col}">${t.icon}</div>`;
         h+=`<div><div style="font-size:var(--min-label);font-weight:800;letter-spacing:.08em;color:${t.col};margin-bottom:.2rem">${t.only}</div>`;
         h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:800;color:var(--ink);white-space:nowrap">${t.punchline}</div></div>`;
         h+=`<div style="font-size:var(--min-font);color:var(--mid)">${t.desc}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--mid);padding:.5rem .7rem;background:rgba(255,255,255,.04);border-left:2px solid ${t.colR},.35);border-radius:0 6px 6px 0;font-style:italic;flex:1">${t.detail}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:${t.col};font-weight:700;padding:.25rem .5rem;background:${t.colR},.1);border-radius:6px;display:inline-block;width:fit-content">${t.result}</div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--mid);padding:.5rem .7rem;background:rgba(255,255,255,.05);border-radius:8px;font-style:italic;flex:1">${t.detail}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${t.col};font-weight:700;padding:.25rem .5rem;background:${t.colR},.1);border-radius:6px;display:inline-block">${t.result}</div>`;
         h+=`</div>`;
         h+=`<div class="card-mask" style="border-radius:14px;background:${t.colR},.14);border:2px solid ${t.colR},.3)">`;
         h+=`<div style="font-size:var(--min-label);font-weight:800;color:${t.col};letter-spacing:.06em;margin-bottom:.45rem">${t.only}</div>`;
