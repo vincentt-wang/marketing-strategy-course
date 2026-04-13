@@ -713,29 +713,65 @@ function renderSlide(sd,idx){
     case 'time-allocation':{
       h+=blob('rgba(168,85,247,.08)','rgba(255,107,0,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .7rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.7rem">${sd.title}</h2>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:.9rem">每個階段的資源配置比例不同——點擊展開看重點</p>`;
       h+=`</div>`;
       const sid=sd.id;
-      h+=`<div style="max-width:820px;margin:0 auto;position:relative;z-index:1">`;
-      // Visual budget bar (proportional: 5:2:3)
-      h+=`<div id="ta-bar-${sid}" style="display:flex;height:92px;border-radius:14px;overflow:hidden;margin-bottom:.7rem;box-shadow:0 6px 28px rgba(0,0,0,.35)">`;
-      h+=`<div data-key="des" onclick="taFocus('${sid}','des')" style="flex:5;background:rgba(255,32,85,.2);border-right:1px solid rgba(0,0,0,.18);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.22rem;transition:opacity .25s,filter .25s;user-select:none">`;
-      h+=`<div style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:var(--red);line-height:1">50%</div>`;
-      h+=`<div style="font-size:.58rem;font-weight:800;color:rgba(255,32,85,.85);letter-spacing:.06em">欲求性 D</div>`;
+      const phases=[
+        {key:'des',col:'rgba(255,32,85',label:'欲求性 D',en:'DESIRABILITY',pct:'50%',
+         main:{pct:80,label:'確認問題',desc:'深度訪談、田野觀察、找出真實痛點'},
+         sub:{pct:20,label:'發想解法',desc:'初步 ideation、概念驗證'},
+         tip:'先搞清楚「誰在痛、痛在哪」，比想解法重要十倍'},
+        {key:'fea',col:'rgba(59,130,246',label:'可行性 F',en:'FEASIBILITY',pct:'30%',
+         main:{pct:80,label:'執行力',desc:'產品建構、技術累積、Scrum / Running Lean、專案管理'},
+         sub:{pct:20,label:'市場調查',desc:'持續測試假設、收集用戶反饋'},
+         tip:'執行力一直都是最重要的 — 想法不值錢，做出來才算數'},
+        {key:'via',col:'rgba(34,197,94',label:'存續性 V',en:'VIABILITY',pct:'20%',
+         main:{pct:80,label:'商業模型優化',desc:'利害關係人、BD、募資、夥伴資源整合'},
+         sub:{pct:20,label:'迭代更新',desc:'根據市場反饋持續優化產品'},
+         tip:'有人要、做得出來之後，才是讓它活下去的時候'},
+      ];
+      h+=`<div style="max-width:860px;margin:0 auto;position:relative;z-index:1;display:flex;flex-direction:column;gap:.55rem">`;
+      // overview bar (static, decorative)
+      h+=`<div style="display:flex;height:10px;border-radius:99px;overflow:hidden;margin-bottom:.1rem;opacity:.4">`;
+      h+=`<div style="flex:5;background:rgba(255,32,85,.7)"></div>`;
+      h+=`<div style="flex:3;background:rgba(59,130,246,.7)"></div>`;
+      h+=`<div style="flex:2;background:rgba(34,197,94,.7)"></div>`;
       h+=`</div>`;
-      h+=`<div data-key="fea" onclick="taFocus('${sid}','fea')" style="flex:2;background:rgba(59,130,246,.2);border-right:1px solid rgba(0,0,0,.18);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.22rem;transition:opacity .25s,filter .25s;user-select:none">`;
-      h+=`<div style="font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:900;color:var(--blue);line-height:1">20%</div>`;
-      h+=`<div style="font-size:.55rem;font-weight:800;color:rgba(59,130,246,.85);letter-spacing:.06em">可行性 F</div>`;
-      h+=`</div>`;
-      h+=`<div data-key="via" onclick="taFocus('${sid}','via')" style="flex:3;background:rgba(34,197,94,.2);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.22rem;transition:opacity .25s,filter .25s;user-select:none">`;
-      h+=`<div style="font-size:clamp(1.4rem,2.6vw,2.1rem);font-weight:900;color:var(--green);line-height:1">30%</div>`;
-      h+=`<div style="font-size:.58rem;font-weight:800;color:rgba(34,197,94,.85);letter-spacing:.06em">存續性 V</div>`;
-      h+=`</div>`;
-      h+=`</div>`;
-      // Detail box (hidden until segment clicked)
-      h+=`<div id="ta-detail-${sid}" style="display:none;padding:.85rem 1.1rem;border-left:3px solid;border-radius:0 10px 10px 0;margin-bottom:.6rem"></div>`;
-      // Einstein tip
-      h+=`<div class="tip-box"><strong style="color:var(--orange)">愛因斯坦：</strong>「如果給我一小時解決問題，我花 55 分鐘思考問題，5 分鐘解決它。」<span style="color:var(--mid)"> — 正確定義問題，比找答案更重要。</span></div>`;
+      phases.forEach(p=>{
+        h+=`<div id="phase-${sid}-${p.key}" data-open="0" style="border-radius:14px;border:1.5px solid ${p.col},.3);background:${p.col},.06);overflow:hidden;cursor:pointer" onclick="togglePhase('${sid}','${p.key}')">`;
+        // header row
+        h+=`<div class="phase-hdr" style="display:flex;align-items:center;gap:.8rem;padding:.75rem 1.1rem;opacity:.55;transition:opacity .25s">`;
+        h+=`<div style="font-size:.58rem;font-weight:800;letter-spacing:.12em;color:${p.col},1);padding:.2em .6em;border-radius:99px;background:${p.col},.15);border:1px solid ${p.col},.35);white-space:nowrap">${p.en}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.7vw,1.2rem);font-weight:800;color:${p.col},1);flex:1">${p.label}</div>`;
+        h+=`<div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:${p.col},1);line-height:1">${p.pct}</div>`;
+        h+=`<svg viewBox="0 0 20 20" width="16" height="16" fill="${p.col},1)" style="flex-shrink:0;transition:transform .3s"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/></svg>`;
+        h+=`</div>`;
+        // expandable inner
+        h+=`<div class="phase-inner" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .38s ease,opacity .28s ease">`;
+        h+=`<div style="padding:.1rem 1.1rem .9rem">`;
+        // 80% bar
+        h+=`<div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.45rem">`;
+        h+=`<div style="font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:900;color:${p.col},1);width:3.2rem;flex-shrink:0;line-height:1">80%</div>`;
+        h+=`<div style="flex:1">`;
+        h+=`<div style="display:flex;justify-content:space-between;margin-bottom:.2rem"><span style="font-size:var(--min-font);font-weight:700;color:${p.col},.9)">${p.main.label}</span></div>`;
+        h+=`<div style="height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden"><div data-bar="80" style="height:100%;width:0;background:${p.col},.75);border-radius:99px;transition:width .55s cubic-bezier(.25,.46,.45,.94)"></div></div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${p.main.desc}</div>`;
+        h+=`</div></div>`;
+        // 20% bar
+        h+=`<div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem">`;
+        h+=`<div style="font-size:clamp(.9rem,1.6vw,1.15rem);font-weight:700;color:${p.col},.55);width:3.2rem;flex-shrink:0;line-height:1">20%</div>`;
+        h+=`<div style="flex:1">`;
+        h+=`<div style="display:flex;justify-content:space-between;margin-bottom:.2rem"><span style="font-size:var(--min-font);font-weight:600;color:${p.col},.65)">${p.sub.label}</span></div>`;
+        h+=`<div style="height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden"><div data-bar="20" style="height:100%;width:0;background:${p.col},.4);border-radius:99px;transition:width .55s cubic-bezier(.25,.46,.45,.94) .1s"></div></div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${p.sub.desc}</div>`;
+        h+=`</div></div>`;
+        // tip
+        h+=`<div style="font-size:var(--min-font);color:${p.col},.85);padding:.4rem .7rem;background:${p.col},.08);border-radius:8px;font-style:italic">${p.tip}</div>`;
+        h+=`</div></div>`;
+        h+=`</div>`;
+      });
+      h+=`<div class="tip-box" style="margin-top:.3rem"><strong style="color:var(--orange)">核心原則：</strong>執行力一直都是最重要的 — 不管在哪個階段，做出來永遠比想出來更有價值。</div>`;
       h+=`</div>`;
       break;}
     case 'why-this-matters':{
