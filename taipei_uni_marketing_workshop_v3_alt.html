@@ -2666,7 +2666,7 @@ function renderSlide(sd,idx){
        {icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>',q:'Constraints',desc:'時間、預算、人力的限制？',col:'var(--orange)'},
        {icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',q:'Stakeholder',desc:'誰是受眾？誰會反對？',col:'var(--purple)'},
        {icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',q:'Criteria',desc:'怎麼判斷你成功了？',col:'var(--green)'}].forEach(c=>{
-        h+=`<div style="display:flex;gap:.8rem;align-items:flex-start;background:rgba(255,255,255,.04);border-left:3px solid ${c.col};border-radius:0 8px 8px 0;padding:.8rem 1rem">`;
+        h+=`<div style="display:flex;gap:.8rem;align-items:flex-start;background:rgba(0,0,0,.04);border-left:3px solid ${c.col};border-radius:0 8px 8px 0;padding:.8rem 1rem">`;
         h+=`<span style="color:${c.col};flex-shrink:0">${c.icon}</span>`;
         h+=`<div><div style="font-weight:700;color:var(--ink);font-size:var(--min-font)">${c.q}</div><div style="font-size:var(--min-label);color:var(--mid)">${c.desc}</div></div>`;
         h+=`</div>`;
