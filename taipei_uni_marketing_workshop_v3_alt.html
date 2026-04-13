@@ -22,11 +22,11 @@ body{font-family:system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;backg
 #slides-container{height:100vh;width:100vw;overflow-y:scroll;scroll-snap-type:y mandatory;scroll-behavior:smooth;position:fixed;inset:0;scrollbar-width:none}
 #slides-container::-webkit-scrollbar{display:none}
 .slide{height:100vh;width:100%;scroll-snap-align:start;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:clamp(2rem,4vw,4rem) clamp(2rem,5vw,5rem) 68px}
-.slide[data-sec="1"]{background:linear-gradient(165deg,#18101f 0%,#201428 35%,#281520 70%,#1a0e16 100%)}
-.slide[data-sec="2"]{background:linear-gradient(165deg,#0e1525 0%,#141c30 35%,#182035 70%,#0e1620 100%)}
-.slide[data-sec="3"]{background:linear-gradient(165deg,#0d1c15 0%,#122218 35%,#162a20 70%,#0e1c16 100%)}
-.slide[data-sec="4"]{background:linear-gradient(165deg,#181410 0%,#221a10 35%,#1e1a14 70%,#151210 100%)}
-.slide[data-sec="5"]{background:linear-gradient(165deg,#14101a 0%,#1c1428 35%,#201830 70%,#161020 100%)}
+.slide[data-sec="1"]{background:linear-gradient(165deg,#1c1130 0%,#241535 35%,#2c1628 70%,#1e1020 100%)}
+.slide[data-sec="2"]{background:linear-gradient(165deg,#0c1830 0%,#112240 35%,#142848 70%,#0c1828 100%)}
+.slide[data-sec="3"]{background:linear-gradient(165deg,#0c201a 0%,#102818 35%,#143020 70%,#0c1e14 100%)}
+.slide[data-sec="4"]{background:linear-gradient(165deg,#201808 0%,#281e08 35%,#221c10 70%,#180e08 100%)}
+.slide[data-sec="5"]{background:linear-gradient(165deg,#16102a 0%,#1e1438 35%,#221840 70%,#14102a 100%)}
 .slide::before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:clamp(40px,6vw,72px) clamp(40px,6vw,72px);z-index:0}
 .slide::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0}
 .slide[data-sec="1"]::after{background:radial-gradient(ellipse 70% 60% at 15% 15%,rgba(255,32,85,.08),transparent 55%),radial-gradient(ellipse 55% 70% at 85% 85%,rgba(168,85,247,.07),transparent 55%),radial-gradient(ellipse 40% 40% at 50% 50%,rgba(255,107,0,.04),transparent 50%)}
