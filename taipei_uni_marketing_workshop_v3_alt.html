@@ -3741,78 +3741,44 @@ function renderSlide(sd,idx){
       break;}
     case 'feasibility-in-triad':{
       h+=blob('rgba(59,130,246,.1)','rgba(168,85,247,.07)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:1.5rem">${sd.title}</h2>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.8rem">${sd.title}</h2>`;
       h+=`</div>`;
-      // Centered layout with larger Venn
-      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
-      // Large centered Venn SVG - Labels in CENTER of circles
-      h+=`<svg viewBox="0 0 400 300" width="400" height="300" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
-      // Desirability top - circle center at (200, 105), label near top of circle
-      h+=`<circle cx="200" cy="105" r="90" fill="rgba(255,32,85,.12)" stroke="rgba(255,32,85,.6)" stroke-width="2.5"/>`;
+      const vid=sd.id;
+      h+=`<div style="display:flex;flex-direction:column;align-items:center;gap:.55rem;max-width:760px;margin:0 auto;position:relative;z-index:1">`;
+      // Interactive Venn SVG
+      h+=`<svg id="dfv-svg-${vid}" viewBox="0 0 400 300" width="360" height="268" font-family="system-ui,sans-serif" style="display:block;max-width:100%">`;
+      // D circle
+      h+=`<g id="dfv-circle-des-${vid}" class="dfv-circle" onclick="dfvFocus('${vid}','des')"><circle cx="200" cy="105" r="90" fill="rgba(255,32,85,.12)" stroke="rgba(255,32,85,.6)" stroke-width="2.5"/></g>`;
+      // F circle
+      h+=`<g id="dfv-circle-fea-${vid}" class="dfv-circle" onclick="dfvFocus('${vid}','fea')"><circle cx="140" cy="210" r="90" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.6)" stroke-width="2.5"/></g>`;
+      // V circle
+      h+=`<g id="dfv-circle-via-${vid}" class="dfv-circle" onclick="dfvFocus('${vid}','via')"><circle cx="260" cy="210" r="90" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.6)" stroke-width="2.5"/></g>`;
+      // Center label
+      h+=`<text x="200" y="188" text-anchor="middle" font-weight="900" font-size="13" fill="#FF6B00">創新</text>`;
+      h+=`<text x="200" y="200" text-anchor="middle" font-size="8.5" fill="rgba(255,107,0,.75)">Innovation</text>`;
+      // D label group (clickable)
+      h+=`<g id="dfv-label-des-${vid}" class="dfv-label" onclick="dfvFocus('${vid}','des')">`;
       h+=`<text x="200" y="50" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(255,32,85,1)">欲求性</text>`;
       h+=`<text x="200" y="66" text-anchor="middle" font-size="10" fill="rgba(255,32,85,.7)">Desirability</text>`;
-      // Feasibility bottom-left - circle center at (140, 210), label at center of circle
-      h+=`<circle cx="140" cy="210" r="90" fill="rgba(59,130,246,.12)" stroke="rgba(59,130,246,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="90" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
-      h+=`<text x="90" y="216" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
-      // Viability bottom-right - circle center at (260, 210), label at center of circle
-      h+=`<circle cx="260" cy="210" r="90" fill="rgba(34,197,94,.12)" stroke="rgba(34,197,94,.6)" stroke-width="2.5"/>`;
-      h+=`<text x="310" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
-      h+=`<text x="310" y="216" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
+      h+=`<text x="200" y="82" text-anchor="middle" font-size="9" fill="rgba(255,32,85,.5)">有人真的想要嗎？</text>`;
+      h+=`</g>`;
+      // F label group (clickable)
+      h+=`<g id="dfv-label-fea-${vid}" class="dfv-label" onclick="dfvFocus('${vid}','fea')">`;
+      h+=`<text x="78" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(59,130,246,1)">可行性</text>`;
+      h+=`<text x="78" y="216" text-anchor="middle" font-size="10" fill="rgba(59,130,246,.7)">Feasibility</text>`;
+      h+=`<text x="78" y="232" text-anchor="middle" font-size="9" fill="rgba(59,130,246,.5)">你做得出來嗎？</text>`;
+      h+=`</g>`;
+      // V label group (clickable)
+      h+=`<g id="dfv-label-via-${vid}" class="dfv-label" onclick="dfvFocus('${vid}','via')">`;
+      h+=`<text x="322" y="200" text-anchor="middle" font-weight="800" font-size="17" fill="rgba(34,197,94,1)">存續性</text>`;
+      h+=`<text x="322" y="216" text-anchor="middle" font-size="10" fill="rgba(34,197,94,.7)">Viability</text>`;
+      h+=`<text x="322" y="232" text-anchor="middle" font-size="9" fill="rgba(34,197,94,.5)">能持續運作嗎？</text>`;
+      h+=`</g>`;
       h+=`</svg>`;
-      // Balanced definition boxes for all three
-      h+=`<div style="display:flex;gap:.8rem;max-width:820px;flex-wrap:wrap;justify-content:center">`;
-      h+=`<div style="flex:1;min-width:200px;background:rgba(255,32,85,.08);border:1.5px solid rgba(255,32,85,.35);border-radius:12px;padding:.9rem 1rem;text-align:center">`;
-      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--red);margin-bottom:.2rem">欲求性</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid)">有人真的<strong style="color:var(--red)">想要</strong>嗎？</div>`;
-      h+=`</div>`;
-      h+=`<div style="flex:1;min-width:200px;background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,.35);border-radius:12px;padding:.9rem 1rem;text-align:center">`;
-      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--blue);margin-bottom:.2rem">可行性</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid)">你<strong style="color:var(--blue)">做得出來</strong>嗎？</div>`;
-      h+=`</div>`;
-      h+=`<div style="flex:1;min-width:200px;background:rgba(34,197,94,.08);border:1.5px solid rgba(34,197,94,.35);border-radius:12px;padding:.9rem 1rem;text-align:center">`;
-      h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.2rem">存續性</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid)">能<strong style="color:var(--green)">持續運作</strong>嗎？</div>`;
-      h+=`</div>`;
-      h+=`</div>`;
-      h+=`</div>`;
-      // ── Intersection unlock buttons ───────────────────────────
-      const inx=[
-        {badge:'★',q:'哪個點才叫「創新」？',qSub:'點擊揭曉',
-         col:'var(--orange)',colR:'rgba(255,107,0',
-         title:'三元的交集點',
-         body:'有人要 × 做得出來 × 能持續，三者同時成立才叫創新。缺任何一個，都不完整。'},
-        {badge:'D+F',q:'欲求性 × 可行性',qSub:'少了存續性',
-         col:'var(--red)',colR:'rgba(255,32,85',
-         title:'有人要，做得出來，但賺不了錢',
-         body:'案例：早期 Twitter — 用戶超多，廣告卻很難賣。'},
-        {badge:'D+V',q:'欲求性 × 存續性',qSub:'少了可行性',
-         col:'var(--green)',colR:'rgba(34,197,94',
-         title:'有人要、商模清晰，但當時做不出來',
-         body:'案例：2015 年的 AI 助理 — 概念領先技術整整五年。'},
-        {badge:'F+V',q:'可行性 × 存續性',qSub:'少了欲求性',
-         col:'var(--blue)',colR:'rgba(59,130,246',
-         title:'做得出來、有商模，但沒人需要',
-         body:'案例：Google Glass — 厲害，但沒人知道為什麼要買。'},
-      ];
-      h+=`<div style="margin-top:.75rem;position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;max-width:800px;margin-left:auto;margin-right:auto">`;
-      inx.forEach((c,i)=>{
-        const uid=`inx-${sd.id}-${i}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:100px">`;
-        h+=`<div class="card-answer" style="background:${c.colR},.08);border:1.5px solid ${c.colR},.3);border-top:2px solid ${c.col};border-radius:9px;padding:.7rem .75rem;text-align:left">`;
-        h+=`<div style="font-size:.55rem;font-weight:900;color:${c.col};letter-spacing:.08em;margin-bottom:.22rem">${c.q}</div>`;
-        h+=`<div style="font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.3rem">${c.title}</div>`;
-        h+=`<div style="font-size:.7rem;color:var(--mid);line-height:1.5">${c.body}</div>`;
-        h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:9px;background:${c.colR},.1);border:1.5px solid ${c.colR},.25)">`;
-        h+=`<div style="font-size:.65rem;font-weight:900;color:${c.col};letter-spacing:.1em;margin-bottom:.28rem">${c.badge}</div>`;
-        h+=`<div style="font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:.15rem">${c.q}</div>`;
-        h+=`<div style="font-size:.68rem;color:var(--mid)">${c.qSub}</div>`;
-        h+=`<div style="font-size:.58rem;color:rgba(255,255,255,.2);margin-top:.3rem;letter-spacing:.06em">點擊解析</div>`;
-        h+=`</div>`;
-        h+=`</div>`;
-      });
+      // Detail box — hidden until circle clicked
+      h+=`<div id="dfv-detail-${vid}" style="display:none;width:100%;max-width:680px;padding:.85rem 1.1rem;border-left:3px solid;border-radius:0 10px 10px 0"></div>`;
+      h+=`<p style="font-size:.6rem;color:rgba(255,255,255,.22);letter-spacing:.1em;text-transform:uppercase;margin:0">點擊圓圈了解每個維度</p>`;
       h+=`</div>`;
       break;}
     case 'ai-feasibility':{
