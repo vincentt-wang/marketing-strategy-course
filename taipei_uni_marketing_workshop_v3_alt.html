@@ -906,6 +906,57 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`</div>`;
       break;}
+    case 'audience-poll':{
+      h+=blob('rgba(255,107,0,.07)','rgba(168,85,247,.06)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:1.4rem">我說問題，請舉手。看完各題之後，點擊揭曉數據。</p>`;
+      h+=`</div>`;
+      const pollQs=[
+        {n:'01',
+         q:'讀的科系<br>不是自己最喜歡的',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+         col:'var(--orange)',colR:'rgba(255,107,0',
+         stat:'50%+',
+         statSub:'的台灣大學生，選科系時並非基於興趣',
+         note:'大多數人是聽父母的意見、或看就業率 — 而不是聽自己的。'},
+        {n:'02',
+         q:'不太確定自己<br>未來要做什麼',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+         col:'var(--blue)',colR:'rgba(59,130,246',
+         stat:'6 成',
+         statSub:'的大學應屆生，畢業時對未來方向感到迷茫',
+         note:'這不是你的問題，是系統沒有教你怎麼找答案。'},
+        {n:'03',
+         q:'想過把作品變產品<br>創造自己的 legacy',
+         icon:'<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+         col:'var(--purple)',colR:'rgba(168,85,247',
+         stat:'34% → 7%',
+         statSub:'有創業想法的人 → 真正採取第一步的人',
+         note:'今天的目標：讓你成為那個 7%。不是口號，是可以帶回去用的工具。'},
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:920px;margin:0 auto;position:relative;z-index:1">`;
+      pollQs.forEach((q,i)=>{
+        const uid=`poll-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:200px">`;
+        // Revealed
+        h+=`<div class="card-answer" style="background:${q.colR},.07);border:2px solid ${q.colR},.3);border-top:3px solid ${q.col};border-radius:14px;padding:1.2rem 1.1rem;text-align:left">`;
+        h+=`<div style="font-size:.55rem;font-weight:900;color:${q.col};letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem">${q.n} — 數據揭曉</div>`;
+        h+=`<div style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:${q.col};line-height:1;margin-bottom:.3rem">${q.stat}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.5rem">${q.statSub}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.45rem .6rem;background:${q.colR},.08);border-left:2px solid ${q.colR},.4);border-radius:0 6px 6px 0;line-height:1.55">${q.note}</div>`;
+        h+=`</div>`;
+        // Locked
+        h+=`<div class="card-mask" style="border-radius:14px;background:${q.colR},.1);border:2px solid ${q.colR},.25)">`;
+        h+=`<div style="color:${q.col};margin-bottom:.6rem;opacity:.7">${q.icon}</div>`;
+        h+=`<div style="font-size:.55rem;font-weight:900;color:${q.col};letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem">${q.n}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.7vw,1.25rem);font-weight:700;color:var(--ink);line-height:1.4">${q.q}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.28);margin-top:.55rem;letter-spacing:.06em">舉完手再點擊</div>`;
+        h+=`</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      break;}
     case 'venn':{
       h+=chip;h+=`<div class="bar"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.7rem">${sd.title}</h2>`;
