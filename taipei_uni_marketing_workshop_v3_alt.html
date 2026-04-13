@@ -686,46 +686,30 @@ function renderSlide(sd,idx){
   switch(sd.type){
     case 'time-allocation':{
       h+=blob('rgba(168,85,247,.08)','rgba(255,107,0,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
-      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-bottom:1.3rem">如果你有 100 小時打造一個產品，三個維度各放幾成？點擊揭曉。</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .7rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.7rem">${sd.title}</h2>`;
       h+=`</div>`;
-      const tBlocks=[
-        {pct:'50%',label:'欲求性',en:'Desirability',col:'var(--red)',colR:'rgba(255,32,85',
-         q:'欲求性 D 佔幾成？',
-         why:'超過一半的時間都在這裡。不停訪談、觀察、反推、驗證——直到你確定你在解決一個真實的、值得解決的問題。',
-         insight:'YC 建議：先出門和 100 個潛在用戶聊，再開始寫一行程式。'},
-        {pct:'20%',label:'可行性',en:'Feasibility',col:'var(--blue)',colR:'rgba(59,130,246',
-         q:'可行性 F 佔幾成？',
-         why:'這個比例正在快速下降。AI 工具大幅降低製作門檻，問題已不是「做不做得出來」，而是「做出來有沒有人要」。',
-         insight:'Vibe Coding 時代：一個 POC 可以在一天內完成，可行性不再是最難的門檻。'},
-        {pct:'30%',label:'存續性',en:'Viability',col:'var(--green)',colR:'rgba(34,197,94',
-         q:'存續性 V 佔幾成？',
-         why:'商業邏輯要早想清楚。GTM 策略、定價、市場時機——這些不能等做完才想，否則做到一半才發現賺不了錢。',
-         insight:'大多數 startup 不是死在做不出來，是死在商模沒想清楚就先燒錢。'},
-      ];
-      h+=`<div style="display:flex;flex-direction:column;gap:.65rem;max-width:860px;margin:0 auto;position:relative;z-index:1">`;
-      tBlocks.forEach((b,i)=>{
-        const uid=`tb-${sd.id}-${i}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:72px">`;
-        // Revealed
-        h+=`<div class="card-answer" style="background:${b.colR},.07);border:1.5px solid ${b.colR},.28);border-left:4px solid ${b.col};border-radius:0 12px 12px 0;padding:.72rem 1rem;display:flex;align-items:center;gap:1rem">`;
-        h+=`<div style="flex-shrink:0;width:68px;text-align:center"><div style="font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:900;color:${b.col};line-height:1">${b.pct}</div><div style="font-size:.48rem;font-weight:800;letter-spacing:.12em;color:${b.col};opacity:.7;text-transform:uppercase;margin-top:.1rem">${b.en}</div></div>`;
-        h+=`<div style="flex:1;min-width:0"><div style="font-size:var(--min-font);color:var(--ink);line-height:1.55;margin-bottom:.2rem">${b.why}</div><div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${b.insight}</div></div>`;
-        h+=`<div style="flex-shrink:0;min-width:52px;text-align:center;padding:.3rem .5rem;background:${b.colR},.12);border-radius:6px"><div style="font-size:clamp(.85rem,1.3vw,1rem);font-weight:800;color:${b.col};white-space:nowrap">${b.label}</div></div>`;
-        h+=`</div>`;
-        // Locked
-        h+=`<div class="card-mask" style="border-radius:12px;background:${b.colR},.1);border:1.5px solid ${b.colR},.25);flex-direction:row;align-items:center;gap:1.2rem;padding:.85rem 1.4rem;justify-content:flex-start">`;
-        h+=`<div style="font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:${b.col};opacity:.22;min-width:55px;text-align:center">?</div>`;
-        h+=`<div><div style="font-size:clamp(1rem,1.5vw,1.2rem);font-weight:700;color:var(--ink)">${b.label} · ${b.en}</div><div style="font-size:var(--min-font);color:var(--mid);margin-top:.18rem">${b.q}</div></div>`;
-        h+=`<div style="margin-left:auto;font-size:var(--min-label);color:rgba(255,255,255,.22);letter-spacing:.06em">點擊揭曉</div>`;
-        h+=`</div>`;
-        h+=`</div>`;
-      });
+      const sid=sd.id;
+      h+=`<div style="max-width:820px;margin:0 auto;position:relative;z-index:1">`;
+      // Visual budget bar (proportional: 5:2:3)
+      h+=`<div id="ta-bar-${sid}" style="display:flex;height:92px;border-radius:14px;overflow:hidden;margin-bottom:.7rem;box-shadow:0 6px 28px rgba(0,0,0,.35)">`;
+      h+=`<div data-key="des" onclick="taFocus('${sid}','des')" style="flex:5;background:rgba(255,32,85,.2);border-right:1px solid rgba(0,0,0,.18);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.22rem;transition:opacity .25s,filter .25s;user-select:none">`;
+      h+=`<div style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:var(--red);line-height:1">50%</div>`;
+      h+=`<div style="font-size:.58rem;font-weight:800;color:rgba(255,32,85,.85);letter-spacing:.06em">欲求性 D</div>`;
       h+=`</div>`;
-      h+=`<div class="tip-box" style="max-width:860px;margin:.85rem auto 0;position:relative;z-index:1">`;
-      h+=`<strong style="color:var(--orange)">愛因斯坦：</strong>「如果給我一小時解決問題，我會花 55 分鐘思考這個問題，再花 5 分鐘解決它。」`;
-      h+=`<span style="color:var(--mid)"> — 正確定義問題，比找答案更重要。大多數人把這個比例倒過來了。</span>`;
+      h+=`<div data-key="fea" onclick="taFocus('${sid}','fea')" style="flex:2;background:rgba(59,130,246,.2);border-right:1px solid rgba(0,0,0,.18);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.22rem;transition:opacity .25s,filter .25s;user-select:none">`;
+      h+=`<div style="font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:900;color:var(--blue);line-height:1">20%</div>`;
+      h+=`<div style="font-size:.55rem;font-weight:800;color:rgba(59,130,246,.85);letter-spacing:.06em">可行性 F</div>`;
+      h+=`</div>`;
+      h+=`<div data-key="via" onclick="taFocus('${sid}','via')" style="flex:3;background:rgba(34,197,94,.2);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.22rem;transition:opacity .25s,filter .25s;user-select:none">`;
+      h+=`<div style="font-size:clamp(1.4rem,2.6vw,2.1rem);font-weight:900;color:var(--green);line-height:1">30%</div>`;
+      h+=`<div style="font-size:.58rem;font-weight:800;color:rgba(34,197,94,.85);letter-spacing:.06em">存續性 V</div>`;
+      h+=`</div>`;
+      h+=`</div>`;
+      // Detail box (hidden until segment clicked)
+      h+=`<div id="ta-detail-${sid}" style="display:none;padding:.85rem 1.1rem;border-left:3px solid;border-radius:0 10px 10px 0;margin-bottom:.6rem"></div>`;
+      // Einstein tip
+      h+=`<div class="tip-box"><strong style="color:var(--orange)">愛因斯坦：</strong>「如果給我一小時解決問題，我花 55 分鐘思考問題，5 分鐘解決它。」<span style="color:var(--mid)"> — 正確定義問題，比找答案更重要。</span></div>`;
       h+=`</div>`;
       break;}
     case 'why-this-matters':{
