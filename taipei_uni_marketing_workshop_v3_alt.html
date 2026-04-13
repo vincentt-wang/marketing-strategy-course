@@ -600,6 +600,32 @@ function taFocus(sid,key){
     detail.innerHTML=`<div style="display:flex;align-items:baseline;gap:.7rem;margin-bottom:.38rem"><span style="font-size:clamp(1.5rem,2.6vw,2rem);font-weight:900;color:rgba(${d.col},1);line-height:1">${d.pct}</span><div><div style="font-size:var(--min-font);font-weight:800;color:rgba(${d.col},1)">${d.label}</div><div style="font-size:.5rem;color:var(--mid);font-weight:600;letter-spacing:.1em;text-transform:uppercase">${d.sub}</div></div></div><div style="font-size:var(--min-font);color:var(--ink);line-height:1.6;margin-bottom:.2rem">${d.body}</div><div style="font-size:var(--min-label);color:var(--mid);font-style:italic">${d.tip}</div>`;
   }
 }
+function togglePhase(sid,key){
+  const allPanels=document.querySelectorAll(`[id^="phase-${sid}-"]`);
+  const target=document.getElementById(`phase-${sid}-${key}`);
+  if(!target)return;
+  const isOpen=target.dataset.open==='1';
+  allPanels.forEach(p=>{
+    p.dataset.open='0';
+    const inner=p.querySelector('.phase-inner');
+    if(inner){inner.style.maxHeight='0';inner.style.opacity='0';}
+    const hdr=p.querySelector('.phase-hdr');
+    if(hdr)hdr.style.opacity='.55';
+    // reset bars
+    p.querySelectorAll('[data-bar]').forEach(b=>{b.style.width='0';});
+  });
+  if(!isOpen){
+    target.dataset.open='1';
+    const inner=target.querySelector('.phase-inner');
+    if(inner){inner.style.maxHeight='300px';inner.style.opacity='1';}
+    const hdr=target.querySelector('.phase-hdr');
+    if(hdr)hdr.style.opacity='1';
+    // animate bars after short delay
+    setTimeout(()=>{
+      target.querySelectorAll('[data-bar]').forEach(b=>{b.style.width=b.dataset.bar+'%';});
+    },80);
+  }
+}
 function dtToggle(sid,si){
   const steps=[
     {en:'Empathize',desc:'先理解那個人在想什麼、感受什麼。不是假設，是真正去問、去觀察。',col:'var(--blue)'},
