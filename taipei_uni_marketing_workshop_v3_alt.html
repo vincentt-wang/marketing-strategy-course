@@ -4692,10 +4692,9 @@ function toggleBgMusic(){
     bgFadeTo(0,600);
   }
 }
-// ── LEVEL COMPLETE FANFARE ────────────────────────────────────────
+// ── LEVEL COMPLETE CHIME ─────────────────────────────────────────
 let bgPrevSec=-1;
 function playLevelComplete(nextSec){
-  // Duck background music
   if(bgFadeTimer)clearInterval(bgFadeTimer);
   if(bgMusicOn){
     let fi=0;const sv=bgAudio.volume;
@@ -4703,51 +4702,50 @@ function playLevelComplete(nextSec){
   }
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const master=ctx.createGain();master.gain.value=0.48;master.connect(ctx.destination);
-    // Short reverb via delay feedback
-    const dly=ctx.createDelay();dly.delayTime.value=0.2;
-    const dlyG=ctx.createGain();dlyG.gain.value=0.28;
-    master.connect(dly);dly.connect(dlyG);dlyG.connect(ctx.destination);
-    function brass(freq,t,dur,amp){
-      [1,2,3,4,5].forEach((h,i)=>{
-        const o=ctx.createOscillator(),g=ctx.createGain(),flt=ctx.createBiquadFilter();
-        flt.type='lowpass';flt.frequency.value=freq*h*2.8;
-        o.type='sawtooth';o.frequency.value=freq*h;
-        o.connect(flt);flt.connect(g);g.connect(master);
-        const st=ctx.currentTime+t,vols=[0.5,0.22,0.12,0.07,0.04];
-        g.gain.setValueAtTime(0,st);
-        g.gain.linearRampToValueAtTime(amp*vols[i],st+0.04);
-        g.gain.setValueAtTime(amp*vols[i],st+dur*0.65);
-        g.gain.exponentialRampToValueAtTime(0.0001,st+dur);
-        o.start(st);o.stop(st+dur+0.05);
+    const master=ctx.createGain();master.gain.value=0.38;master.connect(ctx.destination);
+    // Lush reverb: two delay taps
+    [[0.28,0.32],[0.55,0.18],[0.9,0.10]].forEach(([t,g])=>{
+      const d=ctx.createDelay();d.delayTime.value=t;
+      const dg=ctx.createGain();dg.gain.value=g;
+      master.connect(d);d.connect(dg);dg.connect(ctx.destination);
+    });
+    // Piano bell tone: sine fundamental + inharmonic partials + fast decay
+    function bell(freq,t,amp=0.38){
+      const st=ctx.currentTime+t;
+      [[1,1.0],[2,0.28],[2.756,0.14],[4.07,0.07]].forEach(([ratio,rel])=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();
+        o.type='sine';o.frequency.value=freq*ratio;
+        o.connect(g);g.connect(master);
+        g.gain.setValueAtTime(amp*rel,st);
+        g.gain.exponentialRampToValueAtTime(0.0001,st+(ratio===1?2.8:1.1));
+        o.start(st);o.stop(st+3);
       });
     }
-    function timp(t,pitch=65){
+    // Warm pad swell underneath
+    function pad(freq,t,dur,amp=0.10){
+      const st=ctx.currentTime+t;
       const o=ctx.createOscillator(),g=ctx.createGain();
-      o.type='sine';o.frequency.setValueAtTime(pitch,ctx.currentTime+t);
-      o.frequency.exponentialRampToValueAtTime(pitch*0.55,ctx.currentTime+t+0.35);
+      o.type='triangle';o.frequency.value=freq;
       o.connect(g);g.connect(master);
-      g.gain.setValueAtTime(0.65,ctx.currentTime+t);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.55);
-      o.start(ctx.currentTime+t);o.stop(ctx.currentTime+t+0.6);
+      g.gain.setValueAtTime(0,st);
+      g.gain.linearRampToValueAtTime(amp,st+0.5);
+      g.gain.linearRampToValueAtTime(0,st+dur);
+      o.start(st);o.stop(st+dur+0.1);
     }
-    // Rising C major fanfare
-    brass(261.63,0.00,0.38,0.35); // C4
-    brass(329.63,0.32,0.38,0.35); // E4
-    brass(392.00,0.60,0.38,0.35); // G4
-    brass(523.25,0.88,0.50,0.40); // C5
-    brass(659.25,1.32,0.50,0.38); // E5
-    brass(783.99,1.76,0.62,0.36); // G5
-    timp(1.76,80);
-    // Final held chord
-    brass(261.63,2.32,2.4,0.38);
-    brass(392.00,2.32,2.4,0.28);
-    brass(523.25,2.32,2.4,0.38);
-    brass(659.25,2.32,2.4,0.30);
-    brass(783.99,2.32,2.4,0.24);
-    timp(2.32,80);timp(2.46,65);
+    // Ascending bell sequence: Cmaj pentatonic
+    bell(523.25,0.00,0.34); // C5
+    bell(659.25,0.20,0.30); // E5
+    bell(783.99,0.38,0.28); // G5
+    bell(1046.5,0.54,0.24); // C6
+    bell(1318.5,0.68,0.18); // E6 shimmer
+    // Chord pad bloom
+    [261.63,329.63,392.00,523.25].forEach((f,i)=>pad(f,0.6+i*0.04,4.0,0.09));
+    // Final resolution bell
+    bell(1046.5,1.4,0.20);
+    bell(783.99,1.55,0.16);
+    bell(523.25,1.68,0.22);
   }catch(e){}
-  setTimeout(()=>{bgCurSec=0;bgSwitchTrack(nextSec);},4900);
+  setTimeout(()=>{bgCurSec=0;bgSwitchTrack(nextSec);},5000);
 }
 // ── END BACKGROUND MUSIC ─────────────────────────────────────────
 function updateUI(){
