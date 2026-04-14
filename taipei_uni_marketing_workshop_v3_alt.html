@@ -631,6 +631,27 @@ function togglePhase(sid,key){
     },80);
   }
 }
+function mandalaFocus(sid,idx,colRaw){
+  const detail=document.getElementById('mdf-'+sid);
+  if(!detail)return;
+  const allCells=document.querySelectorAll('[id^="mc-'+sid+'-"]');
+  const cur=detail.dataset.active||'';
+  if(cur===String(idx)){
+    detail.dataset.active='';
+    detail.style.display='none';
+    allCells.forEach(c=>{c.style.opacity='1';c.style.transform='scale(1)';});
+  }else{
+    detail.dataset.active=String(idx);
+    const cell=document.getElementById('mc-'+sid+'-'+idx);
+    const title=cell?cell.dataset.title:'';
+    const desc=cell?cell.dataset.desc:'';
+    detail.style.display='block';
+    detail.style.borderLeftColor=colRaw+',1)';
+    detail.style.background=colRaw+',.08)';
+    detail.innerHTML=`<strong style="color:${colRaw},1)">${title}：</strong><span style="color:var(--mid)">${desc}</span>`;
+    allCells.forEach(c=>{const active=c.id==='mc-'+sid+'-'+idx;c.style.opacity=active?'1':'0.4';c.style.transform=active?'scale(1.04)':'scale(1)';});
+  }
+}
 function dtToggle(sid,si){
   const steps=[
     {en:'Empathize',desc:'先理解那個人在想什麼、感受什麼。不是假設，是真正去問、去觀察。',col:'var(--blue)'},
