@@ -4687,6 +4687,7 @@ function updateUI(){
   document.getElementById('breadcrumb').textContent=`Section ${sd.sec}  ·  ${sd.sub}`;
   document.getElementById('sec-indicator').textContent=secNames[sd.sec]||'';
   document.querySelectorAll('.sec-btn').forEach(btn=>{btn.classList.toggle('active',parseInt(btn.dataset.sec)===sd.sec);});
+  bgSwitchTrack(sd.sec);
   document.querySelectorAll('.dot').forEach(d=>{
     const i=parseInt(d.dataset.idx);
     d.classList.toggle('active',i===cur);
