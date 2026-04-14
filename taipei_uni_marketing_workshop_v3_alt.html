@@ -777,16 +777,16 @@ function renderSlide(sd,idx){
         h+=`<div class="phase-inner" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .38s ease,opacity .28s ease">`;
         h+=`<div style="padding:.1rem 1.1rem .9rem">`;
         // 80% bar
-        h+=`<div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.45rem">`;
-        h+=`<div style="font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:900;color:${p.col},1);width:3.2rem;flex-shrink:0;line-height:1">80%</div>`;
+        h+=`<div style="display:flex;align-items:center;gap:1rem;margin-bottom:.45rem">`;
+        h+=`<div style="font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:900;color:${p.col},1);width:4.2rem;flex-shrink:0;line-height:1;text-align:right">80%</div>`;
         h+=`<div style="flex:1">`;
         h+=`<div style="display:flex;justify-content:space-between;margin-bottom:.2rem"><span style="font-size:var(--min-font);font-weight:700;color:${p.col},.9)">${p.main.label}</span></div>`;
         h+=`<div style="height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden"><div data-bar="80" style="height:100%;width:0;background:${p.col},.75);border-radius:99px;transition:width .55s cubic-bezier(.25,.46,.45,.94)"></div></div>`;
         h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-top:.2rem">${p.main.desc}</div>`;
         h+=`</div></div>`;
         // 20% bar
-        h+=`<div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem">`;
-        h+=`<div style="font-size:clamp(.9rem,1.6vw,1.15rem);font-weight:700;color:${p.col},.55);width:3.2rem;flex-shrink:0;line-height:1">20%</div>`;
+        h+=`<div style="display:flex;align-items:center;gap:1rem;margin-bottom:.5rem">`;
+        h+=`<div style="font-size:clamp(.9rem,1.6vw,1.15rem);font-weight:700;color:${p.col},.55);width:4.2rem;flex-shrink:0;line-height:1;text-align:right">20%</div>`;
         h+=`<div style="flex:1">`;
         h+=`<div style="display:flex;justify-content:space-between;margin-bottom:.2rem"><span style="font-size:var(--min-font);font-weight:600;color:${p.col},.65)">${p.sub.label}</span></div>`;
         h+=`<div style="height:6px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden"><div data-bar="20" style="height:100%;width:0;background:${p.col},.4);border-radius:99px;transition:width .55s cubic-bezier(.25,.46,.45,.94) .1s"></div></div>`;
