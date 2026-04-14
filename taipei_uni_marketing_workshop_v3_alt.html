@@ -2818,23 +2818,28 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       break;}
     case 'indie-hacker-math':{
-      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.35rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);margin-bottom:.9rem;font-size:var(--min-font)">一個真實案例 — 點擊每張牌，猜猜看結局</p>`;
+      h+=`<div style="text-align:center">${chip}<div class="bar" style="margin:.6rem auto .9rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);margin-bottom:1rem;font-size:var(--min-font)">點擊每張牌，猜猜看</p>`;
       h+=`</div>`;
       const ihmSteps=[
-        {num:'他是誰',q:'一個人靠網站養活自己<br>完全不需要公司',label:'認識這個人',col:'var(--blue)',ans:'<strong style="color:var(--blue)">Pieter Levels</strong> — 荷蘭工程師，一人公司，無融資，無員工<br>靠自己做的網站生活，在咖啡廳用筆電工作<br><span style="font-size:var(--min-label);color:var(--mid)">代表作：Nomad List、Remote OK、Photo AI</span>'},
-        {num:'用戶數',q:'Photo AI 有多少人<br>付費使用？猜看看',label:'付費用戶數',col:'var(--purple)',ans:'付費用戶約 <strong style="color:var(--purple)">1,700 人</strong>（$29/月起）<br>AI 幫你生成專業頭貼，幾分鐘搞定<br><span style="font-size:var(--min-label);color:var(--mid)">不是百萬，是一千七百</span>'},
-        {num:'月收入',q:'知道用戶數之後<br>月收入猜多少？',label:'Photo AI 月收入',col:'var(--orange)',ans:'月收入 <strong style="color:var(--orange)">$50,000 美元</strong>（台幣約 160 萬）<br>1,700 × $29 ≈ $49,300<br><span style="font-size:var(--min-label);color:var(--mid)">數據來源：Pieter Levels 公開在 X 上的 MRR</span>'},
-        {num:'年收入',q:'全部產品加起來<br>一年賺多少？大膽猜',label:'一人公司年收入',col:'var(--green)',ans:'所有產品年收入 <strong style="color:var(--green)">$2,500,000+</strong>（台幣 8,000 萬+）<br>一人公司，零員工，零融資<br><span style="font-size:var(--min-label);color:var(--mid)">不需要百萬用戶，需要精準的 1,000 個</span>'},
+        {num:'他是誰',q:'一個人靠網站<br>養活自己',label:'Pieter Levels',col:'var(--blue)',
+         big:'一人公司',sub:'荷蘭工程師，無融資、無員工<br>Nomad List · Remote OK · Photo AI'},
+        {num:'用戶數',q:'Photo AI 有多少<br>付費用戶？',label:'付費人數',col:'var(--purple)',
+         big:'1,700 人',sub:'每人 $29 / 月起　不是百萬，是一千七百'},
+        {num:'月收入',q:'這些用戶帶來<br>多少月收入？',label:'Photo AI MRR',col:'var(--orange)',
+         big:'$50,000',sub:'1,700 × $29 ≈ $49,300 USD／月'},
+        {num:'年收入',q:'全部產品<br>一年賺多少？',label:'一人公司年收入',col:'var(--green)',
+         big:'$2,500,000+',sub:'台幣 8,000 萬　零員工，零融資'},
       ];
-      h+=`<div class="mrev-grid cols-4" style="gap:.7rem;max-width:920px;margin:0 auto">`;
+      h+=`<div class="mrev-grid cols-4" style="gap:.8rem;max-width:940px;margin:0 auto">`;
       ihmSteps.forEach((s,si)=>{
         const uid=`${sd.id}-m${si}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:155px">`;
-        h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${s.col}">`;
-        h+=`<div class="card-label" style="color:${s.col};font-size:var(--min-label)">${s.label}</div>`;
-        h+=`<div class="card-body" style="margin-top:.35rem;font-size:var(--min-font)">${s.ans}</div>`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
+        h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${s.col};padding:1.1rem 1rem;display:flex;flex-direction:column;gap:.4rem;text-align:center">`;
+        h+=`<div style="font-size:var(--min-label);font-weight:700;color:${s.col};letter-spacing:.06em">${s.label}</div>`;
+        h+=`<div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:var(--ink);line-height:1">${s.big}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.5">${s.sub}</div>`;
         h+=`</div>`;
         h+=`<div class="card-mask"><div class="card-mask-num" style="color:${s.col};font-size:1.8rem">${s.num}</div><div class="card-mask-q" style="font-size:var(--min-font)">${s.q}</div></div>`;
         h+=`</div>`;
