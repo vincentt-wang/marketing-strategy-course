@@ -194,6 +194,11 @@ svg{overflow:visible}
 .dfv-circle.dim{opacity:.12}
 .dfv-label{cursor:pointer;transition:opacity .3s}
 .dfv-label.dim{opacity:.12}
+.phase-panel{transition:background .15s,border-color .15s,transform .1s;}
+.phase-panel:active{filter:brightness(1.25);transform:scale(.99);}
+.mandala-cell{cursor:pointer;user-select:none;transition:transform .2s var(--ease-back),opacity .2s,border-color .2s;}
+.mandala-cell:hover{transform:scale(1.05);border-color:currentColor;}
+.mandala-cell:active{transform:scale(.96);}
 .venn-detail-box{margin-top:.8rem;padding:.8rem 1.3rem;border-radius:8px;border-left:3px solid;font-size:clamp(.83rem,1.32vw,.97rem);line-height:1.65;color:var(--ink);transition:opacity .3s,transform .3s;min-height:3rem}
 .venn-detail-box.hidden{opacity:0;transform:translateY(6px);pointer-events:none}
 
