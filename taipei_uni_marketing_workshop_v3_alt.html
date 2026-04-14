@@ -4702,40 +4702,33 @@ function playLevelComplete(nextSec){
   }
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const master=ctx.createGain();master.gain.value=0.40;master.connect(ctx.destination);
-    [[0.12,0.35],[0.28,0.22],[0.55,0.14],[1.0,0.08]].forEach(([t,g])=>{
-      const d=ctx.createDelay(2);d.delayTime.value=t;const dg=ctx.createGain();dg.gain.value=g;
+    const master=ctx.createGain();master.gain.value=0.38;master.connect(ctx.destination);
+    // Deep cathedral reverb — dense taps
+    [[0.08,0.40],[0.18,0.30],[0.35,0.22],[0.6,0.15],[1.0,0.10],[1.6,0.06],[2.2,0.03]].forEach(([t,g])=>{
+      const d=ctx.createDelay(3);d.delayTime.value=t;const dg=ctx.createGain();dg.gain.value=g;
       master.connect(d);d.connect(dg);dg.connect(ctx.destination);
     });
-    // Bell tone (piano-like inharmonic sine)
-    function bell(freq,t,amp=0.32){
-      const st=ctx.currentTime+t;
-      [[1,1.0],[2,0.22],[2.756,0.10],[4.07,0.05]].forEach(([r,rel])=>{
-        const o=ctx.createOscillator(),g=ctx.createGain();
-        o.type='sine';o.frequency.value=freq*r;o.connect(g);g.connect(master);
-        g.gain.setValueAtTime(amp*rel,st);
-        g.gain.exponentialRampToValueAtTime(0.0001,st+(r===1?2.2:0.7));
-        o.start(st);o.stop(st+2.4);
-      });
-    }
-    // Choir pad (detuned sine cluster)
-    function choir(freq,t,dur,amp=0.20){
-      const st=ctx.currentTime+t;
-      [-8,0,8].forEach(cents=>{
-        const o=ctx.createOscillator(),g=ctx.createGain();
-        o.type='sine';o.frequency.value=freq*Math.pow(2,cents/1200);
-        o.connect(g);g.connect(master);
-        g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(amp*0.28,st+0.12);
-        g.gain.setValueAtTime(amp*0.28,st+dur-0.25);g.gain.linearRampToValueAtTime(0,st+dur);
-        o.start(st);o.stop(st+dur+0.1);
-      });
-    }
-    // 3-note rising bell + warm chord bloom — total ~2.8s
-    bell(523.25,0.00,0.32);   // C5
-    bell(659.25,0.18,0.28);   // E5
-    bell(783.99,0.34,0.26);   // G5
-    bell(1046.5,0.48,0.22);   // C6
-    [261.63,329.63,392.00,523.25].forEach((f,i)=>choir(f,0.55+i*0.03,2.0,0.18));
+    const now=ctx.currentTime;
+    // Deep cathedral bell strike — C2 with natural inharmonic partials
+    [[1,0.55,3.2],[2,0.28,2.0],[3.01,0.16,1.4],[4.24,0.09,1.0],[5.54,0.06,0.7],[6.87,0.03,0.5]].forEach(([r,amp,dec])=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=65.41*r; // C2 base
+      o.connect(g);g.connect(master);
+      g.gain.setValueAtTime(amp,now);
+      g.gain.exponentialRampToValueAtTime(0.0001,now+dec);
+      o.start(now);o.stop(now+dec+0.1);
+    });
+    // Soft angelic shimmer rising ~0.4s after strike
+    [[1046.5,0],[1244.5,0.10],[1568.0,0.18]].forEach(([f,delay])=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      o.connect(g);g.connect(master);
+      const st=now+0.4+delay;
+      g.gain.setValueAtTime(0,st);
+      g.gain.linearRampToValueAtTime(0.055,st+0.5);
+      g.gain.linearRampToValueAtTime(0,st+2.0);
+      o.start(st);o.stop(st+2.2);
+    });
   }catch(e){}
   setTimeout(()=>{bgCurSec=0;bgSwitchTrack(nextSec);},3200);
 }
