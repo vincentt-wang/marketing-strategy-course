@@ -3836,6 +3836,7 @@ function renderSlide(sd,idx){
       h+=`<div style="flex:1;min-width:190px;background:rgba(59,130,246,.08);border:1.5px solid rgba(59,130,246,.35);border-radius:12px;padding:.9rem 1rem;text-align:center"><div style="font-size:var(--min-font);font-weight:700;color:var(--blue);margin-bottom:.2rem">可行性</div><div style="font-size:var(--min-label);color:var(--mid)">你<strong style="color:var(--blue)">做得出來</strong>嗎？</div></div>`;
       h+=`<div style="flex:1;min-width:190px;background:rgba(34,197,94,.08);border:1.5px solid rgba(34,197,94,.35);border-radius:12px;padding:.9rem 1rem;text-align:center"><div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-bottom:.2rem">存續性</div><div style="font-size:var(--min-label);color:var(--mid)">能<strong style="color:var(--green)">持續運作</strong>嗎？</div></div>`;
       h+=`</div>`;
+      h+=`<div style="position:absolute;bottom:1.2rem;right:1.4rem;z-index:10"><button onclick="jumpToSlide('s5a3b')" style="background:rgba(168,85,247,.12);border:1.5px solid rgba(168,85,247,.4);border-radius:20px;padding:.35rem .9rem;font-size:.72rem;font-weight:700;color:var(--purple);cursor:pointer;letter-spacing:.04em;transition:all .2s" onmouseover="this.style.background='rgba(168,85,247,.25)'" onmouseout="this.style.background='rgba(168,85,247,.12)'">個人 DFV →</button></div>`;
       // Single innovation reveal button
       const innUid=`inn-${sd.id}`;
       h+=`<div class="unlock-card" id="${innUid}" onclick="this.classList.toggle('unlocked')" style="min-height:60px;max-width:680px;width:100%">`;
