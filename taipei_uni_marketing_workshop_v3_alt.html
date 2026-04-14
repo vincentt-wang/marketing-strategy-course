@@ -765,7 +765,7 @@ function renderSlide(sd,idx){
       h+=`<div style="flex:2;background:rgba(34,197,94,.7)"></div>`;
       h+=`</div>`;
       phases.forEach(p=>{
-        h+=`<div id="phase-${sid}-${p.key}" data-open="0" style="border-radius:14px;border:1.5px solid ${p.col},.3);background:${p.col},.06);overflow:hidden;cursor:pointer" onclick="togglePhase('${sid}','${p.key}')">`;
+        h+=`<div id="phase-${sid}-${p.key}" class="phase-panel" data-open="0" style="border-radius:14px;border:1.5px solid ${p.col},.3);background:${p.col},.06);overflow:hidden;cursor:pointer" onclick="togglePhase('${sid}','${p.key}')">`;
         // header row
         h+=`<div class="phase-hdr" style="display:flex;align-items:center;gap:.8rem;padding:.75rem 1.1rem;opacity:.55;transition:opacity .25s">`;
         h+=`<div style="font-size:.58rem;font-weight:800;letter-spacing:.12em;color:${p.col},1);padding:.2em .6em;border-radius:99px;background:${p.col},.15);border:1px solid ${p.col},.35);white-space:nowrap">${p.en}</div>`;
