@@ -2838,7 +2838,7 @@ function renderSlide(sd,idx){
         h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:160px">`;
         h+=`<div class="card-answer" style="background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-top:3px solid ${s.col};padding:1.1rem 1rem;display:flex;flex-direction:column;gap:.4rem;text-align:center">`;
         h+=`<div style="font-size:var(--min-label);font-weight:700;color:${s.col};letter-spacing:.06em">${s.label}</div>`;
-        h+=`<div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:var(--ink);line-height:1">${s.big}</div>`;
+        h+=`<div style="font-size:clamp(1rem,2vw,1.5rem);font-weight:900;color:var(--ink);line-height:1;white-space:nowrap">${s.big}</div>`;
         h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.5">${s.sub}</div>`;
         h+=`</div>`;
         h+=`<div class="card-mask"><div class="card-mask-num" style="color:${s.col};font-size:1.8rem">${s.num}</div><div class="card-mask-q" style="font-size:var(--min-font)">${s.q}</div></div>`;
