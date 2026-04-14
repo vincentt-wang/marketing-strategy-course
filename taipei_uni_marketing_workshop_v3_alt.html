@@ -4472,52 +4472,54 @@ function renderSlide(sd,idx){
       break;}
     case 'dfv-mandala':{
       h+=blob('rgba(168,85,247,.1)','rgba(59,130,246,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">大谷翔平 18 歲時用這個方法，把「進入 MLB」拆解成 64 個具體行動</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .7rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);white-space:nowrap;margin-bottom:.7rem">大谷翔平 18 歲時用這個方法，把「進入 MLB」拆解成 64 個具體行動</p>`;
       h+=`</div>`;
       // Explanation strip
-      h+=`<div style="display:flex;gap:1.2rem;align-items:flex-start;max-width:960px;margin:0 auto 1.2rem;position:relative;z-index:1;flex-wrap:wrap">`;
-      [{num:'①',col:'var(--purple)',title:'定核心目標',desc:'把你最重要的目標放在中心格'},
-       {num:'②',col:'var(--blue)',title:'展開 8 個維度',desc:'8 個方向：技能、健康、心理、人脈…'},
-       {num:'③',col:'var(--green)',title:'每維度再展 8 個行動',desc:'每格再展開 → 1 個目標 = 64 個行動'},
+      h+=`<div style="display:flex;gap:1rem;align-items:flex-start;max-width:700px;margin:0 auto .65rem;position:relative;z-index:1">`;
+      [{num:'①',col:'var(--purple)',title:'定核心目標',desc:'最重要的目標放在中心格'},
+       {num:'②',col:'var(--blue)',title:'展開 8 個維度',desc:'點擊各格查看說明'},
+       {num:'③',col:'var(--green)',title:'每維度展 8 個行動',desc:'1 個目標 = 64 個具體計畫'},
       ].forEach(s=>{
-        h+=`<div style="flex:1;min-width:200px;display:flex;gap:.7rem;align-items:flex-start">`;
-        h+=`<div style="width:32px;height:32px;border-radius:8px;background:${s.col};display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;flex-shrink:0;font-size:.9rem">${s.num}</div>`;
-        h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${s.title}</div><div style="font-size:var(--min-label);color:var(--mid)">${s.desc}</div></div>`;
+        h+=`<div style="flex:1;display:flex;gap:.55rem;align-items:flex-start">`;
+        h+=`<div style="width:26px;height:26px;border-radius:7px;background:${s.col};display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;flex-shrink:0;font-size:.75rem">${s.num}</div>`;
+        h+=`<div><div style="font-size:var(--min-label);font-weight:700;color:var(--ink)">${s.title}</div><div style="font-size:.62rem;color:var(--mid)">${s.desc}</div></div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
       // Mandala 3x3 grid
+      const mdid=sd.id;
       const mandalaLabels=[
-        {t:'技能發展',c:'rgba(168,85,247'},
-        {t:'知識學習',c:'rgba(59,130,246'},
-        {t:'人際關係',c:'rgba(34,197,94'},
-        {t:'身體健康',c:'rgba(255,107,0'},
+        {t:'技能發展',c:'rgba(168,85,247',desc:'技術、創意、語言——選一項核心能力深度發展，讓它成為你的護城河'},
+        {t:'知識學習',c:'rgba(59,130,246',desc:'讀書、課程、訪談——系統化吸收領域知識，建立自己的思維框架'},
+        {t:'人際關係',c:'rgba(34,197,94',desc:'導師、同儕、社群——你的人脈就是你的槓桿，主動連結對的人'},
+        {t:'身體健康',c:'rgba(255,107,0',desc:'睡眠、運動、飲食——體力是執行力的基礎，沒有健康就沒有一切'},
         {t:'你的核心目標',c:'rgba(168,85,247',center:true},
-        {t:'心理強化',c:'rgba(6,182,212'},
-        {t:'財務規劃',c:'rgba(251,191,36'},
-        {t:'習慣建立',c:'rgba(255,32,85'},
-        {t:'工具應用',c:'rgba(168,85,247'},
+        {t:'心理強化',c:'rgba(6,182,212',desc:'韌性、專注、情緒管理——Growth Mindset 的起點，面對失敗的能力'},
+        {t:'財務規劃',c:'rgba(251,191,36',desc:'儲蓄、收入來源、資源配置——讓財務條件支撐你追求目標'},
+        {t:'習慣建立',c:'rgba(255,32,85',desc:'每日例行、複利效應——小習慣堆積大改變，今天的選擇決定一年後的你'},
+        {t:'運氣',c:'rgba(168,85,247',desc:'增加曝光度、提高嘗試次數——機會是給準備好的人，主動創造「被看見」的機會'},
       ];
-      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:520px;margin:0 auto 1rem;position:relative;z-index:1">`;
-      mandalaLabels.forEach(cell=>{
+      h+=`<div id="mandala-grid-${mdid}" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:680px;margin:0 auto .5rem;position:relative;z-index:1">`;
+      mandalaLabels.forEach((cell,i)=>{
         if(cell.center){
-          h+=`<div style="background:rgba(168,85,247,.25);border:2px solid rgba(168,85,247,.7);border-radius:10px;padding:.7rem .5rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80px">`;
-          h+=`<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="2" style="margin-bottom:.3rem"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+          h+=`<div style="background:rgba(168,85,247,.25);border:2px solid rgba(168,85,247,.7);border-radius:10px;padding:.6rem .4rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px">`;
+          h+=`<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--purple)" stroke-width="2" style="margin-bottom:.25rem"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
           h+=`<div style="font-size:var(--min-font);font-weight:900;color:var(--purple);line-height:1.3">${cell.t}</div>`;
-          h+=`<div style="font-size:.5rem;color:rgba(168,85,247,.55);margin-top:.2rem">中央目標</div>`;
+          h+=`<div style="font-size:.52rem;color:rgba(168,85,247,.55);margin-top:.18rem">中央目標</div>`;
         } else {
-          h+=`<div style="background:${cell.c},.08);border:1.5px solid ${cell.c},.3);border-radius:10px;padding:.5rem .4rem;text-align:center;display:flex;align-items:center;justify-content:center;min-height:80px;position:relative">`;
-          h+=`<div style="font-size:var(--min-label);font-weight:700;color:${cell.c},1);line-height:1.4">${cell.t}</div>`;
-          h+=`<div style="position:absolute;bottom:4px;right:4px;display:grid;grid-template-columns:repeat(3,4px);gap:1px">`;
-          for(let i=0;i<9;i++)h+=`<div style="width:4px;height:4px;border-radius:1px;background:${cell.c},${i===4?'.8':'.2'})"></div>`;
+          h+=`<div id="mc-${mdid}-${i}" class="mandala-cell" data-title="${cell.t}" data-desc="${cell.desc.replace(/"/g,'&quot;')}" onclick="mandalaFocus('${mdid}','${i}','${cell.c}')" style="background:${cell.c},.08);border:1.5px solid ${cell.c},.3);border-radius:10px;padding:.55rem .4rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;gap:.3rem">`;
+          h+=`<div style="font-size:var(--min-font);font-weight:700;color:${cell.c},1);line-height:1.3">${cell.t}</div>`;
+          h+=`<div style="display:grid;grid-template-columns:repeat(3,4px);gap:1.5px">`;
+          for(let j=0;j<9;j++)h+=`<div style="width:4px;height:4px;border-radius:1px;background:${cell.c},${j===4?'.8':'.25'})"></div>`;
           h+=`</div>`;
         }
         h+=`</div>`;
       });
       h+=`</div>`;
-      h+=`<div class="tip-box" style="max-width:520px;margin:0 auto;position:relative;z-index:1;text-align:center"><strong style="color:var(--purple)">每個外圍格子</strong>，都可以成為另一張九宮格的中心 → 從 1 個目標，展出 64 個具體行動計畫</div>`;
+      h+=`<div id="mdf-${mdid}" data-active="" style="display:none;max-width:680px;margin:0 auto .4rem;position:relative;z-index:1;padding:.5rem .85rem;border-left:3px solid;border-radius:0 8px 8px 0;font-size:var(--min-font);line-height:1.6"></div>`;
+      h+=`<div class="tip-box" style="max-width:680px;margin:0 auto;position:relative;z-index:1;text-align:center"><strong style="color:var(--purple)">每個外圍格子</strong>，都可以成為另一張九宮格的中心 → 從 1 個目標，展出 64 個具體行動</div>`;
       break;}
     case 'goal-oriented-iterate':{
       h+=blob('rgba(34,197,94,.1)','rgba(6,182,212,.06)');
