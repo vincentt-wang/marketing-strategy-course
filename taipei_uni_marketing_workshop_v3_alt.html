@@ -4731,9 +4731,13 @@ function findNextRevealable(){
   // 6. First compare card not yet revealed (vitamin-painkiller etc.)
   const cmpCard=slideEl.querySelector('.cmp-card:not(.revealed)');
   if(cmpCard)return cmpCard;
-  // 7. Phase panels (time-allocation) — open one at a time
-  const phasePanel=slideEl.querySelector('.phase-panel[data-open="0"]');
-  if(phasePanel)return phasePanel;
+  // 7. Phase panels (time-allocation) — open one at a time via step counter
+  const phaseContainer=slideEl.querySelector('[data-phase-step]');
+  if(phaseContainer){
+    const panels=[...phaseContainer.querySelectorAll('.phase-panel')];
+    const pStep=parseInt(phaseContainer.dataset.phaseStep||'0');
+    if(pStep<panels.length){phaseContainer.dataset.phaseStep=String(pStep+1);return panels[pStep];}
+  }
   // 8. Mandala cells — cycle through one at a time using data-mandala-step
   const mandalaGrid=slideEl.querySelector('[data-mandala-step]');
   if(mandalaGrid){
