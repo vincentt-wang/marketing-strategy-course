@@ -3733,83 +3733,51 @@ function renderSlide(sd,idx){
     // ========== NEW RENDER CASES V3 ==========
     case 'hormozi-value-b':{
       h+=blob('rgba(34,197,94,.08)','rgba(255,32,85,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">分子放大｜分母縮小 — 點擊每個變數看操作方法</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .9rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1rem">點擊每個變數看操作方法</p>`;
       h+=`</div>`;
-      h+=`<div style="max-width:920px;margin:0 auto;position:relative;z-index:1">`;
-      // Numerator section (maximize)
-      h+=`<div style="margin-bottom:.8rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem">`;
-      h+=`<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--green),#10b981);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--green)">分子：越大越好</div><div style="font-size:var(--min-label);color:var(--mid)">增加感知價值</div></div>`;
-      h+=`</div>`;
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">`;
-      // Dream
-      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
-      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(34,197,94,.05));border:1.5px solid rgba(34,197,94,.4);border-radius:12px;padding:1rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--green)">Dream Outcome</div><div style="font-size:var(--min-label);color:var(--mid)">夢想結果</div></div>`;
-      h+=`</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">描述越具體、越情感化越好</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>「5分鐘做出讓老闆刮目相看的提案」</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--green);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>用戶最想成為什麼樣的人？</div>`;
-      h+=`</div>`;
-      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(34,197,94,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--green)" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--green);margin-top:.3rem">Dream</div><div style="font-size:var(--min-label);color:var(--mid)">夢想結果</div></div>`;
-      h+=`</div>`;
-      // Likelihood
-      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
-      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(59,130,246,.12),rgba(59,130,246,.05));border:1.5px solid rgba(59,130,246,.4);border-radius:12px;padding:1rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--blue)">Likelihood</div><div style="font-size:var(--min-label);color:var(--mid)">成功機率</div></div>`;
-      h+=`</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">用案例、數字、社會證明降低懷疑</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Duolingo 連續天數讓人相信能學會</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--blue);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>如何讓他確信「我也做得到」？</div>`;
-      h+=`</div>`;
-      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(59,130,246,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--blue);margin-top:.3rem">Likelihood</div><div style="font-size:var(--min-label);color:var(--mid)">成功機率</div></div>`;
-      h+=`</div>`;
-      h+=`</div></div>`;
-      // Denominator section (minimize)
-      h+=`<div>`;
-      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem">`;
-      h+=`<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--red),#f97316);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg></div>`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--red)">分母：越小越好</div><div style="font-size:var(--min-label);color:var(--mid)">減少感知成本</div></div>`;
-      h+=`</div>`;
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">`;
-      // Time
-      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
-      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(255,107,0,.12),rgba(255,107,0,.05));border:1.5px solid rgba(255,107,0,.4);border-radius:12px;padding:1rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--orange)">Time Delay</div><div style="font-size:var(--min-label);color:var(--mid)">所需時間</div></div>`;
-      h+=`</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">快速勝利、即時回饋、進度可視化</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Grammarly 貼上文字 1 秒見效</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--orange);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>用戶多快能感受到第一個結果？</div>`;
-      h+=`</div>`;
-      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(255,107,0,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--orange);margin-top:.3rem">Time</div><div style="font-size:var(--min-label);color:var(--mid)">所需時間</div></div>`;
-      h+=`</div>`;
-      // Sacrifice
-      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:130px">`;
-      h+=`<div class="card-answer" style="background:linear-gradient(135deg,rgba(255,32,85,.12),rgba(255,32,85,.05));border:1.5px solid rgba(255,32,85,.4);border-radius:12px;padding:1rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--red)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`;
-      h+=`<div><div style="font-size:var(--min-font);font-weight:700;color:var(--red)">Sacrifice</div><div style="font-size:var(--min-label);color:var(--mid)">犧牲成本</div></div>`;
-      h+=`</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--ink);margin-bottom:.4rem">免費試用、零學習門檻、一鍵操作</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.4rem .6rem;background:rgba(255,255,255,.05);border-radius:6px;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Notion 免費版 + 模板庫，開帳號就能用</div>`;
-      h+=`<div style="font-size:var(--min-label);color:var(--red);font-weight:600"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>用戶最不想付出什麼？如何避免？</div>`;
-      h+=`</div>`;
-      h+=`<div class="card-mask" style="border-radius:12px;background:rgba(255,32,85,.15)"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--red)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><div style="font-size:var(--min-font);font-weight:700;color:var(--red);margin-top:.3rem">Sacrifice</div><div style="font-size:var(--min-label);color:var(--mid)">犧牲成本</div></div>`;
-      h+=`</div>`;
-      h+=`</div></div>`;
-      // Bottom formula reminder
-      h+=`<div style="margin-top:1rem;padding:.8rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;text-align:center">`;
-      h+=`<div style="font-size:var(--min-font);color:var(--ink)"><span style="color:var(--green);font-weight:700"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Dream × <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Likelihood</span> <span style="color:var(--mid)">÷</span> <span style="color:var(--red);font-weight:700"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Time × <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:2px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Sacrifice</span> <span style="color:var(--mid)">=</span> <span style="color:var(--orange);font-weight:700">Perceived Value</span></div>`;
-      h+=`</div>`;
+      h+=`<div style="max-width:860px;margin:0 auto;position:relative;z-index:1;display:flex;flex-direction:column;gap:.7rem">`;
+      // Row labels + cards
+      const hvRows=[
+        {label:'分子 ↑',labelCol:'var(--green)',hint:'增加感知價值',
+         cards:[
+           {en:'Dream Outcome',zh:'夢想結果',col:'var(--green)',colR:'rgba(34,197,94',
+            icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+            key:'描述越具體越情感化',ex:'「5 分鐘做出讓老闆刮目相看的提案」'},
+           {en:'Likelihood',zh:'成功機率',col:'var(--blue)',colR:'rgba(59,130,246',
+            icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+            key:'案例、數字、社會證明降低懷疑',ex:'Duolingo 連續天數讓人相信自己能學會'},
+         ]},
+        {label:'分母 ↓',labelCol:'var(--red)',hint:'減少感知成本',
+         cards:[
+           {en:'Time Delay',zh:'所需時間',col:'var(--orange)',colR:'rgba(255,107,0',
+            icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+            key:'快速勝利、即時回饋、進度可視化',ex:'Grammarly 貼上文字，1 秒見效'},
+           {en:'Sacrifice',zh:'犧牲成本',col:'var(--red)',colR:'rgba(255,32,85',
+            icon:'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+            key:'免費試用、零學習門檻、一鍵操作',ex:'Notion 免費版開帳號就能用'},
+         ]},
+      ];
+      hvRows.forEach(row=>{
+        h+=`<div style="display:flex;align-items:stretch;gap:.7rem">`;
+        h+=`<div style="width:52px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem">`;
+        h+=`<div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:900;color:${row.labelCol}">${row.label}</div>`;
+        h+=`<div style="font-size:.58rem;color:var(--mid);text-align:center;line-height:1.3">${row.hint}</div>`;
+        h+=`</div>`;
+        h+=`<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:.7rem">`;
+        row.cards.forEach(c=>{
+          h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:120px">`;
+          h+=`<div class="card-answer" style="background:${c.colR},.08);border:1.5px solid ${c.colR},.4);border-radius:12px;padding:.9rem 1rem;display:flex;flex-direction:column;gap:.4rem">`;
+          h+=`<div style="display:flex;align-items:center;gap:.55rem;color:${c.col}">${c.icon}<div><div style="font-size:var(--min-font);font-weight:800;color:${c.col}">${c.en}</div><div style="font-size:var(--min-label);color:var(--mid)">${c.zh}</div></div></div>`;
+          h+=`<div style="font-size:var(--min-label);color:var(--ink);font-weight:600">${c.key}</div>`;
+          h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.3rem .55rem;background:rgba(255,255,255,.04);border-radius:6px">${c.ex}</div>`;
+          h+=`</div>`;
+          h+=`<div class="card-mask" style="border-radius:12px;background:${c.colR},.15)"><div style="color:${c.col};margin-bottom:.3rem">${c.icon}</div><div style="font-size:var(--min-font);font-weight:700;color:${c.col}">${c.en}</div><div style="font-size:var(--min-label);color:var(--mid);margin-top:.15rem">${c.zh}</div></div>`;
+          h+=`</div>`;
+        });
+        h+=`</div></div>`;
+      });
       h+=`</div>`;
       break;}
     case 'dfv-only-one':{
