@@ -4620,6 +4620,66 @@ RAIL.forEach((s,i)=>{
   }
 });
 
+// ── BACKGROUND MUSIC ────────────────────────────────────────────
+const bgTracks={
+  1:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Backed%20Vibes%20Clean.mp3',label:'策略 · Backed Vibes'},
+  2:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Bossa%20Antigua.mp3',label:'欲求 · Bossa Antigua'},
+  3:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Jazz%20Trio.mp3',label:'可行 · Jazz Trio'},
+  4:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Smooth%20Lovin.mp3',label:'存續 · Smooth Lovin'},
+  5:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Investigations.mp3',label:'成長 · Investigations'},
+};
+let bgMusicOn=false,bgCurSec=0,bgFadeTimer=null;
+const bgAudio=document.createElement('audio');
+bgAudio.loop=true;bgAudio.volume=0.18;
+document.body.appendChild(bgAudio);
+
+function bgFadeTo(target,ms=600){
+  if(bgFadeTimer)clearInterval(bgFadeTimer);
+  const start=bgAudio.volume,steps=20,step=(target-start)/steps;
+  let i=0;
+  bgFadeTimer=setInterval(()=>{
+    i++;bgAudio.volume=Math.max(0,Math.min(0.18,start+step*i));
+    if(i>=steps){clearInterval(bgFadeTimer);bgFadeTimer=null;
+      if(target===0)bgAudio.pause();}
+  },ms/steps);
+}
+
+function bgSwitchTrack(sec){
+  if(!bgMusicOn)return;
+  if(bgCurSec===sec)return;
+  bgCurSec=sec;
+  const t=bgTracks[sec]||bgTracks[1];
+  bgAudio.volume=0;
+  bgAudio.src=t.url;
+  bgAudio.load();
+  bgAudio.play().then(()=>bgFadeTo(0.18,800)).catch(()=>{});
+}
+
+function toggleBgMusic(){
+  bgMusicOn=!bgMusicOn;
+  const btn=document.getElementById('btn-music');
+  const iconOn=document.getElementById('music-icon-on');
+  const iconOff=document.getElementById('music-icon-off');
+  if(bgMusicOn){
+    iconOn.style.display='block';iconOff.style.display='none';
+    btn.style.opacity='1';btn.style.color='var(--orange)';btn.style.borderColor='rgba(255,107,0,.45)';
+    btn.title='關閉音樂';
+    bgCurSec=0;bgAudio.volume=0;
+    const sec=D[cur]?.sec||1;
+    bgCurSec=sec;
+    bgAudio.src=(bgTracks[sec]||bgTracks[1]).url;
+    bgAudio.load();
+    bgAudio.play().then(()=>bgFadeTo(0.18,1200)).catch(()=>{
+      bgMusicOn=false;iconOn.style.display='none';iconOff.style.display='block';
+      btn.style.opacity='.45';btn.style.color='';btn.style.borderColor='';
+    });
+  }else{
+    iconOn.style.display='none';iconOff.style.display='block';
+    btn.style.opacity='.45';btn.style.color='';btn.style.borderColor='';btn.title='開啟背景音樂';
+    bgFadeTo(0,600);
+  }
+}
+// ── END BACKGROUND MUSIC ─────────────────────────────────────────
 function updateUI(){
   const sd=D[cur];const pct=total>1?(cur/(total-1))*100:0;
   document.getElementById('prog-fill').style.width=pct+'%';
