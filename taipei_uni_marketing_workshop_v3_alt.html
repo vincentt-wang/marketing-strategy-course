@@ -2921,15 +2921,14 @@ function renderSlide(sd,idx){
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:850px;margin:0 auto;position:relative;z-index:1">`;
       pillars.forEach((p,i)=>{
-        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:200px">`;
-        h+=`<div class="card-answer" style="background:${p.col}12;border:2px solid ${p.col}40;border-radius:12px;padding:1.2rem;text-align:center">`;
-        h+=`<div style="color:${p.col};margin-bottom:.4rem">${p.icon}</div>`;
-        h+=`<div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:${p.col}">${p.name}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--mid);margin:.3rem 0">${p.zh}</div>`;
-        h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.5rem">${p.desc}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:${p.col};padding:.3rem .6rem;background:${p.col}20;border-radius:4px;display:inline-block">${p.metric}</div>`;
+        h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="min-height:170px">`;
+        h+=`<div class="card-answer" style="background:${p.col}12;border:2px solid ${p.col}40;border-radius:12px;padding:1.1rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.4rem">`;
+        h+=`<div style="color:${p.col}">${p.icon}</div>`;
+        h+=`<div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:800;color:${p.col}">${p.name} <span style="font-size:var(--min-label);color:var(--mid);font-weight:500">${p.zh}</span></div>`;
+        h+=`<div style="font-size:var(--min-font);color:var(--ink)">${p.desc}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:${p.col};padding:.28rem .6rem;background:${p.col}20;border-radius:4px">${p.metric}</div>`;
         h+=`</div>`;
-        h+=`<div class="card-mask" style="border-radius:12px;background:${p.col}25"><div style="color:${p.col}">${p.icon}</div><div style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--ink);margin-top:.3rem">${p.name}</div></div>`;
+        h+=`<div class="card-mask" style="border-radius:12px;background:${p.col}25"><div style="color:${p.col}">${p.icon}</div><div style="font-size:clamp(1.2rem,2vw,1.5rem);font-weight:800;color:var(--ink);margin-top:.3rem">${p.name}</div></div>`;
         h+=`</div>`;
       });
       h+=`</div>`;
