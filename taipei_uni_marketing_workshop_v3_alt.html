@@ -4501,7 +4501,7 @@ function renderSlide(sd,idx){
         {t:'習慣建立',c:'rgba(255,32,85',desc:'每日例行、複利效應——小習慣堆積大改變，今天的選擇決定一年後的你'},
         {t:'運氣',c:'rgba(168,85,247',desc:'增加曝光度、提高嘗試次數——機會是給準備好的人，主動創造「被看見」的機會'},
       ];
-      h+=`<div id="mandala-grid-${mdid}" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:680px;margin:0 auto .5rem;position:relative;z-index:1">`;
+      h+=`<div id="mandala-grid-${mdid}" data-mandala-step="0" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:680px;margin:0 auto .5rem;position:relative;z-index:1">`;
       mandalaLabels.forEach((cell,i)=>{
         if(cell.center){
           h+=`<div style="background:rgba(168,85,247,.25);border:2px solid rgba(168,85,247,.7);border-radius:10px;padding:.6rem .4rem;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px">`;
