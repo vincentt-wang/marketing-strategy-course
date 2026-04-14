@@ -4454,7 +4454,7 @@ function renderSlide(sd,idx){
         p.prompts.forEach((pr,pi)=>{
           h+=`<div style="display:flex;align-items:flex-start;gap:.45rem">`;
           h+=`<div style="width:16px;height:16px;min-width:16px;border-radius:50%;border:1.5px solid ${p.col};display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:800;color:${p.col};margin-top:2px">${pi+1}</div>`;
-          h+=`<div style="font-size:var(--min-font);color:rgba(255,255,255,.7);line-height:1.5">${pr}</div>`;
+          h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.5">${pr}</div>`;
           h+=`</div>`;
         });
         h+=`</div>`;
