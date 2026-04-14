@@ -4884,6 +4884,20 @@ const observer=new IntersectionObserver(entries=>{
 },{threshold:0.5});
 slideEls.forEach(el=>observer.observe(el));
 updateUI();
+// Auto-start music on first interaction (browser autoplay policy)
+function bgAutoStart(){
+  if(bgMusicOn&&bgAudio.paused){
+    const sec=D[cur]?.sec||1;
+    bgCurSec=sec;
+    const t=bgTracks[sec]||bgTracks[1];
+    bgAudio.src=t.url;bgAudio.load();bgAudio.volume=0;
+    bgStartPlay();
+  }
+  document.removeEventListener('keydown',bgAutoStart);
+  document.removeEventListener('click',bgAutoStart);
+}
+document.addEventListener('keydown',bgAutoStart,{once:true});
+document.addEventListener('click',bgAutoStart,{once:true});
 </script>
 </body>
 </html>
