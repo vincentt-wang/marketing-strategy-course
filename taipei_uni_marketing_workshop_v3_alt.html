@@ -4731,6 +4731,16 @@ function findNextRevealable(){
   // 6. First compare card not yet revealed (vitamin-painkiller etc.)
   const cmpCard=slideEl.querySelector('.cmp-card:not(.revealed)');
   if(cmpCard)return cmpCard;
+  // 7. Phase panels (time-allocation) — open one at a time
+  const phasePanel=slideEl.querySelector('.phase-panel[data-open="0"]');
+  if(phasePanel)return phasePanel;
+  // 8. Mandala cells — cycle through one at a time using data-mandala-step
+  const mandalaGrid=slideEl.querySelector('[data-mandala-step]');
+  if(mandalaGrid){
+    const cells=[...mandalaGrid.querySelectorAll('.mandala-cell')];
+    const step=parseInt(mandalaGrid.dataset.mandalaStep||'0');
+    if(step<cells.length){mandalaGrid.dataset.mandalaStep=String(step+1);return cells[step];}
+  }
   return null;
 }
 document.addEventListener('keydown',e=>{
