@@ -4692,7 +4692,7 @@ function toggleBgMusic(){
     bgFadeTo(0,600);
   }
 }
-// ── LEVEL COMPLETE — 4 HOLY BOSS CLEARS ──────────────────────────
+// ── LEVEL COMPLETE — SHORT HOLY CHIME ────────────────────────────
 let bgPrevSec=-1;
 function playLevelComplete(nextSec){
   if(bgFadeTimer)clearInterval(bgFadeTimer);
@@ -4700,105 +4700,44 @@ function playLevelComplete(nextSec){
     let fi=0;const sv=bgAudio.volume;
     const ft=setInterval(()=>{fi++;bgAudio.volume=Math.max(0,sv*(1-fi/12));if(fi>=12)clearInterval(ft);},25);
   }
-  const from=bgPrevSec;
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const master=ctx.createGain();master.gain.value=0.42;master.connect(ctx.destination);
-    [[0.12,0.38],[0.26,0.28],[0.46,0.20],[0.76,0.14],[1.1,0.09],[1.75,0.05]].forEach(([t,g])=>{
+    const master=ctx.createGain();master.gain.value=0.40;master.connect(ctx.destination);
+    [[0.12,0.35],[0.28,0.22],[0.55,0.14],[1.0,0.08]].forEach(([t,g])=>{
       const d=ctx.createDelay(2);d.delayTime.value=t;const dg=ctx.createGain();dg.gain.value=g;
       master.connect(d);d.connect(dg);dg.connect(ctx.destination);
     });
-    function choir(freq,t,dur,amp=0.22){
+    // Bell tone (piano-like inharmonic sine)
+    function bell(freq,t,amp=0.32){
       const st=ctx.currentTime+t;
-      [-10,-4,0,4,10].forEach(cents=>{
-        const o=ctx.createOscillator(),g=ctx.createGain(),flt=ctx.createBiquadFilter();
-        flt.type='bandpass';flt.frequency.value=800;flt.Q.value=1.2;
-        o.type='sine';o.frequency.value=freq*Math.pow(2,cents/1200);
-        o.connect(flt);flt.connect(g);g.connect(master);
-        g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(amp*0.2,st+0.18);
-        g.gain.setValueAtTime(amp*0.2,st+dur-0.35);g.gain.linearRampToValueAtTime(0,st+dur);
-        o.start(st);o.stop(st+dur+0.1);
-      });
-      const ob=ctx.createOscillator(),gb=ctx.createGain();
-      ob.type='sine';ob.frequency.value=freq;ob.connect(gb);gb.connect(master);
-      gb.gain.setValueAtTime(0,st);gb.gain.linearRampToValueAtTime(amp*0.35,st+0.2);
-      gb.gain.setValueAtTime(amp*0.35,st+dur-0.35);gb.gain.linearRampToValueAtTime(0,st+dur);
-      ob.start(st);ob.stop(st+dur+0.1);
-    }
-    function organ(freq,t,dur,amp=0.18){
-      const st=ctx.currentTime+t;
-      [1,2,3,4,6].forEach((h,i)=>{
-        const o=ctx.createOscillator(),g=ctx.createGain();
-        o.type='sine';o.frequency.value=freq*h;o.connect(g);g.connect(master);
-        const vols=[0.45,0.25,0.15,0.08,0.04];
-        g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(amp*vols[i],st+0.06);
-        g.gain.setValueAtTime(amp*vols[i],st+dur-0.15);g.gain.exponentialRampToValueAtTime(0.0001,st+dur);
-        o.start(st);o.stop(st+dur+0.1);
-      });
-    }
-    function boom(t,pitch=55){
-      const o=ctx.createOscillator(),g=ctx.createGain();
-      o.type='sine';o.frequency.setValueAtTime(pitch,ctx.currentTime+t);
-      o.frequency.exponentialRampToValueAtTime(pitch*0.45,ctx.currentTime+t+0.5);
-      o.connect(g);g.connect(master);
-      g.gain.setValueAtTime(0.75,ctx.currentTime+t);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.7);
-      o.start(ctx.currentTime+t);o.stop(ctx.currentTime+t+0.8);
-    }
-    function bell(freq,t,amp=0.30){
-      const st=ctx.currentTime+t;
-      [[1,1.0],[2,0.25],[2.756,0.12],[4.07,0.06]].forEach(([r,rel])=>{
+      [[1,1.0],[2,0.22],[2.756,0.10],[4.07,0.05]].forEach(([r,rel])=>{
         const o=ctx.createOscillator(),g=ctx.createGain();
         o.type='sine';o.frequency.value=freq*r;o.connect(g);g.connect(master);
-        g.gain.setValueAtTime(amp*rel,st);g.gain.exponentialRampToValueAtTime(0.0001,st+(r===1?2.4:0.8));
-        o.start(st);o.stop(st+2.6);
+        g.gain.setValueAtTime(amp*rel,st);
+        g.gain.exponentialRampToValueAtTime(0.0001,st+(r===1?2.2:0.7));
+        o.start(st);o.stop(st+2.4);
       });
     }
-
-    if(from===1){
-      // ── V1: 神聖升天 C major — 上行聖歌 ──
-      boom(0);
-      [261.63,329.63,392.00,523.25,659.25,783.99,1046.5].forEach((f,i)=>
-        choir(f,0.08+i*0.18,1.1,0.20-i*0.01));
-      [130.81,196.00,261.63,329.63,392.00,523.25].forEach((f,i)=>{
-        choir(f,1.72+i*0.03,3.2,0.18);organ(f,1.72+i*0.03,3.2,0.14);
+    // Choir pad (detuned sine cluster)
+    function choir(freq,t,dur,amp=0.20){
+      const st=ctx.currentTime+t;
+      [-8,0,8].forEach(cents=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();
+        o.type='sine';o.frequency.value=freq*Math.pow(2,cents/1200);
+        o.connect(g);g.connect(master);
+        g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(amp*0.28,st+0.12);
+        g.gain.setValueAtTime(amp*0.28,st+dur-0.25);g.gain.linearRampToValueAtTime(0,st+dur);
+        o.start(st);o.stop(st+dur+0.1);
       });
-      boom(1.72,45);
-
-    }else if(from===2){
-      // ── V2: 天使降臨 F major — 鐘聲從天而降，聖歌由下升起 ──
-      [1396.9,1046.5,880.00,698.46,523.25].forEach((f,i)=>bell(f,i*0.17,0.28-i*0.02));
-      [174.61,220.00,261.63,349.23,440.00,523.25,698.46].forEach((f,i)=>
-        choir(f,0.55+i*0.19,1.8,0.19));
-      [174.61,261.63,349.23,440.00,523.25,698.46].forEach((f,i)=>{
-        choir(f,2.2+i*0.02,3.0,0.18);organ(f,2.2+i*0.02,3.0,0.13);
-      });
-      boom(2.2,40);
-
-    }else if(from===3){
-      // ── V3: 黑暗揭示 G minor→G major — 陰暗小調突然轉亮 ──
-      [196.00,233.08,293.66,392.00].forEach(f=>choir(f,0,1.05,0.16));
-      boom(0.88,60);
-      [196.00,246.94,293.66,392.00,493.88,587.33,783.99].forEach((f,i)=>
-        choir(f,1.0+i*0.14,2.5,0.22));
-      [146.83,196.00,246.94,293.66,392.00,493.88].forEach((f,i)=>
-        organ(f,1.92+i*0.03,3.0,0.16));
-      boom(1.92,50);
-      [783.99,987.77,1174.7].forEach((f,i)=>bell(f,2.05+i*0.15,0.22));
-
-    }else if(from>=4){
-      // ── V4: 最終勝利 D major — 三波次合唱衝頂，結尾鐘聲落幕 ──
-      boom(0,65);boom(0.13,45);
-      [146.83,185.00,220.00,293.66].forEach((f,i)=>choir(f,0.1+i*0.15,1.6,0.18));
-      [293.66,369.99,440.00,587.33].forEach((f,i)=>choir(f,0.52+i*0.15,1.6,0.20));
-      [587.33,739.99,880.00,1174.7].forEach((f,i)=>choir(f,0.94+i*0.15,1.6,0.18));
-      [146.83,220.00,293.66,369.99,440.00,587.33,739.99].forEach((f,i)=>{
-        choir(f,2.0+i*0.02,3.5,0.18);organ(f,2.0+i*0.02,3.5,0.15);
-      });
-      boom(2.0,50);boom(2.14,35);
-      [1174.7,880.00,739.99,587.33,440.00].forEach((f,i)=>bell(f,3.85+i*0.22,0.20-i*0.02));
     }
+    // 3-note rising bell + warm chord bloom — total ~2.8s
+    bell(523.25,0.00,0.32);   // C5
+    bell(659.25,0.18,0.28);   // E5
+    bell(783.99,0.34,0.26);   // G5
+    bell(1046.5,0.48,0.22);   // C6
+    [261.63,329.63,392.00,523.25].forEach((f,i)=>choir(f,0.55+i*0.03,2.0,0.18));
   }catch(e){}
-  setTimeout(()=>{bgCurSec=0;bgSwitchTrack(nextSec);},from>=4?7000:5800);
+  setTimeout(()=>{bgCurSec=0;bgSwitchTrack(nextSec);},3200);
 }
 // ── END BACKGROUND MUSIC ─────────────────────────────────────────
 function updateUI(){
