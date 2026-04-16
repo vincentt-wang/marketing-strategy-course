@@ -4613,13 +4613,20 @@ RAIL.forEach((s,i)=>{
 
 // ── BACKGROUND MUSIC ────────────────────────────────────────────
 // Music: Kevin MacLeod (incompetech.com) CC-BY 4.0
+// BGM設計：每個section有自己的故事
+// Sec1 策略思維：Investigations — 偵探模式，像在解謎，cerebral jazz
+// Sec2 欲求性：Bossa Antigua — 溫暖人文，探索真實需求，巴薩諾瓦
+// Sec3 可行性：Backed Vibes Clean — 行動打造，專注上工，clean funk
+// Sec4 存續性：Smooth Lovin — 商業感polish，像走進boardroom
+// Sec5 成長思維：Sneaky Snitch — 梗曲，年輕能量，pure meme vibe 🎷
+// Sec6 Q&A：Bossa Antigua — 輕鬆對話，收尾回甘
 const bgTracks={
-  1:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Slow%20Burn.mp3',label:'策略 · Slow Burn',vol:0.18},
-  2:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Bossa%20Antigua.mp3',label:'欲求 · Bossa Antigua',vol:0.15},
-  3:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Smooth%20Lovin.mp3',label:'可行 · Smooth Lovin',vol:0.16},
-  4:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Backed%20Vibes%20Clean.mp3',label:'存續 · Backed Vibes',vol:0.17},
-  5:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Backed%20Vibes.mp3',label:'成長 · Backed Vibes',vol:0.18},
-  6:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Smooth%20Lovin.mp3',label:'Q&A · Smooth Lovin',vol:0.14},
+  1:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Investigations.mp3',label:'策略 · Investigations',vol:0.15},
+  2:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Bossa%20Antigua.mp3',label:'欲求 · Bossa Antigua',vol:0.14},
+  3:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Backed%20Vibes%20Clean.mp3',label:'可行 · Backed Vibes',vol:0.16},
+  4:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Smooth%20Lovin.mp3',label:'存續 · Smooth Lovin',vol:0.15},
+  5:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Sneaky%20Snitch.mp3',label:'成長 · Sneaky Snitch 🎷',vol:0.13},
+  6:{url:'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Bossa%20Antigua.mp3',label:'Q&A · Bossa Antigua',vol:0.12},
 };
 let bgMusicOn=true,bgCurSec=0,bgFadeTimer=null;
 const bgAudio=document.createElement('audio');
