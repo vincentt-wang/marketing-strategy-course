@@ -4538,13 +4538,13 @@ function renderSlide(sd,idx){
       h+=blob('rgba(255,107,0,.12)','rgba(168,85,247,.08)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
       if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">今天最重要的不是學會什麼工具，而是...</p>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">今天你帶走的，不只是工具——而是一套問問題的方式</p>`;
       h+=`</div>`;
       const finalPoints=[
-        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>',col:'var(--orange)',title:'思維方式可以升級',desc:'Top-down、Growth Mindset、槓桿思維都是可以練習的'},
-        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',col:'var(--green)',title:'「做不到」只是「還不會」',desc:'每個今天會的事，曾經都不會'},
-        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/></svg>',col:'var(--blue)',title:'犯錯是學習的必經之路',desc:'保留安全邊際，大膽嘗試'},
-        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',col:'var(--purple)',title:'認知邊界決定行動邊界',desc:'你相信什麼，就會看見什麼'},
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>',col:'var(--red)',title:'先問欲求性',desc:'誰在痛？他現在怎麼解決？他願意付出代價換取你的解法嗎？'},
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>',col:'var(--blue)',title:'市場是可以估算的',desc:'Fermi 思維：先假設再驗證。5 分鐘建立數量感，比沒有框架好 10 倍'},
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',col:'var(--orange)',title:'精準 > 廣播',desc:'1,000 個有真實痛點的 ICP，比 100,000 個「也許有興趣」的受眾更值錢'},
+        {icon:'<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',col:'var(--green)',title:'陌生人的行動才算數',desc:'朋友說「不錯喔」不是 PMF。截圖、tag 朋友、主動分享——那才是真訊號'},
       ];
       h+=`<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:800px;margin:0 auto;position:relative;z-index:1">`;
       finalPoints.forEach((p,i)=>{
@@ -4556,8 +4556,8 @@ function renderSlide(sd,idx){
       });
       h+=`</div>`;
       h+=`<div style="max-width:700px;margin:1.2rem auto 0;position:relative;z-index:1;text-align:center">`;
-      h+=`<div style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:var(--orange);line-height:1.4">「你的邊界，<br>取決於你願意走多遠」</div>`;
-      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-top:.6rem">今天只是起點。Go build something.</p>`;
+      h+=`<div style="font-size:clamp(1.4rem,3vw,2rem);font-weight:800;color:var(--orange);line-height:1.4">「設計不是讓作品變美，<br>是讓人改變行為」</div>`;
+      h+=`<p style="font-size:var(--min-font);color:var(--mid);margin-top:.6rem">帶著這套框架，去驗證你的下一個想法。</p>`;
       h+=`</div>`;
       break;}
     // ========== END SECTION 5 RENDER CASES ==========
