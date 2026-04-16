@@ -4701,7 +4701,7 @@ function playLevelComplete(nextSec){
   const done=bgPrevSec;
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const master=ctx.createGain();master.gain.value=0.32;master.connect(ctx.destination);
+    const master=ctx.createGain();master.gain.value=0.18;master.connect(ctx.destination);
     const now=ctx.currentTime;
     if(done===1){
       // ── Sec1完成：鋼琴和弦 C-E-G-C arpeggio，清脆帶延音 ──
@@ -4709,7 +4709,7 @@ function playLevelComplete(nextSec){
         const o=ctx.createOscillator(),g=ctx.createGain();
         o.type='triangle';o.frequency.value=f;o.connect(g);g.connect(master);
         const t=now+i*0.07;
-        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.30,t+0.04);
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.28,t+0.04);
         g.gain.exponentialRampToValueAtTime(0.001,t+2.0);
         o.start(t);o.stop(t+2.2);
       });
@@ -4719,81 +4719,70 @@ function playLevelComplete(nextSec){
         const o=ctx.createOscillator(),g=ctx.createGain();
         o.type='sine';o.frequency.value=f;o.connect(g);g.connect(master);
         const t=now+i*0.10;
-        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.25,t+0.025);
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.22,t+0.025);
         g.gain.exponentialRampToValueAtTime(0.001,t+0.85);
         o.start(t);o.stop(t+1.1);
       });
-      // 尾音加小reverb
-      const d=ctx.createDelay(1);d.delayTime.value=0.22;const dg=ctx.createGain();dg.gain.value=0.2;
+      const d=ctx.createDelay(1);d.delayTime.value=0.22;const dg=ctx.createGain();dg.gain.value=0.18;
       master.connect(d);d.connect(dg);dg.connect(ctx.destination);
     } else if(done===3){
-      // ── Sec3完成：bass kick + snare hit + 兩聲ping，meme drum drop ──
+      // ── Sec3完成：bass kick + snare + ping，meme drum drop ──
       const oKick=ctx.createOscillator(),gKick=ctx.createGain();
-      oKick.type='sine';oKick.frequency.setValueAtTime(160,now);
-      oKick.frequency.exponentialRampToValueAtTime(38,now+0.18);
+      oKick.type='sine';oKick.frequency.setValueAtTime(140,now);
+      oKick.frequency.exponentialRampToValueAtTime(36,now+0.18);
       oKick.connect(gKick);gKick.connect(master);
-      gKick.gain.setValueAtTime(0.75,now);gKick.gain.exponentialRampToValueAtTime(0.001,now+0.42);
+      gKick.gain.setValueAtTime(0.55,now);gKick.gain.exponentialRampToValueAtTime(0.001,now+0.42);
       oKick.start(now);oKick.stop(now+0.5);
-      const bufSize=Math.floor(ctx.sampleRate*0.14);const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
+      const bufSize=Math.floor(ctx.sampleRate*0.12);const buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
       const data=buf.getChannelData(0);for(let i=0;i<bufSize;i++)data[i]=(Math.random()*2-1);
       const snare=ctx.createBufferSource(),snareG=ctx.createGain(),snareFlt=ctx.createBiquadFilter();
       snareFlt.type='bandpass';snareFlt.frequency.value=2400;snareFlt.Q.value=0.9;
       snare.buffer=buf;snare.connect(snareFlt);snareFlt.connect(snareG);snareG.connect(master);
-      snareG.gain.setValueAtTime(0.38,now+0.09);snareG.gain.exponentialRampToValueAtTime(0.001,now+0.32);
+      snareG.gain.setValueAtTime(0.28,now+0.09);snareG.gain.exponentialRampToValueAtTime(0.001,now+0.30);
       snare.start(now+0.09);
       [1046.5,1318.5].forEach((f,i)=>{
         const o=ctx.createOscillator(),g=ctx.createGain();
         o.type='sine';o.frequency.value=f;o.connect(g);g.connect(master);
-        const t=now+0.28+i*0.14;
-        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.20,t+0.02);
-        g.gain.exponentialRampToValueAtTime(0.001,t+0.9);
-        o.start(t);o.stop(t+1.1);
+        const t=now+0.26+i*0.13;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.18,t+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,t+0.85);
+        o.start(t);o.stop(t+1.0);
       });
     } else if(done===4){
-      // ── Sec4完成：史詩銅管低→高一擊，boss defeated，cinematic ──
-      [[174.6,0.00,0.30],[261.6,0.07,0.28],[349.2,0.13,0.25],[523.3,0.19,0.20]].forEach(([f,delay,amp])=>{
+      // ── Sec4完成：溫暖木琴和弦 E-G-C arp，柔和resolved感 ──
+      [[329.6,0.00],[392.0,0.12],[523.3,0.22],[659.3,0.30]].forEach(([f,delay])=>{
         const o=ctx.createOscillator(),g=ctx.createGain();
-        o.type='sawtooth';
-        const flt=ctx.createBiquadFilter();flt.type='lowpass';flt.frequency.value=900;
+        o.type='triangle';o.frequency.value=f;
+        const flt=ctx.createBiquadFilter();flt.type='lowpass';flt.frequency.value=1800;
         o.connect(flt);flt.connect(g);g.connect(master);
         const t=now+delay;
-        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(amp,t+0.09);
-        g.gain.setValueAtTime(amp,t+0.55);g.gain.linearRampToValueAtTime(0,t+2.3);
-        o.start(t);o.stop(t+2.6);
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.26,t+0.03);
+        g.gain.exponentialRampToValueAtTime(0.001,t+1.6);
+        o.start(t);o.stop(t+1.8);
       });
-      [[0.22,0.28],[0.55,0.16],[1.1,0.09]].forEach(([del,gain])=>{
-        const d=ctx.createDelay(2);d.delayTime.value=del;const dg=ctx.createGain();dg.gain.value=gain;
-        master.connect(d);d.connect(dg);dg.connect(ctx.destination);
-      });
+      const d=ctx.createDelay(1);d.delayTime.value=0.18;const dg=ctx.createGain();dg.gain.value=0.14;
+      master.connect(d);d.connect(dg);dg.connect(ctx.destination);
     } else {
-      // ── Sec5完成→Q&A：神聖女聲合唱，detuned chorus + vibrato + cathedral reverb ──
-      [[0.07,0.38],[0.16,0.28],[0.34,0.20],[0.60,0.13],[1.05,0.08],[1.80,0.04]].forEach(([t,g])=>{
-        const d=ctx.createDelay(2);d.delayTime.value=t;const dg=ctx.createGain();dg.gain.value=g;
-        master.connect(d);d.connect(dg);dg.connect(ctx.destination);
+      // ── Sec5完成→Q&A：水晶鐘聲由高而低，輕盈收尾 ──
+      [[2093,0.00],[1568,0.18],[1047,0.34],[783.9,0.48],[523.3,0.60]].forEach(([f,delay])=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();
+        o.type='sine';o.frequency.value=f;o.connect(g);g.connect(master);
+        const t=now+delay;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.20,t+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,t+1.4);
+        o.start(t);o.stop(t+1.6);
       });
-      function soprano(freq,t,dur,amp=0.20){
-        const st=now+t;
-        [-10,-4,0,4,10].forEach(cents=>{
-          const o=ctx.createOscillator(),g=ctx.createGain();
-          const flt=ctx.createBiquadFilter();flt.type='bandpass';
-          flt.frequency.value=Math.min(freq*2.1,1300);flt.Q.value=1.6;
-          const vib=ctx.createOscillator(),vibG=ctx.createGain();
-          vib.frequency.value=5.6;vibG.gain.value=freq*0.007;
-          vib.connect(vibG);vibG.connect(o.frequency);
-          o.type='sine';o.frequency.value=freq*Math.pow(2,cents/1200);
-          o.connect(flt);flt.connect(g);g.connect(master);
-          g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(amp*0.22,st+0.22);
-          g.gain.setValueAtTime(amp*0.22,st+dur-0.40);g.gain.linearRampToValueAtTime(0,st+dur);
-          o.start(st);vib.start(st);o.stop(st+dur+0.1);vib.stop(st+dur+0.1);
-        });
-        const ob=ctx.createOscillator(),gb=ctx.createGain();
-        ob.type='sine';ob.frequency.value=freq;ob.connect(gb);gb.connect(master);
-        gb.gain.setValueAtTime(0,st);gb.gain.linearRampToValueAtTime(amp*0.32,st+0.24);
-        gb.gain.setValueAtTime(amp*0.32,st+dur-0.40);gb.gain.linearRampToValueAtTime(0,st+dur);
-        ob.start(st);ob.stop(st+dur+0.1);
-      }
-      soprano(523.25,0.00,2.6,0.22);soprano(783.99,0.14,2.5,0.20);
-      soprano(659.25,0.26,2.4,0.18);soprano(1046.5,0.36,2.2,0.13);
+      // 輕柔泛音
+      [[2093,0.04],[1568,0.22],[1047,0.38]].forEach(([f,delay])=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();
+        o.type='sine';o.frequency.value=f*2;o.connect(g);g.connect(master);
+        const t=now+delay;
+        g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.06,t+0.02);
+        g.gain.exponentialRampToValueAtTime(0.001,t+0.8);
+        o.start(t);o.stop(t+1.0);
+      });
+      const d=ctx.createDelay(1);d.delayTime.value=0.28;const dg=ctx.createGain();dg.gain.value=0.20;
+      master.connect(d);d.connect(dg);dg.connect(ctx.destination);
     }
   }catch(e){}
   setTimeout(()=>{bgCurSec=0;bgSwitchTrack(nextSec);},3000);
