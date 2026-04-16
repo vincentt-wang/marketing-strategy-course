@@ -4704,45 +4704,44 @@ function playLevelComplete(nextSec){
   }
   try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
-    const master=ctx.createGain();master.gain.value=0.42;master.connect(ctx.destination);
-    // Warm room reverb (short, jazz-club scale)
-    [[0.06,0.28],[0.14,0.20],[0.28,0.13],[0.50,0.08],[0.85,0.04]].forEach(([t,g])=>{
-      const d=ctx.createDelay(1);d.delayTime.value=t;const dg=ctx.createGain();dg.gain.value=g;
+    const master=ctx.createGain();master.gain.value=0.34;master.connect(ctx.destination);
+    // Cathedral reverb
+    [[0.07,0.38],[0.16,0.28],[0.34,0.20],[0.60,0.13],[1.05,0.08],[1.80,0.04]].forEach(([t,g])=>{
+      const d=ctx.createDelay(2);d.delayTime.value=t;const dg=ctx.createGain();dg.gain.value=g;
       master.connect(d);d.connect(dg);dg.connect(ctx.destination);
     });
     const now=ctx.currentTime;
-    // Vibraphone tone: inharmonic partials (1, 3.93, 8.70) with warm decay
-    function vibe(freq,t,amp=0.30){
+    // Soprano "ahh" voice: detuned chorus + vibrato + formant filter
+    function soprano(freq,t,dur,amp=0.20){
       const st=now+t;
-      [[1,amp,2.6],[2,amp*0.22,1.4],[3.93,amp*0.16,0.8],[8.70,amp*0.05,0.35]].forEach(([r,a,dec])=>{
+      [-10,-4,0,4,10].forEach(cents=>{
         const o=ctx.createOscillator(),g=ctx.createGain();
-        o.type='sine';o.frequency.value=freq*r;
-        o.connect(g);g.connect(master);
-        g.gain.setValueAtTime(a,st);
-        g.gain.exponentialRampToValueAtTime(0.0001,st+dec);
-        o.start(st);o.stop(st+dec+0.05);
+        const flt=ctx.createBiquadFilter();
+        flt.type='bandpass';flt.frequency.value=Math.min(freq*2.1,1300);flt.Q.value=1.6;
+        // Vibrato LFO
+        const vib=ctx.createOscillator(),vibG=ctx.createGain();
+        vib.frequency.value=5.6;vibG.gain.value=freq*0.007;
+        vib.connect(vibG);vibG.connect(o.frequency);
+        o.type='sine';o.frequency.value=freq*Math.pow(2,cents/1200);
+        o.connect(flt);flt.connect(g);g.connect(master);
+        g.gain.setValueAtTime(0,st);
+        g.gain.linearRampToValueAtTime(amp*0.22,st+0.22);
+        g.gain.setValueAtTime(amp*0.22,st+dur-0.40);
+        g.gain.linearRampToValueAtTime(0,st+dur);
+        o.start(st);vib.start(st);o.stop(st+dur+0.1);vib.stop(st+dur+0.1);
       });
+      // Clean fundamental for body
+      const ob=ctx.createOscillator(),gb=ctx.createGain();
+      ob.type='sine';ob.frequency.value=freq;ob.connect(gb);gb.connect(master);
+      gb.gain.setValueAtTime(0,st);gb.gain.linearRampToValueAtTime(amp*0.32,st+0.24);
+      gb.gain.setValueAtTime(amp*0.32,st+dur-0.40);gb.gain.linearRampToValueAtTime(0,st+dur);
+      ob.start(st);ob.stop(st+dur+0.1);
     }
-    // Warm bass pizzicato (double-bass style)
-    function bass(freq,t){
-      const st=now+t;
-      const o=ctx.createOscillator(),g=ctx.createGain();
-      o.type='sine';o.frequency.value=freq;
-      o.connect(g);g.connect(master);
-      g.gain.setValueAtTime(0.38,st);
-      g.gain.exponentialRampToValueAtTime(0.001,st+0.55);
-      o.start(st);o.stop(st+0.6);
-    }
-    // Cmaj9 ascending arpeggio: C4 E4 G4 B4 D5
-    const arp=[261.63,329.63,392.00,493.88,587.33];
-    arp.forEach((f,i)=>vibe(f,i*0.11,0.28-i*0.02));
-    // Bass hit on chord
-    bass(130.81,0.50); // C3 bass
-    // Held Cmaj9 chord (all notes together, softer)
-    arp.forEach((f,i)=>vibe(f,0.58,0.18-i*0.01));
-    // Gentle high D shimmer finish
-    vibe(587.33,1.20,0.12);
-    vibe(659.25,1.32,0.09);
+    // Staggered entry — C major chord, soprano range
+    soprano(523.25,0.00,2.6,0.22); // C5 — 第一聲先進
+    soprano(783.99,0.14,2.5,0.20); // G5
+    soprano(659.25,0.26,2.4,0.18); // E5
+    soprano(1046.5,0.36,2.2,0.13); // C6 — 最高音最後進
   }catch(e){}
   setTimeout(()=>{bgCurSec=0;bgSwitchTrack(nextSec);},3000);
 }
