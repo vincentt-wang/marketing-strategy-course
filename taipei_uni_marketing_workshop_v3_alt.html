@@ -1132,7 +1132,7 @@ function renderSlide(sd,idx){
         // Revealed
         h+=`<div class="card-answer" style="background:${q.colR},.07);border:2px solid ${q.colR},.3);border-top:3px solid ${q.col};border-radius:14px;padding:1.2rem 1.1rem;text-align:left">`;
         h+=`<div style="font-size:.55rem;font-weight:900;color:${q.col};letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem">${q.n} — 數據揭曉</div>`;
-        h+=`<div style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:${q.col};line-height:1;margin-bottom:.3rem">${q.stat}</div>`;
+        h+=`<div style="font-size:clamp(2rem,4vw,3rem);font-weight:900;color:${q.col};line-height:1;margin-bottom:.3rem;white-space:nowrap">${q.stat}</div>`;
         h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);margin-bottom:.5rem">${q.statSub}</div>`;
         h+=`<div style="font-size:var(--min-label);color:var(--mid);padding:.45rem .6rem;background:${q.colR},.08);border-left:2px solid ${q.colR},.4);border-radius:0 6px 6px 0;line-height:1.55">${q.note}</div>`;
         h+=`</div>`;
