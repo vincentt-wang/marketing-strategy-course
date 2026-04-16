@@ -4755,7 +4755,7 @@ function updateUI(){
   document.getElementById('sec-indicator').textContent=secNames[sd.sec]||'';
   document.querySelectorAll('.sec-btn').forEach(btn=>{btn.classList.toggle('active',parseInt(btn.dataset.sec)===sd.sec);});
   const _newSec=sd.sec;
-  if(bgPrevSec>0&&_newSec>bgPrevSec){playLevelComplete(_newSec);}
+  if(bgPrevSec>0&&_newSec===bgPrevSec+1){playLevelComplete(_newSec);}
   else{bgSwitchTrack(_newSec);}
   bgPrevSec=_newSec;
   document.querySelectorAll('.dot').forEach(d=>{
