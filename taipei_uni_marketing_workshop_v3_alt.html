@@ -656,6 +656,41 @@ function mandalaFocus(sid,idx,colRaw){
     allCells.forEach(c=>{const active=c.id==='mc-'+sid+'-'+idx;c.style.opacity=active?'1':'0.4';c.style.transform=active?'scale(1.04)':'scale(1)';});
   }
 }
+// ── 大谷全螢幕 Overlay ─────────────────────────────────────────────
+function ohtaniFullscreen(){
+  let ov=document.getElementById('ohtani-ov');
+  if(!ov){
+    ov=document.createElement('div');
+    ov.id='ohtani-ov';
+    ov.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:zoom-out;opacity:0;transition:opacity .35s ease';
+    ov.innerHTML=`
+      <img id="ohtani-ov-img"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Ohtani_mandal_art.jpg/800px-Ohtani_mandal_art.jpg"
+        alt="大谷翔平 18歲目標達成シート"
+        style="max-width:88vw;max-height:80vh;object-fit:contain;border-radius:12px;box-shadow:0 0 80px rgba(168,85,247,.45)"
+        onerror="
+          this.style.display='none';
+          document.getElementById('ohtani-ov-fb').style.display='flex';
+        ">
+      <div id="ohtani-ov-fb" style="display:none;flex-direction:column;align-items:center;gap:1rem;color:#fff;text-align:center;padding:2rem">
+        <div style="font-size:3.5rem">⚾</div>
+        <div style="font-size:clamp(1.4rem,3vw,2rem);font-weight:900;color:var(--purple);line-height:1.3">大谷翔平<br>目標達成シート</div>
+        <div style="color:rgba(255,255,255,.6);max-width:460px;line-height:1.8;font-size:1rem">18歲高中時，以「進入 MLB」為中心目標<br>展開 8 個維度，每個維度再展 8 個行動<br><strong style="color:rgba(255,255,255,.85)">→ 64 個具體計畫，全部手寫完成</strong></div>
+      </div>
+      <div style="margin-top:1rem;font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.08em">點擊任意處關閉</div>
+      <div style="position:absolute;top:1.2rem;right:1.6rem;color:rgba(255,255,255,.35);font-size:2rem;font-weight:200;line-height:1;pointer-events:none">✕</div>`;
+    ov.addEventListener('click',()=>{
+      ov.style.opacity='0';
+      setTimeout(()=>{ov.style.display='none';},350);
+    });
+    document.body.appendChild(ov);
+  }else{
+    ov.style.display='flex';
+    document.getElementById('ohtani-ov-fb').style.display='none';
+    document.getElementById('ohtani-ov-img').style.display='';
+  }
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>{ov.style.opacity='1';});});
+}
 function dtToggle(sid,si){
   const steps=[
     {en:'Empathize',desc:'先理解那個人在想什麼、感受什麼。不是假設，是真正去問、去觀察。',col:'var(--blue)'},
