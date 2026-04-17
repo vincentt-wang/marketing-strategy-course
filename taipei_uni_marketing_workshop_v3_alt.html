@@ -4611,16 +4611,20 @@ function renderSlide(sd,idx){
       h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.3);margin-top:.2rem">看似重要<br>但影響力有限</div>`;
       h+=`</div>`;
       h+=`</div>`;
-      // Steve Jobs vs Elon Musk
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;max-width:860px;margin:0 auto .8rem;position:relative;z-index:1">`;
-      [{name:'Steve Jobs',col:'rgba(255,107,0',ratio:'80% 訊號',sub:'有些雜訊他還是得處理，但大多數時間專注在幾件關鍵事情上'},
-       {name:'Elon Musk',col:'rgba(168,85,247',ratio:'幾乎 100% 訊號',sub:'其他事情完全外包給團隊。我們有 AI，可以更接近這個目標'}
-      ].forEach(p=>{
-        h+=`<div style="background:${p.col},.1);border:1.5px solid ${p.col},.3);border-radius:12px;padding:.9rem 1rem">`;
-        h+=`<div style="font-size:var(--min-font);font-weight:700;color:${p.col},1);margin-bottom:.3rem">${p.name}</div>`;
-        h+=`<div style="font-size:clamp(1.1rem,2vw,1.4rem);font-weight:900;color:var(--ink);margin-bottom:.3rem">${p.ratio}</div>`;
-        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.6">${p.sub}</div>`;
-        h+=`</div>`;
+      // Steve Jobs vs Elon Musk — accordion buttons
+      h+=`<div style="display:flex;flex-direction:column;gap:.6rem;max-width:860px;margin:0 auto .8rem;position:relative;z-index:1">`;
+      [{name:'Steve Jobs',col:'rgba(255,107,0',ratio:'80% 的時間放在訊號上',sub:'有些雜訊他還是得處理，但大多數時間專注在幾件關鍵事情上。'},
+       {name:'Elon Musk',col:'rgba(168,85,247',ratio:'幾乎 100% 訊號',sub:'其他事情完全外包給團隊。我們有 AI，可以更接近這個目標。'}
+      ].forEach((p,i)=>{
+        const col=p.col;
+        h+=`<div style="border-radius:12px;overflow:hidden;border:2px solid ${col},.3)">`;
+        h+=`<button onclick="(function(btn){var c=btn.nextElementSibling;var open=c.style.maxHeight!=='0px';c.style.maxHeight=open?'0px':'180px';c.style.opacity=open?'0':'1';btn.querySelector('.sj-arr${i}').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;background:${col},.1);border:none;cursor:pointer;padding:.85rem 1.2rem;display:flex;align-items:center;gap:.8rem;text-align:left">`;
+        h+=`<div style="flex:1;font-size:clamp(1rem,1.6vw,1.15rem);font-weight:700;color:${col},1)">${p.name}</div>`;
+        h+=`<svg class="sj-arr${i}" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="${col},1)" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
+        h+=`</button>`;
+        h+=`<div style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .25s ease;background:${col},.05);padding:0 1.2rem">`;
+        h+=`<div style="padding:.75rem 0"><div style="font-size:clamp(1.3rem,2.2vw,1.6rem);font-weight:900;color:${col},1);margin-bottom:.3rem">${p.ratio}</div><div style="font-size:var(--min-font);color:var(--mid);line-height:1.7">${p.sub}</div></div>`;
+        h+=`</div></div>`;
       });
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:860px;margin:0 auto;position:relative;z-index:1"><strong style="color:var(--orange)">問自己：</strong>這件事有複利效應嗎？三個月後還重要嗎？不是的話，它就是雜訊。</div>`;
