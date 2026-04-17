@@ -4023,11 +4023,11 @@ function renderSlide(sd,idx){
          ex:'Notion 一開始對標 Evernote，後來才擴展成工作區平台',
          fidelity:'市場定位 90%'}
       ];
-      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.9rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
       ptypes.forEach((p,i)=>{
         const uid=`pt2-${sd.id}-${i}`;
-        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:140px">`;
-        h+=`<div class="card-answer" style="background:${p.col}10;border:2px solid ${p.col}35;border-radius:12px;padding:1.1rem">`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:115px">`;
+        h+=`<div class="card-answer" style="background:${p.col}10;border:2px solid ${p.col}35;border-radius:12px;padding:.75rem">`;
         h+=`<div style="display:flex;align-items:baseline;gap:.6rem;margin-bottom:.35rem"><span style="font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:800;color:${p.col}">${p.short}</span><span style="font-size:var(--min-label);color:var(--mid)">${p.full}</span><span style="margin-left:auto;font-size:var(--min-label);color:${p.col};padding:.15em .5em;background:${p.col}20;border-radius:4px">${p.fidelity}</span></div>`;
         h+=`<div style="font-size:var(--min-font);color:var(--ink);margin-bottom:.4rem">${p.def}</div>`;
         h+=`<div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.3rem"><strong style="color:${p.col}">何時用：</strong>${p.when}</div>`;
