@@ -5053,6 +5053,16 @@ function jumpToSlide(slideId){const idx=D.findIndex(s=>s.id===slideId);if(idx!==
 document.getElementById('btn-prev').addEventListener('click',()=>scrollToSlide(cur-1));
 document.getElementById('btn-next').addEventListener('click',()=>{const t=findNextRevealable();if(t){t.click();}else{scrollToSlide(cur+1);}});
 // ── SEQUENTIAL ACCORDION: seqOpen(grpId, idx) ─────────────────────────────
+// Independent accordion toggle — siblings stay open (used on Octalysis page)
+function ocToggle(grpId,idx){
+  const body=document.getElementById(grpId+'_b'+idx);
+  const arr=document.getElementById(grpId+'_a'+idx);
+  if(!body)return;
+  const isOpen=body.style.maxHeight!=='0px'&&body.style.maxHeight!=='';
+  body.style.maxHeight=isOpen?'0px':'280px';
+  body.style.opacity=isOpen?'0':'1';
+  if(arr)arr.style.transform=isOpen?'rotate(0deg)':'rotate(180deg)';
+}
 // Closes all sibling bodies in group, opens the one at idx (toggles if already open).
 // Also advances data-seq-step so the ↓ button knows where to continue.
 function seqOpen(grpId,idx){
