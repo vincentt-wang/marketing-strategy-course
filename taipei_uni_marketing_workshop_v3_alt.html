@@ -5070,6 +5070,17 @@ function jumpToSlide(slideId){const idx=D.findIndex(s=>s.id===slideId);if(idx!==
 document.getElementById('btn-prev').addEventListener('click',()=>scrollToSlide(cur-1));
 document.getElementById('btn-next').addEventListener('click',()=>{const t=findNextRevealable();if(t){t.click();}else{scrollToSlide(cur+1);}});
 // ── SEQUENTIAL ACCORDION: seqOpen(grpId, idx) ─────────────────────────────
+// Manual click on seq-grp buttons — toggles only the clicked item, siblings stay as-is
+function seqManualToggle(grpId,idx){
+  const grp=document.getElementById(grpId);if(!grp)return;
+  const bodies=[...grp.querySelectorAll('[data-seq-body]')];
+  const arrs=[...grp.querySelectorAll('[data-seq-arr]')];
+  const body=bodies[idx];if(!body)return;
+  const isOpen=body.style.maxHeight!=='0px'&&body.style.maxHeight!=='';
+  body.style.maxHeight=isOpen?'0px':'400px';
+  body.style.opacity=isOpen?'0':'1';
+  if(arrs[idx])arrs[idx].style.transform=isOpen?'rotate(0deg)':'rotate(180deg)';
+}
 // Independent accordion toggle — siblings stay open (used on Octalysis page)
 function ocToggle(grpId,idx){
   const body=document.getElementById(grpId+'_b'+idx);
