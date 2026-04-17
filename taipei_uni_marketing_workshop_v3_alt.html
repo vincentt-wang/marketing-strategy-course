@@ -4039,8 +4039,8 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       // Feedback emphasis row
       h+=`<div style="max-width:900px;margin:.5rem auto 0;position:relative;z-index:1;background:rgba(255,107,0,.07);border:1.5px solid rgba(255,107,0,.3);border-radius:12px;padding:.5rem .9rem">`;
-      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.55rem"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--orange)" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span style="font-size:var(--min-label);font-weight:800;color:var(--orange);letter-spacing:.1em;text-transform:uppercase">每個階段都要收 Feedback</span></div>`;
-      h+=`<div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.5rem">`;
+      h+=`<div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.35rem"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--orange)" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span style="font-size:var(--min-label);font-weight:800;color:var(--orange);letter-spacing:.1em;text-transform:uppercase">每個階段都要收 Feedback</span></div>`;
+      h+=`<div style="display:flex;align-items:center;gap:.3rem;margin-bottom:.3rem">`;
       [{pct:'10%',col:'var(--blue)',note:'方向修正'},{pct:'30%',col:'var(--green)',note:'功能取捨'},{pct:'50%',col:'var(--yellow)',note:'體驗優化'},{pct:'80%',col:'var(--orange)',note:'上市準備'}].forEach((s,i,arr)=>{
         h+=`<div style="flex:1;text-align:center;padding:.35rem .2rem;background:${s.col}15;border-radius:7px;border:1px solid ${s.col}40"><div style="font-size:var(--min-font);font-weight:800;color:${s.col}">${s.pct}</div><div style="font-size:var(--min-label);color:var(--mid)">${s.note}</div></div>`;
         if(i<arr.length-1)h+=`<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2.5" style="flex-shrink:0"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`;
