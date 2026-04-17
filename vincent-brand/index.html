@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vincent Wang — 知識體驗設計師。把策略、教學架構與互動設計整合成工作坊頁面、知識型網站與課程體驗。">
+<title>Vincent Wang — Knowledge Experience Designer</title>
+<style>
+:root{
+  --bg:#0d0d0f;--card:#16181c;--card2:#1c1e24;
+  --ink:#f0f0f2;--mid:rgba(240,240,242,.55);--dim:rgba(240,240,242,.28);
+  --orange:#ff6b00;--red:#ff2055;--blue:#3b82f6;--purple:#a855f7;
+  --green:#22c55e;--cyan:#06b6d4;--yellow:#eab308;
+  --r:14px;--ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+
+/* ── PROGRESS ── */
+.prog-wrap{position:fixed;top:0;left:0;right:0;height:2px;z-index:200;background:rgba(255,255,255,.05);}
+.prog-bar{height:100%;background:var(--orange);width:0;transition:width .1s;}
+
+/* ── LANG TOGGLE ── */
+.lang-btn{position:fixed;top:1rem;right:1rem;z-index:200;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:.3rem .8rem;font-size:.72rem;font-weight:700;color:var(--mid);cursor:pointer;transition:all .2s;letter-spacing:.06em;}
+.lang-btn:hover{background:rgba(255,107,0,.15);border-color:rgba(255,107,0,.4);color:var(--orange);}
+
+/* ── NAV DOTS ── */
+.nav-dots{position:fixed;right:.8rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.45rem;z-index:100;}
+@media(max-width:600px){.nav-dots{display:none;}}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:all .2s;}
+.dot.active{background:var(--orange);transform:scale(1.5);}
+
+/* ── HERO ── */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 1.5rem 6rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 50% at 50% 10%,rgba(255,107,0,.12),transparent 55%),
+             radial-gradient(ellipse 50% 60% at 85% 80%,rgba(168,85,247,.09),transparent 55%),
+             radial-gradient(ellipse 40% 50% at 10% 70%,rgba(59,130,246,.07),transparent 55%);}
+.badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,107,0,.1);border:1.5px solid rgba(255,107,0,.3);border-radius:20px;padding:.35rem 1rem;font-size:.72rem;font-weight:700;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.6rem;}
+.hero h1{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.1;letter-spacing:-.025em;margin-bottom:1rem;max-width:740px;}
+.hero h1 em{font-style:normal;color:var(--orange);}
+.hero-sub{font-size:clamp(.88rem,2vw,1.05rem);color:var(--mid);max-width:520px;margin:0 auto 1rem;line-height:1.7;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin:1.2rem 0 2.4rem;}
+.hero-tag{font-size:.68rem;font-weight:600;padding:.22rem .65rem;border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:var(--mid);}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;}
+.btn-primary{display:inline-flex;align-items:center;gap:.45rem;background:var(--orange);color:#fff;font-weight:800;font-size:.9rem;padding:.7rem 1.8rem;border-radius:30px;text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,0,.4);}
+.btn-ghost{display:inline-flex;align-items:center;gap:.45rem;background:transparent;color:var(--ink);font-weight:700;font-size:.9rem;padding:.7rem 1.8rem;border-radius:30px;text-decoration:none;border:1.5px solid rgba(255,255,255,.18);transition:all .2s;}
+.btn-ghost:hover{border-color:rgba(255,107,0,.5);color:var(--orange);}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);color:var(--dim);font-size:.62rem;letter-spacing:.1em;display:flex;flex-direction:column;align-items:center;gap:.35rem;animation:bounce 2.2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+/* ── SECTION LAYOUT ── */
+section{padding:5rem 1.5rem;max-width:780px;margin:0 auto;}
+.sec-label{font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem;}
+.sec-en{font-size:.58rem;font-weight:600;letter-spacing:.12em;color:var(--mid);text-transform:uppercase;margin-left:.5rem;opacity:.7;}
+h2{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:.8rem;}
+h2 em{font-style:normal;color:var(--orange);}
+.lead{font-size:clamp(.95rem,2.3vw,1.05rem);color:var(--mid);margin-bottom:2rem;line-height:1.75;max-width:620px;}
+.divider{height:1px;background:rgba(255,255,255,.07);margin:0 1.5rem;}
+
+/* ── BELIEF BLOCK ── */
+.belief{border-left:3px solid var(--orange);background:rgba(255,107,0,.05);border-radius:0 var(--r) var(--r) 0;padding:1.2rem 1.6rem;margin:1.8rem 0;font-size:clamp(1.05rem,2.5vw,1.3rem);font-weight:800;line-height:1.4;color:var(--ink);}
+.belief span{color:var(--orange);}
+
+/* ── THREE PILLARS ── */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;}
+@media(max-width:500px){.pillars{grid-template-columns:1fr;}}
+.pillar{background:var(--card);border-radius:var(--r);padding:1.3rem;border:1.5px solid rgba(255,255,255,.07);text-align:center;}
+.pillar-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto .8rem;}
+.pillar-name{font-size:.9rem;font-weight:800;margin-bottom:.3rem;}
+.pillar-desc{font-size:.78rem;color:var(--mid);line-height:1.5;}
+
+/* ── WHO CARDS ── */
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1.8rem 0;}
+@media(max-width:480px){.who-grid{grid-template-columns:1fr;}}
+.who-card{background:var(--card);border-radius:var(--r);padding:1.2rem;border:1.5px solid rgba(255,255,255,.07);}
+.who-card-label{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem;}
+.who-card-title{font-size:.95rem;font-weight:800;margin-bottom:.3rem;}
+.who-card-body{font-size:.8rem;color:var(--mid);line-height:1.55;}
+
+/* ── OUTPUT CARDS ── */
+.output-list{display:flex;flex-direction:column;gap:.75rem;margin:1.8rem 0;}
+.output-item{display:flex;align-items:flex-start;gap:1rem;background:var(--card);border-radius:var(--r);padding:1.1rem 1.3rem;border:1.5px solid rgba(255,255,255,.07);transition:border-color .2s;}
+.output-item:hover{border-color:rgba(255,107,0,.3);}
+.output-num{font-size:1.5rem;font-weight:900;line-height:1;flex-shrink:0;width:2rem;text-align:right;margin-top:.1rem;}
+.output-title{font-size:.95rem;font-weight:800;margin-bottom:.25rem;}
+.output-body{font-size:.8rem;color:var(--mid);line-height:1.55;}
+
+/* ── CASE STUDY ── */
+.case-wrap{background:var(--card);border-radius:var(--r);border:1.5px solid rgba(255,255,255,.09);overflow:hidden;margin:2rem 0;}
+.case-header{padding:1.4rem 1.6rem;background:linear-gradient(135deg,rgba(255,107,0,.08),rgba(168,85,247,.05));border-bottom:1px solid rgba(255,255,255,.07);}
+.case-eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:.4rem;}
+.case-title{font-size:1.15rem;font-weight:900;margin-bottom:.3rem;}
+.case-sub{font-size:.8rem;color:var(--mid);}
+.case-features{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:480px){.case-features{grid-template-columns:1fr;}}
+.case-feat{padding:1rem 1.4rem;border-top:1px solid rgba(255,255,255,.06);}
+.case-feat:nth-child(odd){border-right:1px solid rgba(255,255,255,.06);}
+.case-feat-label{font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;}
+.case-feat-text{font-size:.82rem;color:var(--mid);line-height:1.5;}
+.case-footer{padding:1.1rem 1.6rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;border-top:1px solid rgba(255,255,255,.07);}
+.case-stats{display:flex;gap:1.5rem;}
+.case-stat-num{font-size:1.4rem;font-weight:900;color:var(--orange);}
+.case-stat-label{font-size:.65rem;color:var(--mid);}
+
+/* ── FRAMEWORK PILLS ── */
+.fw-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.8rem 0;}
+@media(max-width:480px){.fw-grid{grid-template-columns:1fr;}}
+.fw-item{display:flex;align-items:center;gap:.7rem;background:var(--card);border-radius:10px;padding:.75rem 1rem;border:1.5px solid rgba(255,255,255,.07);}
+.fw-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.fw-name{font-size:.85rem;font-weight:800;}
+.fw-use{font-size:.72rem;color:var(--mid);}
+
+/* ── ADVANCED BLOCK ── */
+.adv-wrap{background:linear-gradient(135deg,rgba(168,85,247,.07),rgba(59,130,246,.04));border:1.5px solid rgba(168,85,247,.2);border-radius:var(--r);padding:2rem 1.8rem;margin:2rem 0;}
+.adv-items{display:flex;flex-direction:column;gap:.6rem;margin:1.2rem 0;}
+.adv-item{display:flex;align-items:center;gap:.7rem;font-size:.88rem;color:var(--mid);}
+.adv-item svg{flex-shrink:0;color:var(--purple);}
+.adv-item strong{color:var(--ink);}
+
+/* ── CONTACT ── */
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:2rem 0;}
+@media(max-width:480px){.contact-wrap{grid-template-columns:1fr;}}
+.contact-card{background:var(--card);border-radius:var(--r);padding:1.4rem 1.5rem;border:1.5px solid rgba(255,255,255,.08);text-decoration:none;transition:all .2s;display:flex;align-items:flex-start;gap:1rem;}
+.contact-card:hover{border-color:rgba(255,107,0,.35);transform:translateY(-2px);}
+.contact-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.contact-label{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.2rem;}
+.contact-value{font-size:.9rem;font-weight:700;color:var(--ink);}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:3rem 1.5rem 4rem;color:var(--dim);font-size:.7rem;border-top:1px solid rgba(255,255,255,.06);line-height:1.8;}
+
+/* ── FADE IN ── */
+.fade-in{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.fade-in.visible{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<div class="prog-wrap"><div class="prog-bar" id="prog"></div></div>
+<button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+<div class="nav-dots" id="nav-dots"></div>
+
+<!-- ① HERO -->
+<div class="hero" data-section="0">
+  <div class="hero-bg"></div>
+  <div class="badge">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    <span data-zh="Knowledge Experience Designer" data-en="Knowledge Experience Designer">Knowledge Experience Designer</span>
+  </div>
+  <h1>
+    <span data-zh="把你的知識，<br>做成讓人<em>記得住的體驗</em>" data-en="Turn your expertise<br>into <em>experiences that land</em>">把你的知識，<br>做成讓人<em>記得住的體驗</em></span>
+  </h1>
+  <p class="hero-sub" data-zh="工作坊、課程、簡報、知識型頁面 —— 我把策略、教學架構與互動設計整合成一件事。" data-en="Workshops, courses, presentations, knowledge pages — I integrate strategy, learning architecture, and interaction design into one.">工作坊、課程、簡報、知識型頁面 —— 我把策略、教學架構與互動設計整合成一件事。</p>
+  <div class="hero-tags">
+    <span class="hero-tag" data-zh="工作坊設計" data-en="Workshop Design">工作坊設計</span>
+    <span class="hero-tag" data-zh="互動式簡報" data-en="Interactive Presentation">互動式簡報</span>
+    <span class="hero-tag" data-zh="知識品牌頁面" data-en="Knowledge Brand Page">知識品牌頁面</span>
+    <span class="hero-tag" data-zh="課程架構設計" data-en="Course Architecture">課程架構設計</span>
+    <span class="hero-tag" data-zh="課程 SaaS" data-en="Course SaaS">課程 SaaS</span>
+  </div>
+  <div class="hero-ctas">
+    <a href="#case" class="btn-primary" onclick="document.getElementById('case').scrollIntoView({behavior:'smooth'});return false;">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <span data-zh="查看代表作" data-en="See the Work">查看代表作</span>
+    </a>
+    <a href="https://www.linkedin.com/in/vincent-wang-yuyu" target="_blank" class="btn-ghost">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      <span data-zh="LinkedIn" data-en="LinkedIn">LinkedIn</span>
+    </a>
+  </div>
+  <div class="scroll-hint">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    <span data-zh="向下探索" data-en="Scroll">向下探索</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ② 我做什麼 -->
+<section data-section="1" class="fade-in">
+  <div class="sec-label"><span data-zh="核心技能" data-en="Core Skill">核心技能</span><span class="sec-en">What I Do</span></div>
+  <h2><span data-zh="不只是設計，<br>是<em>知識的體驗架構</em>" data-en="Not just design —<br><em>experience architecture</em> for knowledge">不只是設計，<br>是<em>知識的體驗架構</em></span></h2>
+  <p class="lead" data-zh="多數人把「內容」和「設計」和「教學」分開處理。我在三者的交叉點工作：把框架、方法論與專業知識，做成有結構到能教、夠互動能投入、設計好能留在腦裡的體驗。" data-en="Most people separate content, design, and teaching. I work at their intersection — turning frameworks, methodologies, and expertise into experiences that are structured enough to teach, interactive enough to engage, and designed well enough to be remembered.">多數人把「內容」和「設計」和「教學」分開處理。我在三者的交叉點工作：把框架、方法論與專業知識，做成有結構到能教、夠互動能投入、設計好能留在腦裡的體驗。</p>
+
+  <div class="belief">
+    <span data-zh="資訊不改變人。<span>體驗才會。</span>" data-en="Information doesn't change people. <span>Experience does.</span>">資訊不改變人。<span>體驗才會。</span></span>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-icon" style="background:rgba(255,107,0,.12);border:1.5px solid rgba(255,107,0,.25);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+      </div>
+      <div class="pillar-name" data-zh="策略框架" data-en="Strategy">策略框架</div>
+      <div class="pillar-desc" data-zh="先問對問題，再決定怎麼說" data-en="Ask the right question before deciding how to say it">先問對問題，再決定怎麼說</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon" style="background:rgba(59,130,246,.12);border:1.5px solid rgba(59,130,246,.25);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      </div>
+      <div class="pillar-name" data-zh="教學架構" data-en="Learning Architecture">教學架構</div>
+      <div class="pillar-desc" data-zh="決定概念出現的順序與時機" data-en="Decide when and in what order concepts are revealed">決定概念出現的順序與時機</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-icon" style="background:rgba(168,85,247,.12);border:1.5px solid rgba(168,85,247,.25);">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--purple)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="pillar-name" data-zh="互動設計" data-en="Interaction Design">互動設計</div>
+      <div class="pillar-desc" data-zh="讓受眾主動參與，而不是被動接收" data-en="Make the audience a participant, not a receiver">讓受眾主動參與，而不是被動接收</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ③ 我幫誰 -->
+<section data-section="2" class="fade-in">
+  <div class="sec-label"><span data-zh="服務對象" data-en="Who I Help">服務對象</span><span class="sec-en">Who</span></div>
+  <h2><span data-zh="你有知識，<br>但它還沒<em>真正被聽見</em>" data-en="You have the knowledge —<br>it just hasn't <em>landed yet</em>">你有知識，<br>但它還沒<em>真正被聽見</em></span></h2>
+  <p class="lead" data-zh="不缺內容，缺的是讓內容變成體驗的設計能力。" data-en="The problem is rarely the content. It's the absence of design that turns content into experience.">不缺內容，缺的是讓內容變成體驗的設計能力。</p>
+
+  <div class="who-grid">
+    <div class="who-card">
+      <div class="who-card-label" style="color:var(--cyan);">
+        <span data-zh="教育者 / 講師" data-en="Educators & Lecturers">教育者 / 講師</span>
+      </div>
+      <div class="who-card-title" data-zh="課講得很好，但學生記不住" data-en="Great lecturer, forgettable slides">課講得很好，但學生記不住</div>
+      <div class="who-card-body" data-zh="把你的講義和知識，重新設計成讓人帶著走的體驗頁面" data-en="Redesign your content into an experience people carry with them">把你的講義和知識，重新設計成讓人帶著走的體驗頁面</div>
+    </div>
+    <div class="who-card">
+      <div class="who-card-label" style="color:var(--orange);">
+        <span data-zh="顧問 / 教練" data-en="Consultants & Coaches">顧問 / 教練</span>
+      </div>
+      <div class="who-card-title" data-zh="方法論在腦子裡，但說不清楚" data-en="Methodology in your head, hard to articulate">方法論在腦子裡，但說不清楚</div>
+      <div class="who-card-body" data-zh="把你多年的實踐淬煉成視覺化框架和知識品牌頁" data-en="Distill years of practice into visual frameworks and a knowledge brand page">把你多年的實踐淬煉成視覺化框架和知識品牌頁</div>
+    </div>
+    <div class="who-card">
+      <div class="who-card-label" style="color:var(--green);">
+        <span data-zh="創業者" data-en="Startup Founders">創業者</span>
+      </div>
+      <div class="who-card-title" data-zh="想法很好，但 pitch 說不動人" data-en="Great idea, weak pitch">想法很好，但 pitch 說不動人</div>
+      <div class="who-card-body" data-zh="把你的產品邏輯設計成有說服力的互動簡報與 demo 體驗" data-en="Design your product logic into a compelling interactive pitch experience">把你的產品邏輯設計成有說服力的互動簡報與 demo 體驗</div>
+    </div>
+    <div class="who-card">
+      <div class="who-card-label" style="color:var(--purple);">
+        <span data-zh="企業培訓團隊" data-en="Corporate Training Teams">企業培訓團隊</span>
+      </div>
+      <div class="who-card-title" data-zh="培訓做了，但員工沒有帶走什麼" data-en="Training done, nothing transferred">培訓做了，但員工沒有帶走什麼</div>
+      <div class="who-card-body" data-zh="設計工作坊體驗頁面，讓學習在課後還能持續發生" data-en="Build workshop experience pages that continue to teach after the session ends">設計工作坊體驗頁面，讓學習在課後還能持續發生</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ④ 我可以做什麼 -->
+<section data-section="3" class="fade-in">
+  <div class="sec-label"><span data-zh="輸出形式" data-en="What I Build">輸出形式</span><span class="sec-en">Outputs</span></div>
+  <h2><span data-zh="我做的四種<em>知識體驗</em>" data-en="Four types of<em> knowledge experiences</em>">我做的四種<em>知識體驗</em></span></h2>
+
+  <div class="output-list">
+    <div class="output-item">
+      <div class="output-num" style="color:var(--orange)">01</div>
+      <div>
+        <div class="output-title" data-zh="工作坊體驗頁面" data-en="Workshop Experience Page">工作坊體驗頁面</div>
+        <div class="output-body" data-zh="互動式 HTML 頁面，兼具現場簡報與非同步自學兩種使用情境。循序展開邏輯、計時器、練習提示全部整合在一頁。" data-en="Interactive HTML page for both live facilitation and async self-study. Sequential reveal logic, timers, and embedded exercises — all in one page.">互動式 HTML 頁面，兼具現場簡報與非同步自學兩種使用情境。循序展開邏輯、計時器、練習提示全部整合在一頁。</div>
+      </div>
+    </div>
+    <div class="output-item">
+      <div class="output-num" style="color:var(--blue)">02</div>
+      <div>
+        <div class="output-title" data-zh="互動式知識簡報" data-en="Interactive Knowledge Presentation">互動式知識簡報</div>
+        <div class="output-body" data-zh="不是 PowerPoint 的替代品，是用網頁技術做成的簡報體驗。概念按節奏展開，視覺框架可點擊，設計感強但不搶內容風頭。" data-en="Not a PowerPoint replacement — a presentation experience built with web technology. Concepts unfold at pace, visual frameworks are interactive, design serves the content.">不是 PowerPoint 的替代品，是用網頁技術做成的簡報體驗。概念按節奏展開，視覺框架可點擊，設計感強但不搶內容風頭。</div>
+      </div>
+    </div>
+    <div class="output-item">
+      <div class="output-num" style="color:var(--purple)">03</div>
+      <div>
+        <div class="output-title" data-zh="知識品牌頁面" data-en="Knowledge Brand Page">知識品牌頁面</div>
+        <div class="output-body" data-zh="不是一般的作品集或 landing page，而是把你的思維方式做成可以自己說話的頁面。這個頁面本身就是你能力的示範。" data-en="Not a portfolio or landing page — a page that demonstrates your thinking. The page itself is proof of what you can do.">不是一般的作品集或 landing page，而是把你的思維方式做成可以自己說話的頁面。這個頁面本身就是你能力的示範。</div>
+      </div>
+    </div>
+    <div class="output-item">
+      <div class="output-num" style="color:var(--green)">04</div>
+      <div>
+        <div class="output-title" data-zh="課程架構設計 + SaaS" data-en="Course Architecture + SaaS">課程架構設計 + SaaS</div>
+        <div class="output-body" data-zh="從零開始設計課程的知識脈絡，決定什麼先出現、什麼後展開。也可整合進課程 SaaS 平台，做成可持續運營的知識產品。" data-en="Design the knowledge sequence from scratch — what comes first, what unlocks what. Integrates into course SaaS platforms to build sustainable knowledge products.">從零開始設計課程的知識脈絡，決定什麼先出現、什麼後展開。也可整合進課程 SaaS 平台，做成可持續運營的知識產品。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ⑤ 代表案例 -->
+<section id="case" data-section="4" class="fade-in">
+  <div class="sec-label"><span data-zh="代表案例" data-en="Case Study">代表案例</span><span class="sec-en">Proof of Work</span></div>
+  <h2><span data-zh="這個頁面，<br>就是一個<em>完整的示範</em>" data-en="This page<br>is a <em>complete demonstration</em>">這個頁面，<br>就是一個<em>完整的示範</em></span></h2>
+  <p class="lead" data-zh="以下是其中一個真實案例。這不是截圖，是可以打開的互動體驗頁面。" data-en="Here is one real case. Not a screenshot — a live, interactive experience page you can open.">以下是其中一個真實案例。這不是截圖，是可以打開的互動體驗頁面。</p>
+
+  <div class="case-wrap">
+    <div class="case-header">
+      <div class="case-eyebrow" data-zh="工作坊體驗頁面" data-en="Workshop Experience Page">工作坊體驗頁面</div>
+      <div class="case-title" data-zh="台北大學 策略思維 × 創新創業工作坊" data-en="Taipei University — Strategy &amp; Innovation Workshop">台北大學 策略思維 × 創新創業工作坊</div>
+      <div class="case-sub" data-zh="2 小時工作坊，完整做成互動式單頁體驗" data-en="A 2-hour workshop rendered as a single interactive page">2 小時工作坊，完整做成互動式單頁體驗</div>
+    </div>
+    <div class="case-features">
+      <div class="case-feat">
+        <div class="case-feat-label" style="color:var(--orange);" data-zh="循序展開架構" data-en="Sequential Reveal">循序展開架構</div>
+        <div class="case-feat-text" data-zh="每個概念在受眾準備好時才出現，不提前暴露答案" data-en="Every concept appears only when the audience is ready — answers never revealed too early">每個概念在受眾準備好時才出現，不提前暴露答案</div>
+      </div>
+      <div class="case-feat">
+        <div class="case-feat-label" style="color:var(--blue);" data-zh="可互動的視覺框架" data-en="Interactive Visual Frameworks">可互動的視覺框架</div>
+        <div class="case-feat-text" data-zh="DFV 三元、Hormozi 價值公式、八角化全部做成可點擊元件" data-en="DFV triad, Hormozi value formula, Octalysis — all rendered as clickable components">DFV 三元、Hormozi 價值公式、八角化全部做成可點擊元件</div>
+      </div>
+      <div class="case-feat">
+        <div class="case-feat-label" style="color:var(--purple);" data-zh="多模態使用情境" data-en="Dual-mode Use">多模態使用情境</div>
+        <div class="case-feat-text" data-zh="現場演講模式 + 課後自學模式，同一個頁面都適用" data-en="Live lecture mode and post-session self-study — both supported in one page">現場演講模式 + 課後自學模式，同一個頁面都適用</div>
+      </div>
+      <div class="case-feat">
+        <div class="case-feat-label" style="color:var(--green);" data-zh="完整課程架構" data-en="Full Curriculum Arc">完整課程架構</div>
+        <div class="case-feat-text" data-zh="5 大模組、80+ 頁面、從問題到框架到應用的完整知識流" data-en="5 modules, 80+ slides, complete knowledge flow from problem to framework to application">5 大模組、80+ 頁面、從問題到框架到應用的完整知識流</div>
+      </div>
+    </div>
+    <div class="case-footer">
+      <div class="case-stats">
+        <div>
+          <div class="case-stat-num">5</div>
+          <div class="case-stat-label" data-zh="核心模組" data-en="Modules">核心模組</div>
+        </div>
+        <div>
+          <div class="case-stat-num">80+</div>
+          <div class="case-stat-label" data-zh="互動頁面" data-en="Slides">互動頁面</div>
+        </div>
+        <div>
+          <div class="case-stat-num">10+</div>
+          <div class="case-stat-label" data-zh="可視化框架" data-en="Frameworks">可視化框架</div>
+        </div>
+      </div>
+      <a href="https://vincentt-wang.github.io/marketing-strategy-course/taipei_uni_marketing_workshop_v3_alt.html" target="_blank" class="btn-primary" style="font-size:.82rem;padding:.55rem 1.3rem;">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span data-zh="打開體驗頁面" data-en="Open Live Demo">打開體驗頁面</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ⑥ 我使用的框架 -->
+<section data-section="5" class="fade-in">
+  <div class="sec-label"><span data-zh="方法論基礎" data-en="Frameworks">方法論基礎</span><span class="sec-en">Methodology</span></div>
+  <h2><span data-zh="有框架才有<em>可以教的東西</em>" data-en="Frameworks make ideas<em> teachable</em>">有框架才有<em>可以教的東西</em></span></h2>
+  <p class="lead" data-zh="我不只使用這些框架，我把它們做成互動體驗，讓受眾在動手之前先理解它們。" data-en="I don't just use these frameworks — I build them into interactive experiences so audiences understand them before they apply them.">我不只使用這些框架，我把它們做成互動體驗，讓受眾在動手之前先理解它們。</p>
+
+  <div class="fw-grid">
+    <div class="fw-item">
+      <div class="fw-dot" style="background:var(--red)"></div>
+      <div>
+        <div class="fw-name">DFV Framework</div>
+        <div class="fw-use" data-zh="創新策略 · 產品定位 · 個人發展" data-en="Innovation strategy · Product positioning · Personal growth">創新策略 · 產品定位 · 個人發展</div>
+      </div>
+    </div>
+    <div class="fw-item">
+      <div class="fw-dot" style="background:var(--blue)"></div>
+      <div>
+        <div class="fw-name">MECE Thinking</div>
+        <div class="fw-use" data-zh="問題拆解 · 課程架構設計" data-en="Problem decomposition · Curriculum architecture">問題拆解 · 課程架構設計</div>
+      </div>
+    </div>
+    <div class="fw-item">
+      <div class="fw-dot" style="background:var(--orange)"></div>
+      <div>
+        <div class="fw-name">Hormozi Value Formula</div>
+        <div class="fw-use" data-zh="報酬設計 · 定價策略 · 價值主張" data-en="Offer design · Pricing · Value proposition">報酬設計 · 定價策略 · 價值主張</div>
+      </div>
+    </div>
+    <div class="fw-item">
+      <div class="fw-dot" style="background:var(--purple)"></div>
+      <div>
+        <div class="fw-name">Octalysis (Yu-kai Chou)</div>
+        <div class="fw-use" data-zh="投入感設計 · 遊戲化邏輯" data-en="Engagement design · Gamification logic">投入感設計 · 遊戲化邏輯</div>
+      </div>
+    </div>
+    <div class="fw-item">
+      <div class="fw-dot" style="background:var(--cyan)"></div>
+      <div>
+        <div class="fw-name">Sequential Reveal</div>
+        <div class="fw-use" data-zh="簡報節奏 · 學習體驗設計" data-en="Presentation pacing · Learning experience">簡報節奏 · 學習體驗設計</div>
+      </div>
+    </div>
+    <div class="fw-item">
+      <div class="fw-dot" style="background:var(--green)"></div>
+      <div>
+        <div class="fw-name">ICP × HXC</div>
+        <div class="fw-use" data-zh="受眾定位 · 核心客群設計" data-en="Audience targeting · Core persona design">受眾定位 · 核心客群設計</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ⑦ Advanced Version -->
+<section data-section="6" class="fade-in">
+  <div class="sec-label"><span data-zh="進階版本" data-en="Advanced Version">進階版本</span><span class="sec-en">Advanced</span></div>
+  <h2><span data-zh="更深的方法論，<br>更高階的<em>知識設計系統</em>" data-en="Deeper methodology,<br>higher-order <em>knowledge design systems</em>">更深的方法論，<br>更高階的<em>知識設計系統</em></span></h2>
+  <p class="lead" data-zh="Public 版本展示的是輸出。Advanced 版本包含產生這些輸出的完整系統 —— 有興趣的合作者歡迎聯絡進一步了解。" data-en="The public version shows the outputs. The advanced version contains the full system behind them — reach out if you want to know more.">Public 版本展示的是輸出。Advanced 版本包含產生這些輸出的完整系統 —— 有興趣的合作者歡迎聯絡進一步了解。</p>
+
+  <div class="adv-wrap">
+    <div class="adv-items">
+      <div class="adv-item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div><strong data-zh="完整方法論系統" data-en="Full Methodology System">完整方法論系統</strong> <span data-zh="— 從發現到交付的可重複流程" data-en="— repeatable process from discovery to delivery">— 從發現到交付的可重複流程</span></div>
+      </div>
+      <div class="adv-item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <div><strong data-zh="互動設計元件系統" data-en="Interaction Design System">互動設計元件系統</strong> <span data-zh="— 循序揭示、多層展開、視覺框架元件庫" data-en="— sequential reveal, layered accordion, visual framework component library">— 循序揭示、多層展開、視覺框架元件庫</span></div>
+      </div>
+      <div class="adv-item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div><strong data-zh="進階工作坊頁面設計" data-en="Advanced Workshop Page Design">進階工作坊頁面設計</strong> <span data-zh="— 引導者模式 / 學員模式 / 進度追蹤" data-en="— facilitator mode, participant mode, progress tracking">— 引導者模式 / 學員模式 / 進度追蹤</span></div>
+      </div>
+      <div class="adv-item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <div><strong data-zh="課程架構完整設計" data-en="Full Curriculum Architecture">課程架構完整設計</strong> <span data-zh="— 概念排序、最小洞察設計、可重用知識元件" data-en="— concept sequencing, minimum viable insight, reusable knowledge components">— 概念排序、最小洞察設計、可重用知識元件</span></div>
+      </div>
+      <div class="adv-item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <div><strong data-zh="客製合作 / 長期顧問" data-en="Custom Collaboration & Retainer">客製合作 / 長期顧問</strong> <span data-zh="— 為教育者、教練與品牌提供持續的知識設計支援" data-en="— ongoing knowledge design support for educators, coaches, and brands">— 為教育者、教練與品牌提供持續的知識設計支援</span></div>
+      </div>
+    </div>
+    <a href="mailto:vincent@easeai.com.tw?subject=Advanced Version Inquiry" class="btn-ghost" style="font-size:.85rem;margin-top:.5rem;display:inline-flex;">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span data-zh="詢問 Advanced Version" data-en="Ask about the Advanced Version">詢問 Advanced Version</span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ⑧ 聯絡 -->
+<section data-section="7" class="fade-in">
+  <div class="sec-label"><span data-zh="開始對話" data-en="Let's Talk">開始對話</span><span class="sec-en">Contact</span></div>
+  <h2><span data-zh="有想法了嗎？<br><em>從一個問題開始。</em>" data-en="Have an idea?<br><em>Start with one question.</em>">有想法了嗎？<br><em>從一個問題開始。</em></span></h2>
+  <p class="lead" data-zh="不需要完整 brief，從「我有一個工作坊想讓它變得更有記憶點」這樣的話開始就夠了。" data-en="No brief needed. Starting with 'I have a workshop and I want it to actually land' is enough.">不需要完整 brief，從「我有一個工作坊想讓它變得更有記憶點」這樣的話開始就夠了。</p>
+
+  <div class="contact-wrap">
+    <a href="https://www.linkedin.com/in/vincent-wang-yuyu" target="_blank" class="contact-card">
+      <div class="contact-icon" style="background:rgba(59,130,246,.12);border:1.5px solid rgba(59,130,246,.25);">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div>
+        <div class="contact-label" data-zh="LinkedIn" data-en="LinkedIn">LinkedIn</div>
+        <div class="contact-value">Vincent Wang</div>
+      </div>
+    </a>
+    <a href="mailto:vincent@easeai.com.tw" class="contact-card">
+      <div class="contact-icon" style="background:rgba(255,107,0,.12);border:1.5px solid rgba(255,107,0,.25);">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div>
+        <div class="contact-label" data-zh="Email" data-en="Email">Email</div>
+        <div class="contact-value">vincent@easeai.com.tw</div>
+      </div>
+    </a>
+    <a href="mailto:vincent@easeai.com.tw?subject=Workshop%20/%20Presentation%20Collaboration" class="contact-card" style="grid-column:1/-1;flex-direction:row;align-items:center;">
+      <div class="contact-icon" style="background:rgba(168,85,247,.12);border:1.5px solid rgba(168,85,247,.25);">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--purple)" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div>
+        <div class="contact-label" data-zh="討論客製工作坊 / 簡報 / 知識頁面" data-en="Discuss a custom workshop / presentation / knowledge page">討論客製工作坊 / 簡報 / 知識頁面</div>
+        <div class="contact-value" data-zh="說說你的想法，我們來找到最好的切入點" data-en="Tell me what you have in mind — we'll find the right starting point">說說你的想法，我們來找到最好的切入點</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div style="margin-bottom:.5rem;font-size:.78rem;color:rgba(240,240,242,.4);font-weight:600;letter-spacing:.08em">VINCENT WANG</div>
+  <div data-zh="Knowledge Experience Designer · 知識體驗設計師" data-en="Knowledge Experience Designer · 知識體驗設計師">Knowledge Experience Designer · 知識體驗設計師</div>
+  <div style="margin-top:.4rem">
+    <a href="https://www.linkedin.com/in/vincent-wang-yuyu" target="_blank" style="color:var(--dim);text-decoration:none;margin:0 .6rem;">LinkedIn</a>·
+    <a href="mailto:vincent@easeai.com.tw" style="color:var(--dim);text-decoration:none;margin:0 .6rem;">vincent@easeai.com.tw</a>
+  </div>
+</footer>
+
+<script>
+// ── LANG SYSTEM ──
+let lang = 'zh';
+function toggleLang(){
+  lang = lang === 'zh' ? 'en' : 'zh';
+  document.getElementById('lang-btn').textContent = lang === 'zh' ? 'EN' : '中文';
+  document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+  document.querySelectorAll('[data-zh]').forEach(el=>{
+    const val = lang === 'zh' ? el.dataset.zh : el.dataset.en;
+    if(!val) return;
+    // Use innerHTML so styled spans work
+    el.innerHTML = val;
+  });
+}
+
+// ── PROGRESS BAR ──
+const prog = document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const max = document.body.scrollHeight - innerHeight;
+  prog.style.width = (scrollY / max * 100) + '%';
+});
+
+// ── NAV DOTS ──
+const sections = [...document.querySelectorAll('[data-section]')];
+const dotsWrap = document.getElementById('nav-dots');
+sections.forEach((s,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.addEventListener('click',()=> s.scrollIntoView({behavior:'smooth'}));
+  dotsWrap.appendChild(d);
+});
+function updateDots(){
+  const mid = scrollY + innerHeight * .45;
+  sections.forEach((s,i)=>{
+    const dot = dotsWrap.children[i];
+    dot.classList.toggle('active', mid >= s.offsetTop && mid < s.offsetTop + s.offsetHeight);
+  });
+}
+window.addEventListener('scroll', updateDots);
+updateDots();
+
+// ── FADE IN OBSERVER ──
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:.08});
+document.querySelectorAll('.fade-in').forEach(el=> observer.observe(el));
+</script>
+</body>
+</html>
