@@ -3226,8 +3226,8 @@ function renderSlide(sd,idx){
         h+=`<button onclick="ocToggle('${ocGrpId}',${idx})" style="width:100%;display:flex;align-items:center;gap:.7rem;padding:.65rem .9rem;background:${d.col}14;border:1.5px solid ${d.col}40;border-radius:9px;cursor:pointer;text-align:left;transition:background .2s">`;
         h+=`<div style="width:34px;height:34px;border-radius:8px;background:${d.col}20;border:1px solid ${d.col}40;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${d.col}">${ocIcons[idx]}</div>`;
         h+=`<div style="flex:1;min-width:0">`;
-        h+=`<div style="font-size:.75rem;font-weight:700;color:${d.col};letter-spacing:.03em">Drive ${d.num} · ${d.sub}</div>`;
-        h+=`<div style="font-size:clamp(1rem,1.5vw,1.1rem);font-weight:800;color:var(--ink);line-height:1.2;margin-top:.1rem">${d.name}</div>`;
+        h+=`<div style="font-size:.68rem;font-weight:700;color:${d.col};letter-spacing:.03em">${d.sub}</div>`;
+        h+=`<div style="font-size:clamp(1.1rem,1.7vw,1.25rem);font-weight:800;color:var(--ink);line-height:1.2;margin-top:.1rem">${d.name}</div>`;
         h+=`</div>`;
         h+=`<svg id="${arrId}" data-seq-arr viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="${d.col}" stroke-width="2.5" style="flex-shrink:0;transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg>`;
         h+=`</button>`;
