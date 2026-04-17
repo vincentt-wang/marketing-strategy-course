@@ -4348,23 +4348,11 @@ function renderSlide(sd,idx){
       if(sd.title)h+=`<h2 style="margin-bottom:.5rem">${sd.title}</h2>`;
       h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:1.2rem">學習、嘗試、做 MVP — 都必須有<strong style="color:var(--cyan)">明確的目標</strong></p>`;
       h+=`</div>`;
-      // Main contrast cards — accordion toggle buttons
+      // Main contrast cards — With Goal FIRST (top), Without Goal second (bottom)
       h+=`<div style="display:flex;flex-direction:column;gap:.8rem;max-width:900px;margin:0 auto 1rem;position:relative;z-index:1">`;
-      // Without Goal — toggle button
-      h+=`<div style="border-radius:14px;overflow:hidden;border:2px solid rgba(255,32,85,.25)">`;
-      h+=`<button data-reveal-btn="1" onclick="(function(btn){var c=btn.nextElementSibling;var open=c.style.display!=='none';c.style.display=open?'none':'block';btn.querySelector('.gi-arrow').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;background:rgba(255,32,85,.07);border:none;cursor:pointer;padding:1rem 1.3rem;display:flex;align-items:center;gap:.8rem;text-align:left">`;
-      h+=`<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><circle cx="12" cy="16" r="1" fill="var(--red)"/></svg>`;
-      h+=`<span style="flex:1;font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--red)">沒有目標的學習</span>`;
-      h+=`<svg class="gi-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--red)" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
-      h+=`</button>`;
-      h+=`<div style="display:none;background:rgba(255,32,85,.04);padding:1rem 1.3rem">`;
-      [{t:'「先學完再說」',c:'var(--red)'},{t:'看什麼都覺得有用，什麼都學不深',c:'var(--mid)'},{t:'做出來沒人要，不知道為什麼',c:'var(--mid)'},{t:'學完不知道怎麼應用',c:'var(--mid)'}].forEach(item=>{
-        h+=`<div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${item.c}" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
-      });
-      h+=`</div></div>`;
-      // With Goal — toggle button
-      h+=`<div style="border-radius:14px;overflow:hidden;border:2px solid rgba(6,182,212,.3)">`;
-      h+=`<button data-reveal-btn="1" onclick="(function(btn){var c=btn.nextElementSibling;var open=c.style.display!=='none';c.style.display=open?'none':'block';btn.querySelector('.gi-arrow').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;background:rgba(6,182,212,.08);border:none;cursor:pointer;padding:1rem 1.3rem;display:flex;align-items:center;gap:.8rem;text-align:left">`;
+      // With Goal — TOP (主要概念在上，如創新三元的欲求性)
+      h+=`<div style="border-radius:14px;overflow:hidden;border:2px solid rgba(6,182,212,.4)">`;
+      h+=`<button data-reveal-btn="1" onclick="(function(btn){var c=btn.nextElementSibling;var open=c.style.display!=='none';c.style.display=open?'none':'block';btn.querySelector('.gi-arrow').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;background:rgba(6,182,212,.12);border:none;cursor:pointer;padding:1rem 1.3rem;display:flex;align-items:center;gap:.8rem;text-align:left">`;
       h+=`<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>`;
       h+=`<span style="flex:1;font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--cyan)">目標導向的學習</span>`;
       h+=`<svg class="gi-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--cyan)" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
@@ -4372,6 +4360,18 @@ function renderSlide(sd,idx){
       h+=`<div style="display:none;background:rgba(6,182,212,.04);padding:1rem 1.3rem">`;
       [{t:'「為了解決 X，我需要學 Y」',c:'var(--cyan)'},{t:'學習有方向，刻意練習',c:'var(--mid)'},{t:'做 MVP 驗證假設，快速迭代',c:'var(--mid)'},{t:'知識即用即學，學了就用',c:'var(--mid)'}].forEach(item=>{
         h+=`<div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${item.c}" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
+      });
+      h+=`</div></div>`;
+      // Without Goal — BELOW (對比在下，如其他維度)
+      h+=`<div style="border-radius:14px;overflow:hidden;border:2px solid rgba(255,32,85,.2)">`;
+      h+=`<button data-reveal-btn="1" onclick="(function(btn){var c=btn.nextElementSibling;var open=c.style.display!=='none';c.style.display=open?'none':'block';btn.querySelector('.gi-arrow').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;background:rgba(255,32,85,.05);border:none;cursor:pointer;padding:1rem 1.3rem;display:flex;align-items:center;gap:.8rem;text-align:left">`;
+      h+=`<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><circle cx="12" cy="16" r="1" fill="var(--red)"/></svg>`;
+      h+=`<span style="flex:1;font-size:clamp(1.1rem,1.8vw,1.4rem);font-weight:700;color:var(--red)">沒有目標的學習</span>`;
+      h+=`<svg class="gi-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--red)" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
+      h+=`</button>`;
+      h+=`<div style="display:none;background:rgba(255,32,85,.04);padding:1rem 1.3rem">`;
+      [{t:'「先學完再說」',c:'var(--red)'},{t:'看什麼都覺得有用，什麼都學不深',c:'var(--mid)'},{t:'做出來沒人要，不知道為什麼',c:'var(--mid)'},{t:'學完不知道怎麼應用',c:'var(--mid)'}].forEach(item=>{
+        h+=`<div style="display:flex;gap:.5rem;align-items:center;margin-bottom:.4rem"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${item.c}" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><span style="font-size:var(--min-font);color:${item.c}">${item.t}</span></div>`;
       });
       h+=`</div></div>`;
       h+=`</div>`;
