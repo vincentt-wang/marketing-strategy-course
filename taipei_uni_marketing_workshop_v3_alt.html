@@ -3229,13 +3229,13 @@ function renderSlide(sd,idx){
       ocDrives.slice(4).forEach((d,i)=>{
         const idx=i+4; const bodyId=ocGrpId+'_b'+idx; const arrId=ocGrpId+'_a'+idx;
         h+=`<div>`;
-        h+=`<button onclick="ocToggle('${ocGrpId}',${idx})" style="width:100%;display:flex;align-items:center;gap:.55rem;padding:.5rem .75rem;background:${d.col}14;border:1.5px solid ${d.col}40;border-radius:9px;cursor:pointer;text-align:left;transition:background .2s">`;
-        h+=`<div style="width:26px;height:26px;border-radius:7px;background:${d.col}20;border:1px solid ${d.col}40;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${d.col}">${ocIcons[idx]}</div>`;
+        h+=`<button onclick="ocToggle('${ocGrpId}',${idx})" style="width:100%;display:flex;align-items:center;gap:.7rem;padding:.65rem .9rem;background:${d.col}14;border:1.5px solid ${d.col}40;border-radius:9px;cursor:pointer;text-align:left;transition:background .2s">`;
+        h+=`<div style="width:34px;height:34px;border-radius:8px;background:${d.col}20;border:1px solid ${d.col}40;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${d.col}">${ocIcons[idx]}</div>`;
         h+=`<div style="flex:1;min-width:0">`;
-        h+=`<div style="font-size:.65rem;font-weight:700;color:${d.col};letter-spacing:.04em">Drive ${d.num} · ${d.sub}</div>`;
-        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);line-height:1.2">${d.name}</div>`;
+        h+=`<div style="font-size:.75rem;font-weight:700;color:${d.col};letter-spacing:.03em">Drive ${d.num} · ${d.sub}</div>`;
+        h+=`<div style="font-size:clamp(1rem,1.5vw,1.1rem);font-weight:800;color:var(--ink);line-height:1.2;margin-top:.1rem">${d.name}</div>`;
         h+=`</div>`;
-        h+=`<svg id="${arrId}" data-seq-arr viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${d.col}" stroke-width="2.5" style="flex-shrink:0;transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg>`;
+        h+=`<svg id="${arrId}" data-seq-arr viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="${d.col}" stroke-width="2.5" style="flex-shrink:0;transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg>`;
         h+=`</button>`;
         h+=`<div id="${bodyId}" data-seq-body style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .32s ease,opacity .28s ease">`;
         h+=`<div style="padding:.5rem .75rem .6rem;background:${d.col}0c;border:1px solid ${d.col}28;border-radius:0 0 9px 9px;margin-top:-2px">`;
