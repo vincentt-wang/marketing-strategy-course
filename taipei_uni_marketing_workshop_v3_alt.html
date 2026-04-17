@@ -4819,7 +4819,7 @@ function playLevelComplete(nextSec){
     const ft=setInterval(()=>{fi++;bgAudio.volume=Math.max(0,sv*(1-fi/12));if(fi>=12)clearInterval(ft);},25);
   }
   const done=bgPrevSec;
-  try{
+  if(bgMusicOn)try{
     const ctx=new(window.AudioContext||window.webkitAudioContext)();
     const master=ctx.createGain();master.gain.value=0.18;master.connect(ctx.destination);
     const now=ctx.currentTime;
