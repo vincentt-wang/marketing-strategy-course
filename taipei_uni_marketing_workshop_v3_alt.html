@@ -5014,6 +5014,12 @@ function findNextRevealable(){
     const step=parseInt(mandalaGrid.dataset.mandalaStep||'0');
     if(step<cells.length){mandalaGrid.dataset.mandalaStep=String(step+1);return cells[step];}
   }
+  // 9. First max-height accordion button not yet open (leverage-safety, time-*, goal-oriented-intro actItems etc.)
+  const mhBtn=[...slideEl.querySelectorAll('button')].find(btn=>{
+    const body=btn.nextElementSibling;
+    return body&&body.style.maxHeight==='0px';
+  });
+  if(mhBtn)return mhBtn;
   return null;
 }
 document.addEventListener('keydown',e=>{
