@@ -4975,6 +4975,23 @@ function jumpToSection(sec){const idx=secStarts[sec];if(idx!==undefined)scrollTo
 function jumpToSlide(slideId){const idx=D.findIndex(s=>s.id===slideId);if(idx!==-1)scrollToSlide(idx);}
 document.getElementById('btn-prev').addEventListener('click',()=>scrollToSlide(cur-1));
 document.getElementById('btn-next').addEventListener('click',()=>{const t=findNextRevealable();if(t){t.click();}else{scrollToSlide(cur+1);}});
+// ── SEQUENTIAL ACCORDION: seqOpen(grpId, idx) ─────────────────────────────
+// Closes all sibling bodies in group, opens the one at idx (toggles if already open).
+// Also advances data-seq-step so the ↓ button knows where to continue.
+function seqOpen(grpId,idx){
+  const grp=document.getElementById(grpId);if(!grp)return;
+  const bodies=[...grp.querySelectorAll('[data-seq-body]')];
+  const arrs=[...grp.querySelectorAll('[data-seq-arr]')];
+  const wasOpen=bodies[idx]&&bodies[idx].style.maxHeight!=='0px'&&bodies[idx].style.maxHeight!=='';
+  bodies.forEach((b,i)=>{b.style.maxHeight='0px';b.style.opacity='0';if(arrs[i])arrs[i].style.transform='rotate(0deg)';});
+  if(!wasOpen&&bodies[idx]){
+    bodies[idx].style.maxHeight='400px';bodies[idx].style.opacity='1';
+    if(arrs[idx])arrs[idx].style.transform='rotate(180deg)';
+    grp.dataset.seqStep=String(idx+1);
+  }else{
+    grp.dataset.seqStep=String(idx);
+  }
+}
 // Sequential reveal: find next locked element in the current slide and trigger it
 function findNextRevealable(){
   const slideEl=document.querySelector(`.slide[data-index="${cur}"]`);
