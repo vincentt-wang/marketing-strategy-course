@@ -5034,12 +5034,20 @@ function findNextRevealable(){
     const step=parseInt(mandalaGrid.dataset.mandalaStep||'0');
     if(step<cells.length){mandalaGrid.dataset.mandalaStep=String(step+1);return cells[step];}
   }
-  // 9. First max-height accordion button not yet open (leverage-safety, time-*, goal-oriented-intro actItems etc.)
-  const mhBtn=[...slideEl.querySelectorAll('button')].find(btn=>{
-    const body=btn.nextElementSibling;
-    return body&&body.style.maxHeight==='0px';
-  });
-  if(mhBtn)return mhBtn;
+  // 9. Sequential accordion groups (data-seq-grp) — close previous, open next
+  const seqGrps=[...slideEl.querySelectorAll('[data-seq-grp]')];
+  for(const seqGrp of seqGrps){
+    const step=parseInt(seqGrp.dataset.seqStep||'0');
+    const bodies=[...seqGrp.querySelectorAll('[data-seq-body]')];
+    if(step<bodies.length){
+      const arrs=[...seqGrp.querySelectorAll('[data-seq-arr]')];
+      bodies.forEach((b,i)=>{b.style.maxHeight='0px';b.style.opacity='0';if(arrs[i])arrs[i].style.transform='rotate(0deg)';});
+      bodies[step].style.maxHeight='400px';bodies[step].style.opacity='1';
+      if(arrs[step])arrs[step].style.transform='rotate(180deg)';
+      seqGrp.dataset.seqStep=String(step+1);
+      return {click(){}};
+    }
+  }
   return null;
 }
 document.addEventListener('keydown',e=>{
