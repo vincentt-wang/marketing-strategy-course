@@ -3158,6 +3158,76 @@ function renderSlide(sd,idx){
       h+=`<div class="tip-box" style="margin-top:1rem;text-align:center"><strong style="color:var(--purple)">Canva 的勝出公式：</strong>把設計的「結果」最大化，把學習的「門檻」最小化</div>`;
       h+=`</div>`;
       break;}
+    case 'octalysis':{
+      h+=blob('rgba(168,85,247,.08)','rgba(34,197,94,.05)');
+      const ocGrpId='oc-grp-'+sd.id;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .7rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.6rem">${sd.title}</h2>`;
+      h+=`</div>`;
+      // Legend bar
+      h+=`<div style="display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem;position:relative;z-index:1">`;
+      h+=`<span style="font-size:.72rem;padding:.2rem .55rem;border-radius:20px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;font-weight:600">🤍 白帽 = 正向驅動</span>`;
+      h+=`<span style="font-size:.72rem;padding:.2rem .55rem;border-radius:20px;background:rgba(30,30,30,.4);border:1px solid rgba(255,255,255,.2);color:#ccc;font-weight:600">🖤 黑帽 = 強迫驅動</span>`;
+      h+=`<span style="font-size:.72rem;padding:.2rem .55rem;border-radius:20px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.3);color:#f87171;font-weight:600">🧠 左腦 = 理性</span>`;
+      h+=`<span style="font-size:.72rem;padding:.2rem .55rem;border-radius:20px;background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.3);color:#c084fc;font-weight:600">💜 右腦 = 創意情感</span>`;
+      h+=`</div>`;
+      // Drives data
+      const ocDrives=[
+        {num:1,name:'史詩意義與使命感',en:'Epic Meaning & Calling',col:'#06b6d4',hat:'white',brain:'right',icon:'🌟',desc:'讓用戶覺得自己在參與比個人更偉大的事物。維基百科志工、開源貢獻者，都是這股力量在驅動。',tip:'文案常見招式：「加入我們，一起改變世界」'},
+        {num:2,name:'發展與成就感',en:'Development & Accomplishment',col:'#22c55e',hat:'white',brain:'left',icon:'🏆',desc:'用戶想要進步、解鎖成就、獲得挑戰感。勛章、等級、進度條都在餵養這個驅動力。',tip:'文案常見招式：「完成 10 堂課，解鎖進階模式」'},
+        {num:3,name:'創意授權與回饋',en:'Empowerment of Creativity & Feedback',col:'#a855f7',hat:'white',brain:'right',icon:'🎨',desc:'讓用戶自己決定、創造、試錯。Minecraft 建造、Notion 模板、Canva 設計都屬於這類。',tip:'文案常見招式：「完全自訂，做出你的專屬版本」'},
+        {num:4,name:'所有權與佔有感',en:'Ownership & Possession',col:'#eab308',hat:'white',brain:'left',icon:'💎',desc:'人們天生想要擁有東西、讓它變得更好。NFT、點數、個人化帳號都利用了這股力量。',tip:'文案常見招式：「你的積分永久保留，永不過期」'},
+        {num:5,name:'社交影響與歸屬感',en:'Social Influence & Relatedness',col:'#3b82f6',hat:'black',brain:'right',icon:'👥',desc:'朋友在用、被人認可、社群歸屬感。排行榜、好友邀請、「你的 3 位朋友也在用」都是這招。',tip:'文案常見招式：「和 10 萬名創業者一起學習」'},
+        {num:6,name:'稀缺性與急迫感',en:'Scarcity & Impatience',col:'#f97316',hat:'black',brain:'left',icon:'⏳',desc:'越難得到，越想要。限時優惠、限量名額、等待清單都是在製造稀缺感。',tip:'文案常見招式：「僅剩 3 個名額，今天截止」'},
+        {num:7,name:'未知性與好奇心',en:'Unpredictability & Curiosity',col:'#ef4444',hat:'black',brain:'right',icon:'🎲',desc:'隨機獎勵比固定獎勵更上癮。抽盲盒、刷 IG 動態、賭博機制都在利用這個原理。',tip:'文案常見招式：「打開看看你今天得到了什麼」'},
+        {num:8,name:'損失規避與恐懼感',en:'Loss & Avoidance',col:'#b91c1c',hat:'black',brain:'left',icon:'🚨',desc:'不想失去已有的、不想錯過機會、不想後悔。Duolingo 的連擊提醒、「你快失去這個折扣了」都是這類。',tip:'文案常見招式：「不報名你會後悔的那種課」'},
+      ];
+      h+=`<div id="${ocGrpId}" data-seq-grp data-seq-step="0" style="display:grid;grid-template-columns:1fr 1fr;gap:.55rem;max-width:920px;margin:0 auto;position:relative;z-index:1">`;
+      // White hat section header
+      h+=`<div style="grid-column:1/-1;display:flex;align-items:center;gap:.6rem;padding:.35rem .8rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px">`;
+      h+=`<span style="font-size:.8rem">🤍</span><span style="font-size:.78rem;font-weight:700;color:#e2e8f0">白帽驅動力（1–4）：讓人感到有力量 — 長期投入、正向成癮</span>`;
+      h+=`</div>`;
+      ocDrives.slice(0,4).forEach((d,i)=>{
+        h+=`<div>`;
+        h+=`<button onclick="seqOpen('${ocGrpId}',${i})" style="width:100%;display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;background:${d.col}18;border:1.5px solid ${d.col}50;border-radius:10px;cursor:pointer;text-align:left;transition:background .2s">`;
+        h+=`<span style="font-size:1.1rem;flex-shrink:0">${d.icon}</span>`;
+        h+=`<div style="flex:1;min-width:0">`;
+        h+=`<div style="font-size:.78rem;font-weight:700;color:${d.col}">Drive ${d.num}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</div>`;
+        h+=`</div>`;
+        h+=`<svg data-seq-arr viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="${d.col}" stroke-width="2.5" style="flex-shrink:0;transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg>`;
+        h+=`</button>`;
+        h+=`<div data-seq-body style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .35s ease,opacity .3s ease">`;
+        h+=`<div style="padding:.6rem .8rem .7rem;background:${d.col}10;border:1px solid ${d.col}30;border-radius:0 0 10px 10px;margin-top:-2px">`;
+        h+=`<div style="font-size:.72rem;color:var(--mid);margin-bottom:.3rem;font-style:italic">${d.en}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--ink);line-height:1.5;margin-bottom:.4rem">${d.desc}</div>`;
+        h+=`<div style="font-size:.72rem;padding:.3rem .6rem;background:${d.col}20;border-radius:6px;color:${d.col};font-weight:600">${d.tip}</div>`;
+        h+=`</div></div></div>`;
+      });
+      // Black hat section header
+      h+=`<div style="grid-column:1/-1;display:flex;align-items:center;gap:.6rem;padding:.35rem .8rem;background:rgba(30,30,30,.4);border:1px solid rgba(255,255,255,.15);border-radius:8px;margin-top:.2rem">`;
+      h+=`<span style="font-size:.8rem">🖤</span><span style="font-size:.78rem;font-weight:700;color:#cbd5e1">黑帽驅動力（5–8）：讓人感到被迫 — 短期高效、容易疲乏</span>`;
+      h+=`</div>`;
+      ocDrives.slice(4).forEach((d,i)=>{
+        const idx=i+4;
+        h+=`<div>`;
+        h+=`<button onclick="seqOpen('${ocGrpId}',${idx})" style="width:100%;display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;background:${d.col}18;border:1.5px solid ${d.col}50;border-radius:10px;cursor:pointer;text-align:left;transition:background .2s">`;
+        h+=`<span style="font-size:1.1rem;flex-shrink:0">${d.icon}</span>`;
+        h+=`<div style="flex:1;min-width:0">`;
+        h+=`<div style="font-size:.78rem;font-weight:700;color:${d.col}">Drive ${d.num}</div>`;
+        h+=`<div style="font-size:var(--min-font);font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</div>`;
+        h+=`</div>`;
+        h+=`<svg data-seq-arr viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="${d.col}" stroke-width="2.5" style="flex-shrink:0;transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg>`;
+        h+=`</button>`;
+        h+=`<div data-seq-body style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .35s ease,opacity .3s ease">`;
+        h+=`<div style="padding:.6rem .8rem .7rem;background:${d.col}10;border:1px solid ${d.col}30;border-radius:0 0 10px 10px;margin-top:-2px">`;
+        h+=`<div style="font-size:.72rem;color:var(--mid);margin-bottom:.3rem;font-style:italic">${d.en}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--ink);line-height:1.5;margin-bottom:.4rem">${d.desc}</div>`;
+        h+=`<div style="font-size:.72rem;padding:.3rem .6rem;background:${d.col}20;border-radius:6px;color:${d.col};font-weight:600">${d.tip}</div>`;
+        h+=`</div></div></div>`;
+      });
+      h+=`</div>`;
+      break;}
     case 'hormozi-exercise':{
       h+=blob('rgba(255,107,0,.1)','rgba(168,85,247,.06)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .8rem"></div>`;
