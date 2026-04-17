@@ -4391,20 +4391,21 @@ function renderSlide(sd,idx){
       h+=`<div style="text-align:center"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><div style="font-size:var(--min-label);color:var(--orange);margin-top:.2rem;font-weight:700">指數成長</div></div>`;
       h+=`</div>`;
       h+=`</div>`;
-      // Activation accordion
-      h+=`<div style="max-width:900px;margin:.8rem auto 0;position:relative;z-index:1">`;
+      // Activation accordion — own seq group (idx=0)
+      const giActGrpId='gi-act-grp-'+sd.id;
+      h+=`<div id="${giActGrpId}" data-seq-grp data-seq-step="0" style="max-width:900px;margin:.8rem auto 0;position:relative;z-index:1">`;
       const actItems=[
         {col:'rgba(255,107,0',tag:'啟動技巧',title:'如何讓自己開始行動？',
          body:'大多數人卡在「開始」的摩擦力。只要告訴自己：「我只要打開電腦、把視窗開好就好」「只要翻開書的第一頁瞄一眼就好」。只要跨過第一步，通常就會繼續。從起身到坐下、或是走到那個場所，才是最大的摩擦力。'},
       ];
-      actItems.forEach(item=>{
+      actItems.forEach((item,i)=>{
         const col=`${item.col}`;
         h+=`<div style="border-radius:12px;overflow:hidden;border:2px solid ${col},.25);margin-bottom:.6rem">`;
-        h+=`<button onclick="(function(btn){var c=btn.nextElementSibling;var open=c.style.maxHeight!=='0px';c.style.maxHeight=open?'0px':'300px';c.style.opacity=open?'0':'1';btn.querySelector('.act-arr').style.transform=open?'rotate(0deg)':'rotate(180deg)';})(this)" style="width:100%;background:${col},.08);border:none;cursor:pointer;padding:.8rem 1.2rem;display:flex;align-items:center;gap:.7rem;text-align:left">`;
+        h+=`<button onclick="seqOpen('${giActGrpId}',${i})" style="width:100%;background:${col},.08);border:none;cursor:pointer;padding:.8rem 1.2rem;display:flex;align-items:center;gap:.7rem;text-align:left">`;
         h+=`<div style="flex:1"><div style="font-size:.55rem;font-weight:900;letter-spacing:.12em;color:${col},.7);text-transform:uppercase;margin-bottom:.12rem">${item.tag}</div><div style="font-size:clamp(1rem,1.6vw,1.15rem);font-weight:700;color:var(--ink)">${item.title}</div></div>`;
-        h+=`<svg class="act-arr" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="${col},1)" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
+        h+=`<svg data-seq-arr viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="${col},1)" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
         h+=`</button>`;
-        h+=`<div style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .25s ease;background:${col},.04);padding:0 1.2rem">`;
+        h+=`<div data-seq-body style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .25s ease;background:${col},.04);padding:0 1.2rem">`;
         h+=`<div style="padding:.75rem 0;font-size:var(--min-font);color:var(--mid);line-height:1.75">${item.body}</div>`;
         h+=`</div></div>`;
       });
