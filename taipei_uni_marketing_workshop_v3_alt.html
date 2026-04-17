@@ -4971,7 +4971,7 @@ function scrollToSlide(idx){
 function jumpToSection(sec){const idx=secStarts[sec];if(idx!==undefined)scrollToSlide(idx);}
 function jumpToSlide(slideId){const idx=D.findIndex(s=>s.id===slideId);if(idx!==-1)scrollToSlide(idx);}
 document.getElementById('btn-prev').addEventListener('click',()=>scrollToSlide(cur-1));
-document.getElementById('btn-next').addEventListener('click',()=>scrollToSlide(cur+1));
+document.getElementById('btn-next').addEventListener('click',()=>{const t=findNextRevealable();if(t){t.click();}else{scrollToSlide(cur+1);}});
 // Sequential reveal: find next locked element in the current slide and trigger it
 function findNextRevealable(){
   const slideEl=document.querySelector(`.slide[data-index="${cur}"]`);
