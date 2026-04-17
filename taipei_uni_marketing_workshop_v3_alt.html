@@ -4721,11 +4721,24 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       const tiItems=[
         {col:'rgba(6,182,212',tag:'時間臨界點',title:'設定 Deadline，創造好壓力',
-         body:'人都需要被壓迫才能前進。設定每天的截止時間並嚴格執行：「11 點後我就不碰任何任務，把手機放到另一個房間」「這個時間後我就陪家人，工作不帶進去」。臨界點越明確，執行力越強。'},
+         rows:[
+           {label:'設硬性截止時間',text:'11 點後不碰任務、手機放另一個房間'},
+           {label:'時間隔離家庭',text:'「這時間之後我只陪家人，工作不帶進去」'},
+           {label:'關鍵原則',text:'臨界點越明確，執行力越強'},
+         ]},
         {col:'rgba(168,85,247',tag:'時間區塊化',title:'把時間切成不同類型的 Block',
-         body:'Promoting：行銷自己的內容、專案、讓自己被看見（Build in Public）<br>Learning + Building：邊學邊做，學了就用，快速迭代<br>Delivery：分配任務、交代進度、Review 成果<br>每個 Block 在開始前就決定好，不讓思考浪費執行的時間。'},
+         rows:[
+           {label:'Promoting',text:'行銷自己、讓作品被看見（Build in Public）'},
+           {label:'Learning + Building',text:'邊學邊做，學了就用，快速迭代'},
+           {label:'Delivery',text:'分配任務、交代進度、Review 成果'},
+           {label:'原則',text:'每個 Block 開始前就決定好，不讓思考佔用執行時間'},
+         ]},
         {col:'rgba(255,32,85',tag:'物理隔離',title:'把分心物放遠，眼不見心不亂',
-         body:'手機放在另一個房間或至少不在桌面上。科學已證實：手機出現在視線內，即使沒有拿起來，也會降低認知表現。增加取得難度（需要走幾步路）能大幅降低干擾頻率。如果可能，把自己隔絕在獨立空間——空間的改變也能幫助切換到專注模式。'},
+         rows:[
+           {label:'手機離桌面',text:'放到另一個房間，增加取得難度'},
+           {label:'科學佐證',text:'手機只要出現在視線內，認知表現就下降'},
+           {label:'空間切換',text:'換到獨立空間，幫助大腦進入專注模式'},
+         ]},
       ];
       const tiGrpId='ti-grp-'+sd.id;
       h+=`<div id="${tiGrpId}" data-seq-grp data-seq-step="0" style="display:flex;flex-direction:column;gap:.65rem;max-width:900px;margin:0 auto;position:relative;z-index:1">`;
@@ -4737,8 +4750,14 @@ function renderSlide(sd,idx){
         h+=`<svg data-seq-arr viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="${col},1)" stroke-width="2" style="transition:transform .25s;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>`;
         h+=`</button>`;
         h+=`<div data-seq-body style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .35s ease,opacity .25s ease;background:${col},.04);padding:0 1.2rem">`;
-        h+=`<div style="padding:.75rem 0;font-size:var(--min-font);color:var(--mid);line-height:1.75">${item.body}</div>`;
-        h+=`</div></div>`;
+        h+=`<div style="padding:.6rem 0 .7rem;display:flex;flex-direction:column;gap:.4rem">`;
+        item.rows.forEach(r=>{
+          h+=`<div style="display:flex;gap:.6rem;align-items:baseline">`;
+          h+=`<span style="flex-shrink:0;font-size:.72rem;font-weight:800;color:${col},1);background:${col},.15);border-radius:4px;padding:.1rem .45rem;white-space:nowrap">${r.label}</span>`;
+          h+=`<span style="font-size:var(--min-font);color:var(--ink);line-height:1.5">${r.text}</span>`;
+          h+=`</div>`;
+        });
+        h+=`</div></div></div>`;
       });
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:900px;margin:.7rem auto 0;position:relative;z-index:1"><strong style="color:var(--purple)">守護你的時間：</strong>任何邀約或打擾，都要評估投資報酬率。你的注意力是最稀缺的資源。</div>`;
