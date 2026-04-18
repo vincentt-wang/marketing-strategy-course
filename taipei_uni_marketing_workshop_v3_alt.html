@@ -3572,9 +3572,17 @@ function renderSlide(sd,idx){
       break;}
     case 'exercise-tpo-v2':{
       h+=blob('rgba(168,85,247,.08)','rgba(59,130,246,.06)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.4rem auto .6rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.6rem">你的受眾什麼時候、在哪裡、什麼情境會看到你的作品？</p>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.4rem auto .55rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.25rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.55rem">你的受眾什麼時候、在哪裡、什麼情境會看到你的作品（活動 / 提案）？</p>`;
+      // 3-step bar
+      h+=`<div style="display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.7rem;font-size:var(--min-label);font-weight:700">`;
+      h+=`<span style="padding:.28em .8em;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;color:var(--ink)"><span style="color:var(--purple)">①</span> 先自己寫</span>`;
+      h+=`<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>`;
+      h+=`<span style="padding:.28em .8em;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;color:var(--ink)"><span style="color:var(--purple)">②</span> 和旁邊的人說說看</span>`;
+      h+=`<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>`;
+      h+=`<span style="padding:.28em .8em;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;color:var(--ink)"><span style="color:var(--purple)">③</span> 抽 1–2 位分享</span>`;
+      h+=`</div>`;
       h+=`</div>`;
       // TPO cards - centered
       h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;max-width:800px;margin:0 auto .7rem;position:relative;z-index:1">`;
