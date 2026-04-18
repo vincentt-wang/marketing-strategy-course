@@ -1132,9 +1132,10 @@ function renderSlide(sd,idx){
       h+=chip;
       h+=`<div class="bar" style="margin:.5rem auto .9rem"></div>`;
       if(sd.title)h+=`<h1 style="font-size:clamp(2.8rem,7vw,5rem);margin-bottom:1.2rem">${sd.title}</h1>`;
-      // Two rules — equal cards
+      // Rules — equal cards, columns adapt to count
       if(sd.rules?.length){
-        h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.9rem">`;
+        const ruleCols=sd.rules.length<=2?'1fr 1fr':sd.rules.length===3?'1fr 1fr 1fr':'1fr 1fr';
+        h+=`<div style="display:grid;grid-template-columns:${ruleCols};gap:.75rem;margin-bottom:.9rem">`;
         sd.rules.forEach(r=>{
           const parts=r.split(' — ');
           const en=parts[0]||r, zh=parts[1]||'';
