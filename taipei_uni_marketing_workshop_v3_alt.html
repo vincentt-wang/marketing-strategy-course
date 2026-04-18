@@ -2315,16 +2315,16 @@ function renderSlide(sd,idx){
       h+=`<linearGradient id="waveGrad-emo" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#22c55e"/><stop offset="30%" stop-color="rgba(168,85,247,1)"/><stop offset="62%" stop-color="#ef4444"/><stop offset="76%" stop-color="#ef4444"/><stop offset="100%" stop-color="#22c55e"/></linearGradient>`;
       h+=`<linearGradient id="fillGrad-emo" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="rgba(59,130,246,.12)"/><stop offset="65%" stop-color="rgba(239,68,68,.2)"/><stop offset="100%" stop-color="rgba(239,68,68,.02)"/></linearGradient>`;
       h+=`</defs>`;
-      h+=`<line x1="7" y1="30" x2="93" y2="30" stroke="rgba(255,255,255,.1)" stroke-width=".35" stroke-dasharray="2,2"/>`;
-      h+=`<path d="M10,12 C17,12 23,27 28,28 C33,29 42,36 47,36 C52,36 61,48 66,48 C71,48 77,13 84,12 L84,54 L10,54 Z" fill="url(#fillGrad-emo)" opacity=".55"/>`;
-      h+=`<path d="M10,12 C17,12 23,27 28,28 C33,29 42,36 47,36 C52,36 61,48 66,48 C71,48 77,13 84,12" fill="none" stroke="url(#waveGrad-emo)" stroke-width="1.5" stroke-linecap="round"/>`;
-      h+=`<line x1="66" y1="48" x2="66" y2="54" stroke="rgba(239,68,68,.6)" stroke-width=".7" stroke-dasharray="1.5,1.5"/>`;
+      h+=`<line x1="5" y1="30" x2="95" y2="30" stroke="rgba(255,255,255,.1)" stroke-width=".35" stroke-dasharray="2,2"/>`;
+      h+=`<path d="M8,12 C14,17 19,24 26,28 C33,32 42,33 50,36 C58,39 67,52 74,48 C81,44 86,24 92,12 L92,54 L8,54 Z" fill="url(#fillGrad-emo)" opacity=".55"/>`;
+      h+=`<path d="M8,12 C14,17 19,24 26,28 C33,32 42,33 50,36 C58,39 67,52 74,48 C81,44 86,24 92,12" fill="none" stroke="url(#waveGrad-emo)" stroke-width="1.5" stroke-linecap="round"/>`;
+      h+=`<line x1="74" y1="48" x2="74" y2="54" stroke="rgba(239,68,68,.6)" stroke-width=".7" stroke-dasharray="1.5,1.5"/>`;
       const emoEvents=[
-        {x:10, y:12, emoji:'😊', col:'#22c55e', label:'發現需求', sub:'逛社群媒體', r:2},
-        {x:28, y:28, emoji:'😐', col:'rgba(255,255,255,.55)', label:'搜尋比較', sub:'電商 / Google', r:2},
-        {x:47, y:36, emoji:'😕', col:'rgba(168,85,247,.85)', label:'加入購物車', sub:'猶豫決策', r:2},
-        {x:66, y:48, emoji:'😤', col:'#ef4444', label:'等待客服', sub:'回應延遲', r:3, hot:true},
-        {x:84, y:12, emoji:'😊', col:'#22c55e', label:'收到商品', sub:'開箱體驗', r:2},
+        {x:8,  y:12, emoji:'😊', col:'#22c55e',             label:'發現需求', sub:'逛社群媒體', r:2},
+        {x:26, y:28, emoji:'😐', col:'rgba(255,255,255,.55)', label:'搜尋比較', sub:'電商 / Google', r:2},
+        {x:50, y:36, emoji:'😕', col:'rgba(168,85,247,.85)', label:'加入購物車', sub:'猶豫決策', r:2},
+        {x:74, y:48, emoji:'😤', col:'#ef4444',             label:'等待客服', sub:'回應延遲', r:3, hot:true},
+        {x:92, y:12, emoji:'😊', col:'#22c55e',             label:'收到商品', sub:'開箱體驗', r:2},
       ];
       emoEvents.forEach(ev=>{
         h+=`<text x="${ev.x}" y="${ev.y-(ev.hot?9:7.5)}" font-size="${ev.hot?9:7.5}" text-anchor="middle" dominant-baseline="middle">${ev.emoji}</text>`;
