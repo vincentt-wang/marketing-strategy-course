@@ -5530,7 +5530,9 @@ function findNextRevealable(){
     const bodies=[...seqGrp.querySelectorAll('[data-seq-body]')];
     if(step<bodies.length){
       const arrs=[...seqGrp.querySelectorAll('[data-seq-arr]')];
-      bodies.forEach((b,i)=>{b.style.maxHeight='0px';b.style.opacity='0';if(arrs[i])arrs[i].style.transform='rotate(0deg)';});
+      if(!('seqKeep' in seqGrp.dataset)){
+        bodies.forEach((b,i)=>{b.style.maxHeight='0px';b.style.opacity='0';if(arrs[i])arrs[i].style.transform='rotate(0deg)';});
+      }
       bodies[step].style.maxHeight='400px';bodies[step].style.opacity='1';
       if(arrs[step])arrs[step].style.transform='rotate(180deg)';
       seqGrp.dataset.seqStep=String(step+1);
