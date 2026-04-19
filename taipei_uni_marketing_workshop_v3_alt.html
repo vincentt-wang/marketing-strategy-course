@@ -4799,30 +4799,25 @@ function renderSlide(sd,idx){
          q:'要多久才能說服第一個客人買？',
          low:'漫長的教育期、高信任門檻',high:'馬上能感受到價值，決策快'},
       ];
-      h+=`<div id="${dmmGrpId}" data-seq-grp data-seq-keep data-seq-step="0" style="display:flex;flex-direction:column;gap:.45rem;margin-bottom:.7rem">`;
+      h+=`<div id="${dmmGrpId}" data-seq-grp data-seq-keep data-seq-step="0" style="display:flex;flex-direction:column;gap:.28rem;margin-bottom:.5rem">`;
       dmmFactors.forEach((f,i)=>{
         const bId=`${dmmGrpId}_b${i}`;const aId=`${dmmGrpId}_a${i}`;
         h+=`<div>`;
-        h+=`<button onclick="ocToggle('${dmmGrpId}',${i})" style="width:100%;display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:${f.colR},.08);border:1.5px solid ${f.colR},.3);border-radius:10px;cursor:pointer;text-align:left;transition:background .2s">`;
-        h+=`<div style="width:38px;height:38px;border-radius:9px;background:${f.colR},.15);border:1px solid ${f.colR},.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${f.col}">${f.icon}</div>`;
-        h+=`<div style="flex:1;min-width:0"><div style="font-size:.58rem;font-weight:800;letter-spacing:.1em;color:${f.col};text-transform:uppercase">${f.name} — ${f.zh}</div><div style="font-size:clamp(1rem,1.6vw,1.2rem);font-weight:800;color:var(--ink);margin-top:.08rem">${f.q}</div></div>`;
-        h+=`<div style="font-size:1.4rem;font-weight:900;color:${f.col};flex-shrink:0;min-width:24px;text-align:center">${f.letter}</div>`;
-        h+=`<svg id="${aId}" data-seq-arr viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="${f.col}" stroke-width="2.5" style="flex-shrink:0;transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg>`;
+        h+=`<button onclick="dmmToggle('${dmmGrpId}',${i})" style="width:100%;display:flex;align-items:center;gap:.65rem;padding:.5rem .85rem;background:${f.colR},.08);border:1.5px solid ${f.colR},.3);border-radius:10px;cursor:pointer;text-align:left;transition:background .2s">`;
+        h+=`<div style="width:34px;height:34px;border-radius:8px;background:${f.colR},.15);border:1px solid ${f.colR},.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${f.col}">${f.icon}</div>`;
+        h+=`<div style="flex:1;min-width:0"><div style="font-size:.56rem;font-weight:800;letter-spacing:.1em;color:${f.col};text-transform:uppercase">${f.name} — ${f.zh}</div><div style="font-size:clamp(.9rem,1.5vw,1.1rem);font-weight:800;color:var(--ink);margin-top:.04rem">${f.q}</div></div>`;
+        h+=`<div style="font-size:1.25rem;font-weight:900;color:${f.col};flex-shrink:0;min-width:20px;text-align:center">${f.letter}</div>`;
+        h+=`<svg id="${aId}" data-seq-arr viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="${f.col}" stroke-width="2.5" style="flex-shrink:0;transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg>`;
         h+=`</button>`;
         h+=`<div id="${bId}" data-seq-body style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .25s ease">`;
-        h+=`<div style="padding:.55rem 1rem .6rem;background:${f.colR},.05);border:1px solid ${f.colR},.2);border-top:none;border-radius:0 0 10px 10px;display:flex;gap:1.5rem">`;
-        h+=`<div style="flex:1"><div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.2rem;font-weight:600">1 分（最低）</div><div style="font-size:var(--min-font);color:rgba(255,255,255,.6)">${f.low}</div></div>`;
+        h+=`<div style="padding:.4rem .85rem .45rem;background:${f.colR},.05);border:1px solid ${f.colR},.2);border-top:none;border-radius:0 0 10px 10px;display:flex;gap:1.2rem">`;
+        h+=`<div style="flex:1"><div style="font-size:var(--min-label);color:var(--mid);margin-bottom:.15rem;font-weight:600">1 分 低</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.6)">${f.low}</div></div>`;
         h+=`<div style="width:1px;background:rgba(255,255,255,.08)"></div>`;
-        h+=`<div style="flex:1"><div style="font-size:var(--min-label);color:${f.col};margin-bottom:.2rem;font-weight:600">5 分（最高）</div><div style="font-size:var(--min-font);color:rgba(255,255,255,.75)">${f.high}</div></div>`;
+        h+=`<div style="flex:1"><div style="font-size:var(--min-label);color:${f.col};margin-bottom:.15rem;font-weight:600">5 分 高</div><div style="font-size:var(--min-label);color:rgba(255,255,255,.75)">${f.high}</div></div>`;
         h+=`</div></div></div>`;
       });
       h+=`</div>`;
-      h+=`<div style="background:rgba(168,85,247,.07);border:1.5px solid rgba(168,85,247,.22);border-radius:12px;padding:.75rem 1rem">`;
-      h+=`<div style="display:flex;align-items:flex-start;gap:.6rem">`;
-      h+=`<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="var(--purple)" stroke-width="2" style="flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
-      h+=`<div style="font-size:var(--min-font);color:var(--mid);line-height:1.6"><strong style="color:var(--purple)">怎麼用：</strong>把兩個機會各自打分（D×P×Q×F÷T），比較相對分數。分數只用來<strong style="color:rgba(255,255,255,.8)">比較優先順序</strong>，不是絕對定律。T 越小代表障礙越少，同樣資源下更容易起步。</div>`;
-      h+=`</div>`;
-      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:920px;margin:0 auto;position:relative;z-index:1"><strong style="color:var(--purple)">怎麼用：</strong>把兩個機會各自打分，比較相對分數。T 越小 = 障礙越少，同樣資源下更容易起步。</div>`;
       h+=`</div>`;
       break;}
     // ========== SECTION 5: 成長思維 RENDER CASES ==========
