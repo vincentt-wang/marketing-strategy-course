@@ -4630,6 +4630,87 @@ function renderSlide(sd,idx){
       h+=`<div class="timer-wrap"><div class="timer-display" id="td-${sd.id}">${fmt(sd.time)}</div><div style="display:flex;gap:1rem"><button class="timer-btn" id="tb-${sd.id}" onclick="toggleTimer('${sd.id}',${sd.time})">開始</button><button class="timer-reset-btn" onclick="resetTimer('${sd.id}',${sd.time})">重設</button></div></div>`;
       h+=`</div>`;
       break;}
+    case 'viability-kpi':{
+      h+=blob('rgba(34,197,94,.07)','rgba(59,130,246,.05)');
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.45rem auto .5rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.5rem">不是追漂亮數字，而是追這個東西能不能<strong style="color:var(--green)">活下去</strong>、<strong style="color:var(--blue)">放大</strong>、<strong style="color:var(--orange)">回本</strong></p>`;
+      h+=`<div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.25);border-radius:8px;padding:.3rem .8rem;margin-bottom:.65rem;font-size:var(--min-label);color:var(--mid)"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><span><strong style="color:var(--orange)">Hormozi 公式</strong>回答「前端：客戶為什麼買」，<strong style="color:rgba(255,255,255,.7)">LTV / LTGP / CAC</strong> 回答「後端：這生意划不划算」</span></div>`;
+      h+=`</div>`;
+      h+=`<div style="max-width:940px;margin:0 auto;position:relative;z-index:1">`;
+      const kpiList=[
+        {key:'LTV',zh:'單客終身營收',col:'var(--cyan)',colR:'rgba(6,182,212',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="12" y2="15"/></svg>',
+         explain:'一個客戶整段關係中，帶來多少總收入',
+         formula:'客單價 × 年購買頻次 × 留存年限',
+         signal:'LTV 越高，代表每位客戶長期能貢獻越多收入'},
+        {key:'LTGP',zh:'單客終身毛利',col:'var(--green)',colR:'rgba(34,197,94',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>',
+         explain:'LTV 扣掉服務成本後，真正留下的毛利',
+         formula:'LTV × 毛利率',
+         signal:'LTGP 決定你最多能花多少錢去拉客'},
+        {key:'CAC',zh:'獲客成本',col:'var(--orange)',colR:'rgba(255,107,0',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+         explain:'拉到一個新客，總共花了多少錢',
+         formula:'行銷總費用 ÷ 新增客戶數',
+         signal:'CAC 過高會拖垮現金流，必須和 LTGP 一起看'},
+        {key:'LTGP / CAC',zh:'獲利效率比',col:'var(--purple)',colR:'rgba(168,85,247',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><circle cx="9" cy="7" r="2"/><circle cx="15" cy="17" r="2"/></svg>',
+         explain:'每花 1 塊錢拉客，最後能回多少毛利',
+         formula:'LTGP ÷ CAC',
+         signal:'> 3× 健康；< 1× 代表每拉一個客人都在虧錢'},
+        {key:'Churn Rate',zh:'流失率',col:'var(--red)',colR:'rgba(255,32,85',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
+         explain:'原本的客戶，有多少人會離開',
+         formula:'流失客戶數 ÷ 期初客戶數',
+         signal:'Churn 越高，做再多行銷都只是在補破桶'},
+        {key:'Retention',zh:'留存率',col:'var(--blue)',colR:'rgba(59,130,246',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/></svg>',
+         explain:'原本的客戶，有多少人還留著',
+         formula:'留存客戶數 ÷ 期初客戶數',
+         signal:'高 Retention = 產品有真實價值，是一切成長的基礎'},
+        {key:'Payback Period',zh:'回本期',col:'var(--yellow)',colR:'rgba(251,191,36',
+         icon:'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+         explain:'花出去的獲客成本，要多久才能賺回來',
+         formula:'CAC ÷ 每期單客毛利',
+         signal:'越短越好；超過 12 個月代表現金流壓力很大'},
+      ];
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.55rem">`;
+      kpiList.forEach((k,i)=>{
+        const uid=`kpi-${sd.id}-${i}`;
+        h+=`<div class="unlock-card" id="${uid}" onclick="this.classList.toggle('unlocked')" style="min-height:145px${i===6?';grid-column:2':''}">`;
+        h+=`<div class="card-answer" style="background:${k.colR},.07);border:1.5px solid ${k.colR},.28);border-radius:12px;padding:.75rem .85rem;gap:.28rem">`;
+        h+=`<div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.05rem"><span style="color:${k.col};flex-shrink:0">${k.icon}</span><div><div style="font-size:.55rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:${k.col}">${k.key}</div><div style="font-size:clamp(.88rem,1.4vw,1rem);font-weight:700;color:var(--ink);line-height:1.2">${k.zh}</div></div></div>`;
+        h+=`<div style="font-size:var(--min-label);color:rgba(255,255,255,.72);line-height:1.42">${k.explain}</div>`;
+        h+=`<div style="font-size:.6rem;color:${k.col};background:${k.colR},.1);border-radius:5px;padding:.16rem .4rem;font-weight:600;font-family:monospace;letter-spacing:.01em">${k.formula}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.38">${k.signal}</div>`;
+        h+=`</div>`;
+        h+=`<div class="card-mask" style="background:${k.colR},.06);border:1.5px solid ${k.colR},.22)">`;
+        h+=`<div style="color:${k.col};margin-bottom:.25rem">${k.icon}</div>`;
+        h+=`<div style="font-size:clamp(.9rem,1.4vw,1.05rem);font-weight:800;color:var(--ink);margin-bottom:.12rem">${k.key}</div>`;
+        h+=`<div class="card-mask-q" style="color:${k.col}">${k.zh}</div>`;
+        h+=`<div class="card-mask-hint">點擊查看</div>`;
+        h+=`</div></div>`;
+      });
+      h+=`</div>`;
+      // Advanced KPI toggle
+      const advKpiId=`advkpi-${sd.id}`;
+      h+=`<div style="text-align:center;margin-bottom:.45rem"><button onclick="(function(b){var p=document.getElementById('${advKpiId}');var o=p.style.maxHeight&&p.style.maxHeight!='0px';p.style.maxHeight=o?'0px':'260px';p.style.opacity=o?'0':'1';b.querySelector('.adv-arr').style.transform=o?'rotate(0deg)':'rotate(180deg)'})(this)" style="display:inline-flex;align-items:center;gap:.45rem;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.15);border-radius:20px;padding:.38rem 1.1rem;font-size:.7rem;font-weight:700;color:rgba(255,255,255,.55);cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.09)'" onmouseout="this.style.background='rgba(255,255,255,.05)'"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>進階 KPI<svg class="adv-arr" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" style="transition:transform .3s"><polyline points="6 9 12 15 18 9"/></svg></button></div>`;
+      h+=`<div id="${advKpiId}" style="max-height:0px;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease">`;
+      h+=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem">`;
+      [{key:'ROIC',zh:'投入資本報酬率',col:'var(--purple)',colR:'rgba(168,85,247',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',formula:'年度獲利 ÷ 投入資本',signal:'每投入 1 元資本，能賺多少錢'},
+       {key:'Sales Velocity',zh:'銷售速度',col:'var(--orange)',colR:'rgba(255,107,0',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',formula:'每期新增成交客戶數',signal:'新客成交速度；決定成長能跑多快'},
+       {key:'Max Customers',zh:'可維持客戶上限',col:'var(--cyan)',colR:'rgba(6,182,212',icon:'<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',formula:'Sales Velocity ÷ Churn Rate',signal:'系統穩定後，最多能維持多少客戶'},
+      ].forEach(a=>{
+        h+=`<div style="background:${a.colR},.07);border:1.5px solid ${a.colR},.25);border-radius:10px;padding:.75rem .85rem;display:flex;flex-direction:column;gap:.28rem">`;
+        h+=`<div style="display:flex;align-items:center;gap:.38rem"><span style="color:${a.col}">${a.icon}</span><div><div style="font-size:.55rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:${a.col}">${a.key}</div><div style="font-size:var(--min-font);font-weight:700;color:var(--ink)">${a.zh}</div></div></div>`;
+        h+=`<div style="font-size:.6rem;color:${a.col};background:${a.colR},.1);border-radius:5px;padding:.15rem .38rem;font-weight:600;font-family:monospace">${a.formula}</div>`;
+        h+=`<div style="font-size:var(--min-label);color:var(--mid);line-height:1.38">${a.signal}</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div></div>`;
+      h+=`</div>`;
+      break;}
     case 'pricing-full':{
       h+=blob('rgba(251,191,36,.1)','rgba(255,107,0,.07)');
       h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto 1rem"></div>`;
