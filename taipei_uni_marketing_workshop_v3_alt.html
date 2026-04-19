@@ -4770,10 +4770,10 @@ function renderSlide(sd,idx){
       break;}
     case 'market-momentum':{
       h+=blob('rgba(168,85,247,.08)','rgba(59,130,246,.05)');
-      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.5rem auto .6rem"></div>`;
-      if(sd.title)h+=`<h2 style="margin-bottom:.2rem">${sd.title}</h2>`;
-      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.7rem">這不是財務公式，而是幫你<strong style="color:var(--purple)">比較不同賽道</strong>的 heuristic 工具</p>`;
-      h+=`<div style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);border-radius:10px;padding:.35rem 1rem;margin-bottom:.8rem;font-size:clamp(1rem,1.8vw,1.3rem);font-weight:800;color:var(--ink);letter-spacing:.05em">D × P × Q × F <span style="color:rgba(255,255,255,.35);font-size:.9em">÷</span> T</div>`;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.35rem auto .45rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.15rem">${sd.title}</h2>`;
+      h+=`<p style="color:var(--mid);font-size:var(--min-font);margin-bottom:.45rem">比較不同賽道的 heuristic 工具，<strong style="color:var(--purple)">分數只看相對</strong>，不是絕對定律</p>`;
+      h+=`<div style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);border-radius:10px;padding:.28rem .9rem;margin-bottom:.5rem;font-size:clamp(.95rem,1.7vw,1.2rem);font-weight:800;color:var(--ink);letter-spacing:.05em">D × P × Q × F <span style="color:rgba(255,255,255,.35);font-size:.9em">÷</span> T</div>`;
       h+=`</div>`;
       h+=`<div style="max-width:920px;margin:0 auto;position:relative;z-index:1">`;
       const dmmGrpId='dmm-grp-'+sd.id;
