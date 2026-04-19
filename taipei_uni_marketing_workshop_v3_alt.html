@@ -5676,15 +5676,21 @@ function ocToggle(grpId,idx){
   body.style.opacity='1';
   if(arr)arr.style.transform='rotate(180deg)';
 }
-// Bi-directional toggle — can open AND close, siblings stay open (DMM page)
+// Exclusive accordion — opens clicked item, closes all siblings (DMM page)
 function dmmToggle(grpId,idx){
-  const body=document.getElementById(grpId+'_b'+idx);
-  const arr=document.getElementById(grpId+'_a'+idx);
-  if(!body)return;
-  const isOpen=body.style.maxHeight&&body.style.maxHeight!=='0px';
-  body.style.maxHeight=isOpen?'0px':'100px';
-  body.style.opacity=isOpen?'0':'1';
-  if(arr)arr.style.transform=isOpen?'rotate(0deg)':'rotate(180deg)';
+  const grp=document.getElementById(grpId);
+  if(!grp)return;
+  const bodies=grp.querySelectorAll('[data-seq-body]');
+  const arrs=grp.querySelectorAll('[data-seq-arr]');
+  const target=document.getElementById(grpId+'_b'+idx);
+  if(!target)return;
+  const isOpen=target.style.maxHeight&&target.style.maxHeight!=='0px';
+  bodies.forEach((b,i)=>{b.style.maxHeight='0px';b.style.opacity='0';if(arrs[i])arrs[i].style.transform='rotate(0deg)';});
+  if(!isOpen){
+    target.style.maxHeight='100px';target.style.opacity='1';
+    const arr=document.getElementById(grpId+'_a'+idx);
+    if(arr)arr.style.transform='rotate(180deg)';
+  }
 }
 // Closes all sibling bodies in group, opens the one at idx (toggles if already open).
 // Also advances data-seq-step so the ↓ button knows where to continue.
