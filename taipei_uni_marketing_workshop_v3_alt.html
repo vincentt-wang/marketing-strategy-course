@@ -5672,7 +5672,7 @@ function seqManualToggle(grpId,idx){
   body.style.opacity=isOpen?'0':'1';
   if(arrs[idx])arrs[idx].style.transform=isOpen?'rotate(0deg)':'rotate(180deg)';
 }
-// Independent accordion toggle — siblings stay open (used on Octalysis page)
+// Independent accordion toggle — open-only, siblings stay open (Octalysis page)
 function ocToggle(grpId,idx){
   const body=document.getElementById(grpId+'_b'+idx);
   const arr=document.getElementById(grpId+'_a'+idx);
@@ -5680,6 +5680,16 @@ function ocToggle(grpId,idx){
   body.style.maxHeight='280px';
   body.style.opacity='1';
   if(arr)arr.style.transform='rotate(180deg)';
+}
+// Bi-directional toggle — can open AND close, siblings stay open (DMM page)
+function dmmToggle(grpId,idx){
+  const body=document.getElementById(grpId+'_b'+idx);
+  const arr=document.getElementById(grpId+'_a'+idx);
+  if(!body)return;
+  const isOpen=body.style.maxHeight&&body.style.maxHeight!=='0px';
+  body.style.maxHeight=isOpen?'0px':'100px';
+  body.style.opacity=isOpen?'0':'1';
+  if(arr)arr.style.transform=isOpen?'rotate(0deg)':'rotate(180deg)';
 }
 // Closes all sibling bodies in group, opens the one at idx (toggles if already open).
 // Also advances data-seq-step so the ↓ button knows where to continue.
