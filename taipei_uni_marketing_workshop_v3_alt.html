@@ -4892,6 +4892,81 @@ function renderSlide(sd,idx){
       h+=`</div>`;
       h+=`<div class="tip-box" style="max-width:900px;margin:.8rem auto 0;position:relative;z-index:1"><strong style="color:var(--blue)">80/20 法則：</strong>鎖定那 20% 會影響 80% 成效的任務，其餘都是雜訊。投資、創業、任何專案都適用。</div>`;
       break;}
+    case 'safety-margin-plus':{
+      h+=blob('rgba(59,130,246,.12)','rgba(99,102,241,.07)');
+      const smId='sm_'+sd.id;
+      h+=`<div style="position:relative;z-index:1;text-align:center">${chip}<div class="bar" style="margin:.6rem auto .7rem"></div>`;
+      if(sd.title)h+=`<h2 style="margin-bottom:.3rem">${sd.title}</h2>`;
+      h+=`<p style="color:rgba(255,255,255,.55);font-size:.85rem;margin-bottom:1.2rem">${sd.sub||''}</p>`;
+      h+=`</div>`;
+      /* ── concept block ── */
+      h+=`<div style="position:relative;z-index:1;max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:1rem">`;
+      /* concept card */
+      h+=`<div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:1rem;padding:1.2rem 1.6rem;display:flex;align-items:flex-start;gap:1.2rem">`;
+      h+=`<div style="flex-shrink:0;width:2.4rem;height:2.4rem;border-radius:.6rem;background:rgba(99,102,241,.2);display:flex;align-items:center;justify-content:center">`;
+      h+=`<svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+      h+=`</div>`;
+      h+=`<div style="text-align:left"><p style="font-size:.95rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:.3rem">什麼是承壓係數？</p>`;
+      h+=`<p style="font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.7">當你擴張、借槓桿、承擔風險時，你還有多少<strong style="color:#93c5fd">緩衝空間</strong>。它不衡量「能賺多少」，而是衡量「撐得住多久」。係數越高，你對外部衝擊的抵抗力就越強。</p></div>`;
+      h+=`</div>`;
+      /* unlock card 1: formula */
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="cursor:pointer">`;
+      h+=`<div class="card-mask" style="border-radius:1rem;padding:1.1rem 1.6rem;display:flex;align-items:center;gap:1rem">`;
+      h+=`<div style="flex-shrink:0;width:2.2rem;height:2.2rem;border-radius:.6rem;background:rgba(59,130,246,.2);display:flex;align-items:center;justify-content:center">`;
+      h+=`<svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>`;
+      h+=`</div>`;
+      h+=`<span style="font-size:.9rem;font-weight:600;color:rgba(255,255,255,.85)">點擊揭開承壓公式</span>`;
+      h+=`<svg style="margin-left:auto;opacity:.4" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>`;
+      h+=`</div>`;
+      h+=`<div class="card-answer" style="border-radius:1rem;padding:1.3rem 1.6rem;text-align:center">`;
+      h+=`<p style="font-size:.72rem;color:rgba(255,255,255,.45);margin-bottom:.7rem;letter-spacing:.05em;text-transform:uppercase">承壓係數公式</p>`;
+      h+=`<div style="display:inline-flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:center;background:rgba(0,0,0,.25);border-radius:.8rem;padding:.9rem 1.4rem;font-family:monospace">`;
+      h+=`<span style="font-size:1rem;color:rgba(255,255,255,.9)">(</span>`;
+      h+=`<span style="font-size:.95rem;color:#93c5fd">收入</span>`;
+      h+=`<span style="font-size:.9rem;color:rgba(255,255,255,.5)">×</span>`;
+      h+=`<span style="font-size:.85rem;color:rgba(255,255,255,.7)">(1 − 目標儲蓄率)</span>`;
+      h+=`<span style="font-size:.9rem;color:rgba(255,255,255,.5)">−</span>`;
+      h+=`<span style="font-size:.95rem;color:#f9a8d4">非債務支出</span>`;
+      h+=`<span style="font-size:1rem;color:rgba(255,255,255,.9)">)</span>`;
+      h+=`<span style="font-size:1.1rem;color:rgba(255,255,255,.35)">÷</span>`;
+      h+=`<span style="font-size:.95rem;color:#fcd34d">負債支出</span>`;
+      h+=`</div>`;
+      h+=`<p style="margin-top:.8rem;font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.6">扣掉你想存的錢、扣掉基本支出後，<strong style="color:rgba(255,255,255,.75)">你剩下多少空間</strong>去承擔壓力</p>`;
+      h+=`</div></div>`;
+      /* unlock card 2: example */
+      h+=`<div class="unlock-card" onclick="this.classList.toggle('unlocked')" style="cursor:pointer">`;
+      h+=`<div class="card-mask" style="border-radius:1rem;padding:1.1rem 1.6rem;display:flex;align-items:center;gap:1rem">`;
+      h+=`<div style="flex-shrink:0;width:2.2rem;height:2.2rem;border-radius:.6rem;background:rgba(34,197,94,.2);display:flex;align-items:center;justify-content:center">`;
+      h+=`<svg viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`;
+      h+=`</div>`;
+      h+=`<span style="font-size:.9rem;font-weight:600;color:rgba(255,255,255,.85)">看一個真實案例</span>`;
+      h+=`<svg style="margin-left:auto;opacity:.4" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" width="16" height="16"><polyline points="6 9 12 15 18 9"/></svg>`;
+      h+=`</div>`;
+      h+=`<div class="card-answer" style="border-radius:1rem;padding:1.3rem 1.6rem">`;
+      h+=`<p style="font-size:.72rem;color:rgba(255,255,255,.45);margin-bottom:.9rem;letter-spacing:.05em;text-transform:uppercase;text-align:center">範例試算</p>`;
+      h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem .8rem;margin-bottom:.9rem">`;
+      const smItems=[
+        {label:'月收入',val:'$80,000',c:'#93c5fd'},
+        {label:'目標儲蓄率',val:'20%',c:'#93c5fd'},
+        {label:'非債務支出',val:'$30,000',c:'#f9a8d4'},
+        {label:'負債支出',val:'$20,000',c:'#fcd34d'},
+      ];
+      smItems.forEach(it=>{
+        h+=`<div style="background:rgba(255,255,255,.06);border-radius:.6rem;padding:.55rem .9rem;display:flex;justify-content:space-between;align-items:center">`;
+        h+=`<span style="font-size:.78rem;color:rgba(255,255,255,.5)">${it.label}</span>`;
+        h+=`<span style="font-size:.85rem;font-weight:600;color:${it.c}">${it.val}</span>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+      h+=`<div style="text-align:center;background:rgba(0,0,0,.25);border-radius:.8rem;padding:.8rem 1.2rem">`;
+      h+=`<p style="font-size:.75rem;color:rgba(255,255,255,.45);margin-bottom:.3rem">( 80,000 × 0.8 − 30,000 ) ÷ 20,000</p>`;
+      h+=`<p style="font-size:1.5rem;font-weight:700;color:#4ade80">係數 1.7</p>`;
+      h+=`<p style="font-size:.75rem;color:rgba(255,255,255,.5);margin-top:.25rem">＞ 1.5 視為<strong style="color:#4ade80">健康水位</strong>；＜ 1.0 表示<strong style="color:#f87171">高度脆弱</strong></p>`;
+      h+=`</div>`;
+      h+=`</div></div>`;
+      h+=`</div>`;
+      h+=`<div class="tip-box" style="max-width:860px;margin:.9rem auto 0;position:relative;z-index:1"><strong style="color:var(--blue)">核心觀念：</strong>槓桿放大收益，也放大風險。承壓係數幫你確認「在最壞情況下，你還能撐住」，而不是賭明天一定更好。</div>`;
+      break;}
     // ========== 目標導向學習 (Goal-Oriented Learning) Pages ==========
     case 'goal-oriented-intro':{
       h+=blob('rgba(6,182,212,.1)','rgba(59,130,246,.06)');
